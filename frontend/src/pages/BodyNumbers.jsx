@@ -1,4 +1,4 @@
-// "Mi cuerpo y los números": aprender las partes del cuerpo con una ilustración que se toca,
+// "Mi cuerpo y los números": aprender las partes del cuerpo con un modelo 3D que se toca,
 // y los números con llamitas que se cuentan. Cada pestaña tiene un modo para explorar y dos juegos.
 // Verde para quechua y azul para aimara, como en el resto de SimiAru.
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -150,7 +150,7 @@ const EndScreen = ({ score, best, onReplay, onExplore, theme, won }) => {
 };
 
 // Lógica común de los juegos: rondas, vidas, puntos con racha, tiempo y récord
-const useGame = (bestKey, makeRound) => {
+const useGame = (bestKey, makeRound, ready = true) => {
   const [round, setRound] = useState(0);
   const [lives, setLives] = useState(LIVES);
   const [score, setScore] = useState(0);
@@ -180,7 +180,7 @@ const useGame = (bestKey, makeRound) => {
   };
 
   const answer = (ok, id) => {
-    if (lock.current || over) return;
+    if (lock.current || over || !ready) return;
     lock.current = true;
     clearTimeout(timer.current);
     setFlash({ id, ok });
@@ -201,11 +201,11 @@ const useGame = (bestKey, makeRound) => {
 
   // Si se acaba el tiempo, cuenta como fallo
   useEffect(() => {
-    if (over) return undefined;
+    if (over || !ready) return undefined;
     timer.current = setTimeout(() => answer(false, null), SECONDS * 1000);
     return () => clearTimeout(timer.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [round, over]);
+  }, [round, over, ready]);
 
   const restart = () => {
     lock.current = false;
@@ -238,10 +238,9 @@ const BodyExplore = ({ idioma, language, theme }) => {
   };
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[minmax(0,24rem)_minmax(0,1fr)] items-start">
+    <div className="grid gap-8 lg:grid-cols-[minmax(0,29rem)_minmax(0,1fr)] items-start">
       <div className="relative rounded-[2rem] bg-gradient-to-b from-white to-stone-50 ring-1 ring-stone-200 p-6 shadow-sm">
         <BodyFigure parts={parts} vista={vista} onFlip={setVista} active={active} onPick={select} label={(p) => p[idioma]} color={theme.hex} />
-        <p className="mt-2 text-center text-sm font-bold text-stone-500">Toca un punto · desliza para darle la vuelta</p>
       </div>
 
       <div className="space-y-5">
@@ -340,13 +339,14 @@ const LlamaSays = ({ idioma, language, theme, onExplore }) => {
   const parts = useMemo(() => partesDe(idioma), [idioma]);
   const order = useMemo(() => shuffle(parts), [parts]);
   const [vista, setVista] = useState('frente');
-  const g = useGame(`simiaru-llama-dice-${idioma}`, (r) => order[r % order.length]);
+  const [modelReady, setModelReady] = useState(false);
+  const g = useGame(`simiaru-llama-dice-${idioma}`, (r) => order[r % order.length], modelReady);
   const target = g.current;
   const fr = frasesParte(target, idioma);
   useEffect(() => {
-    if (!g.over) speak(fr.toca.original, { lang: language.voz?.respaldo });
+    if (!g.over && modelReady) speak(fr.toca.original, { lang: language.voz?.respaldo });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [g.round, g.over]);
+  }, [g.round, g.over, modelReady]);
   // Si falla, el cuerpo gira solo para mostrar dónde estaba
   useEffect(() => {
     if (g.flash && !g.flash.ok) setVista(target.vista);
@@ -358,6 +358,7 @@ const LlamaSays = ({ idioma, language, theme, onExplore }) => {
     <div className="grid gap-6 lg:grid-cols-[minmax(0,24rem)_minmax(0,1fr)] items-start">
       <div className="relative rounded-[2rem] bg-white ring-1 ring-stone-200 p-6 shadow-sm">
         <BodyFigure
+          onReady={setModelReady}
           parts={parts}
           vista={vista}
           onFlip={setVista}
@@ -371,7 +372,7 @@ const LlamaSays = ({ idioma, language, theme, onExplore }) => {
         {g.flash?.ok && <Burst trigger={g.round + 1} count={14} distance={70} />}
       </div>
       <div className="space-y-5">
-        <HUD {...g} theme={theme} timeLeft={SECONDS} />
+        <HUD {...g} theme={theme} timeLeft={modelReady ? SECONDS : null} />
         <AnimatePresence mode="wait">
           <m.div key={g.round} initial={{ opacity: 0, y: 20, scale: 0.96 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -20 }} className="relative overflow-hidden rounded-[2rem] bg-white ring-1 ring-stone-200 p-7 shadow-xl">
             <span className={`absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r ${theme.gradient}`} aria-hidden="true" />
@@ -413,21 +414,22 @@ const LlamaSays = ({ idioma, language, theme, onExplore }) => {
 const WhichPart = ({ idioma, language, theme, onExplore }) => {
   const parts = useMemo(() => partesDe(idioma), [idioma]);
   const order = useMemo(() => shuffle(parts), [parts]);
+  const [modelReady, setModelReady] = useState(false);
   const g = useGame(`simiaru-que-parte-${idioma}`, (r) => {
     const t = order[r % order.length];
     return { t, options: shuffle([t, ...pickOthers(parts, t, 3, (p) => p[idioma])]) };
-  });
+  }, modelReady);
   const { t, options } = g.current;
 
   if (g.over) return <EndScreen score={g.score} best={g.best} onReplay={g.restart} onExplore={onExplore} theme={theme} won={g.lives > 0} />;
   return (
     <div className="grid gap-6 lg:grid-cols-[minmax(0,24rem)_minmax(0,1fr)] items-start">
       <div className="relative rounded-[2rem] bg-white ring-1 ring-stone-200 p-6 shadow-sm">
-        <BodyFigure parts={parts.filter((p) => p.id === t.id)} vista={t.vista} active={t.id} color={theme.hex} flash={g.flash} label={g.flash ? (p) => p[idioma] : undefined} />
+        <BodyFigure onReady={setModelReady} parts={parts.filter((p) => p.id === t.id)} vista={t.vista} active={t.id} color={theme.hex} flash={g.flash} label={g.flash ? (p) => p[idioma] : undefined} />
         {g.flash?.ok && <Burst trigger={g.round + 1} count={14} distance={70} />}
       </div>
       <div className="space-y-5">
-        <HUD {...g} theme={theme} timeLeft={SECONDS} />
+        <HUD {...g} theme={theme} timeLeft={modelReady ? SECONDS : null} />
         <div className="rounded-[2rem] bg-white ring-1 ring-stone-200 p-6 shadow-xl">
           <p className="text-xs font-black uppercase tracking-widest text-stone-500">¿Cómo se llama la parte que brilla?</p>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -505,15 +507,11 @@ const DragLabels = ({ idioma, language, theme, onExplore }) => {
 
   // Al soltar: si cae cerca del punto correcto, se pega
   const drop = (p, info) => {
-    const face = faceRef.current;
-    if (!face) return false;
-    const r = face.getBoundingClientRect();
-    const { w, h } = { w: p.vista === 'frente' ? 290 : 286, h: p.vista === 'frente' ? 577 : 574 };
-    const cx = r.left + (p.x / w) * r.width;
-    const cy = r.top + (p.y / h) * r.height;
+    const point = faceRef.current?.getPartScreenPosition(p.id);
+    if (!point) return false;
     const px = info.point.x - window.scrollX;
     const py = info.point.y - window.scrollY;
-    const ok = Math.hypot(px - cx, py - cy) < Math.max(38, r.width * 0.12);
+    const ok = Math.hypot(px - point.x, py - point.y) < point.tolerance;
     if (ok) {
       playCorrect();
       speak(p[idioma], { lang: language.voz?.respaldo });
@@ -879,7 +877,7 @@ const BodyNumbers = ({ user }) => {
                   delay={70}
                   stepDuration={0.3}
                 />
-                <p className="mt-1 text-white/90 font-semibold">{tab === 'cuerpo' ? 'Toca el dibujo para descubrir cada parte, y luego juega.' : 'Mueve la barra, cuenta llamitas y escucha cada número.'}</p>
+                <p className="mt-1 text-white/90 font-semibold">{tab === 'cuerpo' ? 'Gira el cuerpo en 3D, acércate y toca cada parte. ¡Después, juega!' : 'Mueve la barra, cuenta llamitas y escucha cada número.'}</p>
               </div>
               <div className="hidden sm:block">
                 <Mascot pose={tab === 'cuerpo' ? 'bienvenida' : 'pensando'} sticker size="w-28" />

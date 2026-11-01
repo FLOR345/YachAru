@@ -71,7 +71,7 @@ self.addEventListener('fetch', (event) => {
   }
 
   // Archivos de la app y audios: se guardan la primera vez
-  if (url.origin === self.location.origin && /\.(js|css|png|jpg|jpeg|webp|svg|woff2?|webm|webmanifest)$/.test(url.pathname)) {
+  if (url.origin === self.location.origin && /\.(js|css|png|jpg|jpeg|webp|svg|woff2?|webm|webmanifest|glb)$/.test(url.pathname)) {
     event.respondWith(cacheFirst(request));
     return;
   }

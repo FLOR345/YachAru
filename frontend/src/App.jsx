@@ -15,7 +15,6 @@ import Home from './pages/Home';
 import { Login, Register, Dashboard, LessonView, Profile, Dictionary, CultureModule, Classroom, Teacher, Practice, NotFound, BodyNumbers } from './routes';
 import { LlamaImage } from './components/Mascot';
 import { startTelemetry } from './services/telemetry';
-import ScrollProgress from './ui/ScrollProgress';
 import PageFade from './ui/PageFade';
 import OfflineBanner from './components/OfflineBanner';
 
@@ -134,7 +133,6 @@ function App() {
     <BrowserRouter>
       {/* Avisos de toda la app (progreso guardado, insignias, favoritos, perfil).
           Arriba a la derecha (debajo del encabezado): nunca tapa el botón "Continuar" de las lecciones, que va abajo */}
-      <ScrollProgress />
       <OfflineBanner />
       <Suspense fallback={null}>
         <Notifications />

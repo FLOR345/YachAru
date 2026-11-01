@@ -1,0 +1,24 @@
+.body-viewer { width: 100%; margin-inline: auto; max-width: 30rem; }
+.body-viewer-stage { position: relative; height: clamp(25rem, 62vh, 36rem); border-radius: 1.5rem; overflow: hidden; background: radial-gradient(ellipse at 50% 44%, color-mix(in srgb, var(--body-color) 13%, white), #f8faf9 68%); }
+.body-viewer-canvas { position: absolute; inset: 0; cursor: grab; }
+.body-viewer-canvas:active { cursor: grabbing; }
+.body-viewer-canvas canvas { display: block; width: 100%; height: 100%; }
+.body-viewer-canvas:focus-visible { outline: 3px solid var(--body-color); outline-offset: -4px; border-radius: 1.5rem; }
+.body-hotspot { position: absolute; left: 0; top: 0; z-index: 10; display: flex; width: 36px; height: 36px; align-items: center; justify-content: center; transform: translate(-50%, -50%); border-radius: 50%; cursor: pointer; }
+.body-hotspot[hidden] { display: none; }
+.body-hotspot-dot { width: 12px; height: 12px; border: 2px solid white; border-radius: 50%; background: var(--body-color); box-shadow: 0 0 0 2px var(--body-color), 0 2px 8px #0003; transition: transform 160ms; }
+.body-hotspot:hover, .body-hotspot:focus-visible, .body-hotspot.is-active { z-index: 20; }
+.body-hotspot:hover .body-hotspot-dot, .body-hotspot:focus-visible .body-hotspot-dot { transform: scale(1.35); }
+.body-hotspot.is-active .body-hotspot-dot { transform: scale(1.25); box-shadow: 0 0 0 3px white, 0 0 0 7px color-mix(in srgb, var(--body-color) 35%, transparent), 0 2px 8px #0003; }
+.body-hotspot.correct { --body-color: #16a34a; }
+.body-hotspot.wrong { --body-color: #e11d48; }
+.body-hotspot-label { position: absolute; top: 33px; left: 50%; transform: translateX(-50%); max-width: 12rem; width: max-content; border: 1px solid color-mix(in srgb, var(--body-color) 25%, white); border-radius: 0.75rem; background: #fffffff5; padding: 0.3rem 0.65rem; color: var(--body-color); font-size: 0.95rem; font-weight: 900; box-shadow: 0 5px 15px #0002; pointer-events: none; }
+.body-hotspot.is-placed { z-index: 15; }
+.body-hotspot.is-placed .body-hotspot-label { top: 13px; font-size: 0.75rem; padding: 0.15rem 0.4rem; color: white; background: var(--body-color); }
+.body-control { display: inline-flex; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; border: 1px solid #d6d3d1; border-radius: 14px; color: #44403c; background: white; transition: background 150ms, transform 150ms; }
+.body-control svg { width: 19px; height: 19px; }
+.body-control:disabled { opacity: .4; cursor: default; }
+.body-control:enabled:hover { background: #f0fdf4; border-color: var(--body-color); color: var(--body-color); }
+.body-control:enabled:active { transform: scale(.93); }
+.body-control.needs-turn { background: #fde68a; border-color: #f59e0b; color: #78350f; }
+@media (max-width: 400px) { .body-viewer-stage { height: 25rem; } }

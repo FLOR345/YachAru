@@ -549,12 +549,12 @@ const Home = ({ enableGuestMode }) => {
       <main id="contenido">
         {/* ==================== INICIO ==================== */}
         {/* Fondo de la primera versión: degradado suave con burbujas de color difuminadas que flotan */}
-        <section className="fondo-burbujas pt-32 pb-32">
+        <section className="fondo-burbujas pt-28 sm:pt-32 pb-24 lg:pb-28">
           <span className="burbuja burbuja-verde" aria-hidden="true" />
           <span className="burbuja burbuja-azul" aria-hidden="true" />
           <span className="burbuja burbuja-morada" aria-hidden="true" />
           <div className="container mx-auto">
-            <div className="grid lg:grid-cols-2 gap-16 items-center lg:items-start">
+            <div className="grid lg:grid-cols-[1fr_1.05fr] gap-8 lg:gap-10 items-center">
               {/* Motion: cada bloque entra después del anterior (stagger), subiendo y saliendo de un leve desenfoque */}
               <m.div className="space-y-8" initial="oculto" animate="visible" variants={HERO_LIST}>
                 <m.p variants={HERO_ITEM} className="inline-flex items-center gap-2 px-4 py-2 bg-white/60 backdrop-blur-sm border border-green-700/20 rounded-full text-sm font-bold">
@@ -637,7 +637,7 @@ const Home = ({ enableGuestMode }) => {
 
               {/* La llama es la imagen principal (como en la primera versión); el Titicaca va detrás como una foto impresa */}
               <m.div
-                className="relative mx-auto w-full max-w-md py-8 sm:py-10 lg:pt-6 lg:-mt-6"
+                className="relative isolate mx-auto w-full max-w-xl py-6 sm:py-8 lg:self-stretch lg:flex lg:items-center"
                 initial={{ opacity: 0, x: 60, scale: 0.96 }}
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 transition={{ duration: 0.9, ease: [0.23, 1, 0.32, 1], delay: 0.25 }}
@@ -648,7 +648,7 @@ const Home = ({ enableGuestMode }) => {
 
                 {/* Foto de Puno (islas flotantes de los Uros) como copia impresa, en la esquina de abajo a la izquierda */}
                 <m.figure
-                  className="absolute z-20 -left-4 sm:-left-28 -bottom-4 w-36 sm:w-44 bg-white p-2 pb-3 rounded-2xl shadow-2xl -rotate-6"
+                  className="absolute z-20 -left-2 sm:-left-6 bottom-2 sm:bottom-4 w-28 sm:w-36 bg-white p-2 pb-3 rounded-2xl shadow-2xl -rotate-6"
                   initial={{ opacity: 0, rotate: -18, y: 20 }}
                   animate={{ opacity: 1, rotate: -6, y: 0 }}
                   transition={{ type: 'spring', bounce: 0.35, duration: 0.9, delay: 0.7 }}
@@ -664,7 +664,7 @@ const Home = ({ enableGuestMode }) => {
                 </m.figure>
 
                 {/* Tarjeta principal con la llama */}
-                <div className="relative z-10 mx-auto max-w-xs sm:max-w-sm bg-white rounded-[2rem] border border-white shadow-2xl px-8 pt-8 pb-7 text-center">
+                <div className="relative z-10 w-full rounded-[2.5rem] border border-white/90 bg-white/80 shadow-2xl shadow-indigo-950/10 px-4 sm:px-6 pt-4 sm:pt-6 pb-16 sm:pb-20 text-center backdrop-blur-sm">
                   {/* Motion: la llama entra con un rebote y luego "respira" arriba y abajo */}
                   <m.img
                     src={llamaHero}
@@ -672,7 +672,7 @@ const Home = ({ enableGuestMode }) => {
                     width="560"
                     height="560"
                     fetchpriority="high"
-                    className="w-52 sm:w-60 lg:w-64 h-auto mx-auto"
+                    className="w-full max-w-[31rem] h-auto mx-auto drop-shadow-[0_20px_24px_rgba(120,70,25,0.12)]"
                     initial={{ opacity: 0, scale: 0.6, rotate: -8 }}
                     animate={{ opacity: 1, scale: 1, rotate: 0, y: [0, -10, 0] }}
                     transition={{
@@ -682,19 +682,19 @@ const Home = ({ enableGuestMode }) => {
                       y: { duration: 3.2, repeat: Infinity, ease: 'easeInOut', delay: 1.4 },
                     }}
                   />
-                  <p className="mt-4 text-2xl font-black texto-degradado">¡Rimaykullayki! ¡Kamisaraki!</p>
+                  <p className="mt-1 text-2xl sm:text-3xl font-black texto-degradado">¡Rimaykullayki!<br />¡Kamisaraki!</p>
                   <p className="mt-1 text-sm font-semibold text-stone-600">"Hola" en quechua y en aymara</p>
                 </div>
 
                 {/* Etiquetas flotantes de la primera versión, con lo que SimiAru sí tiene */}
                 {/* Motion: las etiquetas flotan arriba y abajo, cada una a su ritmo */}
-                <m.div className="etiqueta-flotante absolute z-20 top-10 -right-2 sm:-right-8 rotate-6 bg-gradient-to-br from-green-600 to-green-800 text-white px-4 sm:px-5 py-2.5 rounded-2xl shadow-lg" aria-hidden="true" animate={{ y: [0, -8, 0] }} transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}>
+                <m.div className="etiqueta-flotante absolute z-20 top-8 -right-2 sm:-right-4 rotate-6 bg-gradient-to-br from-green-600 to-green-800 text-white px-4 sm:px-5 py-2.5 rounded-2xl shadow-lg" aria-hidden="true" animate={{ y: [0, -8, 0] }} transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}>
                   <span className="flex items-center gap-2 font-bold text-sm sm:text-base">
                     <Trophy className="w-5 h-5" />
                     Ayni Points
                   </span>
                 </m.div>
-                <m.div className="etiqueta-flotante absolute z-20 -bottom-1 -right-2 sm:-right-8 rotate-3 bg-gradient-to-br from-blue-700 to-purple-700 text-white px-4 sm:px-5 py-2.5 rounded-2xl shadow-lg" aria-hidden="true" animate={{ y: [0, -10, 0] }} transition={{ duration: 3.6, repeat: Infinity, ease: 'easeInOut', delay: 1.2 }}>
+                <m.div className="etiqueta-flotante absolute z-20 bottom-4 right-0 sm:-right-4 rotate-3 bg-gradient-to-br from-blue-700 to-purple-700 text-white px-4 sm:px-5 py-2.5 rounded-2xl shadow-lg" aria-hidden="true" animate={{ y: [0, -10, 0] }} transition={{ duration: 3.6, repeat: Infinity, ease: 'easeInOut', delay: 1.2 }}>
                   <span className="flex items-center gap-2 font-bold text-sm sm:text-base">
                     <Zap className="w-5 h-5" />
                     Racha diaria

@@ -1,143 +1,115 @@
-// Ilustración del cuerpo de frente y de espalda, como una tarjeta que gira en 3D.
-// - Puntos que se pueden tocar en cada parte; la elegida se ilumina con un foco (el resto se oscurece).
-// - Se da la vuelta con el botón o deslizando el dedo a un lado.
-// - Las etiquetas "pegadas" (juego de arrastrar) quedan sobre el cuerpo.
-import { forwardRef } from 'react';
-import * as m from 'motion/react-m';
-import { AnimatePresence } from 'motion/react';
-import { RotateCw, Heart } from 'lucide-react';
-import frente from '../assets/cuerpo/frente.webp';
-import espalda from '../assets/cuerpo/espalda.webp';
-import { VISTAS } from '../data/cuerpoNumeros';
+// El motor 3D se descarga al abrir esta actividad, separado del inicio.
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { Box, Loader2, RotateCw, RotateCcw, ZoomIn, ZoomOut, Scan, RefreshCw } from 'lucide-react';
+import './BodyFigure.css';
 
-const IMG = { frente, espalda };
-const pct = (p) => ({ left: `${(p.x / VISTAS[p.vista].w) * 100}%`, top: `${(p.y / VISTAS[p.vista].h) * 100}%` });
+const BodyFigure = forwardRef(({ parts, vista = 'frente', onFlip, active, flash, onPick, onReady, label, color = '#15803d', showDots = true, placed, className = '', hint }, ref) => {
+  const host = useRef(null);
+  const scene = useRef(null);
+  const markers = useRef(new Map());
+  const latest = useRef({ vista, onFlip, onReady });
+  latest.current = { vista, onFlip, onReady };
+  const [status, setStatus] = useState('loading');
+  const [attempt, setAttempt] = useState(0);
+  const [side, setSide] = useState(vista);
 
-const Face = forwardRef(({ vista, parts, active, flash, onPick, label, color, showDots, spotlight, placed, back }, ref) => {
-  const activePart = parts.find((p) => p.id === active);
+  useImperativeHandle(ref, () => ({
+    getPartScreenPosition: (id) => scene.current?.getPartScreenPosition(id),
+    isReady: () => !!scene.current?.ready,
+  }), []);
+
+  useEffect(() => {
+    let cancelled = false;
+    let viewer;
+    setStatus('loading');
+    latest.current.onReady?.(false);
+    import('./bodyScene').then(({ createBodyScene }) => {
+      if (cancelled) return;
+      viewer = createBodyScene(host.current, {
+        markers: markers.current,
+        vista: latest.current.vista,
+        onLoad: () => { if (!cancelled) { setStatus('ready'); latest.current.onReady?.(true); } },
+        onError: () => { if (!cancelled) { setStatus('error'); latest.current.onReady?.(false); } },
+        onSideChange: (next) => {
+          if (cancelled) return;
+          setSide(next);
+          if (latest.current.vista !== next) latest.current.onFlip?.(next);
+        },
+      });
+      scene.current = viewer;
+    }).catch(() => { if (!cancelled) setStatus('error'); });
+    return () => {
+      cancelled = true;
+      viewer?.dispose();
+      scene.current = null;
+    };
+  }, [attempt]);
+
+  useEffect(() => {
+    if (scene.current?.side !== vista) scene.current?.setView(vista);
+    setSide(vista);
+  }, [vista, status]);
+
+  useEffect(() => { scene.current?.render(); }, [parts, active, flash, placed, label, status]);
+  useEffect(() => { scene.current?.trackActive(active); }, [active, status]);
+
+  const turn = () => {
+    const next = side === 'frente' ? 'espalda' : 'frente';
+    scene.current?.setView(next);
+    setSide(next);
+    onFlip?.(next);
+  };
+  const keyControl = (event) => {
+    const actions = {
+      ArrowLeft: () => scene.current?.rotate(-0.2),
+      ArrowRight: () => scene.current?.rotate(0.2),
+      '+': () => scene.current?.zoom(0.85),
+      '=': () => scene.current?.zoom(0.85),
+      '-': () => scene.current?.zoom(1.18),
+      Home: () => scene.current?.setView(vista),
+    };
+    if (actions[event.key]) { event.preventDefault(); actions[event.key](); }
+  };
+
   return (
-    <div ref={ref} className="absolute inset-0 [backface-visibility:hidden]" style={back ? { transform: 'rotateY(180deg)' } : undefined}>
-      <img src={IMG[vista]} alt={vista === 'frente' ? 'Niño de frente' : 'Niño de espalda'} className="h-full w-full object-contain select-none" draggable={false} />
-
-      {/* Foco: se oscurece todo menos la parte elegida */}
-      <AnimatePresence>
-        {spotlight && activePart && (
-          <m.div
-            key={activePart.id}
-            className="pointer-events-none absolute inset-0 rounded-[1.5rem]"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.35 }}
-            style={{
-              background: `radial-gradient(circle at ${pct(activePart).left} ${pct(activePart).top}, transparent 0, transparent 2.6rem, rgba(15,23,42,0.5) 5.5rem)`,
-            }}
-          />
-        )}
-      </AnimatePresence>
-
-      {/* Etiquetas ya pegadas */}
-      {placed &&
-        parts
-          .filter((p) => placed[p.id])
-          .map((p) => (
-            <m.span
-              key={`pegada-${p.id}`}
-              className="pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-xl px-2.5 py-1 text-sm font-black text-white shadow-lg ring-2 ring-white"
-              style={{ ...pct(p), background: color }}
-              initial={{ scale: 0, rotate: -12 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ type: 'spring', bounce: 0.6 }}
-            >
-              {placed[p.id]}
-            </m.span>
-          ))}
-
-      {/* Puntos */}
-      {showDots &&
-        parts.map((p) => {
-          const isActive = p.id === active;
-          const fl = flash?.id === p.id ? (flash.ok ? '#16a34a' : '#e11d48') : null;
-          if (placed?.[p.id]) return null;
+    <div className={`body-viewer ${className}`} style={{ '--body-color': color }}>
+      <div className="mb-3 flex items-center justify-between gap-3 text-xs font-black uppercase tracking-wider text-stone-500">
+        <span className="flex items-center gap-1.5"><Box className="h-4 w-4" aria-hidden="true" /> Explora en 3D</span>
+        <span>{side === 'frente' ? 'De frente' : 'De espalda'}</span>
+      </div>
+      <div className="body-viewer-stage" aria-busy={status === 'loading'}>
+        <div ref={host} className="body-viewer-canvas" role="group" aria-label="Cuerpo humano en 3D. Arrastra para girar; usa dos dedos para acercar. Con teclado: flechas para girar, más y menos para zoom, Inicio para restablecer." tabIndex={status === 'ready' ? 0 : -1} onKeyDown={keyControl} />
+        {parts.map((p) => {
+          const selected = active === p.id;
+          const feedback = flash?.id === p.id ? (flash.ok ? 'correct' : 'wrong') : '';
+          const text = placed?.[p.id] || (selected && label ? label(p) : null);
           return (
-            <button
-              key={p.id}
-              type="button"
-              onClick={() => onPick?.(p)}
-              aria-label={label ? label(p) : p.es}
-              className="group absolute z-20 -translate-x-1/2 -translate-y-1/2 w-11 h-11 rounded-full flex items-center justify-center focus-visible:outline-none"
-              style={pct(p)}
-            >
-              {(isActive || fl) && (
-                <m.span
-                  className="absolute inset-0 rounded-full border-4"
-                  style={{ borderColor: fl || color }}
-                  initial={{ scale: 0.5, opacity: 1 }}
-                  animate={{ scale: 1.8, opacity: 0 }}
-                  transition={{ duration: 1.1, repeat: fl ? 0 : Infinity }}
-                />
-              )}
-              <m.span
-                className="block rounded-full border-[3px] shadow-md group-hover:scale-125 group-focus-visible:ring-4 group-focus-visible:ring-amber-300 transition-transform"
-                style={{ borderColor: fl ? '#fff' : color, background: fl || (isActive ? color : 'rgba(255,255,255,0.95)') }}
-                animate={isActive || fl ? { width: 20, height: 20 } : { width: [12, 15, 12], height: [12, 15, 12] }}
-                transition={isActive || fl ? { type: 'spring', bounce: 0.6 } : { duration: 2.2, repeat: Infinity, delay: ((p.x + p.y) % 7) * 0.2 }}
-              />
+            <button key={p.id} ref={(el) => el ? markers.current.set(p.id, el) : markers.current.delete(p.id)} type="button" data-part={p.id}
+              className={`body-hotspot ${selected ? 'is-active' : ''} ${feedback} ${placed?.[p.id] ? 'is-placed' : ''}`}
+              style={{ visibility: 'hidden' }} aria-label={label ? label(p) : p.es} aria-pressed={selected}
+              disabled={status !== 'ready' || !!placed?.[p.id]} onClick={() => onPick?.(p)} hidden={!showDots && !text}>
+              <span className="body-hotspot-dot" />
+              {text && <span className="body-hotspot-label">{text}</span>}
             </button>
           );
         })}
-
-      {/* Nombre de la parte elegida, con una línea hacia ella */}
-      <AnimatePresence>
-        {activePart && label && (
-          <m.div key={`et-${activePart.id}`} className="pointer-events-none absolute z-30" style={pct(activePart)} initial={{ opacity: 0, scale: 0.7 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.7 }} transition={{ type: 'spring', bounce: 0.45, duration: 0.45 }}>
-            <span className={`absolute top-0 h-0.5 w-8 ${activePart.x > VISTAS[activePart.vista].w / 2 ? 'left-2' : 'right-2'}`} style={{ background: color }} />
-            <span
-              className={`absolute -top-5 ${activePart.x > VISTAS[activePart.vista].w / 2 ? 'left-10' : 'right-10'} whitespace-nowrap rounded-2xl bg-white px-3 py-1.5 text-lg font-black shadow-xl ring-2`}
-              style={{ color, '--tw-ring-color': color }}
-            >
-              {activePart.id === 'corazon' && <Heart className="mr-1 inline h-4 w-4 fill-rose-500 text-rose-500 anim-latido" aria-hidden="true" />}
-              {label(activePart)}
-            </span>
-          </m.div>
+        {status !== 'ready' && (
+          <div className="absolute inset-0 z-30 flex flex-col items-center justify-center gap-3 rounded-3xl bg-stone-50/95 px-5 text-center" role="status">
+            {status === 'loading' ? <><Loader2 className="h-8 w-8 animate-spin text-green-700" aria-hidden="true" /><p className="font-bold text-stone-700">Preparando tu modelo 3D…</p><p className="text-sm text-stone-500">La primera vez puede tardar unos segundos.</p></> : <><Box className="h-8 w-8 text-stone-400" aria-hidden="true" /><p className="font-bold text-stone-700">No se pudo abrir el modelo 3D.</p><p className="text-sm text-stone-500">Comprueba tu conexión y que tu navegador admita WebGL.</p><button type="button" className="toque flex min-h-11 items-center gap-2 rounded-full bg-white px-4 font-bold ring-1 ring-stone-300" onClick={() => setAttempt((n) => n + 1)}><RefreshCw className="h-4 w-4" /> Volver a intentar</button></>}
+          </div>
         )}
-      </AnimatePresence>
-    </div>
-  );
-});
-Face.displayName = 'Face';
-
-const BodyFigure = forwardRef(({ parts, vista = 'frente', onFlip, active, flash, onPick, label, color = '#15803d', showDots = true, spotlight = true, placed, className = '', hint }, ref) => {
-  const flip = () => onFlip?.(vista === 'frente' ? 'espalda' : 'frente');
-  return (
-    <div className={`relative mx-auto w-full max-w-[20rem] ${className}`}>
-      {/* Halo de color detrás del cuerpo */}
-      <m.span className="pointer-events-none absolute left-1/2 top-1/2 h-[80%] w-[90%] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl" style={{ background: color, opacity: 0.18 }} animate={{ scale: [1, 1.08, 1] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }} aria-hidden="true" />
-      <m.div className="relative aspect-[290/577] w-full [perspective:1400px]" onPanEnd={(e, info) => Math.abs(info.offset.x) > 70 && Math.abs(info.offset.y) < 60 && flip()}>
-        <m.div className="absolute inset-0 [transform-style:preserve-3d]" animate={{ rotateY: vista === 'frente' ? 0 : 180 }} transition={{ type: 'spring', stiffness: 70, damping: 14 }}>
-          <Face ref={vista === 'frente' ? ref : undefined} vista="frente" parts={parts.filter((p) => p.vista === 'frente')} active={active} flash={flash} onPick={onPick} label={label} color={color} showDots={showDots} spotlight={spotlight} placed={placed} />
-          <Face ref={vista === 'espalda' ? ref : undefined} vista="espalda" back parts={parts.filter((p) => p.vista === 'espalda')} active={active} flash={flash} onPick={onPick} label={label} color={color} showDots={showDots} spotlight={spotlight} placed={placed} />
-        </m.div>
-      </m.div>
-      {/* Sombra en el suelo */}
-      <span className="pointer-events-none mx-auto -mt-3 block h-4 w-2/3 rounded-full bg-stone-900/15 blur-sm" aria-hidden="true" />
-      {onFlip && (
-        <div className="mt-4 flex justify-center">
-          <m.button
-            type="button"
-            onClick={flip}
-            whileTap={{ scale: 0.92 }}
-            animate={hint ? { scale: [1, 1.08, 1] } : { scale: 1 }}
-            transition={hint ? { duration: 0.9, repeat: Infinity } : undefined}
-            className={`ficha inline-flex items-center gap-2 min-h-11 px-5 rounded-full font-black ${hint ? 'border-amber-500 bg-amber-400 text-amber-950' : 'border-stone-300 bg-white text-stone-800'}`}
-          >
-            <RotateCw className="w-5 h-5" aria-hidden="true" /> {vista === 'frente' ? 'Ver de espalda' : 'Ver de frente'}
-          </m.button>
-        </div>
-      )}
+      </div>
+      <div className="mt-3 flex flex-wrap items-center justify-center gap-2" aria-label="Controles del modelo 3D">
+        <button type="button" className="body-control" title="Girar a la izquierda" aria-label="Girar a la izquierda" disabled={status !== 'ready'} onClick={() => scene.current?.rotate(-Math.PI / 6)}><RotateCcw aria-hidden="true" /></button>
+        <button type="button" className="body-control" title="Alejar" aria-label="Alejar" disabled={status !== 'ready'} onClick={() => scene.current?.zoom(1.18)}><ZoomOut aria-hidden="true" /></button>
+        <button type="button" className="body-control" title="Acercar" aria-label="Acercar" disabled={status !== 'ready'} onClick={() => scene.current?.zoom(0.85)}><ZoomIn aria-hidden="true" /></button>
+        <button type="button" className="body-control" title="Restablecer vista" aria-label="Restablecer vista" disabled={status !== 'ready'} onClick={() => scene.current?.setView(vista)}><Scan aria-hidden="true" /></button>
+        <button type="button" className={`body-control ${hint ? 'needs-turn' : ''}`} title="Ver el otro lado" aria-label="Ver el otro lado" disabled={status !== 'ready'} onClick={turn}><RotateCw aria-hidden="true" /></button>
+      </div>
+      {active && <button type="button" className="mt-3 flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-white text-sm font-bold ring-1 ring-stone-200 hover:bg-stone-50 disabled:opacity-40" disabled={status !== 'ready'} onClick={() => scene.current?.focusPart(active)}><ZoomIn className="h-4 w-4" aria-hidden="true" /> Ver detalle de esta parte</button>}
+      <p className="mt-3 text-center text-xs font-semibold text-stone-500">Arrastra para girar · Pellizca para acercar · Toca los puntos</p>
     </div>
   );
 });
 BodyFigure.displayName = 'BodyFigure';
-
 export default BodyFigure;
