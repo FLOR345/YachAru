@@ -103,3 +103,10 @@ Proyecto desarrollado por [FLOR345](https://github.com/FLOR345) para el curso de
 - **Código:** [MIT](LICENSE). Puedes usarlo, modificarlo y redistribuirlo, manteniendo el aviso de copyright.
 - **Componentes de React Bits** (`frontend/src/components/reactbits/`): tienen su propia licencia, MIT + Commons Clause ([ver aquí](frontend/src/components/reactbits/LICENSE-react-bits.md)). Se pueden usar dentro de SimiAru, pero no vender ni redistribuir esos componentes por sí solos.
 - **Contenido lingüístico** (vocabulario, ejercicios y textos culturales): no está cubierto por la licencia MIT. Parte del vocabulario proviene de diccionarios del Ministerio de Educación de Chile, y su licencia de redistribución está pendiente de confirmar.
+
+## Voz, evidencia y publicación
+
+- **Voz:** el flujo en línea [`Audio MMS`](.github/workflows/audio-mms.yml) genera el audio con los modelos de Meta (`quz`, `ayr`) contra Neon y Cloudinary. Las voces grabadas no se reemplazan.
+- **Cobertura en vivo:** https://simiaru.onrender.com/api/validation/cobertura
+- **Validación:** `/validacion` (administradores) para revisar el léxico, y `/evaluacion` para la evaluación perceptual con hablantes.
+- **Estado del envío a SoftwareX:** [`docs/softwarex.md`](docs/softwarex.md). **Decisiones sobre IA:** [`docs/etica-e-ia.md`](docs/etica-e-ia.md).

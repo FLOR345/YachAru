@@ -27,7 +27,7 @@ import {
 import axios from 'axios';
 import { API_URL } from '../config.js';
 import { LANGUAGES, getLanguage, languageStyle } from '../languages';
-import { speak } from '../utils/speech';
+import { speak, audioSource, AUDIO_LABELS } from '../utils/speech';
 import { playTap } from '../utils/sounds';
 import Mascot from '../components/Mascot';
 import WordOfDay from '../components/WordOfDay';
@@ -563,7 +563,7 @@ const WordCard = ({ word, language, theme, query, favorite, onFavorite, index = 
 
   const play = (text = word.palabra_objetivo, url = word.audio_url) => {
     setIsPlaying(true);
-    speak(text, { url, lang: language.voz?.respaldo });
+    speak(text, { url, idioma: language.id, lang: language.voz?.respaldo });
     setTimeout(() => setIsPlaying(false), 1300);
   };
 
@@ -606,7 +606,7 @@ const WordCard = ({ word, language, theme, query, favorite, onFavorite, index = 
           <button
             type="button"
             onClick={() => play()}
-            aria-label={`Escuchar ${word.palabra_objetivo}${word.audio_url ? ' (voz MMS)' : ' (voz del navegador)'}`}
+            aria-label={`Escuchar ${word.palabra_objetivo} (${AUDIO_LABELS[audioSource(word.audio_url)]})`}
             className={`ficha w-11 h-11 flex items-center justify-center ${theme.solid} border-black/20 text-white rounded-xl`}
           >
             <Volume2 className={`w-5 h-5 ${isPlaying ? 'anim-latido' : ''}`} aria-hidden="true" />
@@ -634,7 +634,7 @@ const WordCard = ({ word, language, theme, query, favorite, onFavorite, index = 
           </span>
         )}
         {word.tipo && <span className="px-3 py-1 bg-stone-100 text-stone-700 text-sm font-semibold rounded-full">{word.tipo}</span>}
-        {word.audio_url && <span className="px-3 py-1 bg-green-50 text-green-800 text-sm font-semibold rounded-full">Voz MMS</span>}
+        {word.audio_url && <span className="px-3 py-1 bg-green-50 text-green-800 text-sm font-semibold rounded-full">{AUDIO_LABELS[audioSource(word.audio_url)]}</span>}
       </div>
 
       {example && (

@@ -1,4 +1,5 @@
 import { pool } from '../config/database.js';
+import { isKnownLanguage } from '../utils/languages.js';
 import { AppError } from '../middleware/errorHandler.js';
 
 // ==========================================
@@ -16,9 +17,8 @@ export const getCulturalContent = async (req, res, next) => {
     
     // Validar idioma si se proporciona
     if (idioma) {
-      const validLanguages = ['quechua', 'aymara'];
-      if (!validLanguages.includes(idioma.toLowerCase())) {
-        throw new AppError('Idioma no soportado. Solo: quechua, aymara', 400);
+      if (!(await isKnownLanguage(idioma.toLowerCase()))) {
+        throw new AppError('Idioma no soportado', 400);
       }
     }
 
@@ -159,9 +159,8 @@ export const getRandomContent = async (req, res, next) => {
       throw new AppError('El parámetro "idioma" es requerido', 400);
     }
 
-    const validLanguages = ['quechua', 'aymara'];
-    if (!validLanguages.includes(idioma.toLowerCase())) {
-      throw new AppError('Idioma no soportado. Solo: quechua, aymara', 400);
+    if (!(await isKnownLanguage(idioma.toLowerCase()))) {
+      throw new AppError('Idioma no soportado', 400);
     }
 
     let query = `
@@ -477,9 +476,8 @@ export const createCulturalContent = async (req, res, next) => {
       throw new AppError('Tipo no válido. Opciones: proverbio, cancion, cuento, adivinanza, refrán', 400);
     }
 
-    const validLanguages = ['quechua', 'aymara'];
-    if (!validLanguages.includes(idioma.toLowerCase())) {
-      throw new AppError('Idioma no soportado. Solo: quechua, aymara', 400);
+    if (!(await isKnownLanguage(idioma.toLowerCase()))) {
+      throw new AppError('Idioma no soportado', 400);
     }
 
     const result = await pool.query(

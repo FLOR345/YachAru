@@ -553,7 +553,7 @@ const CardsGame = ({ words, language, theme, onExit, onReview }) => {
     if (!card) return;
     playTap();
     setFlipped((f) => {
-      if (!f) speak(card.target, { url: card.audio, lang: language.voz?.respaldo });
+      if (!f) speak(card.target, { url: card.audio, idioma: language.id, lang: language.voz?.respaldo });
       return !f;
     });
   }, [card, language]);
@@ -626,7 +626,7 @@ const CardsGame = ({ words, language, theme, onExit, onReview }) => {
           </button>
           <button
             type="button"
-            onClick={() => speak(card.target, { url: card.audio, lang: language.voz?.respaldo })}
+            onClick={() => speak(card.target, { url: card.audio, idioma: language.id, lang: language.voz?.respaldo })}
             aria-label={`Escuchar ${card.target}`}
             className={`ficha w-14 h-14 shrink-0 rounded-2xl ${theme.solid} border-black/25 text-white flex items-center justify-center`}
           >
@@ -684,7 +684,7 @@ const MemoryGame = ({ words, language, theme, idioma, onExit }) => {
   const flip = (card) => {
     if (open.length === 2 || open.includes(card.uid) || found.includes(card.id)) return;
     playTap();
-    if (card.side === 't') speak(card.text, { url: card.word.audio, lang: language.voz?.respaldo });
+    if (card.side === 't') speak(card.text, { url: card.word.audio, idioma: language.id, lang: language.voz?.respaldo });
     const next = [...open, card.uid];
     setOpen(next);
     if (next.length < 2) return;
@@ -822,7 +822,7 @@ const ListenGame = ({ words, language, theme, idioma, onExit }) => {
     (slow = false) => {
       if (!round) return;
       setPlaying(true);
-      speak(round.word.target, { url: round.word.audio, lang: language.voz?.respaldo, slow });
+      speak(round.word.target, { url: round.word.audio, idioma: language.id, lang: language.voz?.respaldo, slow });
       setTimeout(() => setPlaying(false), slow ? 2200 : 1400);
     },
     [round, language]

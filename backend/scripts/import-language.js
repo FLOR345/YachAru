@@ -6,6 +6,7 @@
 // Un paquete es una carpeta con:
 //   paquete.json   → datos de la lengua (nombre, variedad, voz, colores, reglas del normalizador)
 //   contenido.json → unidades, lecciones, vocabulario y ejercicios
+// o un solo paquete.json que lleva todo, con el contenido en su campo "contenido".
 // Ver docs/paquete-de-idioma.md y la plantilla en languages/plantilla.
 import 'dotenv/config';
 import fs from 'node:fs';
@@ -37,7 +38,7 @@ const read = (name) => {
 };
 
 const pack = read('paquete.json');
-const content = read('contenido.json');
+const content = pack.contenido ?? read('contenido.json');
 
 // ==================== VALIDACIÓN ====================
 const errors = [];
@@ -135,6 +136,6 @@ try {
 
 // Registrar la lengua en el frontend (un archivo .json en src/languages)
 const target = path.resolve(here, '../../frontend/src/languages', `${pack.id}.json`);
-const { id, nombre, nombreNativo, iso639_3, variedad, region, descripcion, color, lang, voz, teclado, frases, normalizador } = pack;
-fs.writeFileSync(target, `${JSON.stringify({ id, nombre, nombreNativo, iso639_3, variedad, region, descripcion, color, lang, voz, teclado, frases, normalizador }, null, 2)}\n`);
+const { contenido: _contenido, ...registered } = pack;
+fs.writeFileSync(target, `${JSON.stringify(registered, null, 2)}\n`);
 console.log(`✅ Lengua registrada en ${path.relative(process.cwd(), target)} (vuelve a compilar el frontend)`);

@@ -10,7 +10,7 @@ import pg from 'pg';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const out = path.resolve(here, '../../database/seed/contenido.sql');
 // Solo tablas de contenido. Nunca: usuarios, progreso, insignias ganadas, favoritos ni eventos.
-const TABLES = ['unidades', 'lecciones', 'vocabulario', 'ejercicios', 'insignias', 'contenido_cultural'];
+const TABLES = ['unidades', 'lecciones', 'vocabulario', 'ejercicios', 'insignias', 'contenido_cultural', 'audios'];
 
 const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL, ssl: process.env.DATABASE_SSL === 'false' ? false : true });
 

@@ -28,3 +28,5 @@ export const Teacher = lazyWithPreload(() => import('./pages/Teacher'));
 export const Practice = lazyWithPreload(() => import('./pages/Practice'));
 export const NotFound = lazyWithPreload(() => import('./pages/NotFound'));
 export const BodyNumbers = lazyWithPreload(() => import('./pages/BodyNumbers'));
+export const Evaluation = lazyWithPreload(() => import('./pages/Evaluation'));
+export const Validation = lazyWithPreload(() => import('./pages/Validation'));

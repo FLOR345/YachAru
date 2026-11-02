@@ -10,6 +10,7 @@ import { RingProgress } from '@mantine/core';
 import MantineShell from '../ui/MantineShell';
 import Reveal from '../ui/Reveal';
 import { api } from '../services/api';
+import { LANGUAGES, getLanguage } from '../languages';
 import { clearQueue, flush } from '../services/telemetry';
 import { saveConsentLocally } from '../components/ConsentDialog';
 import { LlamaImage } from '../components/Mascot';
@@ -255,7 +256,7 @@ const Profile = ({ user, setUser }) => {
 
   const openEdit = () => {
     setMessage(null);
-    setEditForm({ nombre: profile?.nombre || '', idioma_objetivo: profile?.idioma_objetivo === 'aymara' ? 'aymara' : 'quechua' });
+    setEditForm({ nombre: profile?.nombre || '', idioma_objetivo: profile?.idioma_objetivo || LANGUAGES[0].id });
     setModal('edit');
   };
 
@@ -389,7 +390,7 @@ const Profile = ({ user, setUser }) => {
                   <p className="text-stone-600 break-all">{profile?.email}</p>
                   <ul className="flex flex-wrap gap-2 mt-3 text-sm font-semibold">
                     <li className={`px-3 py-1 rounded-full ${profile?.idioma_objetivo === 'aymara' ? 'bg-blue-50 text-blue-900' : 'bg-green-50 text-green-900'}`}>
-                      Aprende {profile?.idioma_objetivo === 'aymara' ? 'aymara' : 'quechua'}
+                      Aprende {getLanguage(profile?.idioma_objetivo)?.nombre.toLowerCase()}
                     </li>
                     <li className="px-3 py-1 rounded-full bg-stone-100 text-stone-800">
                       Nivel {level.number}: {level.name} ({level.subtitle.toLowerCase()})
@@ -588,8 +589,9 @@ const Profile = ({ user, setUser }) => {
               onChange={(e) => setEditForm({ ...editForm, idioma_objetivo: e.target.value })}
               className={fieldClass}
             >
-              <option value="quechua">Quechua</option>
-              <option value="aymara">Aymara</option>
+              {LANGUAGES.map((l) => (
+                <option key={l.id} value={l.id}>{l.nombre}</option>
+              ))}
             </select>
           </div>
           <button type="submit" disabled={saving} className={primaryButton}>

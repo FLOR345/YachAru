@@ -23,7 +23,7 @@ const WordOfDay = ({ word, language, theme, height = 'h-44' }) => {
           type="button"
           onClick={() => {
             playTap();
-            if (!flipped) speak(word.palabra_objetivo, { url: word.audio_url, lang: language.voz?.respaldo });
+            if (!flipped) speak(word.palabra_objetivo, { url: word.audio_url, idioma: language.id, lang: language.voz?.respaldo });
             setFlipped((f) => !f);
           }}
           aria-label={flipped ? `${word.palabra_objetivo} significa ${word.palabra_espanol}` : `Palabra del día: ${word.palabra_objetivo}. Toca para ver qué significa`}

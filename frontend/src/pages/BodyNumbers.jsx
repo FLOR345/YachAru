@@ -69,7 +69,7 @@ const Chip = ({ active, onClick, Icon, children, theme }) => (
 const ListenButton = ({ text, language, theme, big = false, label = 'Escuchar' }) => (
   <button
     type="button"
-    onClick={() => speak(text, { lang: language.voz?.respaldo })}
+    onClick={() => speak(text, { idioma: language.id, lang: language.voz?.respaldo })}
     className={`ficha inline-flex items-center gap-2 ${big ? 'min-h-12 px-5 text-base' : 'min-h-10 px-3 text-sm'} rounded-xl ${theme.solid} border-black/20 text-white font-black`}
   >
     <Volume2 className={big ? 'w-5 h-5' : 'w-4 h-4'} aria-hidden="true" /> {label}
@@ -234,7 +234,7 @@ const BodyExplore = ({ idioma, language, theme }) => {
     setActive(p.id);
     setVista(p.vista);
     setSeen((s) => new Set(s).add(p.id));
-    speak(p[idioma], { lang: language.voz?.respaldo });
+    speak(p[idioma], { idioma: language.id, lang: language.voz?.respaldo });
   };
 
   return (
@@ -274,7 +274,7 @@ const BodyExplore = ({ idioma, language, theme }) => {
               </p>
               <div className="mt-5 grid gap-3 sm:grid-cols-2">
                 {[fr.es, fr.toca].map((f) => (
-                  <button key={f.original} type="button" onClick={() => speak(f.original, { lang: language.voz?.respaldo })} className="rounded-2xl bg-white/15 p-4 text-left ring-1 ring-white/30 backdrop-blur transition-colors hover:bg-white/25">
+                  <button key={f.original} type="button" onClick={() => speak(f.original, { idioma: language.id, lang: language.voz?.respaldo })} className="rounded-2xl bg-white/15 p-4 text-left ring-1 ring-white/30 backdrop-blur transition-colors hover:bg-white/25">
                     <span className="flex items-center gap-2 font-black" lang={language.lang}>
                       <Volume2 className="w-4 h-4 shrink-0" aria-hidden="true" /> {f.original}
                     </span>
@@ -283,7 +283,7 @@ const BodyExplore = ({ idioma, language, theme }) => {
                 ))}
               </div>
               <div className="mt-5">
-                <button type="button" onClick={() => speak(part[idioma], { lang: language.voz?.respaldo })} className="ficha inline-flex items-center gap-2 min-h-12 px-5 rounded-xl bg-white text-stone-900 font-black">
+                <button type="button" onClick={() => speak(part[idioma], { idioma: language.id, lang: language.voz?.respaldo })} className="ficha inline-flex items-center gap-2 min-h-12 px-5 rounded-xl bg-white text-stone-900 font-black">
                   <Volume2 className="w-5 h-5" aria-hidden="true" /> Escuchar «{part[idioma]}»
                 </button>
               </div>
@@ -344,7 +344,7 @@ const LlamaSays = ({ idioma, language, theme, onExplore }) => {
   const target = g.current;
   const fr = frasesParte(target, idioma);
   useEffect(() => {
-    if (!g.over && modelReady) speak(fr.toca.original, { lang: language.voz?.respaldo });
+    if (!g.over && modelReady) speak(fr.toca.original, { idioma: language.id, lang: language.voz?.respaldo });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [g.round, g.over, modelReady]);
   // Si falla, el cuerpo gira solo para mostrar dónde estaba
@@ -444,7 +444,7 @@ const WhichPart = ({ idioma, language, theme, onExplore }) => {
                   transition={{ delay: g.flash ? 0 : i * 0.07 }}
                   whileHover={!g.flash ? { y: -3 } : undefined}
                   onClick={() => {
-                    speak(o[idioma], { lang: language.voz?.respaldo });
+                    speak(o[idioma], { idioma: language.id, lang: language.voz?.respaldo });
                     g.answer(o.id === t.id, o.id);
                   }}
                   disabled={!!g.flash}
@@ -514,7 +514,7 @@ const DragLabels = ({ idioma, language, theme, onExplore }) => {
     const ok = Math.hypot(px - point.x, py - point.y) < point.tolerance;
     if (ok) {
       playCorrect();
-      speak(p[idioma], { lang: language.voz?.respaldo });
+      speak(p[idioma], { idioma: language.id, lang: language.voz?.respaldo });
       setPlaced((s) => ({ ...s, [p.id]: p[idioma] }));
       setBurst((b) => b + 1);
     } else {
@@ -611,7 +611,7 @@ const NumbersExplore = ({ idioma, language, theme }) => {
   const set = (v) => {
     const x = Math.max(1, Math.min(100, v));
     setN(x);
-    speak(numeroEn(x, idioma), { lang: language.voz?.respaldo });
+    speak(numeroEn(x, idioma), { idioma: language.id, lang: language.voz?.respaldo });
   };
 
   return (
@@ -642,11 +642,11 @@ const NumbersExplore = ({ idioma, language, theme }) => {
               <button type="button" onClick={() => set(n - 1)} aria-label="Uno menos" className="w-12 h-12 rounded-2xl bg-white/20 ring-1 ring-white/40 flex items-center justify-center hover:bg-white/30">
                 <Minus className="w-6 h-6" aria-hidden="true" />
               </button>
-              <input type="range" min="1" max="100" value={n} onChange={(e) => setN(Number(e.target.value))} onPointerUp={() => speak(word, { lang: language.voz?.respaldo })} aria-label="Elige un número del 1 al 100" className="h-3 flex-1 min-w-[10rem] cursor-pointer accent-amber-300" />
+              <input type="range" min="1" max="100" value={n} onChange={(e) => setN(Number(e.target.value))} onPointerUp={() => speak(word, { idioma: language.id, lang: language.voz?.respaldo })} aria-label="Elige un número del 1 al 100" className="h-3 flex-1 min-w-[10rem] cursor-pointer accent-amber-300" />
               <button type="button" onClick={() => set(n + 1)} aria-label="Uno más" className="w-12 h-12 rounded-2xl bg-white/20 ring-1 ring-white/40 flex items-center justify-center hover:bg-white/30">
                 <Plus className="w-6 h-6" aria-hidden="true" />
               </button>
-              <button type="button" onClick={() => speak(word, { lang: language.voz?.respaldo })} className="ficha inline-flex items-center gap-2 min-h-12 px-5 rounded-xl bg-white text-stone-900 font-black">
+              <button type="button" onClick={() => speak(word, { idioma: language.id, lang: language.voz?.respaldo })} className="ficha inline-flex items-center gap-2 min-h-12 px-5 rounded-xl bg-white text-stone-900 font-black">
                 <Volume2 className="w-5 h-5" aria-hidden="true" /> Escuchar
               </button>
             </div>
@@ -718,7 +718,7 @@ const CountLlamas = ({ idioma, language, theme, onExplore }) => {
                 animate={state === 'bad' ? { x: [0, -10, 10, -6, 6, 0], opacity: 1 } : { opacity: 1, x: 0, scale: state === 'ok' ? 1.04 : 1 }}
                 transition={{ delay: g.flash ? 0 : i * 0.06 }}
                 onClick={() => {
-                  speak(numeroEn(o, idioma), { lang: language.voz?.respaldo });
+                  speak(numeroEn(o, idioma), { idioma: language.id, lang: language.voz?.respaldo });
                   g.answer(o === n, o);
                 }}
                 disabled={!!g.flash}
@@ -747,7 +747,7 @@ const ListenTap = ({ idioma, language, theme, onExplore }) => {
   });
   const { n, keys } = g.current;
   useEffect(() => {
-    if (!g.over) speak(numeroEn(n, idioma), { lang: language.voz?.respaldo });
+    if (!g.over) speak(numeroEn(n, idioma), { idioma: language.id, lang: language.voz?.respaldo });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [g.round, g.over]);
   if (g.over) return <EndScreen score={g.score} best={g.best} onReplay={g.restart} onExplore={onExplore} theme={theme} won={g.lives > 0} />;
@@ -763,7 +763,7 @@ const ListenTap = ({ idioma, language, theme, onExplore }) => {
               {numeroEn(n, idioma)}
             </p>
             <div className="mt-5">
-              <button type="button" onClick={() => speak(numeroEn(n, idioma), { lang: language.voz?.respaldo })} className="ficha inline-flex items-center gap-2 min-h-12 px-5 rounded-xl bg-white text-stone-900 font-black">
+              <button type="button" onClick={() => speak(numeroEn(n, idioma), { idioma: language.id, lang: language.voz?.respaldo })} className="ficha inline-flex items-center gap-2 min-h-12 px-5 rounded-xl bg-white text-stone-900 font-black">
                 <Volume2 className="w-5 h-5" aria-hidden="true" /> Escuchar otra vez
               </button>
             </div>
@@ -814,7 +814,7 @@ const MODES = {
 
 const BodyNumbers = ({ user }) => {
   const [params, setParams] = useSearchParams();
-  const idioma = getLanguage(params.get('idioma')) ? params.get('idioma') : user?.idioma_objetivo && getLanguage(user.idioma_objetivo) ? user.idioma_objetivo : 'quechua';
+  const idioma = [params.get('idioma'), user?.idioma_objetivo].find((id) => id === 'quechua' || id === 'aymara') ?? 'quechua';
   const tab = params.get('tema') === 'numeros' ? 'numeros' : 'cuerpo';
   const [mode, setMode] = useState('explorar');
   const language = getLanguage(idioma) ?? LANGUAGES[0];

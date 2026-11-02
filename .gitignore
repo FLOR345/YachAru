@@ -36,3 +36,4 @@ frontend/assets/
 # Audio MMS: entorno de Python y audios generados localmente
 tools/tts/.venv/
 tools/tts/salida/
+tools/tts/__pycache__/

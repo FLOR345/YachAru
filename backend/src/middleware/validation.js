@@ -75,4 +75,37 @@ export const schemas = {
     codigo: { type: 'string', min: 6, max: 12 },
     alias: { type: 'string', min: 1, max: 40 },
   },
+  byLanguage: {
+    idioma: { type: 'string', min: 2, max: 20 },
+  },
+  evaluationSample: {
+    idioma: { type: 'string', min: 2, max: 20 },
+    tamano: { type: 'integer', min: 10, max: 100, optional: true },
+  },
+  evaluators: {
+    idioma: { type: 'string', min: 2, max: 20 },
+    cantidad: { type: 'integer', min: 1, max: 30, optional: true },
+    variedad: { type: 'string', max: 80, optional: true },
+  },
+  evaluationEnter: {
+    codigo: { type: 'string', min: 8, max: 12 },
+    consiente: { type: 'boolean', optional: true },
+  },
+  evaluationAnswer: {
+    codigo: { type: 'string', min: 8, max: 12 },
+    audioId: { type: 'integer', min: 1 },
+    puntaje: { type: 'integer', min: 1, max: 5 },
+    comentario: { type: 'string', max: 500, optional: true },
+  },
+  wordReview: {
+    estado: { type: 'oneOf', values: ['correcto', 'variante', 'error'] },
+    correccion: { type: 'string', max: 200, optional: true },
+    nota: { type: 'string', max: 500, optional: true },
+  },
+  missingWord: {
+    idioma: { type: 'string', min: 2, max: 20 },
+    palabra_objetivo: { type: 'string', min: 1, max: 200 },
+    palabra_espanol: { type: 'string', min: 1, max: 200 },
+    nota: { type: 'string', max: 500, optional: true },
+  },
 };

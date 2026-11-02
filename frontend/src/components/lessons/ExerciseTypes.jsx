@@ -266,7 +266,7 @@ const ExerciseTypes = ({
   const language = getLanguage(languageId);
   const theme = languageStyle(languageId);
   const letterKeys = language?.teclado ?? ["'"];
-  const voice = { url: exercise?.audio_url, lang: language?.voz?.respaldo };
+  const voice = { url: exercise?.audio_url, idioma: language?.id, lang: language?.voz?.respaldo };
 
   // Orden aleatorio, fijo mientras dure cada ejercicio
   const shuffled = useMemo(() => {
@@ -586,7 +586,7 @@ const ExerciseTypes = ({
           <div className="flex items-center gap-3">
             <button
               type="button"
-              onClick={() => speak(exercise.pregunta, { lang: language?.voz?.respaldo })}
+              onClick={() => speak(exercise.pregunta, { idioma: language?.id, lang: language?.voz?.respaldo })}
               aria-label={`Escuchar ${exercise.pregunta}`}
               className={`ficha w-11 h-11 shrink-0 rounded-xl ${theme.solid} border-black/25 text-white flex items-center justify-center`}
             >

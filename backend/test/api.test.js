@@ -144,3 +144,75 @@ test('Google con un correo ya registrado: se vincula a esa cuenta (no se crea ot
   const again2 = await findOrLinkUser('google', profile);
   assert.equal(again2.id, linked.id);
 });
+
+test('audio: las grabaciones quedan registradas como tales y la cobertura las cuenta aparte', { skip }, async () => {
+  const before = await pool.query("SELECT id, audio_url FROM vocabulario WHERE audio_url LIKE '%allillanchu%' ORDER BY id");
+  assert.ok(before.rows.length > 0, 'las grabaciones están en el contenido');
+  await pool.query(
+    `INSERT INTO audios (idioma, clave, texto, url, fuente) VALUES ('quechua', 'allillanchu', 'Allillanchu', $1, 'grabado') ON CONFLICT DO NOTHING`,
+    [before.rows[0].audio_url]
+  );
+  const index = await request(app).get('/api/validation/audios/quechua').expect(200);
+  assert.deepEqual(index.body.audios.allillanchu, [before.rows[0].audio_url, 'grabado']);
+  await request(app).get('/api/validation/audios/klingon').expect(400);
+
+  const coverage = await request(app).get('/api/validation/cobertura').expect(200);
+  assert.ok(coverage.body.idiomas.quechua.audio.grabado >= before.rows.length);
+  assert.ok(coverage.body.idiomas.quechua.fenomenos.glotalizada > 0);
+  assert.ok(coverage.body.definicion.entrada_unica);
+});
+
+test('evaluación perceptual: código, consentimiento, puntaje y resultados', { skip }, async () => {
+  const fake = await pool.query(
+    "INSERT INTO audios (idioma, clave, texto, url, fuente, modelo) VALUES ('quechua', $1, 'prueba', 'https://ejemplo.test/a.mp3', 'mms', 'facebook/mms-tts-quz') RETURNING id",
+    [`prueba-${unique}`]
+  );
+  const audioId = fake.rows[0].id;
+  await pool.query("INSERT INTO muestra_evaluacion (idioma, audio_id) VALUES ('quechua', $1)", [audioId]);
+  const adminAccount = { nombre: 'Admin', email: `admin${unique}@ejemplo.test`, password: 'clave-segura-123' };
+  await request(app).post('/api/auth/register').send(adminAccount).expect(201);
+  const { body: { token: adminToken } } = await request(app).post('/api/auth/login').send({ email: adminAccount.email, password: adminAccount.password }).expect(200);
+  const asAdmin = { Authorization: `Bearer ${adminToken}` };
+
+  await request(app).post('/api/validation/evaluadores').set(auth()).send({ idioma: 'quechua', cantidad: 1 }).expect(403);
+  const created = await request(app).post('/api/validation/evaluadores').set(asAdmin).send({ idioma: 'quechua', cantidad: 2 }).expect(201);
+  const [codigo, otro] = created.body.codigos;
+
+  await request(app).post('/api/validation/evaluacion/entrar').send({ codigo: 'NOEXISTE' }).expect(404);
+  const first = await request(app).post('/api/validation/evaluacion/entrar').send({ codigo }).expect(200);
+  assert.equal(first.body.necesitaConsentimiento, true);
+  await request(app).post('/api/validation/evaluacion/responder').send({ codigo, audioId, puntaje: 4 }).expect(403);
+  const inside = await request(app).post('/api/validation/evaluacion/entrar').send({ codigo, consiente: true }).expect(200);
+  assert.ok(inside.body.items.some((i) => i.id === audioId));
+  await request(app).post('/api/validation/evaluacion/responder').send({ codigo, audioId, puntaje: 9 }).expect(400);
+  await request(app).post('/api/validation/evaluacion/responder').send({ codigo, audioId, puntaje: 4 }).expect(200);
+  await request(app).post('/api/validation/evaluacion/entrar').send({ codigo: otro, consiente: true }).expect(200);
+  await request(app).post('/api/validation/evaluacion/responder').send({ codigo: otro, audioId, puntaje: 2 }).expect(200);
+
+  const results = await request(app).get('/api/validation/resultados?idioma=quechua').set(asAdmin).expect(200);
+  assert.equal(results.body.juicios, 2);
+  assert.equal(results.body.suficiente, false);
+  const csv = await request(app).get('/api/validation/resultados?idioma=quechua&format=csv').set(asAdmin).expect(200);
+  assert.match(csv.text, /evaluador,audio_id,texto,puntaje/);
+
+  await pool.query('DELETE FROM audios WHERE id = $1', [audioId]);
+  await pool.query('DELETE FROM evaluadores WHERE codigo = ANY($1)', [[codigo, otro]]);
+});
+
+test('revisión del léxico: registra el valor original y una corrección conserva la grabación', { skip }, async () => {
+  const adminAccount = { email: `admin${unique}@ejemplo.test`, password: 'clave-segura-123' };
+  const { body: { token: adminToken } } = await request(app).post('/api/auth/login').send(adminAccount).expect(200);
+  const asAdmin = { Authorization: `Bearer ${adminToken}` };
+  const { rows: [word] } = await pool.query("SELECT id, palabra_objetivo, audio_url FROM vocabulario WHERE audio_url LIKE '%allillanchu%' LIMIT 1");
+
+  await request(app).put(`/api/validation/lexico/${word.id}`).set(asAdmin).send({ estado: 'error' }).expect(400);
+  await request(app).put(`/api/validation/lexico/${word.id}`).set(asAdmin).send({ estado: 'error', correccion: 'Allillanchu?' }).expect(200);
+  const after = await pool.query('SELECT palabra_objetivo, audio_url FROM vocabulario WHERE id = $1', [word.id]);
+  assert.equal(after.rows[0].palabra_objetivo, 'Allillanchu?');
+  assert.equal(after.rows[0].audio_url, word.audio_url, 'la grabación no se borra');
+  const review = await pool.query('SELECT valor_original FROM revision_lexico WHERE vocabulario_id = $1', [word.id]);
+  assert.equal(review.rows[0].valor_original, word.palabra_objetivo);
+
+  await pool.query('UPDATE vocabulario SET palabra_objetivo = $1 WHERE id = $2', [word.palabra_objetivo, word.id]);
+  await pool.query('DELETE FROM revision_lexico WHERE vocabulario_id = $1', [word.id]);
+});

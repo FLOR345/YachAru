@@ -1,9 +1,12 @@
 // Pruebas unitarias: no necesitan base de datos.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 import { nextStreak, levelForPoints } from '../src/utils/gamification.js';
 import { validate, schemas } from '../src/middleware/validation.js';
 import { toCsv, pseudonym, EXPORT_COLUMNS } from '../src/controllers/researchController.js';
+import { phenomenaOf, audioKey, krippendorffAlpha } from '../src/utils/phonology.js';
+import { pickSample, summarizeRatings } from '../src/controllers/validationController.js';
 
 test('racha: el mismo día no sube, el día siguiente suma 1, más de un día la reinicia', () => {
   const day = (iso) => new Date(iso);
@@ -56,4 +59,46 @@ test('seudónimo: estable, de 16 caracteres y distinto por persona', () => {
   assert.equal(pseudonym(7), pseudonym(7));
   assert.equal(pseudonym(7).length, 16);
   assert.notEqual(pseudonym(7), pseudonym(8));
+});
+
+test('fenómenos: criterio escrito para glotalizadas, aspiradas y uvulares', () => {
+  assert.deepEqual(phenomenaOf("q'illu"), ['glotalizada', 'uvular']);
+  assert.deepEqual(phenomenaOf('khipu'), ['aspirada']);
+  assert.deepEqual(phenomenaOf('Ch’uytu'), ['glotalizada']);
+  assert.deepEqual(phenomenaOf('sinqa'), ['uvular']);
+  assert.deepEqual(phenomenaOf('maki'), []);
+});
+
+test('la clave del audio coincide con la del proceso en Python', () => {
+  const vectors = JSON.parse(fs.readFileSync(new URL('../../tools/tts/audio_key_vectors.json', import.meta.url), 'utf8'));
+  for (const [text, key] of vectors) assert.equal(audioKey(text), key);
+});
+
+test('alfa de Krippendorff: reproduce el ejemplo publicado por Krippendorff (2011)', () => {
+  const A = [1, 2, 3, 3, 2, 1, 4, 1, 2, null, null, null];
+  const B = [1, 2, 3, 3, 2, 2, 4, 1, 2, 5, null, 3];
+  const C = [null, 3, 3, 3, 2, 3, 4, 2, 2, 5, 1, null];
+  const D = [1, 2, 3, 3, 2, 4, 4, 1, 2, 5, 1, null];
+  const units = A.map((_, i) => ({ A: A[i], B: B[i], C: C[i], D: D[i] }));
+  assert.equal(krippendorffAlpha(units, 'interval').toFixed(3), '0.849');
+  assert.equal(krippendorffAlpha(units, 'ordinal').toFixed(3), '0.815');
+  assert.equal(krippendorffAlpha([{ A: 3, B: 3 }]), null, 'sin variación no se puede calcular');
+});
+
+test('muestra de evaluación: reproducible y reparte los fenómenos', () => {
+  const entries = Array.from({ length: 40 }, (_, i) => ({ id: i, clave: `w${i}`, fenomenos: i < 10 ? ['glotalizada'] : i < 20 ? ['aspirada'] : [] }));
+  const one = pickSample(entries, 12);
+  assert.deepEqual(one, pickSample([...entries].reverse(), 12));
+  assert.equal(one.filter((e) => e.fenomenos[0] === 'glotalizada').length, 4);
+  assert.equal(one.filter((e) => e.fenomenos[0] === 'aspirada').length, 4);
+});
+
+test('resultados: con menos de 8 evaluadores se avisa que no alcanza para reportar', () => {
+  const summary = summarizeRatings([
+    { evaluador: 'A', audio_id: 1, puntaje: 5, fenomenos: ['glotalizada'] },
+    { evaluador: 'B', audio_id: 1, puntaje: 3, fenomenos: ['glotalizada'] },
+  ]);
+  assert.equal(summary.suficiente, false);
+  assert.equal(summary.media, 4);
+  assert.equal(summary.por_fenomeno.glotalizada.juicios, 2);
 });

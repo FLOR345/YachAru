@@ -76,7 +76,7 @@ const FavoriteButton = ({ isFavorite, onToggle, name }) => (
 const ListenButton = ({ text, language, label = 'Escuchar' }) => (
   <button
     type="button"
-    onClick={() => speak(text, { lang: language.voz?.respaldo })}
+    onClick={() => speak(text, { idioma: language.id, lang: language.voz?.respaldo })}
     className="inline-flex items-center gap-2 min-h-10 px-3 rounded-xl bg-white/80 border border-stone-200 text-sm font-bold text-stone-700 hover:bg-white toque"
   >
     <Volume2 className="w-4 h-4" aria-hidden="true" /> {label}
@@ -289,7 +289,7 @@ const SongCard = ({ item, index, language, theme, fav }) => {
         return;
       }
       setLine(i);
-      speak(original[i], { lang: language.voz?.respaldo });
+      speak(original[i], { idioma: language.id, lang: language.voz?.respaldo });
       timer.current = setTimeout(() => step(i + 1), 1200 + original[i].length * 85);
     };
     step(0);
@@ -326,7 +326,7 @@ const SongCard = ({ item, index, language, theme, fav }) => {
                   type="button"
                   onClick={() => {
                     setLine(i);
-                    speak(l, { lang: language.voz?.respaldo });
+                    speak(l, { idioma: language.id, lang: language.voz?.respaldo });
                   }}
                   className={`w-full grid sm:grid-cols-2 gap-1 sm:gap-6 rounded-xl px-3 py-2 text-left toque ${line === i ? `${theme.soft} ring-2 ${theme.ring}` : 'hover:bg-stone-50'}`}
                 >

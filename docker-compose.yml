@@ -15,7 +15,8 @@ services:
     volumes:
       - ./database/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
       - ./database/migrations/002_datos_aula_eventos.sql:/docker-entrypoint-initdb.d/02_datos_aula_eventos.sql:ro
-      - ./database/seed/contenido.sql:/docker-entrypoint-initdb.d/03_contenido.sql:ro
+      - ./database/migrations/003_audio_y_validacion.sql:/docker-entrypoint-initdb.d/03_audio_y_validacion.sql:ro
+      - ./database/seed/contenido.sql:/docker-entrypoint-initdb.d/04_contenido.sql:ro
       - simiaru-db:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U simiaru -d simiaru"]

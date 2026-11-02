@@ -1,0 +1,305 @@
+{
+  "id": "awajun",
+  "nombre": "Awajún",
+  "nombreNativo": "Awajún",
+  "iso639_3": "agr",
+  "variedad": "Awajún (aguaruna)",
+  "region": "Amazonas, Cajamarca, Loreto y San Martín (Perú)",
+  "descripcion": "Paquete de demostración de la extensibilidad de SimiAru, en un solo archivo.",
+  "color": "terracota",
+  "lang": "agr",
+  "voz": {
+    "modelo": "facebook/mms-tts-agr",
+    "licencia": "CC-BY-NC-4.0",
+    "respaldo": "es-PE"
+  },
+  "teclado": [],
+  "frases": {
+    "saludo": "Awajún",
+    "felicitacion": "¡Bien hecho!",
+    "animo": "¡Sigue así!"
+  },
+  "normalizador": {
+    "nota": "Acepta la transcripción fonémica de la fuente como variante de la escritura práctica.",
+    "reglas": [
+      {
+        "patron": "š",
+        "reemplazo": "sh",
+        "fenomeno": "grafia"
+      },
+      {
+        "patron": "č",
+        "reemplazo": "ch",
+        "fenomeno": "grafia"
+      },
+      {
+        "patron": "ɨ",
+        "reemplazo": "e",
+        "fenomeno": "vocal"
+      },
+      {
+        "patron": "h",
+        "reemplazo": "j",
+        "fenomeno": "grafia"
+      }
+    ]
+  },
+  "contenido": {
+    "fuente": {
+      "referencia": "Wipio Deicat, Gerardo. 2023. Aguaruna dictionary. En: Key, Mary Ritchie & Comrie, Bernard (eds.), The Intercontinental Dictionary Series. Leipzig: Max Planck Institute for Evolutionary Anthropology. https://ids.clld.org/contributions/258",
+      "licencia": "CC BY 4.0",
+      "formas_ids": {
+        "yumi": "258-1-310-1",
+        "numi": "258-1-420-1",
+        "etsa": "258-1-520-1",
+        "nantu": "258-1-530-1",
+        "yaya": "258-1-540-1",
+        "pishak": "258-3-581-1",
+        "yawa": "258-3-610-1",
+        "namak": "258-3-650-1",
+        "jii": "258-4-210-1",
+        "kuwish": "258-4-220-1",
+        "nuji": "258-4-230-1",
+        "wenu": "258-4-240-1",
+        "uwej": "258-4-330-1",
+        "nuwa": "258-2-220-1",
+        "makichik": "258-13-10-1",
+        "kampatum": "258-13-30-1",
+        "ipak usumat": "258-13-40-1"
+      },
+      "revisado_por": "Pendiente: ningún hablante de awajún lo ha revisado. Es una demostración técnica de extensibilidad y no se publica en la plataforma."
+    },
+    "unidades": [
+      {
+        "nombre": "Primeras palabras",
+        "descripcion": "Unidad de demostración: vocabulario básico del awajún.",
+        "lecciones": [
+          {
+            "titulo": "Naturaleza",
+            "contenido_teorico": "Palabras tomadas de la Intercontinental Dictionary Series.",
+            "vocabulario": [
+              {
+                "palabra_objetivo": "yumi",
+                "palabra_espanol": "agua",
+                "categoria": "naturaleza"
+              },
+              {
+                "palabra_objetivo": "numi",
+                "palabra_espanol": "árbol",
+                "categoria": "naturaleza"
+              },
+              {
+                "palabra_objetivo": "etsa",
+                "palabra_espanol": "sol",
+                "categoria": "naturaleza"
+              },
+              {
+                "palabra_objetivo": "nantu",
+                "palabra_espanol": "luna",
+                "categoria": "naturaleza"
+              },
+              {
+                "palabra_objetivo": "yaya",
+                "palabra_espanol": "estrella",
+                "categoria": "naturaleza"
+              },
+              {
+                "palabra_objetivo": "pishak",
+                "palabra_espanol": "pájaro",
+                "categoria": "naturaleza"
+              },
+              {
+                "palabra_objetivo": "yawa",
+                "palabra_espanol": "perro",
+                "categoria": "naturaleza"
+              },
+              {
+                "palabra_objetivo": "namak",
+                "palabra_espanol": "pez",
+                "categoria": "naturaleza"
+              }
+            ],
+            "ejercicios": [
+              {
+                "tipo": "multiple_choice",
+                "pregunta": "¿Cómo se dice «agua»?",
+                "opciones": [
+                  "nantu",
+                  "yumi",
+                  "numi"
+                ],
+                "respuesta_correcta": "yumi"
+              },
+              {
+                "tipo": "translate",
+                "pregunta": "Escribe «árbol» en awajún",
+                "respuesta_correcta": "numi"
+              },
+              {
+                "tipo": "listen_write",
+                "pregunta": "Escucha y escribe",
+                "respuesta_correcta": "etsa"
+              },
+              {
+                "tipo": "multiple_choice",
+                "pregunta": "¿Cómo se dice «luna»?",
+                "opciones": [
+                  "pishak",
+                  "namak",
+                  "nantu"
+                ],
+                "respuesta_correcta": "nantu"
+              },
+              {
+                "tipo": "translate",
+                "pregunta": "Escribe «estrella» en awajún",
+                "respuesta_correcta": "yaya"
+              },
+              {
+                "tipo": "listen_write",
+                "pregunta": "Escucha y escribe",
+                "respuesta_correcta": "pishak"
+              },
+              {
+                "tipo": "multiple_choice",
+                "pregunta": "¿Cómo se dice «perro»?",
+                "opciones": [
+                  "yawa",
+                  "yumi",
+                  "etsa"
+                ],
+                "respuesta_correcta": "yawa"
+              },
+              {
+                "tipo": "translate",
+                "pregunta": "Escribe «pez» en awajún",
+                "respuesta_correcta": "namak"
+              }
+            ]
+          },
+          {
+            "titulo": "El cuerpo",
+            "contenido_teorico": "Palabras tomadas de la Intercontinental Dictionary Series.",
+            "vocabulario": [
+              {
+                "palabra_objetivo": "jii",
+                "palabra_espanol": "ojo",
+                "categoria": "el cuerpo"
+              },
+              {
+                "palabra_objetivo": "kuwish",
+                "palabra_espanol": "oreja",
+                "categoria": "el cuerpo"
+              },
+              {
+                "palabra_objetivo": "nuji",
+                "palabra_espanol": "nariz",
+                "categoria": "el cuerpo"
+              },
+              {
+                "palabra_objetivo": "wenu",
+                "palabra_espanol": "boca",
+                "categoria": "el cuerpo"
+              },
+              {
+                "palabra_objetivo": "uwej",
+                "palabra_espanol": "mano",
+                "categoria": "el cuerpo"
+              },
+              {
+                "palabra_objetivo": "nuwa",
+                "palabra_espanol": "mujer",
+                "categoria": "el cuerpo"
+              }
+            ],
+            "ejercicios": [
+              {
+                "tipo": "multiple_choice",
+                "pregunta": "¿Cómo se dice «ojo»?",
+                "opciones": [
+                  "jii",
+                  "uwej",
+                  "wenu"
+                ],
+                "respuesta_correcta": "jii"
+              },
+              {
+                "tipo": "translate",
+                "pregunta": "Escribe «oreja» en awajún",
+                "respuesta_correcta": "kuwish"
+              },
+              {
+                "tipo": "listen_write",
+                "pregunta": "Escucha y escribe",
+                "respuesta_correcta": "nuji"
+              },
+              {
+                "tipo": "multiple_choice",
+                "pregunta": "¿Cómo se dice «boca»?",
+                "opciones": [
+                  "jii",
+                  "nuji",
+                  "wenu"
+                ],
+                "respuesta_correcta": "wenu"
+              },
+              {
+                "tipo": "translate",
+                "pregunta": "Escribe «mano» en awajún",
+                "respuesta_correcta": "uwej"
+              },
+              {
+                "tipo": "listen_write",
+                "pregunta": "Escucha y escribe",
+                "respuesta_correcta": "nuwa"
+              }
+            ]
+          },
+          {
+            "titulo": "Números",
+            "contenido_teorico": "Palabras tomadas de la Intercontinental Dictionary Series.",
+            "vocabulario": [
+              {
+                "palabra_objetivo": "makichik",
+                "palabra_espanol": "uno",
+                "categoria": "números"
+              },
+              {
+                "palabra_objetivo": "kampatum",
+                "palabra_espanol": "tres",
+                "categoria": "números"
+              },
+              {
+                "palabra_objetivo": "ipak usumat",
+                "palabra_espanol": "cuatro",
+                "categoria": "números"
+              }
+            ],
+            "ejercicios": [
+              {
+                "tipo": "multiple_choice",
+                "pregunta": "¿Cómo se dice «uno»?",
+                "opciones": [
+                  "kampatum",
+                  "ipak usumat",
+                  "makichik"
+                ],
+                "respuesta_correcta": "makichik"
+              },
+              {
+                "tipo": "translate",
+                "pregunta": "Escribe «tres» en awajún",
+                "respuesta_correcta": "kampatum"
+              },
+              {
+                "tipo": "listen_write",
+                "pregunta": "Escucha y escribe",
+                "respuesta_correcta": "ipak usumat"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

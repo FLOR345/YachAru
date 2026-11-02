@@ -139,6 +139,18 @@ export const api = {
   getClassroomProgress: (id) => axiosInstance.get(`/api/classroom/${id}/progress`),
   joinClassroom: (data) => axiosInstance.post('/api/classroom/join', data),
   studentLogin: (codigoEstudiante) => axiosInstance.post('/api/classroom/login', { codigoEstudiante }),
+
+  // ===== VALIDACIÓN (cobertura, evaluación perceptual y revisión del léxico) =====
+  getCoverage: () => axiosInstance.get('/api/validation/cobertura'),
+  enterEvaluation: (data) => axiosInstance.post('/api/validation/evaluacion/entrar', data),
+  answerEvaluation: (data) => axiosInstance.post('/api/validation/evaluacion/responder', data),
+  createEvaluationSample: (data) => axiosInstance.post('/api/validation/muestra', data),
+  createEvaluators: (data) => axiosInstance.post('/api/validation/evaluadores', data),
+  getEvaluators: (idioma) => axiosInstance.get('/api/validation/evaluadores', { params: { idioma } }),
+  getEvaluationResults: (idioma) => axiosInstance.get('/api/validation/resultados', { params: { idioma } }),
+  getLexicon: (params) => axiosInstance.get('/api/validation/lexico', { params }),
+  reviewWord: (id, data) => axiosInstance.put(`/api/validation/lexico/${id}`, data),
+  addMissingWord: (data) => axiosInstance.post('/api/validation/lexico-faltante', data),
 };
 
 // ==================== EXPORT DEFAULT ====================

@@ -49,6 +49,23 @@ jobs:
       - run: npm test
       - name: El importador de idiomas rechaza la plantilla sin completar
         run: "! node scripts/import-language.js ../languages/plantilla --dry-run"
+      - name: Una tercera lengua entra con un solo archivo y sin cambiar el código
+        run: |
+          node scripts/import-language.js ../languages/awajun
+          test -f ../frontend/src/languages/awajun.json
+          test "$(psql -h localhost -U simiaru -d simiaru -tAc "SELECT COUNT(*) FROM vocabulario v JOIN lecciones l ON l.id = v.leccion_id JOIN unidades u ON u.id = l.unidad_id WHERE u.idioma = 'awajun'")" = "17"
+
+  audio:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tools/tts
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m unittest test_generate_audio.py
 
   frontend:
     runs-on: ubuntu-latest

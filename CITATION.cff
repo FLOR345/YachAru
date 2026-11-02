@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "SimiAru: An open-source, extensible web platform for teaching and studying Quechua and Aymara with neural speech synthesis and learner-level data export"
+type: software
+authors:
+  - given-names: Yeferson Dariun
+    alias: DariunLv
+repository-code: "https://github.com/FLOR345/simiaru"
+url: "https://simiaru-3j6b.vercel.app"
+license: MIT
+version: 1.0.0
+keywords:
+  - Quechua
+  - Aymara
+  - language revitalization
+  - neural speech synthesis
+  - learning analytics

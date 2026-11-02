@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { speak, audioSource, keepAudioOffline } from '../utils/speech';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { toast } from '../utils/notify';
 import { AnimatePresence } from 'motion/react';
@@ -81,26 +82,6 @@ const formatTime = (ms) => {
   return s < 60 ? `${s} s` : `${Math.floor(s / 60)} min ${s % 60} s`;
 };
 
-// Pronunciación: audio pregenerado (modelo MMS entrenado en la lengua) si existe;
-// si no, la voz del navegador en español como respaldo (no distingue glotalizadas ni aspiradas)
-const speakFallback = (word, lang) => {
-  if (!('speechSynthesis' in window)) return;
-  window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(word);
-  utterance.lang = lang || 'es-PE';
-  utterance.rate = 0.8;
-  window.speechSynthesis.speak(utterance);
-};
-
-const playWord = (url, word, fallbackLang) => {
-  if (url) {
-    const audio = new Audio(url);
-    audio.play().catch(() => speakFallback(word, fallbackLang));
-  } else {
-    speakFallback(word, fallbackLang);
-  }
-};
-
 const LessonView = ({ user, isGuest }) => {
   const { lessonId } = useParams();
   const navigate = useNavigate();
@@ -151,6 +132,7 @@ const LessonView = ({ user, isGuest }) => {
       const { data } = await api.getLessonContent(lessonId);
       setLesson(data.lesson);
       setVocabulary(data.vocabulary || []);
+      keepAudioOffline((data.vocabulary || []).map((w) => w.audio_url));
       setExercises(data.exercises || []);
       setQueue((data.exercises || []).map((exercise) => ({ exercise, review: false })));
     } catch (error) {
@@ -482,7 +464,8 @@ const LessonView = ({ user, isGuest }) => {
   // ==================== VOCABULARIO ====================
   if (showVocab) {
     const learnedPercent = vocabulary.length > 0 ? Math.round((learnedWords.length / vocabulary.length) * 100) : 0;
-    const hasRealAudio = vocabulary.some((w) => w.audio_url);
+    const missingAudio = vocabulary.filter((w) => !w.audio_url).length;
+    const voices = new Set(vocabulary.filter((w) => w.audio_url).map((w) => audioSource(w.audio_url)));
     const startButton =
       total > 0 ? (
         <button type="button" onClick={startExercises} className="w-full min-h-14 boton-degradado font-black text-lg rounded-2xl shadow-lg flex items-center justify-center gap-3">
@@ -569,9 +552,9 @@ const LessonView = ({ user, isGuest }) => {
               </section>
 
               <p className="text-sm text-stone-600">
-                {hasRealAudio
-                  ? 'Las palabras con audio usan una voz sintética entrenada en la lengua (modelo MMS). Las demás usan la voz del navegador.'
-                  : 'La pronunciación usa por ahora la voz sintetizada del navegador, que no distingue glotalizadas ni aspiradas.'}
+                {voices.has('mms') && 'Voz sintética entrenada en la lengua (modelo MMS de Meta), no la de un hablante nativo. '}
+                {voices.has('grabado') && 'Algunas palabras tienen voz grabada. '}
+                {missingAudio > 0 && 'Las que aún no tienen audio usan la voz del navegador, que no distingue glotalizadas ni aspiradas.'}
               </p>
               <div className="hidden lg:block">{startButton}</div>
             </aside>
@@ -612,8 +595,8 @@ const LessonView = ({ user, isGuest }) => {
                         <button
                           type="button"
                           onClick={() => {
-                            playWord(word.audio_url, word.palabra_objetivo, fallbackLang);
-                            track('audio_played', { idioma: lesson.idioma, leccion_id: Number(lessonId), vocabulario_id: word.id, metadatos: { fuente: word.audio_url ? 'mms' : 'navegador' } });
+                            speak(word.palabra_objetivo, { url: word.audio_url, idioma: lesson.idioma, lang: fallbackLang });
+                            track('audio_played', { idioma: lesson.idioma, leccion_id: Number(lessonId), vocabulario_id: word.id, metadatos: { fuente: audioSource(word.audio_url) } });
                           }}
                           aria-label={`Escuchar ${word.palabra_objetivo}`}
                           className={`ficha w-11 h-11 flex items-center justify-center ${theme.solid} border-black/20 text-white rounded-xl`}

@@ -13,6 +13,7 @@ import cultureRoutes from './routes/cultureRoutes.js';
 import notificationRoutes from './routes/notificationRoutes.js';
 import researchRoutes from './routes/researchRoutes.js';
 import classroomRoutes from './routes/classroomRoutes.js';
+import validationRoutes from './routes/validationRoutes.js';
 
 const app = express();
 
@@ -45,7 +46,7 @@ const authLimiter = rateLimit({
 // En pruebas automáticas no se limita (las pruebas hacen muchas peticiones seguidas)
 if (process.env.NODE_ENV !== 'test') {
   app.use('/api', apiLimiter);
-  app.use(['/api/auth/login', '/api/auth/register', '/api/auth/change-password', '/api/classroom/join', '/api/classroom/login'], authLimiter);
+  app.use(['/api/auth/login', '/api/auth/register', '/api/auth/change-password', '/api/classroom/join', '/api/classroom/login', '/api/validation/evaluacion/entrar'], authLimiter);
 }
 
 app.use(express.json({ limit: '200kb' }));
@@ -77,6 +78,7 @@ app.use('/api/culture', cultureRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/research', researchRoutes);
 app.use('/api/classroom', classroomRoutes);
+app.use('/api/validation', validationRoutes);
 
 // ===== RUTA DE SALUD (para verificar que el servidor funciona) =====
 app.get('/health', (req, res) => {

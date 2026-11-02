@@ -13,7 +13,7 @@ web
 
 - **Aprendices principales:** jóvenes y adultos hispanohablantes del sur del Perú, sobre todo de Puno, que quieren aprender o recuperar el quechua o el aymara. El primer uso real previsto es un curso universitario con adultos en Puno (noviembre y diciembre de 2026). **(inferido de la propuesta)**
 - **Docentes:** usan la plataforma con un grupo o curso y necesitan ver el avance de sus estudiantes. **(inferido)**
-- **Investigadores:** reutilizan la plataforma y sus datos de aprendizaje anonimizados para estudiar la adquisición y revitalización de lenguas originarias, o la adaptan a otra lengua. **(inferido; la función aún no existe)**
+- **Investigadores:** reutilizan la plataforma y sus datos de aprendizaje anonimizados para estudiar la adquisición y revitalización de lenguas originarias, o la adaptan a otra lengua. **(inferido)**
 
 ## Product Purpose
 
@@ -30,7 +30,7 @@ Es la plataforma **abierta y auditable** (código MIT) para quechua y aymara. **
 - exportar datos de aprendizaje;
 - crecer a nuevas lenguas mediante paquetes de configuración.
 
-Ninguna alternativa conocida (Duolingo, la app del Minedu, Yachay Quechua) reúne esas cuatro cosas. Las tres últimas todavía están en construcción.
+Ninguna alternativa conocida (Duolingo, la app del Minedu, Yachay Quechua) reúne esas cuatro cosas.
 
 ## Operating Context
 
@@ -39,7 +39,7 @@ Ninguna alternativa conocida (Duolingo, la app del Minedu, Yachay Quechua) reún
   - inicio → registro o inicio de sesión (correo, Google o Facebook);
   - panel → unidades → lección (vocabulario y ejercicios);
   - además: diccionario con búsqueda, módulo cultural con favoritos, y perfil con progreso e insignias.
-- **Rutas:** `/`, `/login`, `/register`, `/dashboard`, `/lesson/:lessonId`, `/dictionary`, `/culture`, `/profile`.
+- **Rutas:** `/`, `/login`, `/register`, `/dashboard`, `/lesson/:lessonId`, `/dictionary`, `/culture`, `/profile`, `/aula`, `/docente`, `/practica`, `/cuerpo-numeros`, `/evaluacion`, `/validacion`.
 - **Se evalúa también como artículo científico** (SoftwareX): un revisor clonará el repositorio, lo levantará y comprobará en minutos lo que afirma el título.
 - **Despliegue:** frontend en Vercel, backend en Render (plan gratuito, se duerme tras 15 minutos sin uso), base PostgreSQL en Neon.
 
@@ -52,18 +52,15 @@ Ninguna alternativa conocida (Duolingo, la app del Minedu, Yachay Quechua) reún
   - 285 ejercicios, 69 contenidos culturales y 7 insignias.
 - **Variedades:** quechua Cusco-Collao (la de Puno) y aymara central.
 - **Interfaz en español** (`lang="es"`). Las palabras originarias contienen glotalizadas (`p'`, `t'`, `k'`, `q'`) y aspiradas (`ph`, `kh`…), que cambian el significado: su escritura y su pronunciación no se pueden simplificar.
-- **Audio hoy:** síntesis del navegador en español (`es-PE` / `es-BO`), que pronuncia mal estas lenguas. Solo 7 entradas tienen audio grabado. **Planificado:** audio pregenerado con los modelos MMS de Meta (`quz` y `ayr`), con licencia **CC BY-NC 4.0**, separada de la licencia MIT del código.
-- **Planificado (aún no existe):**
-  - exportación de eventos de aprendizaje con consentimiento;
-  - paquetes de idioma y una tercera lengua de demostración;
-  - modo aula con cuentas por código, sin datos personales;
-  - PWA sin conexión;
-  - un corrector de respuestas que acepte variantes dialectales.
+- **Audio:** audio pregenerado con los modelos MMS de Meta (`quz` y `ayr`), con licencia **CC BY-NC 4.0**, separada de la licencia MIT del código. Se genera en línea con el flujo `Audio MMS`, contra Neon y Cloudinary. Las voces grabadas se conservan y se etiquetan como tales. La voz del navegador en español queda solo como respaldo de lo que aún no tiene audio.
+- **Datos, aula, PWA y corrector:** exportación de eventos con consentimiento, modo aula por código, PWA sin conexión y normalizador dialectal.
+- **Validación en línea:** `/validacion` (léxico y resultados) y `/evaluacion` (hablantes, con código).
+- **Paquetes de idioma:** un archivo de configuración y un comando. El awajún es una demostración técnica sin revisión de hablantes y no se publica en la plataforma.
 - **Decisión firme:** no usar un modelo de lenguaje para generar contenido en quechua o aymara, porque inventa morfología y mezcla variedades.
 - **Pendiente de confirmar:**
   - la licencia del diccionario fuente del Ministerio de Educación de Chile;
   - si se suma un colaborador aymarahablante;
-  - qué tercera lengua se usará como demostración.
+  - si un hablante de awajún revisa la demostración.
 
 ## Brand Commitments
 
@@ -74,7 +71,7 @@ Ninguna alternativa conocida (Duolingo, la app del Minedu, Yachay Quechua) reún
 
 ## Evidence on Hand
 
-- **Hay:** el contenido real de la base, el logo y los 7 audios grabados en Cloudinary.
+- **Hay:** el contenido real de la base, el logo y los audios grabados en Cloudinary (7 filas, 5 palabras distintas).
 - **No hay, y no se debe inventar:**
   - testimonios de usuarios (los que había eran ficticios y se quitaron);
   - calificaciones;
