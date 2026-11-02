@@ -216,3 +216,11 @@ test('revisión del léxico: registra el valor original y una corrección conser
   await pool.query('UPDATE vocabulario SET palabra_objetivo = $1 WHERE id = $2', [word.palabra_objetivo, word.id]);
   await pool.query('DELETE FROM revision_lexico WHERE vocabulario_id = $1', [word.id]);
 });
+
+test('cultura: todas las rutas de consulta responden', { skip }, async () => {
+  const { rows: [item] } = await pool.query("SELECT id FROM contenido_cultural WHERE idioma = 'quechua' LIMIT 1");
+  for (const path of ['?idioma=quechua', '/random?idioma=quechua', '/random?idioma=quechua&tipo=proverbio', '/search?query=pacha&idioma=quechua', `/${item.id}`, '/info/types?idioma=quechua', '/info/stats?idioma=quechua', '/info/popular?idioma=quechua']) {
+    await request(app).get(`/api/culture${path}`).expect(200);
+  }
+  await request(app).get('/api/culture?idioma=klingon').expect(400);
+});

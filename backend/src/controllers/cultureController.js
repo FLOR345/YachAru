@@ -287,15 +287,7 @@ export const getContentTypes = async (req, res, next) => {
       `SELECT 
         tipo,
         COUNT(*) as count,
-        json_agg(
-          json_build_object(
-            'id', id,
-            'titulo', titulo,
-            'vistas', vistas
-          )
-          ORDER BY vistas DESC
-          LIMIT 3
-        ) as mas_populares
+        to_json((array_agg(json_build_object('id', id, 'titulo', titulo, 'vistas', vistas) ORDER BY vistas DESC))[1:3]) as mas_populares
       FROM contenido_cultural
       WHERE idioma = $1
       GROUP BY tipo
