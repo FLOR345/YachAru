@@ -18,7 +18,7 @@ Base de la sección *Limitations and ethics* del artículo.
 
 - El audio MMS es sintético, no de hablantes nativos, y la interfaz lo dice.
 - Se usa `quz` porque no existe un modelo específico de Puno.
-- Que el modelo reciba el apóstrofo no prueba que pronuncie bien las glotalizadas. Eso lo mide la evaluación con hablantes, y los fonemas donde falle se reportan.
+- Que el modelo reciba el apóstrofo no prueba que pronuncie bien las glotalizadas.
 - Si nadie del equipo habla aymara, para esa lengua el equipo es externo. Debe resolverse con un colaborador o declararse.
 - El awajún es una demostración técnica sin revisión de hablantes y no se publica en la plataforma.
 
@@ -27,8 +27,6 @@ Base de la sección *Limitations and ethics* del artículo.
 - Los eventos de aprendizaje se registran solo con consentimiento, y la persona puede descargarlos y borrarlos.
 - La exportación va seudonimizada: nunca lleva nombre, correo ni id interno.
 - El modo aula funciona sin correo ni datos personales.
-- Quien evalúa el audio entra con un código, y no se guarda su voz ni su nombre.
-- Quien construyó el sistema no puede ser evaluador, por conflicto de interés.
 
 ## Declaración de uso de herramientas de IA (borrador)
 

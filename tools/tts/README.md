@@ -9,7 +9,7 @@ Genera la pronunciación con modelos de síntesis de voz **entrenados en la leng
 
 Otra lengua usa el modelo que declare su paquete en `voz.modelo`.
 
-**Comprobado en los vocabularios publicados de los modelos:** `quz` y `ayr` incluyen el apóstrofo, y `ayr` también `ä ï ü`. Las glotalizadas y las vocales largas llegan al modelo como símbolos propios y no se descartan. Esto no prueba que suenen bien: eso lo mide la evaluación con hablantes.
+**Comprobado en los vocabularios publicados de los modelos:** `quz` y `ayr` incluyen el apóstrofo, y `ayr` también `ä ï ü`. Las glotalizadas y las vocales largas llegan al modelo como símbolos propios y no se descartan. Esto no prueba que suenen bien.
 
 **Licencia del audio:** CC BY-NC 4.0, la de los modelos MMS (el código de SimiAru es MIT). Ver `LICENSE-AUDIO.md`.
 

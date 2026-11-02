@@ -64,7 +64,6 @@ npm run import-language -- ../languages/awajun --dry-run      # a third language
 Everything is collected online and computed from the database. No result is written by hand.
 
 - **Lexicon review by speakers:** `/validacion` (administrators) records each decision with its original value.
-- **Perceptual evaluation:** independent speakers open `/evaluacion` with a code, with no account or personal data, and rate about 50 stratified words from 1 to 5. Results include the mean, Krippendorff's alpha (ordinal) and a breakdown by phonological phenomenon, and warn when there are fewer than 8 raters.
 
 See [`docs/softwarex.md`](docs/softwarex.md) for the submission status and [`docs/etica-e-ia.md`](docs/etica-e-ia.md) for the AI decisions.
 

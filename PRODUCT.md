@@ -54,7 +54,7 @@ Ninguna alternativa conocida (Duolingo, la app del Minedu, Yachay Quechua) reún
 - **Interfaz en español** (`lang="es"`). Las palabras originarias contienen glotalizadas (`p'`, `t'`, `k'`, `q'`) y aspiradas (`ph`, `kh`…), que cambian el significado: su escritura y su pronunciación no se pueden simplificar.
 - **Audio:** audio pregenerado con los modelos MMS de Meta (`quz` y `ayr`), con licencia **CC BY-NC 4.0**, separada de la licencia MIT del código. Se genera en línea con el flujo `Audio MMS`, contra Neon y Cloudinary. Las voces grabadas se conservan y se etiquetan como tales. La voz del navegador en español queda solo como respaldo de lo que aún no tiene audio.
 - **Datos, aula, PWA y corrector:** exportación de eventos con consentimiento, modo aula por código, PWA sin conexión y normalizador dialectal.
-- **Validación en línea:** `/validacion` (léxico y resultados) y `/evaluacion` (hablantes, con código).
+- **Validación en línea:** `/validacion` (revisión del léxico).
 - **Paquetes de idioma:** un archivo de configuración y un comando. El awajún es una demostración técnica sin revisión de hablantes y no se publica en la plataforma.
 - **Decisión firme:** no usar un modelo de lenguaje para generar contenido en quechua o aymara, porque inventa morfología y mezcla variedades.
 - **Pendiente de confirmar:**
@@ -80,7 +80,6 @@ Ninguna alternativa conocida (Duolingo, la app del Minedu, Yachay Quechua) reún
   - alianzas institucionales;
   - resultados de evaluación.
 - **Evidencia futura:**
-  - la validación perceptual del audio con 8 a 10 hablantes nativos;
   - el piloto en el curso universitario;
   - la revisión completa del léxico quechua por un hablante nativo.
 

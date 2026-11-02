@@ -108,5 +108,5 @@ Proyecto desarrollado por [FLOR345](https://github.com/FLOR345) para el curso de
 
 - **Voz:** el flujo en línea [`Audio MMS`](.github/workflows/audio-mms.yml) genera el audio con los modelos de Meta (`quz`, `ayr`) contra Neon y Cloudinary. Las voces grabadas no se reemplazan.
 - **Cobertura en vivo:** https://simiaru.onrender.com/api/validation/cobertura
-- **Validación:** `/validacion` (administradores) para revisar el léxico, y `/evaluacion` para la evaluación perceptual con hablantes.
+- **Validación:** `/validacion` (administradores) para revisar el léxico.
 - **Estado del envío a SoftwareX:** [`docs/softwarex.md`](docs/softwarex.md). **Decisiones sobre IA:** [`docs/etica-e-ia.md`](docs/etica-e-ia.md).

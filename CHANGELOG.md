@@ -8,7 +8,6 @@
 - Tabla `audios`: un audio por texto y lengua, con su fuente (`grabado` o `mms`) y su modelo.
 - Voz MMS también en frases, números, ejemplos y textos culturales, mediante un índice por lengua.
 - Cobertura pública: `GET /api/validation/cobertura`, con la definición de cada cifra.
-- Evaluación perceptual en línea (`/evaluacion`): códigos sin datos personales, muestra estratificada, alfa de Krippendorff y desglose por fenómeno.
 - Revisión del léxico por hablantes en línea (`/validacion`), que conserva el valor original.
 - Paquete de idioma en un solo archivo, con el awajún como demostración técnica.
 - `CITATION.cff`, `.zenodo.json`, `LICENSE-AUDIO.md` y documentación de las decisiones sobre IA.
