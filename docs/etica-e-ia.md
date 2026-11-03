@@ -18,7 +18,7 @@ Base de la sección *Limitations and ethics* del artículo.
 
 - El audio MMS es sintético, no de hablantes nativos, y la interfaz lo dice.
 - Se usa `quz` porque no existe un modelo específico de Puno.
-- Los modelos MMS tienen una sola voz. La segunda voz (mujer u hombre) es una transformación de la primera con el vocoder WORLD, no la voz de otra persona.
+- Los modelos MMS tienen una sola voz. Cuando es de hombre, la voz de mujer de la app es una transformación de ella con el vocoder WORLD, no la voz de otra persona.
 - Que el modelo reciba el apóstrofo no prueba que pronuncie bien las glotalizadas.
 - Si nadie del equipo habla aymara, para esa lengua el equipo es externo. Debe resolverse con un colaborador o declararse.
 - El awajún es una demostración técnica sin revisión de hablantes y no se publica en la plataforma.

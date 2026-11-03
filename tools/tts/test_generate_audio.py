@@ -53,10 +53,8 @@ class Textos(unittest.TestCase):
         self.assertEqual(len(pending), 1)
 
 
-class DosVoces(unittest.TestCase):
-    def test_la_otra_voz(self):
-        self.assertEqual(ga.other_voice("hombre"), "mujer")
-        self.assertEqual(ga.other_voice("mujer"), "hombre")
+class VozDeMujer(unittest.TestCase):
+    def test_reconoce_la_voz_del_modelo(self):
         self.assertEqual(ga.voice_of(110.0), "hombre")
         self.assertEqual(ga.voice_of(220.0), "mujer")
 

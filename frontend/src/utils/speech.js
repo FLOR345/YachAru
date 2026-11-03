@@ -27,30 +27,14 @@ export const audioSource = (url) => {
 
 export const AUDIO_LABELS = { mms: 'Voz sintética MMS', grabado: 'Voz grabada', navegador: 'Voz del navegador' };
 
-// Voz sintética elegida (mujer u hombre). Una grabación de persona suena siempre igual.
-const VOICE_KEY = 'simiaru-voz';
-export const VOICE_EVENT = 'simiaru-voz';
-export const getVoice = () => {
-  try {
-    return localStorage.getItem(VOICE_KEY) === 'hombre' ? 'hombre' : 'mujer';
-  } catch {
-    return 'mujer';
-  }
-};
-export const setVoice = (voice) => {
-  try {
-    localStorage.setItem(VOICE_KEY, voice);
-  } catch {
-    // sin almacenamiento: la elección dura solo esta visita
-  }
-  window.dispatchEvent(new Event(VOICE_EVENT));
-};
+// Voz sintética de la app: mujer. Una grabación de persona va siempre primero.
+const VOICE = 'mujer';
 
 const indexes = new Map();
-export const loadAudioIndex = (idioma, voice = getVoice()) => {
-  const id = `${idioma}:${voice}`;
+export const loadAudioIndex = (idioma) => {
+  const id = idioma;
   if (!indexes.has(id)) {
-    const request = fetch(`${API_URL}/api/validation/audios/${idioma}?voz=${voice}`)
+    const request = fetch(`${API_URL}/api/validation/audios/${idioma}?voz=${VOICE}`)
       .then((res) => (res.ok ? res.json() : Promise.reject(new Error(String(res.status)))))
       .then((data) => data.audios)
       .catch(() => {

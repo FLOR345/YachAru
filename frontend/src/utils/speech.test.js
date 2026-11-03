@@ -32,7 +32,6 @@ describe('speak', () => {
     });
     vi.stubGlobal('window', { speechSynthesis: { cancel() {}, speak: (u) => browser.push(u.text) } });
     vi.stubGlobal('SpeechSynthesisUtterance', class { constructor(text) { this.text = text; } });
-    vi.stubGlobal('localStorage', { getItem: () => null, setItem() {} });
   });
 
   it('una grabación va primero y no consulta el índice', async () => {
@@ -51,7 +50,7 @@ describe('speak', () => {
     expect(browser).toEqual(['Otra frase']);
   });
 
-  it('pide al índice la voz elegida, que reemplaza a la voz MMS de la palabra', async () => {
+  it('pide al índice la voz de mujer, que reemplaza a otra voz MMS de la palabra', async () => {
     const MUJER = MMS.replace('abc', 'abc-mujer');
     const fetchMock = vi.fn().mockResolvedValue({ ok: true, json: async () => ({ audios: { wasi: [MUJER, 'mms'] } }) });
     vi.stubGlobal('fetch', fetchMock);

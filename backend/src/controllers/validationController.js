@@ -141,7 +141,7 @@ export const createSample = async (req, res, next) => {
     const { rows } = await pool.query(
       `SELECT DISTINCT a.id, a.clave FROM audios a
        JOIN vocabulario v ON v.audio_url = a.url
-       WHERE a.idioma = $1 AND a.fuente = 'mms' AND NOT a.transformada`,
+       WHERE a.idioma = $1 AND a.fuente = 'mms'`,
       [idioma]
     );
     const entries = rows.map((r) => ({ ...r, fenomenos: phenomenaOf(r.clave) }));

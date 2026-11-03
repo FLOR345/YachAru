@@ -8,9 +8,9 @@ Generación de audio de SimiAru con modelos MMS de Meta (síntesis de voz neuron
 VELOCIDAD: el modelo habla rápido para quien aprende; se genera más lento (--velocidad, 0.75 por defecto)
 y con un breve silencio antes y después de cada palabra.
 
-DOS VOCES: los modelos MMS tienen una sola voz. La otra (mujer u hombre, según la que traiga el modelo)
-se obtiene transformándola con el vocoder WORLD: se cambia el tono y se desplazan los formantes.
-Se registra como transformada y así se declara.
+VOZ DE MUJER: los modelos MMS tienen una sola voz. Si la del modelo es de hombre, se transforma en voz
+de mujer con el vocoder WORLD (se sube el tono y se desplazan los formantes), se registra como
+transformada y así se declara. Si la del modelo ya es de mujer, se usa tal cual.
 
 El proceso corre en línea (.github/workflows/audio-mms.yml), contra la base de Neon y Cloudinary.
 El audio se pregenera UNA sola vez por texto: costo recurrente cero, sin espera para quien aprende,
@@ -49,12 +49,11 @@ for _stream in (sys.stdout, sys.stderr):
 ROOT = Path(__file__).resolve().parents[2]
 MMS_FOLDER = "simiaru/audio"  # lo que no está aquí es una grabación
 MAX_CHARS = 400  # los textos más largos se sintetizan verso por verso
-VOICES = ("hombre", "mujer")
+VOICE = "mujer"
 PAD_SECONDS = 0.25
-# Tono medio por debajo del cual la voz del modelo se considera de hombre, y cómo se transforma a la otra
+# Tono medio por debajo del cual la voz del modelo se considera de hombre, y cómo se pasa a voz de mujer
 MALE_F0_LIMIT = 165.0
 TO_FEMALE = (1.7, 1.17)  # (factor de tono, factor de formantes)
-TO_MALE = (0.6, 0.86)
 
 
 def clean_text(text):
@@ -74,10 +73,6 @@ def split_lines(text):
     """Un texto largo se pronuncia entero y por versos, como en el módulo cultural."""
     lines = [line.strip() for line in str(text or "").splitlines() if line.strip()]
     return lines if len(lines) > 1 else []
-
-
-def other_voice(voice):
-    return "mujer" if voice == "hombre" else "hombre"
 
 
 def voice_of(median_f0):
@@ -225,8 +220,8 @@ def main():
     # ¿La voz del modelo es de hombre o de mujer? Se mide el tono medio de unas palabras de prueba
     probes = [w for w in (synthesize(t) for t in ("allin p'unchay", "wasi", "jallalla", "kamisaki")) if w is not None]
     model_voice = voice_of(float(np.median([median_f0(w, rate) for w in probes])))
-    ratios = TO_FEMALE if model_voice == "hombre" else TO_MALE
-    print(f"Voz del modelo: {model_voice}; la de {other_voice(model_voice)} se obtiene transformándola")
+    transformed = model_voice != VOICE
+    print(f"Voz del modelo: {model_voice}" + ("; se transforma en voz de mujer" if transformed else "; se usa tal cual"))
 
     stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%d-%H%M")
     out_dir = Path(args.salida) / f"{args.idioma}-{stamp}"
@@ -247,12 +242,8 @@ def main():
         words = fetch_words(cur, args.idioma)
         if args.subir:
             sync_recordings(cur, args.idioma, words)
-            # Un texto está completo si tiene grabación o sus dos voces MMS
-            cur.execute(
-                """SELECT clave FROM audios WHERE idioma = %s
-                   GROUP BY clave HAVING BOOL_OR(voz = 'unica') OR COUNT(DISTINCT voz) FILTER (WHERE voz <> 'unica') = 2""",
-                (args.idioma,),
-            )
+            # Un texto está completo si tiene grabación o voz de mujer
+            cur.execute("SELECT DISTINCT clave FROM audios WHERE idioma = %s AND voz IN ('unica', %s)", (args.idioma, VOICE))
             existing = {row[0] for row in cur.fetchall()}
             texts = [w["texto"] for w in words] + [w["ejemplo"] for w in words if w["ejemplo"]]
             pending = pending_texts(texts + fetch_other_texts(cur, args.idioma, args.textos), existing)
@@ -269,34 +260,32 @@ def main():
                 rows.append({"clave": key, "texto": text, "estado": "sin_simbolos_validos"})
                 continue
             name = hashlib.sha256(f"{model_id}:{key}".encode("utf-8")).hexdigest()[:16]
-            versions = {model_voice: (finish(base), False), other_voice(model_voice): (finish(transform_voice(base, rate, *ratios)), True)}
-            for voice in VOICES:
-                wave, transformed = versions[voice]
-                seconds = round(len(wave) / rate, 2)
-                file = out_dir / f"{name}-{voice}.wav"
-                sf.write(file, wave, rate)
-                row = {"clave": key, "texto": text, "voz": voice, "transformada": transformed, "archivo": file.name, "segundos": seconds, "estado": "generado"}
-                if args.subir:
-                    result = cloudinary.uploader.upload(
-                        str(file), resource_type="video", folder=f"{MMS_FOLDER}/{args.idioma}", public_id=f"{name}-{voice}", overwrite=True, format="mp3"
-                    )
-                    cur.execute(
-                        """INSERT INTO audios (idioma, clave, texto, url, fuente, modelo, segundos, voz, transformada)
-                           VALUES (%s, %s, %s, %s, 'mms', %s, %s, %s, %s) ON CONFLICT (idioma, clave, voz) DO NOTHING""",
-                        (args.idioma, key, text, result["secure_url"], model_id, seconds, voice, transformed),
-                    )
-                    file.unlink()  # el archivo que vale es el de Cloudinary
-                    row.update(estado="subido", url=result["secure_url"])
-                rows.append(row)
+            wave = finish(transform_voice(base, rate, *TO_FEMALE) if transformed else base)
+            seconds = round(len(wave) / rate, 2)
+            file = out_dir / f"{name}-{VOICE}.wav"
+            sf.write(file, wave, rate)
+            row = {"clave": key, "texto": text, "voz": VOICE, "transformada": transformed, "archivo": file.name, "segundos": seconds, "estado": "generado"}
+            if args.subir:
+                result = cloudinary.uploader.upload(
+                    str(file), resource_type="video", folder=f"{MMS_FOLDER}/{args.idioma}", public_id=f"{name}-{VOICE}", overwrite=True, format="mp3"
+                )
+                cur.execute(
+                    """INSERT INTO audios (idioma, clave, texto, url, fuente, modelo, segundos, voz, transformada)
+                       VALUES (%s, %s, %s, %s, 'mms', %s, %s, %s, %s) ON CONFLICT (idioma, clave, voz) DO NOTHING""",
+                    (args.idioma, key, text, result["secure_url"], model_id, seconds, VOICE, transformed),
+                )
+                file.unlink()  # el archivo que vale es el de Cloudinary
+                row.update(estado="subido", url=result["secure_url"])
+            rows.append(row)
             print(f"  [{i}/{len(pending)}] {text[:60]} → {rows[-1]['estado']}")
 
         linked = 0
         if args.subir:
-            # La voz del propio modelo (sin transformar) es la que queda en vocabulario.audio_url
+            # En vocabulario.audio_url queda la grabación si existe; si no, la voz de mujer
             cur.execute(
-                """SELECT DISTINCT ON (clave) clave, url FROM audios WHERE idioma = %s
-                   ORDER BY clave, (voz = 'unica') DESC, transformada""",
-                (args.idioma,),
+                """SELECT DISTINCT ON (clave) clave, url FROM audios
+                   WHERE idioma = %s AND voz IN ('unica', %s) ORDER BY clave, (voz = 'unica') DESC""",
+                (args.idioma, VOICE),
             )
             for url, word_id in words_to_link(words, dict(cur.fetchall())):
                 cur.execute("UPDATE vocabulario SET audio_url = %s WHERE id = %s AND (audio_url IS NULL OR audio_url = '')", (url, word_id))
@@ -309,8 +298,8 @@ def main():
         writer.writerows(rows)
     (out_dir / "LEEME.txt").write_text(
         f"Audio sintético generado con {model_id} (licencia CC-BY-NC-4.0) el {stamp}, a velocidad {args.velocidad}.\n"
-        f"Voz del modelo: {model_voice}. La voz de {other_voice(model_voice)} es una transformación de esa voz (WORLD).\n"
-        "Es una voz sintética, no la de un hablante nativo.\n",
+        f"Voz del modelo: {model_voice}. {'La voz de mujer es una transformación de esa voz (WORLD).' if transformed else 'Se usa tal cual.'}\n"
+        "Es una voz sintética, no la de una hablante nativa.\n",
         encoding="utf-8",
     )
     done = sum(1 for r in rows if r["estado"] in ("generado", "subido"))

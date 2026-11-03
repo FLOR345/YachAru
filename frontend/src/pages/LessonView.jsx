@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { speak, audioSource, keepAudioOffline } from '../utils/speech';
-import VoicePicker from '../components/VoicePicker';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { toast } from '../utils/notify';
 import { AnimatePresence } from 'motion/react';
@@ -552,9 +551,8 @@ const LessonView = ({ user, isGuest }) => {
                 </label>
               </section>
 
-              {voices.has('mms') && <VoicePicker className="w-fit" />}
               <p className="text-sm text-stone-600">
-                {voices.has('mms') && 'Voz sintética entrenada en la lengua (modelo MMS de Meta), no la de un hablante nativo. Una de las dos voces es una transformación de la otra. '}
+                {voices.has('mms') && 'Voz sintética de mujer, generada con el modelo MMS de Meta entrenado en la lengua; no es la de una hablante nativa. '}
                 {voices.has('grabado') && 'Algunas palabras tienen voz grabada. '}
                 {missingAudio > 0 && 'Las que aún no tienen audio usan la voz del navegador, que no distingue glotalizadas ni aspiradas.'}
               </p>
