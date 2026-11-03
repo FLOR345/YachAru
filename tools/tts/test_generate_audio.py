@@ -53,6 +53,27 @@ class Textos(unittest.TestCase):
         self.assertEqual(len(pending), 1)
 
 
+class DosVoces(unittest.TestCase):
+    def test_la_otra_voz(self):
+        self.assertEqual(ga.other_voice("hombre"), "mujer")
+        self.assertEqual(ga.other_voice("mujer"), "hombre")
+        self.assertEqual(ga.voice_of(110.0), "hombre")
+        self.assertEqual(ga.voice_of(220.0), "mujer")
+
+    def test_la_transformacion_cambia_el_tono_y_conserva_la_duracion(self):
+        try:
+            import numpy as np
+            import pyworld  # noqa: F401
+        except ImportError:
+            self.skipTest("necesita numpy y pyworld (se instalan en CI)")
+        rate = 16000
+        t = np.arange(rate) / rate
+        voice = sum(np.sin(2 * np.pi * 120 * k * t) / k for k in range(1, 8)) * 0.3
+        female = ga.transform_voice(voice, rate, *ga.TO_FEMALE)
+        self.assertEqual(len(female), len(voice))
+        self.assertAlmostEqual(ga.median_f0(female, rate) / ga.median_f0(voice, rate), ga.TO_FEMALE[0], delta=0.15)
+
+
 class Modelo(unittest.TestCase):
     def test_cada_lengua_toma_el_modelo_de_su_paquete(self):
         self.assertEqual(ga.resolve_model("quechua"), "facebook/mms-tts-quz")

@@ -28,6 +28,7 @@ import axios from 'axios';
 import { API_URL } from '../config.js';
 import { LANGUAGES, getLanguage, languageStyle } from '../languages';
 import { speak, audioSource, AUDIO_LABELS } from '../utils/speech';
+import VoicePicker from '../components/VoicePicker';
 import { playTap } from '../utils/sounds';
 import Mascot from '../components/Mascot';
 import WordOfDay from '../components/WordOfDay';
@@ -301,6 +302,7 @@ const Dictionary = () => {
               {stats.totalWords || 0} palabras · {categories.length} categorías
             </p>
           </div>
+          <VoicePicker className="hidden md:flex" />
           <div className="flex rounded-full bg-stone-100 p-1" role="group" aria-label="Idioma">
             {LANGUAGES.map((l) => (
               <button

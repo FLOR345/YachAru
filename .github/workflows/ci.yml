@@ -65,7 +65,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: python -m unittest test_generate_audio.py
+      - run: pip install -q numpy pyworld==0.3.6
+      - run: python -m unittest -v test_generate_audio.py
 
   frontend:
     runs-on: ubuntu-latest

@@ -17,10 +17,16 @@ const requireLanguage = async (idioma) => {
 
 // ==================== ÍNDICE DE AUDIOS ====================
 // La app busca aquí la voz de cualquier texto en la lengua (palabras, frases, números, canciones).
+// ?voz=mujer|hombre elige la voz MMS; una grabación de persona va siempre primero.
 export const getAudioIndex = async (req, res, next) => {
   try {
     await requireLanguage(req.params.idioma);
-    const { rows } = await pool.query('SELECT clave, url, fuente FROM audios WHERE idioma = $1', [req.params.idioma]);
+    const voice = req.query.voz === 'hombre' ? 'hombre' : 'mujer';
+    const { rows } = await pool.query(
+      `SELECT DISTINCT ON (clave) clave, url, fuente FROM audios WHERE idioma = $1
+       ORDER BY clave, (voz = 'unica') DESC, (voz = $2) DESC`,
+      [req.params.idioma, voice]
+    );
     res.set('Cache-Control', 'public, max-age=3600');
     res.json({ audios: Object.fromEntries(rows.map((r) => [r.clave, [r.url, r.fuente]])) });
   } catch (error) {
@@ -81,6 +87,13 @@ export const getCoverage = async (req, res, next) => {
       ])
     );
 
+    const voices = await pool.query(
+      "SELECT idioma, voz, transformada, COUNT(*)::int AS n FROM audios WHERE fuente = 'mms' GROUP BY 1, 2, 3"
+    );
+    for (const row of voices.rows) {
+      if (idiomas[row.idioma]) (idiomas[row.idioma].voces_mms ??= {})[row.voz] = { textos: row.n, transformada: row.transformada };
+    }
+
     res.json({
       generado_en: new Date().toISOString(),
       definicion: {
@@ -88,6 +101,7 @@ export const getCoverage = async (req, res, next) => {
         entrada_unica: 'Texto distinto tras normalizarlo: minúsculas, apóstrofos unificados y sin signos.',
         fenomenos: "Sobre entradas únicas. glotalizada: ch' p' t' k' q'. aspirada: chh ph th kh qh. uvular: cualquier q.",
         grabado: 'Audio grabado e insertado por personas, no generado por el proceso MMS.',
+        voces_mms: 'Textos con cada voz. La voz transformada sale de la del modelo con el vocoder WORLD (tono y formantes).',
       },
       idiomas,
     });
@@ -127,7 +141,7 @@ export const createSample = async (req, res, next) => {
     const { rows } = await pool.query(
       `SELECT DISTINCT a.id, a.clave FROM audios a
        JOIN vocabulario v ON v.audio_url = a.url
-       WHERE a.idioma = $1 AND a.fuente = 'mms'`,
+       WHERE a.idioma = $1 AND a.fuente = 'mms' AND NOT a.transformada`,
       [idioma]
     );
     const entries = rows.map((r) => ({ ...r, fenomenos: phenomenaOf(r.clave) }));

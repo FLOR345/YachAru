@@ -17,6 +17,7 @@ services:
       - ./database/migrations/002_datos_aula_eventos.sql:/docker-entrypoint-initdb.d/02_datos_aula_eventos.sql:ro
       - ./database/migrations/003_audio_y_validacion.sql:/docker-entrypoint-initdb.d/03_audio_y_validacion.sql:ro
       - ./database/migrations/004_vistas_cultura.sql:/docker-entrypoint-initdb.d/03b_vistas_cultura.sql:ro
+      - ./database/migrations/005_voces.sql:/docker-entrypoint-initdb.d/03c_voces.sql:ro
       - ./database/seed/contenido.sql:/docker-entrypoint-initdb.d/04_contenido.sql:ro
       - simiaru-db:/var/lib/postgresql/data
     healthcheck:

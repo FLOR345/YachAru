@@ -32,9 +32,10 @@ describe('speak', () => {
     });
     vi.stubGlobal('window', { speechSynthesis: { cancel() {}, speak: (u) => browser.push(u.text) } });
     vi.stubGlobal('SpeechSynthesisUtterance', class { constructor(text) { this.text = text; } });
+    vi.stubGlobal('localStorage', { getItem: () => null, setItem() {} });
   });
 
-  it('la voz de la palabra va primero y no consulta el índice', async () => {
+  it('una grabación va primero y no consulta el índice', async () => {
     const fetchMock = vi.fn();
     vi.stubGlobal('fetch', fetchMock);
     await speak('Allillanchu', { url: GRABADA, idioma: 'quechua' });
@@ -48,5 +49,14 @@ describe('speak', () => {
     expect(played).toEqual([MMS]);
     await speak('Otra frase', { idioma: 'quechua' });
     expect(browser).toEqual(['Otra frase']);
+  });
+
+  it('pide al índice la voz elegida, que reemplaza a la voz MMS de la palabra', async () => {
+    const MUJER = MMS.replace('abc', 'abc-mujer');
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true, json: async () => ({ audios: { wasi: [MUJER, 'mms'] } }) });
+    vi.stubGlobal('fetch', fetchMock);
+    await speak('Wasi', { url: MMS, idioma: 'aymara' });
+    expect(fetchMock.mock.calls[0][0]).toMatch(/audios\/aymara\?voz=mujer$/);
+    expect(played).toEqual([MUJER]);
   });
 });

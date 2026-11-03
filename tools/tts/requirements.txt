@@ -4,3 +4,4 @@ soundfile==0.12.1
 numpy>=1.26
 psycopg[binary]==3.2.3
 cloudinary==1.41.0
+pyworld==0.3.6

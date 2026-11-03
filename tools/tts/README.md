@@ -9,6 +9,10 @@ Genera la pronunciación con modelos de síntesis de voz **entrenados en la leng
 
 Otra lengua usa el modelo que declare su paquete en `voz.modelo`.
 
+**Velocidad.** Para quien aprende, el modelo habla rápido. Se genera al 75 % de su velocidad (`--velocidad 0.75`) y con un cuarto de segundo de silencio antes y después.
+
+**Dos voces: mujer y hombre.** Cada modelo MMS tiene **una sola voz** (`num_speakers: 1`). La otra se obtiene transformándola con el vocoder WORLD (`pyworld`): se cambia el tono (×1,7 o ×0,6) y se desplazan los formantes (×1,17 o ×0,86). El proceso mide el tono medio de la voz del modelo para saber cuál es cuál. La voz transformada queda marcada como tal en la tabla `audios` (`transformada = true`), y la que va en `vocabulario.audio_url` es siempre la del modelo, sin transformar. La app permite elegir la voz, y las grabaciones de personas suenan siempre igual.
+
 **Comprobado en los vocabularios publicados de los modelos:** `quz` y `ayr` incluyen el apóstrofo, y `ayr` también `ä ï ü`. Las glotalizadas y las vocales largas llegan al modelo como símbolos propios y no se descartan. Esto no prueba que suenen bien.
 
 **Licencia del audio:** CC BY-NC 4.0, la de los modelos MMS (el código de SimiAru es MIT). Ver `LICENSE-AUDIO.md`.

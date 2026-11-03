@@ -27,19 +27,39 @@ export const audioSource = (url) => {
 
 export const AUDIO_LABELS = { mms: 'Voz sintética MMS', grabado: 'Voz grabada', navegador: 'Voz del navegador' };
 
+// Voz sintética elegida (mujer u hombre). Una grabación de persona suena siempre igual.
+const VOICE_KEY = 'simiaru-voz';
+export const VOICE_EVENT = 'simiaru-voz';
+export const getVoice = () => {
+  try {
+    return localStorage.getItem(VOICE_KEY) === 'hombre' ? 'hombre' : 'mujer';
+  } catch {
+    return 'mujer';
+  }
+};
+export const setVoice = (voice) => {
+  try {
+    localStorage.setItem(VOICE_KEY, voice);
+  } catch {
+    // sin almacenamiento: la elección dura solo esta visita
+  }
+  window.dispatchEvent(new Event(VOICE_EVENT));
+};
+
 const indexes = new Map();
-export const loadAudioIndex = (idioma) => {
-  if (!indexes.has(idioma)) {
-    const request = fetch(`${API_URL}/api/validation/audios/${idioma}`)
+export const loadAudioIndex = (idioma, voice = getVoice()) => {
+  const id = `${idioma}:${voice}`;
+  if (!indexes.has(id)) {
+    const request = fetch(`${API_URL}/api/validation/audios/${idioma}?voz=${voice}`)
       .then((res) => (res.ok ? res.json() : Promise.reject(new Error(String(res.status)))))
       .then((data) => data.audios)
       .catch(() => {
-        indexes.delete(idioma); // se reintenta en la próxima palabra
+        indexes.delete(id); // se reintenta en la próxima palabra
         return {};
       });
-    indexes.set(idioma, request);
+    indexes.set(id, request);
   }
-  return indexes.get(idioma);
+  return indexes.get(id);
 };
 
 // Safari antiguo no abre ogg; Cloudinary entrega el mismo audio en mp3 cambiando la extensión
@@ -55,7 +75,10 @@ export const speak = async (text, { url, idioma, lang, slow = false } = {}) => {
     utterance.rate = slow ? 0.5 : 0.8;
     window.speechSynthesis.speak(utterance);
   };
-  const source = url || (idioma ? (await loadAudioIndex(idioma))[audioKey(text)]?.[0] : null);
+  // Una grabación va directa; si no, la voz elegida del índice, y si no está, el audio de la palabra
+  const recorded = audioSource(url) === 'grabado';
+  const indexed = !recorded && idioma ? (await loadAudioIndex(idioma))[audioKey(text)]?.[0] : null;
+  const source = recorded ? url : indexed || url;
   if (!source) return browserVoice();
   const audio = new Audio();
   audio.src = playableUrl(source, audio);

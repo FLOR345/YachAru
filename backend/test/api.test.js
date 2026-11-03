@@ -154,6 +154,20 @@ test('audio: las grabaciones quedan registradas como tales y la cobertura las cu
   );
   const index = await request(app).get('/api/validation/audios/quechua').expect(200);
   assert.deepEqual(index.body.audios.allillanchu, [before.rows[0].audio_url, 'grabado']);
+
+  // Con dos voces MMS del mismo texto, cada quien recibe la que eligió; la grabación gana siempre
+  await pool.query(
+    `INSERT INTO audios (idioma, clave, texto, url, fuente, voz, transformada) VALUES
+     ('quechua', 'allillanchu', 'Allillanchu', 'https://ejemplo.test/simiaru/audio/quechua/a-hombre.mp3', 'mms', 'hombre', false),
+     ('quechua', 'prueba-voces', 'x', 'https://ejemplo.test/simiaru/audio/quechua/b-hombre.mp3', 'mms', 'hombre', false),
+     ('quechua', 'prueba-voces', 'x', 'https://ejemplo.test/simiaru/audio/quechua/b-mujer.mp3', 'mms', 'mujer', true)`
+  );
+  const man = await request(app).get('/api/validation/audios/quechua?voz=hombre').expect(200);
+  const woman = await request(app).get('/api/validation/audios/quechua?voz=mujer').expect(200);
+  assert.match(man.body.audios['prueba-voces'][0], /b-hombre/);
+  assert.match(woman.body.audios['prueba-voces'][0], /b-mujer/);
+  assert.equal(man.body.audios.allillanchu[1], 'grabado');
+  await pool.query("DELETE FROM audios WHERE url LIKE 'https://ejemplo.test/%'");
   await request(app).get('/api/validation/audios/klingon').expect(400);
 
   const coverage = await request(app).get('/api/validation/cobertura').expect(200);
