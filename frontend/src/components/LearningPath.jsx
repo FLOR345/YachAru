@@ -16,11 +16,14 @@ import { useReducedMotion } from 'motion/react';
 import { API_URL } from '../config.js';
 import Mascot, { LlamaImage } from './Mascot';
 import { languageStyle } from '../languages';
-import { GiCondorEmblem, GiFamilyHouse, GiAbacus, GiKnifeFork, GiVitruvianMan, GiClothes, GiHouse, GiPlantsAndAnimals, GiMusicalNotes, GiEarthAmerica, GiCalendar, GiRunningShoe, GiPencilRuler, GiSparkles } from 'react-icons/gi';
+import { GiFamilyHouse, GiAbacus, GiKnifeFork, GiVitruvianMan, GiClothes, GiHouse, GiPlantsAndAnimals, GiMusicalNotes, GiEarthAmerica, GiCalendar, GiRunningShoe, GiPencilRuler, GiSparkles } from 'react-icons/gi';
 import { PiHandWaving, PiIdentificationCard, PiPalette, PiPawPrint, PiChatsCircle, PiQuestion } from 'react-icons/pi';
 import { LessonView, Practice, preloadOn } from '../routes';
 import { playTap, playWrong } from '../utils/sounds';
 import ISLANDS from '../assets/ruta/islas.json';
+import PathSky, { Hummingbird } from './PathSky';
+import StarBorder from './reactbits/StarBorder';
+import ShinyText from './reactbits/ShinyText';
 
 const ISLAND_IMAGES = import.meta.glob('../assets/ruta/isla-*.webp', { eager: true, import: 'default' });
 const islandSrc = (key) => ISLAND_IMAGES[`../assets/ruta/${key}.webp`];
@@ -304,36 +307,6 @@ const LessonNode = ({ lesson, state, styleSet, isFirstAvailable, reduceMotion, i
 };
 
 // ==================== Efectos del paisaje ====================
-// Mariposas, destellos, nubes y un cóndor que cruza: puro adorno, sin interacción
-const Butterfly = ({ style, delay, color }) => (
-  <span className="mariposa pointer-events-none absolute z-20" style={{ ...style, animationDelay: `${delay}s` }} aria-hidden="true">
-    <svg viewBox="0 0 24 20" className="h-5 w-6">
-      <g className="mariposa-alas" style={{ transformOrigin: '12px 10px' }}>
-        <path d="M12 10 C7 0 0 2 2 9 C3 13 8 13 12 10Z" fill={color} />
-        <path d="M12 10 C17 0 24 2 22 9 C21 13 16 13 12 10Z" fill={color} />
-        <path d="M12 10 C8 14 4 19 8 19 C11 19 12 14 12 10Z" fill={color} opacity="0.8" />
-        <path d="M12 10 C16 14 20 19 16 19 C13 19 12 14 12 10Z" fill={color} opacity="0.8" />
-      </g>
-      <rect x="11.3" y="6" width="1.4" height="9" rx="0.7" fill="#44403c" />
-    </svg>
-  </span>
-);
-
-const Clouds = () => (
-  <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-    {[0, 1, 2].map((i) => (
-      <span key={i} className="nube absolute" style={{ top: `${12 + i * 31}%`, animationDuration: `${38 + i * 14}s`, animationDelay: `${-i * 13}s` }}>
-        <svg viewBox="0 0 120 50" className="w-28 sm:w-36 drop-shadow-sm">
-          <path d="M20 42 Q2 42 6 30 Q8 20 22 22 Q26 6 46 10 Q58 0 72 10 Q92 6 96 22 Q116 22 114 34 Q112 44 96 42Z" fill="white" opacity="0.92" />
-        </svg>
-      </span>
-    ))}
-    <span className="condor absolute" style={{ top: '22%' }}>
-      <GiCondorEmblem className="h-10 w-10 text-stone-700/70" />
-    </span>
-  </div>
-);
-
 // Una isla: la ilustración, y encima los pasos sobre sus piedras (y el trofeo si es la última)
 const Island = ({ island, children, flip, index, reduceMotion }) => {
   const meta = ISLANDS[island];
@@ -374,7 +347,7 @@ const UnitIslands = ({ unit, items, unitIndex, lockedUnit, styleSet, stateOf, fi
   let offset = 0;
   return (
     <div className="relative pt-14 sm:pt-16">
-      <Clouds />
+      <PathSky butterflies={Math.min(10, 4 + plan.length * 3)} />
       {plan.map((part, n) => {
         const meta = ISLANDS[part.key];
         const slice = items.slice(offset, offset + part.take);
@@ -418,37 +391,42 @@ const UnitIslands = ({ unit, items, unitIndex, lockedUnit, styleSet, stateOf, fi
                     <Sparkle className="h-5 w-5 fill-amber-200 text-amber-300" />
                   </span>
                 ))}
-              {/* Trofeo: brilla y salta si la unidad está completa; si no, espera con candado */}
+              {/* Trofeo: rayos y destellos si la unidad está completa; el letrero va debajo del trofeo */}
               {part.final ? (
-                <div className="absolute z-20 -translate-x-1/2 -translate-y-1/2" style={at(meta.trofeo, part.flip)}>
-                  <m.div
-                    className="relative flex flex-col items-center"
-                    animate={complete && !reduceMotion ? { y: [0, -8, 0] } : undefined}
-                    transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
-                  >
-                    {complete && <span className="rayos-trofeo absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2" aria-hidden="true" />}
-                    {meta.trofeo.pedestal ? (
-                      <span className={`relative flex h-20 w-20 items-center justify-center rounded-[1.6rem] ${complete ? 'bg-gradient-to-br from-amber-300 to-orange-500 text-white shadow-[0_6px_0_#c2410c]' : 'bg-white/90 text-amber-400 ring-4 ring-dashed ring-amber-300'}`}>
-                        {complete ? <span className="block w-16 aspect-square"><LlamaImage pose="logro" sticker sizes="4rem" /></span> : <Trophy className="h-10 w-10" />}
-                      </span>
-                    ) : (
-                      !complete && (
-                        <span className="relative flex h-16 w-16 items-center justify-center rounded-full bg-white/55 backdrop-blur-[2px] ring-2 ring-white">
-                          <Lock className="h-6 w-6 text-stone-600" aria-hidden="true" />
-                        </span>
-                      )
-                    )}
-                    <span className={`relative mt-1 rounded-full px-3 py-0.5 text-xs font-black uppercase tracking-wider shadow ${complete ? 'bg-amber-400 text-amber-950' : 'bg-white/90 text-stone-500'}`}>
-                      {complete ? '¡Unidad lista!' : 'Trofeo'}
+                <>
+                  {complete && (
+                    <span className="absolute z-0 -translate-x-1/2 -translate-y-1/2" style={at(meta.trofeo, part.flip)} aria-hidden="true">
+                      <span className="rayos-trofeo absolute left-1/2 top-1/2 h-48 w-48 -translate-x-1/2 -translate-y-1/2" />
                     </span>
-                  </m.div>
+                  )}
+                  {meta.trofeo.pedestal && (
+                    <m.span
+                      className={`absolute z-20 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[1.6rem] ${complete ? 'bg-gradient-to-br from-amber-300 to-orange-500 text-white shadow-[0_6px_0_#c2410c]' : 'bg-white/85 text-amber-500 ring-4 ring-amber-300 backdrop-blur'}`}
+                      style={at(meta.trofeo, part.flip)}
+                      animate={complete && !reduceMotion ? { y: [0, -8, 0] } : undefined}
+                      transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+                      aria-hidden="true"
+                    >
+                      {complete ? <span className="block w-16 aspect-square"><LlamaImage pose="logro" sticker sizes="4rem" /></span> : <Trophy className="h-10 w-10" />}
+                    </m.span>
+                  )}
+                  <m.span
+                    className={`absolute z-20 inline-flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-full px-3.5 py-1 text-xs font-black uppercase tracking-wider shadow-lg ring-1 backdrop-blur-md ${complete ? 'bg-amber-400/95 text-amber-950 ring-amber-200' : 'bg-white/80 text-stone-600 ring-white'}`}
+                    style={{ left: at(meta.trofeo, part.flip).left, top: `${(meta.trofeo.y + (meta.trofeo.pedestal ? 0.055 : 0.1)) * 100}%` }}
+                    initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                  >
+                    {complete ? <Trophy className="h-3.5 w-3.5" aria-hidden="true" /> : <Lock className="h-3.5 w-3.5" aria-hidden="true" />}
+                    {complete ? '¡Unidad lista!' : 'Trofeo'}
+                  </m.span>
                   {complete &&
-                    [0, 1, 2, 3].map((k) => (
-                      <span key={k} className="destello absolute" style={{ left: `${[-30, 70, -10, 90][k]}%`, top: `${[-20, -10, 80, 70][k]}%`, animationDelay: `${-k * 0.4}s` }} aria-hidden="true">
+                    [0, 1, 2, 3, 4, 5].map((k) => (
+                      <span key={k} className="destello absolute z-20" style={{ left: `${(part.flip ? 1 - meta.trofeo.x : meta.trofeo.x) * 100 + [-14, 12, -8, 16, -18, 6][k]}%`, top: `${meta.trofeo.y * 100 + [-8, -6, 2, 4, -2, -10][k]}%`, animationDelay: `${-k * 0.4}s` }} aria-hidden="true">
                         <Sparkle className="h-5 w-5 fill-yellow-200 text-yellow-400" />
                       </span>
                     ))}
-                </div>
+                </>
               ) : (
                 <span className="absolute z-10 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center" style={at(meta.trofeo, part.flip)} aria-hidden="true">
                   <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 shadow-md ring-2 ring-white">
@@ -457,8 +435,6 @@ const UnitIslands = ({ unit, items, unitIndex, lockedUnit, styleSet, stateOf, fi
                   <span className="mt-1 rounded-full bg-white/90 px-2 py-0.5 text-[10px] font-black uppercase tracking-wider text-stone-500 shadow">Sigue</span>
                 </span>
               )}
-              <Butterfly style={{ left: '12%', top: `${30 + n * 7}%` }} delay={-n * 1.7} color="#f472b6" />
-              <Butterfly style={{ right: '10%', top: `${60 - n * 5}%` }} delay={-2.4 - n} color="#facc15" />
             </Island>
           </div>
         );
@@ -489,8 +465,8 @@ const UnitHeader = ({ unit, unitIndex, lockedUnit, styleSet, done, total, here, 
         <path d="M0 120 L0 98 L60 82 L120 100 L190 84 L250 102 L320 86 L400 98 L400 120Z" fill="#000000" opacity="0.22" />
       </svg>
       {!reduceMotion && (
-        <span className="condor-cabecera pointer-events-none absolute top-4" aria-hidden="true">
-          <GiCondorEmblem className="h-8 w-8 text-white/50" />
+        <span className="condor-cabecera pointer-events-none absolute top-3" aria-hidden="true">
+          <Hummingbird className="w-12 drop-shadow" />
         </span>
       )}
       <span className="brillo-liquido" aria-hidden="true" />
@@ -662,21 +638,33 @@ const LearningPath = ({ units, langId, isGuest, isLessonCompleted }) => {
       {/* Botón flotante: lleva a la lección que toca */}
       {firstPending && (
         <div className="pointer-events-none fixed inset-x-0 bottom-4 z-40 flex justify-center sm:justify-end sm:px-8">
-          <Link
+          <StarBorder
+            as={Link}
             to={`/lesson/${firstPending.lesson.id}`}
             onClick={playTap}
             {...preloadOn(LessonView)}
-            className={`pointer-events-auto group inline-flex min-h-14 max-w-[92vw] items-center gap-3 rounded-full bg-gradient-to-r ${styleSet.gradient} pl-2 pr-6 text-white shadow-2xl ring-4 ring-white/70 transition hover:scale-105 active:scale-95`}
+            theme="light"
+            color="#fde68a"
+            borderColor="rgba(255,255,255,0.7)"
+            backgroundColor="transparent"
+            textColor="#ffffff"
+            radius={999}
+            thickness={2}
+            duration={3}
+            glow={0.9}
+            className={`pointer-events-auto group !gap-3 !p-0 max-w-[92vw] bg-gradient-to-r ${styleSet.gradient} shadow-2xl`}
           >
-            <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-stone-900 shadow">
-              <span className="absolute inset-0 animate-ping rounded-full bg-white/60" aria-hidden="true" />
-              <Play className="relative h-5 w-5 translate-x-0.5 fill-current" aria-hidden="true" />
+            <span className="flex min-h-14 items-center gap-3 pl-2 pr-6">
+              <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-stone-900 shadow">
+                <span className="absolute inset-0 animate-ping rounded-full bg-white/60" aria-hidden="true" />
+                <Play className="relative h-5 w-5 translate-x-0.5 fill-current" aria-hidden="true" />
+              </span>
+              <span className="min-w-0 text-left leading-tight">
+                <ShinyText text="Continuar" className="block text-[11px] font-black uppercase tracking-widest" color="rgba(255,255,255,0.75)" shineColor="#ffffff" speed={2.5} />
+                <span className="block truncate font-black">{firstPending.lesson.titulo}</span>
+              </span>
             </span>
-            <span className="min-w-0 text-left leading-tight">
-              <span className="block text-[11px] font-black uppercase tracking-widest text-white/80">Continuar</span>
-              <span className="block truncate font-black">{firstPending.lesson.titulo}</span>
-            </span>
-          </Link>
+          </StarBorder>
         </div>
       )}
 
