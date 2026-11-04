@@ -899,3 +899,33 @@ dialog.modal {
   border: 1px solid rgb(255 255 255 / 0.75);
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.95), 0 30px 60px -20px rgb(15 23 42 / 0.45);
 }
+
+/* ==================== Efectos propios (components/fx) ==================== */
+@keyframes fx-desliza { from { background-position: 0% 50%; } to { background-position: 300% 50%; } }
+.fx-gradiente { animation: fx-desliza linear infinite; }
+@keyframes fx-brillo { from { background-position: 150% 0; } to { background-position: -100% 0; } }
+.fx-brillo { animation: fx-brillo linear infinite; }
+/* Reflejo que cruza la tarjeta al pasar el mouse */
+.fx-reflejo-luz {
+  background: linear-gradient(115deg, transparent 0%, transparent calc(50% - var(--fx-reflejo-ancho) / 2), rgb(255 255 255 / var(--fx-reflejo-opacidad)) 50%, transparent calc(50% + var(--fx-reflejo-ancho) / 2), transparent 100%);
+  background-size: 250% 100%;
+  background-position: 120% 0;
+  transition: background-position 0.7s ease;
+}
+.fx-reflejo:hover .fx-reflejo-luz { background-position: -40% 0; }
+/* Foco que sigue al mouse */
+.fx-foco-luz { opacity: 0; transition: opacity 0.3s; background: radial-gradient(420px circle at var(--fx-x, 50%) var(--fx-y, 50%), var(--fx-foco-color), transparent 60%); }
+.fx-foco:hover .fx-foco-luz { opacity: var(--fx-foco-intensidad, 1); }
+/* Luz que recorre el borde */
+@property --fx-angulo { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+@keyframes fx-gira { to { --fx-angulo: 360deg; } }
+.fx-estrella-borde {
+  background: conic-gradient(from var(--fx-angulo), transparent 0deg, transparent 250deg, var(--fx-estrella-color) 330deg, transparent 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: fx-gira var(--fx-estrella-tiempo, 4s) linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fx-gradiente, .fx-brillo, .fx-estrella-borde { animation: none; }
+}

@@ -8,6 +8,7 @@
     "migrate": "node scripts/migrate.js",
     "import-language": "node scripts/import-language.js",
     "db:content": "node scripts/dump-content.js",
+    "cifras": "node scripts/cifras.js",
     "test": "node --test \"test/**/*.test.js\"",
     "dataset:ejemplo": "node scripts/generate-sample-dataset.js"
   },

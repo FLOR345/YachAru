@@ -9,11 +9,11 @@ import { playTap, playMatch, playWrong, playComplete, playCorrect } from '../uti
 import { speak } from '../utils/speech';
 import Mascot, { LlamaImage } from '../components/Mascot';
 import { Burst, FloatText, Confetti, Countdown, Stars, LinkLine } from '../components/GameFx';
-import Counter from '../components/reactbits/Counter';
-import GlareHover from '../components/reactbits/GlareHover';
-import ShinyText from '../components/reactbits/ShinyText';
+import Counter from '../components/fx/Counter';
+import GlareHover from '../components/fx/GlareHover';
+import ShinyText from '../components/fx/ShinyText';
 import Decor from '../components/Decor';
-import SplitText from '../components/reactbits/SplitText';
+import SplitText from '../components/fx/SplitText';
 import { readDifficult, reviewDifficult } from '../utils/difficultWords';
 import { shuffle, readBest, writeBest, bestKey, primaryBtn, secondaryBtn, useMood, GameFrame, ResultScreen, StartScreen } from '../components/games/kit';
 import { GiVitruvianMan, GiAbacus } from 'react-icons/gi';

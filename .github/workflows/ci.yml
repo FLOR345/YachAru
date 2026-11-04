@@ -88,11 +88,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Docker carga todas las migraciones
+        run: |
+          for f in database/migrations/0*.sql; do
+            case "$f" in *001_*) continue;; esac
+            grep -q "$(basename "$f")" docker-compose.yml || { echo "Falta $f en docker-compose.yml"; exit 1; }
+          done
       - name: La plataforma completa arranca con un comando
         run: |
           docker compose up -d --build
           for i in $(seq 1 60); do curl -sf http://localhost:5000/health && break; sleep 3; done
           curl -sf "http://localhost:5000/api/lessons/units?idioma=quechua" | grep -q '"units"'
+          curl -sf http://localhost:5000/api/validation/cobertura | grep -q '"idiomas"'
           curl -sf http://localhost:8080/ | grep -q SimiAru
       - if: always()
         run: docker compose logs --tail 50

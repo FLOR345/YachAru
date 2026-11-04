@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useState, useEffect, Suspense, lazy } from 'react';
 import { LazyMotion, MotionConfig } from 'motion/react';
-// React Bits: chispas verdes en cada clic o toque, en toda la app (sin chispas con "reducir movimiento")
-import ClickSpark from './components/reactbits/ClickSpark';
+// Efecto propio: chispas verdes en cada clic o toque, en toda la app (sin chispas con "reducir movimiento")
+import ClickSpark from './components/fx/ClickSpark';
 
 // Motion: los componentes "m" son livianos; el motor (con layout) llega aparte, sin frenar la primera pantalla
 const loadMotionFeatures = () => import('./ui/motionFeatures').then((mod) => mod.default);

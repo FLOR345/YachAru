@@ -1,39 +1,51 @@
-# Estado del envío a SoftwareX
+# Estado hacia el artículo de software (SoftwareX)
 
-Compara la propuesta del 28/10/2026 con lo que hay en el repositorio. "Hecho" significa que está en el código y lo cubre una prueba o se puede comprobar en línea.
+Compara la propuesta del 28/10/2026 con el repositorio. "Hecho" significa que está en el código y lo cubre una prueba o se puede comprobar en línea. Las cifras salen de `docs/cifras.md` (`npm run cifras` en `backend`).
 
-## Componentes
+## Alcance congelado
+
+Desde el 4/11/2026 no se agregan funciones nuevas: solo correcciones de errores, evidencia y documentación. Cada función nueva es una más que un revisor puede encontrar incompleta.
+
+## Software
 
 | Componente | Estado | Dónde comprobarlo |
 | --- | --- | --- |
-| Audio MMS | Proceso hecho. **Falta correr `Audio MMS` en modo completo** | `tools/tts/`, `/api/validation/cobertura` |
-| Voces grabadas | Conservadas y etiquetadas | `tools/tts/test_generate_audio.py` |
-| Datos de aprendizaje | Hecho | Perfil → Mis datos, `database/samples/` |
-| Paquetes de idioma | Hecho | `docs/paquete-de-idioma.md`, CI |
-| Tercera lengua | Demostración técnica hecha (awajún) | `languages/awajun/` |
-| Modo aula | Hecho | `/aula`, `/docente` |
+| Audio MMS en todo el vocabulario | Hecho (100 % de cobertura) | `/api/validation/cobertura`, `docs/cifras.md` |
+| Grabaciones de personas | Conservadas y etiquetadas | `tools/tts/test_generate_audio.py` |
+| Datos de aprendizaje (consentimiento, exportación) | Hecho | Perfil → Mis datos, `database/samples/` |
+| Paquetes de idioma y tercera lengua | Hecho (awajún, demostración) | `languages/`, CI |
+| Modo aula y pruebas | Hecho | `/docente`, `/aula`, `/mi-aula` |
 | PWA sin conexión | Hecho, incluido el audio | `frontend/public/sw.js` |
 | Normalizador dialectal | Hecho | `frontend/src/utils/normalizer.js` |
-| Código muerto | Hecho | `backend/src/app.js` |
-| Reproducibilidad | Hecho | `docker compose up --build`, CI |
-| Landing honesta | Hecho | `/` |
-| Revisión del léxico en línea | Herramienta hecha. **Falta la revisión** | `/validacion` |
+| Reproducibilidad (Docker de un comando, CI) | Hecho; CI comprueba que Docker carga todas las migraciones | `docker compose up --build`, `.github/workflows/ci.yml` |
+| Guía para revisores | Hecho | `REVIEWERS.md` |
+| Licencias limpias | Hecho: los efectos visuales de terceros (MIT + Commons Clause) se reemplazaron por código propio MIT | `frontend/src/components/fx/` |
+| Cifras reproducibles | Hecho | `backend/scripts/cifras.js` |
+| Herramientas de revisión y evaluación | Hechas | `/validacion`, `/evaluacion` |
 
-## Lo que solo pueden hacer personas
+## Lo que solo puede hacer el equipo
 
-La evidencia del artículo no se puede programar ni inventar.
+Por orden de urgencia:
 
-1. **Revisar el léxico quechua** en `/validacion`. La frase del artículo saldrá de la cobertura: "se corrigieron N entradas".
-2. **Licencia del diccionario aymara** del Ministerio de Educación de Chile. Es el único punto que puede obligar a replantear el proyecto: si no permite redistribuir, hay que cambiar de fuente.
-3. **Curso universitario** con adultos en Puno.
-4. **Revisión ética** de la facultad y **colaborador aymarahablante**.
-5. **Costo de publicación** con Elsevier y **cuartil SJR** en Scimago.
-6. **Revisar los derechos del contenido de terceros**: fotos, portadas y los componentes de React Bits, que usan MIT + Commons Clause y no una licencia de código abierto pura.
-7. **Cuentas de Zenodo y Elsevier.** Para el DOI: enlazar el repositorio en Zenodo y crear la versión `v1.0.0` después de terminar la generación del audio.
+1. **Cambiar las claves de Neon y Cloudinary**, que se compartieron en un chat. Luego actualizarlas en Render y en los secretos de GitHub.
+2. **Licencia del diccionario aymara de Chile.** Correo en `plantillas-correos.md`. Si no permite redistribuir, hay que cambiar de fuente.
+3. **Palabras cortas** ("ama", "uma"…): `Audio MMS` en modo `comparar`, elegir el estilo y luego `rehacer-cortas`. Va antes de la evaluación.
+4. **Revisión del léxico quechua** por el equipo: `guia-revision-lexico.md`.
+5. **Colaborador aymarahablante**, para revisar el aymara (correo en `plantillas-correos.md`), o declararlo como limitación.
+6. **Revisión ética** en la facultad (correo en `plantillas-correos.md`).
+7. **Evaluación del audio** con 8 a 10 hablantes que no hayan construido SimiAru: `protocolo-evaluacion.md`.
+8. **Piloto en el curso** de Puno: `piloto-curso.md`.
+9. **Costo de publicación** (correo a Elsevier) y **cuartil SJR** en Scimago.
+10. **Autores** completos en `CITATION.cff` y `.zenodo.json`. Además: cuenta de Zenodo y versión `v1.0.0` con DOI, al final.
 
-## Antes de crear la versión v1.0.0
+## Decisiones para el texto del artículo (cuando se escriba)
 
-- `Audio MMS` en modo completo terminado, y cobertura revisada.
-- Autores completos en `CITATION.cff` y `.zenodo.json`.
-- README sin afirmaciones que no se puedan comprobar.
-- Fuera de `CHANGELOG.md`, la sección "Sin publicar".
+- El calificador de "¡Dilo tú!" se presenta como **orientativo y experimental**, o se deja fuera. No es reconocimiento de voz (`calificador-de-voz.md`), pero está calibrado solo con voces sintéticas.
+- La voz aymara es una **transformación** de la voz del modelo (WORLD). La evaluación mide la voz que suena en la app.
+- Las unidades nuevas **reordenan vocabulario existente**, sin palabras escritas por un modelo. Sus ejercicios se generan con reglas fijas.
+- **Declarar el uso de herramientas de IA** en el desarrollo: la herramienta, la versión y para qué se usó.
+
+## Antes de la versión v1.0.0
+
+- Todo lo de la lista anterior hecho, y `npm run cifras` sin **PENDIENTE**.
+- En `CHANGELOG.md`, pasar "Sin publicar" a `v1.0.0` con fecha.

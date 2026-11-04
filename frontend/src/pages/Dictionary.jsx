@@ -32,7 +32,7 @@ import { playTap } from '../utils/sounds';
 import Mascot from '../components/Mascot';
 import WordOfDay from '../components/WordOfDay';
 import Decor from '../components/Decor';
-import GradientText from '../components/reactbits/GradientText';
+import GradientText from '../components/fx/GradientText';
 import * as m from 'motion/react-m';
 import { wordIcon, categoryIcon, colorOf, numberOf } from '../ui/wordIcons';
 import { MicButton, SpeakModal } from '../components/SpeakPractice';

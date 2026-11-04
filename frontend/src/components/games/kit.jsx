@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { RotateCcw, Trophy } from 'lucide-react';
 import Mascot from '../Mascot';
 import { Confetti, Stars } from '../GameFx';
-import ShinyText from '../reactbits/ShinyText';
+import ShinyText from '../fx/ShinyText';
 
 export const shuffle = (list) => {
   const copy = [...list];

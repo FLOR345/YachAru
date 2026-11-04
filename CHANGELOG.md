@@ -39,6 +39,10 @@
 
 ### Cambiado
 
+- Los efectos visuales de React Bits (licencia MIT + Commons Clause, que prohíbe redistribuirlos) se reemplazaron por implementaciones propias en `frontend/src/components/fx/`, con la licencia MIT del proyecto.
+- `npm run cifras` (en `backend`) escribe `docs/cifras.md` y `docs/cifras.json` con todas las cifras sobre la base real y su definición. Lo que falta aparece como pendiente.
+- Guías para el equipo: `docs/protocolo-evaluacion.md`, `docs/guia-revision-lexico.md`, `docs/piloto-curso.md` y `docs/plantillas-correos.md`. Además, `REVIEWERS.md` (en inglés) para comprobar el proyecto en cinco minutos.
+
 - Calificador de voz más amable: aprueba con 50 y basta con que la palabra pedida sea la más parecida. Si se reconoce, saca al menos dos estrellas.
 - Colores más vivos: el vidrio líquido deja pasar menos el fondo, y el verde y el azul de las lenguas son más saturados.
 
@@ -46,7 +50,7 @@
 - Vidrio líquido en la ficha de cada libro, en la portada de la biblioteca y en la búsqueda del diccionario.
 
 - Tarjetas de color en vidrio líquido teñido (translúcido, con desenfoque y borde de luz), con un reflejo que se desliza.
-- Camino: nubes en tres capas con profundidad, más mariposas, luciérnagas y destellos (GSAP); el letrero del trofeo va debajo del trofeo; botón Continuar con Star Border (React Bits).
+- Camino: nubes en tres capas con profundidad, más mariposas, luciérnagas y destellos (GSAP); el letrero del trofeo va debajo del trofeo; botón Continuar con una luz que recorre su borde.
 - Cantar con ritmo:
   - charango con cuerdas pulsadas, quena con melodía, bajo, reverberación y compresor;
   - la música baja cuando entra la voz;
@@ -67,6 +71,8 @@
 - La sección aparte "Cuerpo y números" se retira del menú; `/cuerpo-numeros` lleva a sus juegos dentro de Juegos.
 
 ### Corregido
+
+- Docker no cargaba la migración 006 (pruebas del aula). La CI ahora comprueba que `docker-compose.yml` monte todas las migraciones.
 
 - Modo aula:
   - el enlace que comparte el docente trae el código del aula (`/aula?codigo=…`), así que el estudiante solo escribe su alias;
