@@ -4,6 +4,21 @@
 
 ### Agregado
 
+- Más unidades sin inventar vocabulario (`backend/scripts/organize-units.js`):
+  - Aymara pasa de 6 a 16 unidades y quechua de 6 a 9.
+  - Las palabras que estaban en lecciones de otro tema pasan a unidades propias según su categoría en la base: el cuerpo, la casa, la ropa, el tiempo, la naturaleza, acciones, cómo es, cultura y música, números grandes y cantidades.
+  - El quechua suma el cuerpo, con las partes del modelo 3D.
+  - Lecciones de 9 a 12 palabras, cada una con 9 ejercicios generados con sus propias palabras.
+  - El avance de cada persona se conserva.
+- Camino de aprendizaje sobre islas ilustradas:
+  - las lecciones y estaciones van sobre las piedras, con el trofeo al final y varias islas encadenadas si la unidad es larga;
+  - islas que flotan, nubes, cóndor, mariposas y rayos en el trofeo completado;
+  - cabecera de cada unidad con la cordillera en verde oscuro;
+  - el contador cuenta todos los pasos visibles;
+  - botón flotante «Continuar».
+- «Cantar con ritmo» en las canciones:
+  - acompañamiento de huayno sintetizado (bombo, wankara y charango);
+  - cuenta de entrada y karaoke palabra por palabra, a velocidad normal o lenta.
 - Voz con los modelos MMS de Meta, generada en línea con el flujo `Audio MMS` contra Neon y Cloudinary.
 - Tabla `audios`: un audio por texto y lengua, con su fuente (`grabado` o `mms`) y su modelo.
 - Voz de mujer. Los modelos MMS tienen una sola voz; cuando es de hombre, se transforma con el vocoder WORLD y se declara como transformada.

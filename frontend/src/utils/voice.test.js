@@ -131,3 +131,12 @@ describe('arma la palabra', () => {
     expect(tilesOf('Allin p')).toEqual(['a', 'l', 'l', 'i', 'n', 'p']);
   });
 });
+
+describe('cantar con ritmo', () => {
+  it('cada verso dura más pulsos si tiene más sílabas', async () => {
+    const { beatsForLine, syllables } = await import('./rhythm');
+    expect(syllables('Ama suwa, ama llulla')).toBe(8);
+    expect(beatsForLine('Ama suwa')).toBe(4);
+    expect(beatsForLine('Ama suwa, ama llulla, ama qhilla, kawsaypaq')).toBe(8);
+  });
+});
