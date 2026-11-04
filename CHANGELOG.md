@@ -34,6 +34,13 @@
 
 ### Cambiado
 
+- Tarjetas de color en vidrio líquido teñido (translúcido, con desenfoque y borde de luz), con un reflejo que se desliza.
+- Camino: un picaflor ilustrado que vuela y liba (en lugar del cóndor), golondrinas, nubes en tres capas con profundidad, más mariposas, luciérnagas y destellos (GSAP); el letrero del trofeo va debajo del trofeo; botón Continuar con Star Border (React Bits).
+- Cantar con ritmo:
+  - charango con cuerdas pulsadas, quena con melodía, bajo, reverberación y compresor;
+  - la música baja cuando entra la voz;
+  - ecualizador en vivo, botones por instrumento y modo sin voz para cantar.
+
 - Estilo de vidrio líquido en las tarjetas de color, en lugar de las rayas diagonales.
 - Juegos en este orden: tus palabras, hablar, números y cuerpo. Números y cuerpo tienen una tarjeta cada uno.
 - El camino de aprendizaje tiene estaciones: "¡Dilo tú!" a mitad de cada unidad, cuerpo y números junto a sus lecciones, y un juego de repaso antes del trofeo.

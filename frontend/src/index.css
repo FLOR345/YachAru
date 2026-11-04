@@ -835,3 +835,58 @@ dialog.modal {
 @media (prefers-reduced-motion: reduce) {
   .isla-flota, .nube, .condor, .condor-cabecera, .mariposa, .mariposa-alas, .rayos-trofeo { animation: none; }
 }
+
+/* Picaflor, golondrinas y luciérnagas */
+@keyframes pf-alas { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(-0.6); } }
+.pf-alas { animation: pf-alas 0.09s linear infinite; }
+@keyframes golondrina-alas { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.35); } }
+.golondrina-alas { animation: golondrina-alas 0.5s ease-in-out infinite; }
+@keyframes bandada { from { transform: translateX(-20vw); } to { transform: translateX(120vw) translateY(-20px); } }
+.bandada { left: 0; animation: bandada 32s linear infinite; animation-delay: -8s; }
+@keyframes luciernaga {
+  0% { transform: translate(0, 0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(14px, -90px); opacity: 0; }
+}
+.luciernaga { box-shadow: 0 0 10px 3px rgb(253 224 71 / 0.75); animation: luciernaga 7s ease-in infinite; }
+
+/* ==================== Vidrio líquido de color (iPhone) ====================
+   Toda tarjeta con degradado y .brillo-liquido se vuelve vidrio teñido: deja ver el fondo
+   difuminado y saturado, con borde de luz y sombra del mismo color. */
+[class*="bg-gradient-to"]:not(.fixed):has(> .brillo-liquido) {
+  background-image: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--tw-gradient-from) 74%, transparent),
+    color-mix(in srgb, var(--tw-gradient-to) 62%, transparent)
+  ) !important;
+  -webkit-backdrop-filter: blur(26px) saturate(190%);
+  backdrop-filter: blur(26px) saturate(190%);
+  border: 1px solid rgb(255 255 255 / 0.45);
+  box-shadow:
+    inset 0 1px 1px rgb(255 255 255 / 0.85),
+    inset 0 -1px 2px rgb(255 255 255 / 0.25),
+    0 22px 44px -18px color-mix(in srgb, var(--tw-gradient-to) 70%, transparent);
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.18);
+}
+/* Reflejo que se desliza despacio sobre el vidrio */
+.brillo-liquido::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(115deg, transparent 30%, rgb(255 255 255 / 0.28) 45%, transparent 60%);
+  background-size: 250% 100%;
+  animation: reflejo 7s ease-in-out infinite;
+}
+@keyframes reflejo { 0% { background-position: 130% 0; } 55%, 100% { background-position: -60% 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .pf-alas, .golondrina-alas, .bandada, .luciernaga, .brillo-liquido::after { animation: none; }
+}
+
+/* El cielo del camino se desvanece en los bordes: nunca se ve el corte de su caja */
+.cielo-difuminado {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent), linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent), linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
+  mask-composite: intersect;
+}
