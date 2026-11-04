@@ -16,7 +16,7 @@ import { playTap } from '../utils/sounds';
 const DAY = 86400000;
 const formatDate = (value) => (value ? new Date(value).toLocaleDateString('es-PE', { day: 'numeric', month: 'short' }) : '—');
 const daysSince = (value) => (value ? Math.floor((Date.now() - new Date(value).getTime()) / DAY) : Infinity);
-const joinUrl = () => `${window.location.origin}/aula`;
+const joinUrl = (codigo) => `${window.location.origin}/aula${codigo ? `?codigo=${codigo}` : ''}`;
 
 const STEPS = [
   { Icon: Plus, title: 'Crea un aula', text: 'Ponle un nombre y elige la lengua.' },
@@ -119,10 +119,10 @@ const ClassroomCard = ({ aula, startOpen }) => {
     }
   };
   const share = async () => {
-    const text = `Únete a mi aula "${aula.nombre}" en SimiAru: entra en ${joinUrl()} y escribe el código ${aula.codigo}.`;
+    const text = `Únete a mi aula "${aula.nombre}" en SimiAru: abre ${joinUrl(aula.codigo)} y escribe tu alias (el código del aula es ${aula.codigo}).`;
     if (navigator.share) {
       try {
-        await navigator.share({ title: 'SimiAru · Modo aula', text, url: joinUrl() });
+        await navigator.share({ title: 'SimiAru · Modo aula', text });
       } catch {
         // la persona cerró el menú de compartir
       }

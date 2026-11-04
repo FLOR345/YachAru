@@ -1,12 +1,13 @@
 // Modo aula para estudiantes: entrar con el código del aula y un alias, sin correo ni datos personales.
 // Al entrar se muestra un código personal para volver a entrar desde otro dispositivo.
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import * as m from 'motion/react-m';
 import { KeyRound, Users, User, Copy, Check, ArrowRight } from 'lucide-react';
 import { toast } from '../utils/notify';
 import { AuthLayout, ErrorMessage, Field, SubmitButton } from '../components/auth/AuthLayout';
 import { api } from '../services/api';
+import { STUDENT_CODE_KEY } from './StudentClassroom';
 
 const TABS = [
   ['unirme', 'Unirme a un aula'],
@@ -25,8 +26,11 @@ const storeSession = (data) => {
 
 const Classroom = ({ setUser, setIsGuest }) => {
   const navigate = useNavigate();
+  const [params] = useSearchParams();
+  // El enlace que comparte el docente trae el código: /aula?codigo=ABC123
+  const invited = String(params.get('codigo') || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 12);
   const [tab, setTab] = useState('unirme');
-  const [codigo, setCodigo] = useState('');
+  const [codigo, setCodigo] = useState(invited);
   const [alias, setAlias] = useState('');
   const [codigoEstudiante, setCodigoEstudiante] = useState('');
   const [error, setError] = useState('');
@@ -38,7 +42,8 @@ const Classroom = ({ setUser, setIsGuest }) => {
     storeSession(data);
     setIsGuest?.(false);
     setUser?.(data.user);
-    navigate('/dashboard');
+    // El estudiante entra a su aula, no al panel general
+    navigate('/mi-aula');
   };
 
   const join = async (e) => {
@@ -48,6 +53,11 @@ const Classroom = ({ setUser, setIsGuest }) => {
     try {
       const { data } = await api.joinClassroom({ codigo: codigo.trim(), alias: alias.trim() });
       setJoined({ codigoEstudiante: data.codigoEstudiante, aula: data.aula, data });
+      try {
+        localStorage.setItem(STUDENT_CODE_KEY, data.codigoEstudiante);
+      } catch {
+        // sin almacenamiento: el código se muestra en pantalla para anotarlo
+      }
     } catch (err) {
       setError(err.response?.data?.message || 'No pudimos unirte al aula. Revisa el código e inténtalo de nuevo.');
     } finally {
@@ -137,6 +147,11 @@ const Classroom = ({ setUser, setIsGuest }) => {
         ))}
       </div>
 
+      {invited && tab === 'unirme' && (
+        <p className="mb-5 rounded-2xl bg-green-50 px-4 py-3 text-sm font-bold text-green-900 ring-1 ring-green-200">
+          Te invitaron a un aula: el código ya está puesto. Solo escribe tu alias.
+        </p>
+      )}
       <ErrorMessage>{error}</ErrorMessage>
 
       {tab === 'unirme' ? (
@@ -155,6 +170,7 @@ const Classroom = ({ setUser, setIsGuest }) => {
           />
           <Field
             id="alias"
+            autoFocus={!!invited}
             label="Tu alias"
             icon={User}
             hint="Un nombre corto con el que tu docente te reconozca. No uses tu nombre completo si no quieres."

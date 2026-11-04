@@ -60,6 +60,10 @@
 
 ### Corregido
 
+- Modo aula:
+  - el enlace que comparte el docente trae el código del aula (`/aula?codigo=…`), así que el estudiante solo escribe su alias;
+  - al unirse entra a «Mi aula» (`/mi-aula`, `GET /api/classroom/student/me`) y no al panel general. Ahí ve su aula y su docente, su puesto, el avance de la clase, un podio por alias y su código personal.
+
 - Ya no aparece un destello morado al cambiar de pantalla (el fondo base era morado).
 - Los adornos de fondo cubren toda la ventana: ya no se ven cortes a los costados ni una pantalla partida en el celular.
 
