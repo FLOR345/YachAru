@@ -14,7 +14,7 @@ export const COLOR_STYLES = {
     border: 'border-green-700',
     header: 'bg-green-800',
     headerSoft: 'text-green-100',
-    gradient: 'from-green-600 to-green-800',
+    gradient: 'from-emerald-500 to-green-700',
     hex: '#15803d',
   },
   azul: {
@@ -26,7 +26,7 @@ export const COLOR_STYLES = {
     border: 'border-blue-800',
     header: 'bg-blue-900',
     headerSoft: 'text-blue-100',
-    gradient: 'from-blue-600 to-blue-800',
+    gradient: 'from-sky-500 to-blue-700',
     hex: '#1e40af',
   },
   terracota: {

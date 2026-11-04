@@ -14,7 +14,7 @@ const F_MAX = 5500;
 const VOICE = 0.1; // fracción del máximo de energía que cuenta como voz
 
 // Nota mínima para aprobar (0-100)
-export const PASS = 60;
+export const PASS = 50;
 
 const nextPow2 = (n) => 2 ** Math.ceil(Math.log2(n));
 const mel = (f) => 2595 * Math.log10(1 + f / 700);
@@ -226,11 +226,11 @@ const linear = (x, bad, good) => clamp01((x - bad) / (good - bad));
 
 // Umbrales calibrados con audios reales de la app (ver docs/calificador-de-voz.md).
 // Distancia absoluta: misma palabra con otra voz ≈ 0,2; palabras distintas ≈ 0,55.
-const ABS_GOOD = 0.3;
-const ABS_BAD = 0.55;
-const ABS_PASS = 0.45;
+const ABS_GOOD = 0.35;
+const ABS_BAD = 0.62;
+const ABS_PASS = 0.5;
 // Con palabras de comparación: la pedida debe quedar más cerca que todas, por este margen relativo.
-export const MARGIN = 0.04;
+export const MARGIN = 0;
 
 // Distancia de sonidos entre el modelo y la grabación (se prueba cada factor de tracto vocal)
 export const soundDistance = (model, user) => {
@@ -271,7 +271,7 @@ export const grade = (model, user, cohort = []) => {
   if (others.length >= 2) {
     const nearest = others.reduce((x, y) => (y.d < x.d ? y : x));
     margin = (nearest.d - soundDist) / nearest.d;
-    sounds = linear(margin, -0.08, 0.15);
+    sounds = linear(margin, -0.12, 0.06);
     soundsPass = margin >= MARGIN;
     if (margin < 0) confusedWith = nearest.text;
   } else {
@@ -280,10 +280,10 @@ export const grade = (model, user, cohort = []) => {
   }
   // 2. Ritmo: forma de la energía en el tiempo
   const rhythmDist = dtw(resample(mEnv, 40), resample(uEnv, 40), (x, y) => Math.abs(x - y));
-  const rhythm = linear(rhythmDist, 0.3, 0.06);
+  const rhythm = linear(rhythmDist, 0.36, 0.09);
   // 3. Duración
   const ratio = uEnv.length / mEnv.length;
-  const duration = linear(Math.min(ratio, 1 / ratio), 0.4, 0.8);
+  const duration = linear(Math.min(ratio, 1 / ratio), 0.3, 0.7);
   // 4. Sílabas (aproximadas por los picos de energía)
   const ms = countSyllables(mEnv);
   const us = countSyllables(uEnv);
@@ -296,8 +296,10 @@ export const grade = (model, user, cohort = []) => {
     { id: 'silabas', label: 'Sílabas', score: Math.round(syllables * 100) },
   ];
   let score = Math.round(100 * (0.55 * sounds + 0.15 * rhythm + 0.15 * duration + 0.15 * syllables));
-  // Si los sonidos no alcanzan, la nota no puede aprobar aunque el ritmo sea bueno
+  // Si los sonidos no alcanzan, la nota no puede aprobar aunque el ritmo sea bueno;
+  // si la palabra se reconoce (queda más cerca que las demás), aprueba aunque el ritmo sea distinto
   if (!soundsPass) score = Math.min(score, PASS - 1);
+  else score = Math.max(score, PASS + 10);
   const passed = soundsPass && score >= PASS;
 
   // Consejo: el volumen primero; luego la confusión y el criterio más bajo
@@ -315,4 +317,4 @@ export const grade = (model, user, cohort = []) => {
   return { score, passed, criteria, tip, confusedWith, syllables: { model: ms, user: us }, raw: { soundDist, margin, rhythmDist, ratio } };
 };
 
-export const stars = (score) => (score == null ? 0 : score >= 85 ? 3 : score >= PASS ? 2 : score >= 40 ? 1 : 0);
+export const stars = (score) => (score == null ? 0 : score >= 78 ? 3 : score >= PASS ? 2 : score >= 30 ? 1 : 0);

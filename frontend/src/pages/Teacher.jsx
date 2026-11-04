@@ -12,6 +12,7 @@ import { LANGUAGES, getLanguage, languageStyle } from '../languages';
 import { LlamaImage } from '../components/Mascot';
 import Decor from '../components/Decor';
 import { playTap } from '../utils/sounds';
+import ClassroomTests from '../components/ClassroomTests';
 
 const DAY = 86400000;
 const formatDate = (value) => (value ? new Date(value).toLocaleDateString('es-PE', { day: 'numeric', month: 'short' }) : '—');
@@ -193,7 +194,7 @@ const ClassroomCard = ({ aula, startOpen }) => {
             aria-expanded={open}
             className="ml-auto inline-flex min-h-11 items-center gap-2 rounded-xl bg-white px-4 font-black text-stone-900 shadow hover:bg-stone-50"
           >
-            <BarChart3 className="h-4 w-4" aria-hidden="true" /> {open ? 'Ocultar avance' : 'Ver avance'}
+            <BarChart3 className="h-4 w-4" aria-hidden="true" /> {open ? 'Ocultar' : 'Avance y pruebas'}
             <ChevronDown className={`h-4 w-4 transition-transform ${open ? 'rotate-180' : ''}`} aria-hidden="true" />
           </button>
         </div>
@@ -203,6 +204,7 @@ const ClassroomCard = ({ aula, startOpen }) => {
         {open && (
           <m.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }} className="overflow-hidden">
             <div className="space-y-5 p-4 sm:p-6">
+              <ClassroomTests aula={aula} />
               {loading && !detail && (
                 <p className="flex items-center gap-2 text-stone-600" role="status">
                   <RefreshCw className="h-4 w-4 animate-spin" aria-hidden="true" /> Cargando el avance…

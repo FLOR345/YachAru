@@ -4,7 +4,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as m from 'motion/react-m';
-import { Play, School, Trophy, Flame, BookOpen, Users, Clock, KeyRound, Copy, Check, RefreshCw, Star, LogOut } from 'lucide-react';
+import { Play, School, Trophy, Flame, BookOpen, Users, Clock, KeyRound, Copy, Check, RefreshCw, Star, LogOut, ClipboardCheck, Layers, Zap, Lock } from 'lucide-react';
 import { api } from '../services/api';
 import { getLanguage, languageStyle } from '../languages';
 import { LlamaImage } from '../components/Mascot';
@@ -36,7 +36,14 @@ const StudentClassroom = ({ user, onLogout }) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [tests, setTests] = useState([]);
   const code = readCode();
+  useEffect(() => {
+    api
+      .getMyTests()
+      .then(({ data: d }) => setTests(d.pruebas || []))
+      .catch(() => setTests([]));
+  }, []);
 
   const load = useCallback(async () => {
     setError(false);
@@ -123,6 +130,52 @@ const StudentClassroom = ({ user, onLogout }) => {
                 </m.span>
               </div>
             </m.section>
+
+            {/* Pruebas que dejó el docente: estudiar primero y luego darla */}
+            {tests.length > 0 && (
+              <>
+                <h2 className="mb-3 mt-8 flex items-center gap-2 text-xl font-black">
+                  <ClipboardCheck className="h-5 w-5" aria-hidden="true" /> Pruebas de tu docente
+                </h2>
+                <ul className="grid gap-3 sm:grid-cols-2">
+                  {tests.map((t, i) => {
+                    const breve = t.tipo === 'breve';
+                    const TypeIcon = breve ? Zap : Layers;
+                    return (
+                      <m.li key={t.id} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }} className={`vidrio rounded-[1.6rem] p-4 ${t.abierta ? '' : 'opacity-70'}`}>
+                        <div className="flex items-start gap-3">
+                          <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br text-white shadow ${breve ? 'from-amber-400 to-orange-600' : 'from-indigo-500 to-blue-700'}`} aria-hidden="true">
+                            <TypeIcon className="h-6 w-6" />
+                          </span>
+                          <div className="min-w-0 flex-1">
+                            <p className="text-xs font-black uppercase tracking-widest text-stone-500">{breve ? 'Sesión breve' : 'Prueba de unidad'}</p>
+                            <p className="truncate text-lg font-black">{t.titulo}</p>
+                            <p className="text-sm text-stone-600">
+                              {t.preguntas} preguntas · {t.sesiones} {t.sesiones === 1 ? 'sesión' : 'sesiones'}
+                              {t.mejor != null && <> · tu mejor nota: <strong>{t.mejor}%</strong></>}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          <Link to={`/mi-aula/prueba/${t.id}?modo=estudiar`} onClick={playTap} className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-white px-4 font-bold ring-1 ring-stone-200 hover:bg-stone-50">
+                            <BookOpen className="h-4 w-4" aria-hidden="true" /> Estudiar primero
+                          </Link>
+                          {t.abierta ? (
+                            <Link to={`/mi-aula/prueba/${t.id}?modo=prueba`} onClick={playTap} className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-gradient-to-r from-green-600 to-emerald-700 px-4 font-black text-white shadow">
+                              <Play className="h-4 w-4 fill-current" aria-hidden="true" /> {t.intentos ? 'Darla otra vez' : 'Dar la prueba'}
+                            </Link>
+                          ) : (
+                            <span className="inline-flex min-h-11 items-center gap-2 px-2 text-sm font-bold text-stone-500">
+                              <Lock className="h-4 w-4" aria-hidden="true" /> Cerrada
+                            </span>
+                          )}
+                        </div>
+                      </m.li>
+                    );
+                  })}
+                </ul>
+              </>
+            )}
 
             {/* Mi avance */}
             <h2 className="mb-3 mt-8 flex items-center gap-2 text-xl font-black">

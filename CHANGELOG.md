@@ -4,6 +4,11 @@
 
 ### Agregado
 
+- Pruebas del modo aula (`database/migrations/006_pruebas.sql`), de dos tipos:
+  - **prueba de unidad**: una unidad completa;
+  - **sesión breve**: sesiones elegidas de una unidad, o una miscelánea de varias.
+
+  El docente las crea, las abre, las cierra y ve la mejor nota de cada alias. El estudiante las ve en «Mi aula», puede **estudiar primero** las palabras que pueden salir (con audio y micrófono) y luego darla. La clave de respuestas se queda en el servidor.
 - Más unidades sin inventar vocabulario (`backend/scripts/organize-units.js`):
   - Aymara pasa de 6 a 16 unidades y quechua de 6 a 9.
   - Las palabras que estaban en lecciones de otro tema pasan a unidades propias según su categoría en la base: el cuerpo, la casa, la ropa, el tiempo, la naturaleza, acciones, cómo es, cultura y música, números grandes y cantidades.
@@ -33,6 +38,9 @@
 - Juegos nuevos: "Lluvia de palabras", "Arma la palabra", "¿Sí o no?" y "¡Dilo tú!". Los juegos del cuerpo y de los números pasan a la página de Juegos, agrupados.
 
 ### Cambiado
+
+- Calificador de voz más amable: aprueba con 50 y basta con que la palabra pedida sea la más parecida. Si se reconoce, saca al menos dos estrellas.
+- Colores más vivos: el vidrio líquido deja pasar menos el fondo, y el verde y el azul de las lenguas son más saturados.
 
 - Los niveles del camino quedan centrados sobre cada piedra y con su tamaño. Sin aves en el camino.
 - Vidrio líquido en la ficha de cada libro, en la portada de la biblioteca y en la búsqueda del diccionario.
