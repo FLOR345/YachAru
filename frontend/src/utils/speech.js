@@ -50,6 +50,13 @@ export const loadAudioIndex = (idioma) => {
 const playableUrl = (url, audio) =>
   /res\.cloudinary\.com.*\.ogg$/.test(url) && !audio.canPlayType('audio/ogg') ? url.replace(/\.ogg$/, '.mp3') : url;
 
+// URL del audio que sonará: una grabación va directa; si no, la voz de mujer del índice, y si no, la de la palabra
+export const resolveAudio = async (text, { url, idioma } = {}) => {
+  const recorded = audioSource(url) === 'grabado';
+  const indexed = !recorded && idioma ? (await loadAudioIndex(idioma))[audioKey(text)]?.[0] : null;
+  return (recorded ? url : indexed || url) || null;
+};
+
 export const speak = async (text, { url, idioma, lang, slow = false } = {}) => {
   const browserVoice = () => {
     if (!('speechSynthesis' in window)) return;
@@ -59,10 +66,7 @@ export const speak = async (text, { url, idioma, lang, slow = false } = {}) => {
     utterance.rate = slow ? 0.5 : 0.8;
     window.speechSynthesis.speak(utterance);
   };
-  // Una grabación va directa; si no, la voz elegida del índice, y si no está, el audio de la palabra
-  const recorded = audioSource(url) === 'grabado';
-  const indexed = !recorded && idioma ? (await loadAudioIndex(idioma))[audioKey(text)]?.[0] : null;
-  const source = recorded ? url : indexed || url;
+  const source = await resolveAudio(text, { url, idioma });
   if (!source) return browserVoice();
   const audio = new Audio();
   audio.src = playableUrl(source, audio);

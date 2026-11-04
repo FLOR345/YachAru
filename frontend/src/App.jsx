@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useState, useEffect, Suspense, lazy } from 'react';
 import { LazyMotion, MotionConfig } from 'motion/react';
 // React Bits: chispas verdes en cada clic o toque, en toda la app (sin chispas con "reducir movimiento")
@@ -12,7 +12,7 @@ const loadMotionFeatures = () => import('./ui/motionFeatures').then((mod) => mod
 // Notificaciones (React-Toastify): se descargan aparte, después de la primera pantalla
 const Notifications = lazy(() => import('./components/Notifications'));
 import Home from './pages/Home';
-import { Login, Register, Dashboard, LessonView, Profile, Dictionary, CultureModule, Classroom, Teacher, Practice, NotFound, BodyNumbers, Evaluation, Validation } from './routes';
+import { Login, Register, Dashboard, LessonView, Profile, Dictionary, CultureModule, Classroom, Teacher, Practice, NotFound, Evaluation, Validation } from './routes';
 import { LlamaImage } from './components/Mascot';
 import { startTelemetry } from './services/telemetry';
 import PageFade from './ui/PageFade';
@@ -49,6 +49,15 @@ const ProtectedRoute = ({ children, auth, guestAllowed = true }) => {
   }
 
   return <Navigate to="/login" />;
+};
+
+// El cuerpo y los números ya no son una sección aparte: sus juegos están en Juegos
+// y las partes del cuerpo aparecen en las lecciones y el diccionario. Los enlaces viejos llevan ahí.
+const OldBodyPage = () => {
+  const params = new URLSearchParams(useLocation().search);
+  const idioma = params.get('idioma') || 'quechua';
+  const juego = params.get('tema') === 'numeros' ? 'numeros-explora' : 'cuerpo-explora';
+  return <Navigate to={`/practica?idioma=${idioma}&juego=${juego}`} replace />;
 };
 
 function App() {
@@ -178,11 +187,7 @@ function App() {
         />
         <Route
           path="/cuerpo-numeros"
-          element={
-            <ProtectedRoute auth={auth}>
-              <BodyNumbers user={user} isGuest={isGuest} />
-            </ProtectedRoute>
-          }
+          element={<OldBodyPage />}
         />
         <Route path="/dictionary" element={<Dictionary />} />
         <Route path="/aula" element={<Classroom setUser={setUser} setIsGuest={setIsGuest} />} />

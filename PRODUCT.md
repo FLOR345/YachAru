@@ -39,7 +39,7 @@ Ninguna alternativa conocida (Duolingo, la app del Minedu, Yachay Quechua) reún
   - inicio → registro o inicio de sesión (correo, Google o Facebook);
   - panel → unidades → lección (vocabulario y ejercicios);
   - además: diccionario con búsqueda, módulo cultural con favoritos, y perfil con progreso e insignias.
-- **Rutas:** `/`, `/login`, `/register`, `/dashboard`, `/lesson/:lessonId`, `/dictionary`, `/culture`, `/profile`, `/aula`, `/docente`, `/practica`, `/cuerpo-numeros`, `/evaluacion`, `/validacion`.
+- **Rutas:** `/`, `/login`, `/register`, `/dashboard`, `/lesson/:lessonId`, `/dictionary`, `/culture`, `/profile`, `/aula`, `/docente`, `/practica` (con `?juego=` para abrir un juego), `/evaluacion`, `/validacion`.
 - **Se evalúa también como artículo científico** (SoftwareX): un revisor clonará el repositorio, lo levantará y comprobará en minutos lo que afirma el título.
 - **Despliegue:** frontend en Vercel, backend en Render (plan gratuito, se duerme tras 15 minutos sin uso), base PostgreSQL en Neon.
 
