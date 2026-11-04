@@ -8,9 +8,13 @@ import {
   exportClassroom,
   joinClassroom,
   studentLogin,
+  myClassroomAsStudent,
 } from '../controllers/classroomController.js';
 
 const router = express.Router();
+
+// Estudiante: su aula (va antes de las rutas con :id)
+router.get('/student/me', protect, myClassroomAsStudent);
 
 // Docente
 router.post('/', protect, validate(schemas.classroom), createClassroom);

@@ -139,6 +139,7 @@ export const api = {
   getClassroomProgress: (id) => axiosInstance.get(`/api/classroom/${id}/progress`),
   joinClassroom: (data) => axiosInstance.post('/api/classroom/join', data),
   studentLogin: (codigoEstudiante) => axiosInstance.post('/api/classroom/login', { codigoEstudiante }),
+  getMyClassroomAsStudent: () => axiosInstance.get('/api/classroom/student/me'),
 
   // ===== VALIDACIÓN (cobertura, evaluación perceptual y revisión del léxico) =====
   getCoverage: () => axiosInstance.get('/api/validation/cobertura'),

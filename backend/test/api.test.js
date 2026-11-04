@@ -123,6 +123,16 @@ test('modo aula: crear, unirse sin correo, volver a entrar con el código y ver 
   const progress = await request(app).get(`/api/classroom/${id}/progress`).set(auth()).expect(200);
   assert.deepEqual(progress.body.estudiantes.map((s) => s.alias), ['Ana']);
   await request(app).get(`/api/classroom/${id}/progress`).set({ Authorization: `Bearer ${joined.body.token}` }).expect(404);
+
+  // "Mi aula": el estudiante ve su aula, su puesto y la clase; una cuenta sin aula recibe 404
+  const mine = await request(app).get('/api/classroom/student/me').set({ Authorization: `Bearer ${joined.body.token}` }).expect(200);
+  assert.equal(mine.body.aula.nombre, 'Quechua I');
+  assert.equal(mine.body.aula.codigo, codigo);
+  assert.equal(mine.body.yo.alias, 'Ana');
+  assert.equal(mine.body.yo.puesto, 1);
+  assert.equal(mine.body.clase.estudiantes, 1);
+  assert.equal(JSON.stringify(mine.body).includes('@'), false, 'nunca expone correos');
+  await request(app).get('/api/classroom/student/me').set(auth()).expect(404);
 });
 
 test('Google con un correo ya registrado: se vincula a esa cuenta (no se crea otra ni falla)', { skip }, async () => {

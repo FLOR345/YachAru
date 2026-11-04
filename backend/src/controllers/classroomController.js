@@ -156,3 +156,36 @@ export const studentLogin = async (req, res, next) => {
     next(error);
   }
 };
+
+// "Mi aula": lo que ve el estudiante de su clase. Solo alias y avance (nunca datos personales);
+// la clase completa se resume en cifras y un podio de los 3 primeros por Ayni Points.
+export const myClassroomAsStudent = async (req, res, next) => {
+  try {
+    const me = (await pool.query('SELECT id, nombre, aula_id, puntos_totales, racha_actual FROM usuarios WHERE id = $1', [req.user.id])).rows[0];
+    if (!me?.aula_id) return res.status(404).json({ message: 'Esta cuenta no pertenece a un aula' });
+    const aula = (
+      await pool.query('SELECT a.nombre, a.idioma, a.codigo, d.nombre AS docente FROM aulas a JOIN usuarios d ON d.id = a.docente_id WHERE a.id = $1', [me.aula_id])
+    ).rows[0];
+    if (!aula) return res.status(404).json({ message: 'El aula ya no existe' });
+    const { rows } = await pool.query(
+      `SELECT u.id, u.nombre AS alias, COALESCE(u.puntos_totales, 0)::int AS puntos, COALESCE(u.racha_actual, 0)::int AS racha, u.ultima_actividad,
+              (SELECT COUNT(*) FROM progreso_usuario p WHERE p.usuario_id = u.id AND p.completado)::int AS lecciones
+         FROM usuarios u WHERE u.aula_id = $1 ORDER BY u.puntos_totales DESC NULLS LAST, u.id`,
+      [me.aula_id]
+    );
+    const mine = rows.find((r) => r.id === me.id);
+    const week = Date.now() - 7 * 86400000;
+    res.json({
+      aula: { nombre: aula.nombre, idioma: aula.idioma, codigo: aula.codigo, docente: aula.docente },
+      yo: { alias: mine.alias, puntos: mine.puntos, racha: mine.racha, lecciones: mine.lecciones, puesto: rows.findIndex((r) => r.id === me.id) + 1 },
+      clase: {
+        estudiantes: rows.length,
+        lecciones: rows.reduce((a, r) => a + r.lecciones, 0),
+        activos_semana: rows.filter((r) => r.ultima_actividad && new Date(r.ultima_actividad).getTime() >= week).length,
+      },
+      podio: rows.slice(0, 3).filter((r) => r.puntos > 0).map((r) => ({ alias: r.alias, puntos: r.puntos, soy_yo: r.id === me.id })),
+    });
+  } catch (error) {
+    next(error);
+  }
+};

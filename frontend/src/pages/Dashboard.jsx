@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Reveal from '../ui/Reveal';
 import { useNavigate, Link } from 'react-router-dom';
-import { LogOut, Flame, Star, TrendingUp, BookOpen, Lock, CheckCircle, Sparkles, Award, ChevronDown, Play, UserX, AlertCircle, RefreshCw, XCircle, Gamepad2, ArrowRight } from 'lucide-react';
+import { LogOut, Flame, Star, TrendingUp, BookOpen, Lock, CheckCircle, Sparkles, Award, ChevronDown, Play, UserX, AlertCircle, RefreshCw, XCircle, Gamepad2, ArrowRight, School } from 'lucide-react';
 import axios from 'axios';
 import logo from '../assets/logo.webp';
 
@@ -221,6 +221,14 @@ const Dashboard = ({ user, setUser, isGuest, setIsGuest }) => {
 
             <nav className="flex items-center gap-1 sm:gap-3" aria-label="Principal">
               {/* Mantine Tooltip: en pantallas medianas los íconos dicen qué son al pasar el mouse o enfocarlos */}
+              {user?.es_cuenta_aula && (
+                <Tooltip label="Mi aula" withArrow openDelay={300} transitionProps={{ transition: 'pop', duration: 150 }}>
+                  <Link to="/mi-aula" className={navLink} aria-label="Mi aula">
+                    <School className="w-5 h-5" aria-hidden="true" />
+                    <span className="hidden lg:inline">Mi aula</span>
+                  </Link>
+                </Tooltip>
+              )}
               <Tooltip label="Diccionario" withArrow openDelay={300} transitionProps={{ transition: 'pop', duration: 150 }}>
                 <Link to="/dictionary" className={navLink} aria-label="Diccionario">
                   <BookOpen className="w-5 h-5" aria-hidden="true" />
