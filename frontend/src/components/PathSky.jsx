@@ -1,56 +1,10 @@
 // El cielo del camino de aprendizaje: nubes en tres capas con profundidad (se mueven a distinta
-// velocidad al bajar), un picaflor (q'inti) que vuela, se detiene a libar y sigue, una bandada de
-// golondrinas a lo lejos, mariposas, luciérnagas y destellos que titilan (GSAP). Todo es adorno:
+// velocidad al bajar), mariposas, luciérnagas y destellos que titilan (GSAP). Todo es adorno:
 // no recibe toques y respeta "reducir movimiento".
 import { useEffect, useRef } from 'react';
 import { useReducedMotion, useScroll, useTransform } from 'motion/react';
 import * as m from 'motion/react-m';
 import gsap from 'gsap';
-
-// Picaflor ilustrado: cuerpo verde tornasol, garganta roja, pico largo y alas que aletean muy rápido
-export const Hummingbird = ({ className = '' }) => (
-  <svg viewBox="0 0 120 80" className={className} aria-hidden="true">
-    <defs>
-      <linearGradient id="pf-cuerpo" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stopColor="#34d399" />
-        <stop offset="55%" stopColor="#059669" />
-        <stop offset="100%" stopColor="#0e7490" />
-      </linearGradient>
-      <linearGradient id="pf-ala" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#ecfeff" stopOpacity="0.95" />
-        <stop offset="100%" stopColor="#67e8f9" stopOpacity="0.55" />
-      </linearGradient>
-      <radialGradient id="pf-garganta" cx="0.4" cy="0.4" r="0.7">
-        <stop offset="0%" stopColor="#fb7185" />
-        <stop offset="100%" stopColor="#be123c" />
-      </radialGradient>
-    </defs>
-    {/* cola */}
-    <path d="M30 46 L6 40 L10 50 L4 58 L30 52Z" fill="#0f766e" />
-    {/* cuerpo */}
-    <ellipse cx="48" cy="46" rx="22" ry="12" fill="url(#pf-cuerpo)" />
-    {/* cabeza y garganta */}
-    <circle cx="70" cy="38" r="10" fill="url(#pf-cuerpo)" />
-    <path d="M64 44 Q70 52 78 44 Q72 48 64 44Z" fill="url(#pf-garganta)" />
-    <ellipse cx="66" cy="47" rx="7" ry="4" fill="url(#pf-garganta)" />
-    {/* pico */}
-    <path d="M79 37 L116 33 L79 40Z" fill="#292524" />
-    {/* ojo con brillo */}
-    <circle cx="73" cy="35" r="2.4" fill="#1c1917" />
-    <circle cx="73.8" cy="34.2" r="0.8" fill="#fff" />
-    {/* alas (aletean) */}
-    <g className="pf-alas" style={{ transformOrigin: '50px 40px' }}>
-      <path d="M50 40 Q30 4 62 2 Q64 22 56 40Z" fill="url(#pf-ala)" stroke="#a5f3fc" strokeWidth="1" />
-      <path d="M46 40 Q20 10 40 6 Q50 22 50 40Z" fill="url(#pf-ala)" opacity="0.7" />
-    </g>
-  </svg>
-);
-
-const Swallow = ({ className = '', delay = 0 }) => (
-  <svg viewBox="0 0 40 16" className={className} aria-hidden="true">
-    <path className="golondrina-alas" style={{ animationDelay: `${delay}s`, transformOrigin: '20px 9px' }} d="M2 4 Q12 2 20 10 Q28 2 38 4 Q28 6 20 13 Q12 6 2 4Z" fill="#334155" />
-  </svg>
-);
 
 const Cloud = ({ className = '', opacity = 0.95 }) => (
   <svg viewBox="0 0 160 70" className={className} aria-hidden="true">
@@ -105,34 +59,6 @@ const PathSky = ({ butterflies = 6 }) => {
           ))}
         </m.div>
       ))}
-
-      {/* Golondrinas a lo lejos */}
-      <div className="bandada absolute" style={{ top: '9%' }}>
-        {[0, 1, 2, 3, 4].map((k) => (
-          <span key={k} className="absolute" style={{ left: `${[0, 22, 40, 14, 34][k]}px`, top: `${[0, 10, 4, 20, 18][k]}px` }}>
-            <Swallow className="w-5" delay={k * 0.13} />
-          </span>
-        ))}
-      </div>
-
-      {/* El picaflor: cruza, se detiene a libar y sigue */}
-      {!reduce && (
-        <m.div
-          className="absolute z-30 w-20 sm:w-28"
-          initial={{ left: '-12%', top: '30%', scaleX: 1 }}
-          animate={{
-            left: ['-12%', '18%', '22%', '62%', '66%', '108%', '108%', '70%', '66%', '24%', '20%', '-12%'],
-            top: ['30%', '42%', '40%', '22%', '24%', '36%', '58%', '62%', '60%', '72%', '70%', '30%'],
-            scaleX: [1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, 1],
-            rotate: [0, -6, 4, -4, 3, 0, 0, 5, -3, 4, -2, 0],
-          }}
-          transition={{ duration: 34, repeat: Infinity, ease: 'easeInOut', times: [0, 0.1, 0.17, 0.3, 0.37, 0.48, 0.5, 0.62, 0.69, 0.82, 0.89, 1] }}
-        >
-          <m.div animate={{ y: [0, -5, 0] }} transition={{ duration: 0.6, repeat: Infinity, ease: 'easeInOut' }}>
-            <Hummingbird className="w-full drop-shadow-[0_6px_8px_rgba(15,118,110,0.35)]" />
-          </m.div>
-        </m.div>
-      )}
 
       {/* Mariposas */}
       {Array.from({ length: butterflies }, (_, k) => (

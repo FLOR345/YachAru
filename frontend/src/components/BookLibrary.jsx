@@ -134,7 +134,7 @@ const BookSheet = ({ libro, onClose, saved, onToggleSave }) => {
         role="dialog"
         aria-modal="true"
         aria-labelledby="ficha-libro-titulo"
-        className="relative w-full sm:max-w-3xl max-h-[92vh] overflow-y-auto rounded-t-[2rem] sm:rounded-[2rem] bg-white shadow-2xl"
+        className="vidrio-fuerte relative w-full sm:max-w-3xl max-h-[92vh] overflow-y-auto rounded-t-[2rem] sm:rounded-[2rem] shadow-2xl"
         initial={{ y: 40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 40, opacity: 0 }}
@@ -149,9 +149,8 @@ const BookSheet = ({ libro, onClose, saved, onToggleSave }) => {
             <span className="brillo-liquido" aria-hidden="true" />
             <m.span className="absolute -top-16 -left-10 h-48 w-48 rounded-full bg-white/25 blur-3xl" animate={{ x: [0, 30, 0], y: [0, 20, 0] }} transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }} aria-hidden="true" />
             <m.span className={`absolute -bottom-20 -right-10 h-56 w-56 rounded-full ${libro.idioma === 'aymara' ? 'bg-cyan-300/40' : 'bg-lime-300/40'} blur-3xl`} animate={{ x: [0, -24, 0], y: [0, -18, 0] }} transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }} aria-hidden="true" />
-            <span className="tejido-andino absolute inset-x-0 bottom-0 h-2" aria-hidden="true" />
             <m.span
-              className="absolute bottom-5 left-5 rounded-full bg-white/20 px-3 py-1 text-[11px] font-black uppercase tracking-widest text-white backdrop-blur"
+              className="absolute bottom-5 left-5 rounded-full bg-white/25 px-3 py-1 text-[11px] font-black uppercase tracking-widest text-white ring-1 ring-white/50 backdrop-blur-md"
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25 }}
@@ -307,8 +306,8 @@ const BookLibrary = ({ idioma }) => {
   return (
     <section className="mt-16" aria-labelledby="biblioteca-titulo">
       {/* Portada de la biblioteca: título, cifras y las portadas más recientes en abanico */}
-      <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-stone-950 via-stone-900 to-amber-950 p-6 sm:p-10 text-white">
-        <span className="tejido-andino absolute inset-x-0 top-0 h-2.5" aria-hidden="true" />
+      <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-indigo-900 via-purple-800 to-fuchsia-700 p-6 sm:p-10 text-white">
+        <span className="brillo-liquido" aria-hidden="true" />
         <span className="pointer-events-none absolute -left-20 -bottom-24 w-72 h-72 rounded-full bg-amber-500/20 blur-3xl" aria-hidden="true" />
         <span className="pointer-events-none absolute right-10 -top-20 w-72 h-72 rounded-full bg-fuchsia-500/20 blur-3xl" aria-hidden="true" />
         <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] items-center">

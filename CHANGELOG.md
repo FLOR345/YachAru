@@ -34,8 +34,11 @@
 
 ### Cambiado
 
+- Los niveles del camino quedan centrados sobre cada piedra y con su tamaño. Sin aves en el camino.
+- Vidrio líquido en la ficha de cada libro, en la portada de la biblioteca y en la búsqueda del diccionario.
+
 - Tarjetas de color en vidrio líquido teñido (translúcido, con desenfoque y borde de luz), con un reflejo que se desliza.
-- Camino: un picaflor ilustrado que vuela y liba (en lugar del cóndor), golondrinas, nubes en tres capas con profundidad, más mariposas, luciérnagas y destellos (GSAP); el letrero del trofeo va debajo del trofeo; botón Continuar con Star Border (React Bits).
+- Camino: nubes en tres capas con profundidad, más mariposas, luciérnagas y destellos (GSAP); el letrero del trofeo va debajo del trofeo; botón Continuar con Star Border (React Bits).
 - Cantar con ritmo:
   - charango con cuerdas pulsadas, quena con melodía, bajo, reverberación y compresor;
   - la música baja cuando entra la voz;
