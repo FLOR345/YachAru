@@ -1,67 +1,98 @@
 import { describe, it, expect } from 'vitest';
-import { envelope, trimSilence, resample, similarity, verdict, peaks } from './voice';
+import { analyze, grade, countSyllables, voicedRange, stars, PASS, WARPS } from './grader';
+import { peaks } from './voice';
 import { parteDePalabra } from '../data/cuerpoNumeros';
 import { tilesOf } from '../components/games/WordGames';
 
-// Una "palabra" sintética: tramos de tono con la amplitud dada, separados por silencio
-const RATE = 8000;
-const word = (syllables, { gap = 0.05, pad = 0.2 } = {}) => {
-  const parts = [new Float32Array(RATE * pad)];
-  for (const [seconds, amp] of syllables) {
-    const n = Math.round(RATE * seconds);
-    parts.push(Float32Array.from({ length: n }, (_, i) => amp * Math.sin((2 * Math.PI * 220 * i) / RATE)));
-    parts.push(new Float32Array(Math.round(RATE * gap)));
+// "Palabras" sintéticas: sílabas como vocales (tono con dos formantes) separadas por un silencio breve.
+// Vocales aproximadas por sus formantes F1/F2 (Hz).
+const VOWELS = { a: [750, 1250], i: [300, 2300], u: [320, 800], e: [500, 1900], o: [480, 900] };
+const RATE = 16000;
+const synth = (sylls, { f0 = 200, formant = 1, speed = 1, amp = 0.5, noise = 0.002 } = {}) => {
+  const out = [];
+  const push = (n, fn) => {
+    for (let i = 0; i < n; i++) out.push(fn(i));
+  };
+  push(RATE * 0.15, () => 0);
+  for (const v of sylls) {
+    const [f1, f2] = VOWELS[v].map((f) => f * formant);
+    const n = Math.round((RATE * 0.18) / speed);
+    push(n, (i) => {
+      const t = i / RATE;
+      const env = Math.sin((Math.PI * i) / n);
+      let s = 0;
+      // armónicos de f0 ponderados por su cercanía a los formantes
+      for (let h = 1; h * f0 < 5000; h++) {
+        const f = h * f0;
+        const w = Math.exp(-(((f - f1) / 120) ** 2)) + 0.7 * Math.exp(-(((f - f2) / 160) ** 2)) + 0.02;
+        s += w * Math.sin(2 * Math.PI * f * t);
+      }
+      return amp * env * s * 0.4;
+    });
+    push(Math.round((RATE * 0.05) / speed), () => 0);
   }
-  parts.push(new Float32Array(RATE * pad));
-  const out = new Float32Array(parts.reduce((a, p) => a + p.length, 0));
-  let at = 0;
-  for (const p of parts) {
-    out.set(p, at);
-    at += p.length;
-  }
-  return out;
+  push(RATE * 0.15, () => 0);
+  return Float32Array.from(out, (v) => Math.max(-1, Math.min(1, v + (Math.random() * 2 - 1) * noise)));
 };
 
-describe('comparar tu voz con la de la app', () => {
-  it('la envolvente va de 0 a 1 y el silencio se recorta', () => {
-    const env = envelope(word([[0.2, 0.8]]), RATE);
-    expect(Math.max(...env)).toBeCloseTo(1, 5);
-    expect(Math.min(...env)).toBe(0);
-    const trimmed = trimSilence(env);
-    expect(trimmed.length).toBeLessThan(env.length);
-    expect(trimmed[0]).toBeGreaterThan(0.1);
-    expect(trimSilence([0, 0, 0])).toEqual([]);
+const model = (sylls) => analyze(synth(sylls), RATE);
+const learner = (sylls, opts) => analyze(synth(sylls, opts), RATE, WARPS);
+
+describe('calificador de "¡Dilo tú!"', () => {
+  const target = ['a', 'i', 'u'];
+  const others = [
+    ['u', 'a', 'i'],
+    ['e', 'o', 'e'],
+    ['i', 'i', 'a'],
+    ['o', 'u', 'o'],
+  ];
+  const cohort = others.map((w) => ({ text: w.join(''), analysis: model(w) }));
+
+  it('aprueba la palabra pedida dicha con otra voz (otro tono y otros formantes)', () => {
+    for (const opts of [{}, { f0: 120, formant: 0.88 }, { f0: 260, formant: 1.12 }, { amp: 0.15 }]) {
+      const r = grade(model(target), learner(target, opts), cohort);
+      expect(r.passed).toBe(true);
+      expect(r.score).toBeGreaterThanOrEqual(PASS);
+      expect(r.criteria.map((c) => c.id)).toEqual(['sonidos', 'ritmo', 'duracion', 'silabas']);
+    }
   });
 
-  it('resample conserva el promedio por tramos', () => {
-    expect(resample([1, 1, 0, 0], 2)).toEqual([1, 0]);
-    expect(resample([], 3)).toEqual([0, 0, 0]);
+  it('no aprueba otra palabra, aunque tenga el mismo ritmo, y dice con cuál se confundió', () => {
+    for (const said of others) {
+      const r = grade(model(target), learner(said), cohort);
+      expect(r.passed).toBe(false);
+      expect(r.score).toBeLessThan(PASS);
+    }
+    const r = grade(model(target), learner(others[0]), cohort);
+    expect(r.confusedWith).toBe('uai');
   });
 
-  it('la misma palabra dicha más fuerte se parece mucho; otro ritmo, menos', () => {
-    const model = envelope(word([[0.15, 0.9], [0.3, 0.6], [0.1, 0.8]]), RATE);
-    const same = envelope(word([[0.15, 0.4], [0.3, 0.27], [0.1, 0.36]]), RATE); // más bajo de volumen
-    const slower = envelope(word([[0.3, 0.9], [0.6, 0.6], [0.2, 0.8]]), RATE);
-    const other = envelope(word([[0.6, 0.9]]), RATE);
-    const a = similarity(model, same);
-    const b = similarity(model, slower);
-    const c = similarity(model, other);
-    expect(a).toBeGreaterThanOrEqual(90);
-    expect(b).toBeLessThan(a);
-    expect(c).toBeLessThan(a);
+  it('sin voz no hay nota', () => {
+    const quiet = analyze(new Float32Array(RATE).map(() => (Math.random() * 2 - 1) * 0.001), RATE, WARPS);
+    const r = grade(model(target), quiet, cohort);
+    expect(r.score).toBeNull();
+    expect(r.issue).toBe('silencio');
+    expect(stars(null)).toBe(0);
   });
 
-  it('sin voz en la grabación no hay puntuación', () => {
-    const model = envelope(word([[0.2, 0.8]]), RATE);
-    expect(similarity(model, new Array(50).fill(0))).toBeNull();
-    expect(verdict(null).stars).toBe(0);
+  it('avisa si se dijo demasiado rápido o si la voz se saturó', () => {
+    expect(grade(model(target), learner(target, { speed: 2.2 }), cohort).tip).toMatch(/rápido/);
+    expect(grade(model(target), learner(target, { amp: 4 }), cohort).tip).toMatch(/saturó/);
   });
 
-  it('las estrellas siguen al parecido', () => {
-    expect(verdict(95).stars).toBe(3);
-    expect(verdict(65).stars).toBe(2);
-    expect(verdict(45).stars).toBe(1);
-    expect(verdict(10).stars).toBe(0);
+  it('cuenta sílabas y encuentra el tramo con voz', () => {
+    const a = model(['a', 'i', 'u']);
+    const range = voicedRange(a.env);
+    expect(countSyllables(a.env.slice(...range))).toBe(3);
+    expect(countSyllables(model(['a']).env)).toBe(1);
+    expect(voicedRange([0, 0, 0])).toBeNull();
+  });
+
+  it('las estrellas siguen a la nota', () => {
+    expect(stars(95)).toBe(3);
+    expect(stars(PASS)).toBe(2);
+    expect(stars(45)).toBe(1);
+    expect(stars(10)).toBe(0);
   });
 
   it('las barras de la onda nunca quedan vacías', () => {

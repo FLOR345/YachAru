@@ -13,7 +13,7 @@
 - Revisión del léxico por hablantes en línea (`/validacion`), que conserva el valor original.
 - Paquete de idioma en un solo archivo, con el awajún como demostración técnica.
 - `CITATION.cff`, `.zenodo.json`, `LICENSE-AUDIO.md` y documentación de las decisiones sobre IA.
-- "¡Dilo tú!": grabar tu voz con el micrófono y verla junto a la voz de la app, con un parecido de ritmo y duración. Aparece en cada lección (con "Ahora no puedo hablar"), en cada palabra de las lecciones y del diccionario, al explorar el cuerpo y como juego. La grabación no sale del dispositivo.
+- "¡Dilo tú!": grabar tu voz con el micrófono y recibir una nota de un calificador (sonidos, ritmo, duración y sílabas, con un consejo). Aprueba con 60 o más y solo si tu grabación se parece más a la palabra pedida que a otras; en las lecciones hay 3 intentos y, si no aprueba, cuenta como error. Método y calibración en `docs/calificador-de-voz.md`. Aparece en cada lección (con "Ahora no puedo hablar"), en cada palabra de las lecciones y del diccionario, al explorar el cuerpo y como juego. La grabación no sale del dispositivo.
 - El cuerpo en todo el programa: las palabras que son partes del cuerpo se pueden ver en el modelo 3D desde la lección, el diccionario y los juegos, y las lecciones con esas palabras incluyen el ejercicio "Toca en el cuerpo".
 - Juegos nuevos: "Lluvia de palabras", "Arma la palabra", "¿Sí o no?" y "¡Dilo tú!". Los juegos del cuerpo y de los números pasan a la página de Juegos, agrupados.
 
