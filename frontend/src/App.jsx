@@ -57,7 +57,7 @@ const OldBodyPage = () => {
   const params = new URLSearchParams(useLocation().search);
   const idioma = params.get('idioma') || 'quechua';
   const tema = params.get('tema') === 'numeros' ? 'numeros' : 'cuerpo';
-  return <Navigate to={`/practica?idioma=${idioma}&juego=cuerpo-numeros&tema=${tema}`} replace />;
+  return <Navigate to={`/practica?idioma=${idioma}&juego=${tema}`} replace />;
 };
 
 function App() {

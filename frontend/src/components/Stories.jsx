@@ -26,7 +26,7 @@ const Cover = ({ story, theme, className = '', imgClassName = '', eager = false 
     <img src={story.portada} alt={story.portadaAlt || ''} loading={eager ? 'eager' : 'lazy'} decoding="async" className={`h-full w-full object-cover ${imgClassName}`} />
   ) : (
     <span className={`flex h-full w-full items-center justify-center bg-gradient-to-br ${theme.gradient} ${className}`}>
-      <span className="absolute inset-0 opacity-20 [background:repeating-linear-gradient(135deg,#fff_0_8px,transparent_8px_22px)]" aria-hidden="true" />
+      <span className="brillo-liquido" aria-hidden="true" />
       <BookOpen className="relative w-14 h-14 text-white" aria-hidden="true" />
     </span>
   );

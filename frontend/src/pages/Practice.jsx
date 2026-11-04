@@ -370,7 +370,7 @@ const FlashCard = ({ word, language, theme, flipped, onFlip, onDecide }) => {
           <span
             className={`absolute inset-0 flex flex-col items-center justify-center gap-4 overflow-hidden rounded-[2rem] bg-gradient-to-br ${theme.gradient} p-6 text-white shadow-2xl [backface-visibility:hidden]`}
           >
-            <span className="absolute inset-0 opacity-15 [background:repeating-linear-gradient(135deg,#fff_0_6px,transparent_6px_20px)]" aria-hidden="true" />
+            <span className="brillo-liquido" aria-hidden="true" />
             <span className="relative text-sm font-black uppercase tracking-widest opacity-80">{language.nombre}</span>
             <span className="relative text-4xl sm:text-5xl font-black text-center break-words" lang={language.lang}>
               {word.target}
@@ -978,21 +978,32 @@ const GAMES = [
     color: 'from-purple-500 to-blue-700',
     shadow: 'shadow-purple-100',
   },
-  // Cuerpo y números (quechua y aimara): una sola tarjeta con todas sus actividades adentro
+  // Números y cuerpo (quechua y aimara): una tarjeta cada uno, con sus actividades adentro
   {
-    id: 'cuerpo-numeros',
+    id: 'numeros',
+    group: 'numeros',
+    Icon: GiAbacus,
+    title: 'Los números',
+    text: 'Cuenta llamitas, mueve la barra y escucha cada número.',
+    activities: ['Explorar', 'Cuenta las llamas', 'Escucha y toca'],
+    color: 'from-amber-400 to-orange-600',
+  },
+  {
+    id: 'cuerpo',
     group: 'cuerpo',
     Icon: GiVitruvianMan,
-    title: 'Mi cuerpo y los números',
-    text: 'Toca el cuerpo en 3D y cuenta llamitas. Adentro: explorar y 5 juegos.',
-    color: 'from-emerald-500 to-sky-700',
+    title: 'Mi cuerpo',
+    text: 'Gira el cuerpo en 3D, toca cada parte y escucha su nombre.',
+    activities: ['Explorar', 'La llama dice', '¿Qué parte es?', 'Pega las palabras'],
+    color: 'from-emerald-500 to-teal-700',
   },
 ];
 
 const GROUPS = [
-  { id: 'voz', title: 'Habla', text: 'Usa tu micrófono: tu voz no sale de tu equipo.', Icon: Mic },
   { id: 'palabras', title: 'Tus palabras', text: 'Con las palabras de tus lecciones.', Icon: Zap },
-  { id: 'cuerpo', title: 'Tu cuerpo y los números', text: 'Las partes del cuerpo también aparecen en tus lecciones y en el diccionario.', Icon: GiVitruvianMan },
+  { id: 'voz', title: 'Habla', text: 'Usa tu micrófono y recibe una nota. Tu voz no sale de tu equipo.', Icon: Mic },
+  { id: 'numeros', title: 'Los números', text: 'Del 1 al 100, contando llamitas.', Icon: GiAbacus },
+  { id: 'cuerpo', title: 'Tu cuerpo', text: 'En 3D. Las partes del cuerpo también aparecen en tus lecciones y en el diccionario.', Icon: GiVitruvianMan },
 ];
 
 const Practice = ({ user, isGuest }) => {
@@ -1042,7 +1053,7 @@ const Practice = ({ user, isGuest }) => {
   const records = useMemo(() => GAMES.filter((g) => g.best).map((g) => ({ ...g, value: readBest(bestKey(g.id, idioma)) })), [idioma, game]);
   const exit = () => setGame(null);
   const props = { words: state.words, language, theme, idioma, onExit: exit };
-  const bodyOpen = game === 'cuerpo-numeros' && bodyLanguage;
+  const bodyOpen = (game === 'cuerpo' || game === 'numeros') && bodyLanguage;
 
   return (
     <div className="fondo-burbujas min-h-screen text-stone-900">
@@ -1090,7 +1101,7 @@ const Practice = ({ user, isGuest }) => {
               </div>
             }
           >
-            <BodyNumbersHub key={idioma} idioma={idioma} language={language} theme={theme} />
+            <BodyNumbersHub key={`${game}-${idioma}`} tema={game} idioma={idioma} language={language} theme={theme} />
           </Suspense>
         ) : state.loading ? (
           <div className="flex flex-col items-center py-16" role="status">
@@ -1132,11 +1143,24 @@ const Practice = ({ user, isGuest }) => {
           <div className="grid gap-8 lg:grid-cols-[20rem_minmax(0,1fr)] items-start">
             {/* Lado: la llamita invita y muestra tus récords */}
             <aside className="space-y-5 lg:sticky lg:top-24">
+              {/* En el celular, la llamita pequeña a un lado para que los juegos se vean enseguida */}
+              <Mascot
+                eager
+                pose="bienvenida"
+                className="lg:hidden"
+                size="w-20"
+                say={
+                  <p className="text-sm font-semibold">
+                    <span className="font-black">¿A qué jugamos?</span> {state.words.length} palabras para practicar.
+                  </p>
+                }
+              />
               <Mascot
                 eager
                 pose="bienvenida"
                 sticker
                 bubble="top"
+                className="hidden lg:flex"
                 size="w-40 sm:w-48"
                 say={
                   <p className="font-semibold">
@@ -1198,6 +1222,7 @@ const Practice = ({ user, isGuest }) => {
             {GROUPS.filter((grp) => grp.id === 'voz' || grp.id === 'palabras' || bodyLanguage).map((grp) => {
               const list = GAMES.filter((g) => g.group === grp.id);
               const small = grp.id === 'cuerpo' || grp.id === 'numeros';
+              const card = list[0];
               return (
                 <section key={grp.id} className="mb-10" aria-labelledby={`grupo-${grp.id}`}>
                   <div className="mb-4 flex items-center gap-3">
@@ -1214,41 +1239,35 @@ const Practice = ({ user, isGuest }) => {
                       type="button"
                       onClick={() => {
                         playTap();
-                        setGame('cuerpo-numeros');
+                        setGame(card.id);
                       }}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       whileHover={{ y: -4 }}
                       whileTap={{ scale: 0.98 }}
-                      className={`group relative w-full overflow-hidden rounded-[2rem] bg-gradient-to-br ${theme.gradient} p-5 sm:p-7 text-left text-white shadow-xl`}
+                      className={`group relative w-full overflow-hidden rounded-[2rem] bg-gradient-to-br ${card.color} p-5 sm:p-7 text-left text-white shadow-xl`}
                     >
-                      <span className="absolute inset-0 opacity-15 [background:repeating-linear-gradient(135deg,#fff_0_6px,transparent_6px_22px)]" aria-hidden="true" />
-                      <span className="tejido-andino absolute inset-x-0 bottom-0 h-2" aria-hidden="true" />
-                      <span className="relative flex flex-col gap-5 sm:flex-row sm:items-center">
-                        <span className="flex shrink-0 -space-x-3" aria-hidden="true">
-                          <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/20 ring-2 ring-white/40 backdrop-blur transition-transform group-hover:-rotate-6">
-                            <GiVitruvianMan className="h-9 w-9" />
-                          </span>
-                          <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-amber-400 text-amber-950 ring-2 ring-white/40 transition-transform group-hover:rotate-6">
-                            <GiAbacus className="h-9 w-9" />
-                          </span>
+                      <span className="brillo-liquido" aria-hidden="true" />
+                      <span className="relative flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
+                        <span className="flex h-20 w-20 shrink-0 items-center justify-center rounded-3xl bg-white/25 ring-1 ring-white/50 backdrop-blur-md shadow-inner transition-transform group-hover:-rotate-6" aria-hidden="true">
+                          <card.Icon className="h-11 w-11" />
                         </span>
                         <span className="min-w-0 flex-1">
-                          <span className="block text-2xl sm:text-3xl font-black">Mi cuerpo y los números</span>
-                          <span className="mt-1 block text-white/90">Toca el cuerpo en 3D, escucha cada parte y cuenta llamitas.</span>
+                          <span className="block text-2xl sm:text-3xl font-black drop-shadow-sm">{card.title}</span>
+                          <span className="mt-1 block text-white/90">{card.text}</span>
                           <span className="mt-3 flex flex-wrap gap-2">
-                            {['Explorar el cuerpo', 'La llama dice', '¿Qué parte es?', 'Pega las palabras', 'Explorar números', 'Cuenta las llamas', 'Escucha y toca'].map((t) => (
-                              <span key={t} className="rounded-full bg-white/20 px-3 py-1 text-xs sm:text-sm font-bold ring-1 ring-white/30 backdrop-blur">
+                            {card.activities.map((t) => (
+                              <span key={t} className="rounded-full bg-white/20 px-3 py-1 text-xs sm:text-sm font-bold ring-1 ring-white/40 backdrop-blur">
                                 {t}
                               </span>
                             ))}
                           </span>
                         </span>
-                        <span className="inline-flex min-h-12 items-center justify-center rounded-2xl bg-white px-6 text-base font-black text-stone-900 shadow-md transition-transform group-hover:scale-105">Entrar</span>
+                        <span className="inline-flex min-h-12 items-center justify-center rounded-2xl bg-white/90 px-6 text-base font-black text-stone-900 shadow-md backdrop-blur transition-transform group-hover:scale-105">Entrar</span>
                       </span>
                     </m.button>
                   ) : (
-                <ul className="grid gap-5 sm:grid-cols-2">
+                <ul className={`grid gap-5 ${list.length > 1 ? 'sm:grid-cols-2' : ''}`}>
                   {list.map(({ id, Icon, pose, title, text, color, shadow, best }, i) => {
                     const value = best ? readBest(bestKey(id, idioma)) : 0;
                     return (
@@ -1267,15 +1286,15 @@ const Practice = ({ user, isGuest }) => {
                             playTap();
                             setGame(id);
                           }}
-                          className={`group ficha tarjeta-viva relative overflow-hidden w-full h-full min-h-64 text-left rounded-3xl border-stone-200 bg-white p-6 sm:p-7 shadow-lg ${shadow} hover:border-stone-300`}
+                          className={`group ficha tarjeta-viva relative overflow-hidden w-full h-full sm:min-h-64 text-left rounded-3xl border-stone-200 bg-white p-5 sm:p-7 shadow-lg ${shadow} hover:border-stone-300`}
                         >
                           <span className={`pointer-events-none absolute -right-12 -top-12 w-48 h-48 rounded-full bg-gradient-to-br ${color} opacity-15 transition-transform duration-300 group-hover:scale-125`} aria-hidden="true" />
                           {/* La llamita asoma por la esquina y sube al pasar el mouse */}
                           <span className="pointer-events-none absolute -bottom-3 -right-2 w-32 sm:w-36 aspect-square transition-transform duration-300 ease-out group-hover:-translate-y-3 group-hover:rotate-3" aria-hidden="true">
                             <LlamaImage pose={pose} sticker />
                           </span>
-                          <span className={`relative mb-5 w-16 h-16 rounded-2xl bg-gradient-to-br ${color} flex items-center justify-center shadow-md transition-transform duration-200 group-hover:-rotate-6 group-hover:scale-110`} aria-hidden="true">
-                            <Icon className="w-8 h-8 text-white" />
+                          <span className={`relative mb-3 sm:mb-5 w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br ${color} flex items-center justify-center shadow-md transition-transform duration-200 group-hover:-rotate-6 group-hover:scale-110`} aria-hidden="true">
+                            <Icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                           </span>
                           <span className="relative block text-2xl font-black mb-1 pr-24">{title}</span>
                           <span className="relative block text-stone-600 pr-28">{text}</span>

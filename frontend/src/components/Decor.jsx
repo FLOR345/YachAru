@@ -25,7 +25,7 @@ const SPARKS = [
 ];
 
 const Decor = ({ palette = 'vivo', sparks = true, className = '' }) => (
-  <div className={`pointer-events-none absolute inset-0 -z-10 overflow-hidden ${className}`} aria-hidden="true">
+  <div className={`pointer-events-none fixed inset-0 -z-10 overflow-hidden ${className}`} aria-hidden="true">
     {SPOTS.map(({ cls, delay }, i) => (
       <span key={i} className={`mancha ${cls} ${PALETTES[palette][i % 4]}`} style={{ animationDelay: delay }} />
     ))}

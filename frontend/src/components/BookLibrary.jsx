@@ -81,7 +81,7 @@ const Cover = ({ libro, className = '' }) => {
   }
   return (
     <span className={`relative flex w-full h-full flex-col items-center justify-center gap-2 bg-gradient-to-br ${bg} p-3 text-center text-white ${className}`}>
-      <span className="absolute inset-0 opacity-20 [background:repeating-linear-gradient(135deg,#fff_0_6px,transparent_6px_22px)]" aria-hidden="true" />
+      <span className="brillo-liquido" aria-hidden="true" />
       <Icon className="relative w-10 h-10" aria-hidden="true" />
       <span className="relative text-xs font-black leading-tight line-clamp-3">{libro.titulo}</span>
     </span>
@@ -146,7 +146,7 @@ const BookSheet = ({ libro, onClose, saved, onToggleSave }) => {
         <div className="grid sm:grid-cols-[15rem_1fr]">
           {/* Verde si el libro es en quechua, azul si es en aimara */}
           <div className={`relative flex items-center justify-center overflow-hidden bg-gradient-to-br ${libro.idioma === 'aymara' ? 'from-sky-400 via-blue-600 to-indigo-800' : 'from-emerald-400 via-green-600 to-teal-800'} p-8 sm:rounded-l-[2rem] rounded-t-[2rem] sm:rounded-tr-none`}>
-            <span className="absolute inset-0 opacity-15 [background:repeating-linear-gradient(135deg,#fff_0_6px,transparent_6px_22px)]" aria-hidden="true" />
+            <span className="brillo-liquido" aria-hidden="true" />
             <m.span className="absolute -top-16 -left-10 h-48 w-48 rounded-full bg-white/25 blur-3xl" animate={{ x: [0, 30, 0], y: [0, 20, 0] }} transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }} aria-hidden="true" />
             <m.span className={`absolute -bottom-20 -right-10 h-56 w-56 rounded-full ${libro.idioma === 'aymara' ? 'bg-cyan-300/40' : 'bg-lime-300/40'} blur-3xl`} animate={{ x: [0, -24, 0], y: [0, -18, 0] }} transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }} aria-hidden="true" />
             <span className="tejido-andino absolute inset-x-0 bottom-0 h-2" aria-hidden="true" />

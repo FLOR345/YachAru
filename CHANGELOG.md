@@ -19,12 +19,24 @@
 
 ### Cambiado
 
+- Estilo de vidrio líquido en las tarjetas de color, en lugar de las rayas diagonales.
+- Juegos en este orden: tus palabras, hablar, números y cuerpo. Números y cuerpo tienen una tarjeta cada uno.
+- El camino de aprendizaje tiene estaciones: "¡Dilo tú!" a mitad de cada unidad, cuerpo y números junto a sus lecciones, y un juego de repaso antes del trofeo.
+- Modo aula para docentes rediseñado:
+  - los 3 pasos y la lengua a elegir con botones;
+  - vista previa del aula;
+  - código para proyectar en clase y botón de compartir;
+  - resumen con cifras, podio, barras por estudiante, búsqueda y orden.
+
 - Cuerpo y números quedan en una sola tarjeta de Juegos. Adentro se elige tema y actividad, cada una con su "cómo se juega", y en el celular la consigna va sobre el modelo 3D.
 - Flujo de audio con los modos `comparar` y `rehacer-cortas`, para elegir de oído un estilo de síntesis para las palabras cortas y regenerarlas.
 
 - La sección aparte "Cuerpo y números" se retira del menú; `/cuerpo-numeros` lleva a sus juegos dentro de Juegos.
 
 ### Corregido
+
+- Ya no aparece un destello morado al cambiar de pantalla (el fondo base era morado).
+- Los adornos de fondo cubren toda la ventana: ya no se ven cortes a los costados ni una pantalla partida en el celular.
 
 - Las grabaciones ya no se etiquetan como "Voz MMS".
 - El audio ahora queda disponible sin conexión: las respuestas `no-cors` y por rangos no se podían guardar en la caché.
