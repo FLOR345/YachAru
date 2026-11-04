@@ -21,7 +21,7 @@ import { PiHandWaving, PiIdentificationCard, PiPalette, PiPawPrint, PiChatsCircl
 import { LessonView, Practice, preloadOn } from '../routes';
 import { playTap, playWrong } from '../utils/sounds';
 import ISLANDS from '../assets/ruta/islas.json';
-import PathSky, { Hummingbird } from './PathSky';
+import PathSky from './PathSky';
 import StarBorder from './reactbits/StarBorder';
 import ShinyText from './reactbits/ShinyText';
 
@@ -287,7 +287,7 @@ const LessonNode = ({ lesson, state, styleSet, isFirstAvailable, reduceMotion, i
       {/* Nombre de la lección; la que toca rebota y dice "¡Empieza!" */}
       <m.span
         aria-hidden={!isFirstAvailable}
-        className={`${isFirstAvailable ? '' : 'pointer-events-none absolute top-full opacity-0 transition-opacity group-hover/paso:opacity-100 group-focus-within/paso:opacity-100'} mt-2 w-max max-w-[9rem] rounded-2xl px-3 py-1 text-center text-xs sm:text-sm font-bold leading-tight shadow-md ring-1 ring-black/5 ${
+        className={`absolute top-full z-10 ${isFirstAvailable ? '' : 'pointer-events-none opacity-0 transition-opacity group-hover/paso:opacity-100 group-focus-within/paso:opacity-100'} mt-2 w-max max-w-[9rem] rounded-2xl px-3 py-1 text-center text-xs sm:text-sm font-bold leading-tight shadow-md ring-1 ring-black/5 ${
           isFirstAvailable
             ? `bg-gradient-to-r ${styleSet.gradient} text-white shadow-md`
             : state === 'locked'
@@ -311,12 +311,12 @@ const LessonNode = ({ lesson, state, styleSet, isFirstAvailable, reduceMotion, i
 const Island = ({ island, children, flip, index, reduceMotion }) => {
   const meta = ISLANDS[island];
   const ref = useRef(null);
-  const [scale, setScale] = useState(1);
+  const [scale, setScale] = useState(460);
   useEffect(() => {
     const el = ref.current;
     if (!el) return undefined;
-    // Los botones miden 80 px en una isla de 560 px y se achican con ella
-    const update = () => setScale(Math.max(0.58, Math.min(1, el.clientWidth / 560)));
+    // Ancho real de la isla: cada botón se ajusta al ancho de su piedra
+    const update = () => setScale(el.clientWidth);
     update();
     const ro = new ResizeObserver(update);
     ro.observe(el);
@@ -326,7 +326,7 @@ const Island = ({ island, children, flip, index, reduceMotion }) => {
     <m.div
       ref={ref}
       className="relative mx-auto w-full max-w-[560px]"
-      style={{ aspectRatio: `${meta.w} / ${meta.h}`, '--s': scale }}
+      style={{ aspectRatio: `${meta.w} / ${meta.h}`, '--iw': scale }}
       initial={reduceMotion ? false : { opacity: 0, y: 40, scale: 0.94 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, margin: '-80px' }}
@@ -360,7 +360,9 @@ const UnitIslands = ({ unit, items, unitIndex, lockedUnit, styleSet, stateOf, fi
               {slice.map((item, k) => {
                 const p = meta.plataformas[k];
                 const step = first + k + 1;
-                const style = { ...at(p, part.flip), transform: 'translate(-50%, -72%) scale(var(--s))', transformOrigin: '50% 72%' };
+                // Centrado sobre la cara de la piedra y casi de su mismo ancho (los rombos, algo menos)
+                const fit = (k2) => `translate(-50%, -54%) scale(clamp(0.5, calc(var(--iw) * ${p.w} * ${k2} / 80), 1.3))`;
+                const style = { ...at(p, part.flip), transform: fit(item.type === 'station' ? 0.78 : 0.98), transformOrigin: '50% 54%' };
                 if (item.type === 'station') {
                   const key = `${langId}:${unit.id}:${item.id}`;
                   return (
@@ -464,11 +466,6 @@ const UnitHeader = ({ unit, unitIndex, lockedUnit, styleSet, done, total, here, 
         <path d="M140 46 L128 56 L136 55 L141 60 L146 54 L152 57Z M230 50 L219 59 L227 58 L232 63 L237 57 L242 59Z M50 56 L41 64 L48 63 L52 67 L56 62 L60 64Z" fill="#ffffff" opacity="0.75" />
         <path d="M0 120 L0 98 L60 82 L120 100 L190 84 L250 102 L320 86 L400 98 L400 120Z" fill="#000000" opacity="0.22" />
       </svg>
-      {!reduceMotion && (
-        <span className="condor-cabecera pointer-events-none absolute top-3" aria-hidden="true">
-          <Hummingbird className="w-12 drop-shadow" />
-        </span>
-      )}
       <span className="brillo-liquido" aria-hidden="true" />
       <p className="relative text-sm font-black uppercase tracking-widest opacity-90">Unidad {unitIndex + 1}</p>
       <h3 id={`unidad-${unit.id}-titulo`} className="relative text-2xl sm:text-3xl font-black drop-shadow">

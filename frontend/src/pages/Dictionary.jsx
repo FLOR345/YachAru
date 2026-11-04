@@ -385,7 +385,7 @@ const Dictionary = () => {
           {/* ==================== BÚSQUEDA Y RESULTADOS ==================== */}
           <div className="min-w-0 order-1 lg:order-2">
             <section className={`relative overflow-hidden rounded-[2rem] bg-gradient-to-br ${theme.gradient} p-6 sm:p-8 text-white shadow-lg mb-6`} role="search">
-              <span className="pointer-events-none absolute -right-16 -top-16 w-64 h-64 rounded-full bg-white/10" aria-hidden="true" />
+              <span className="brillo-liquido" aria-hidden="true" />
               <label htmlFor="buscar-palabra" className="relative block text-2xl sm:text-3xl font-black mb-1">
                 ¿Qué palabra buscas?
               </label>
