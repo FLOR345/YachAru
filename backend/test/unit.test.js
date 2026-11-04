@@ -7,6 +7,7 @@ import { validate, schemas } from '../src/middleware/validation.js';
 import { toCsv, pseudonym, EXPORT_COLUMNS } from '../src/controllers/researchController.js';
 import { phenomenaOf, audioKey, krippendorffAlpha } from '../src/utils/phonology.js';
 import { pickSample, summarizeRatings } from '../src/controllers/validationController.js';
+import { buildQuestions } from '../src/controllers/testsController.js';
 
 test('racha: el mismo día no sube, el día siguiente suma 1, más de un día la reinicia', () => {
   const day = (iso) => new Date(iso);
@@ -101,4 +102,16 @@ test('resultados: con menos de 8 evaluadores se avisa que no alcanza para report
   assert.equal(summary.suficiente, false);
   assert.equal(summary.media, 4);
   assert.equal(summary.por_fenomeno.glotalizada.juicios, 2);
+});
+
+test('pruebas del aula: preguntas de 4 tipos, con la respuesta entre las opciones', () => {
+  const words = ['Wasi:Casa', 'Mayu:Río', 'Inti:Sol', 'Killa:Luna', 'Yaku:Agua', 'Nina:Fuego'].map((x, i) => {
+    const [obj, es] = x.split(':');
+    return { obj, es, audio: i % 2 ? 'https://a/x.mp3' : null };
+  });
+  const qs = buildQuestions(words, 6);
+  assert.equal(qs.length, 6);
+  for (const q of qs) assert.ok(q.opciones.includes(q.respuesta));
+  assert.ok(qs.every((q) => q.tipo !== 'escucha' || q.audio), 'escuchar solo con audio');
+  assert.deepEqual(buildQuestions(words.slice(0, 3), 5), []);
 });

@@ -140,6 +140,17 @@ export const api = {
   joinClassroom: (data) => axiosInstance.post('/api/classroom/join', data),
   studentLogin: (codigoEstudiante) => axiosInstance.post('/api/classroom/login', { codigoEstudiante }),
   getMyClassroomAsStudent: () => axiosInstance.get('/api/classroom/student/me'),
+  // Pruebas del aula (docente)
+  createClassroomTest: (aulaId, data) => axiosInstance.post(`/api/classroom/${aulaId}/tests`, data),
+  getClassroomTests: (aulaId) => axiosInstance.get(`/api/classroom/${aulaId}/tests`),
+  getClassroomTestResults: (aulaId, testId) => axiosInstance.get(`/api/classroom/${aulaId}/tests/${testId}`),
+  updateClassroomTest: (aulaId, testId, data) => axiosInstance.patch(`/api/classroom/${aulaId}/tests/${testId}`, data),
+  deleteClassroomTest: (aulaId, testId) => axiosInstance.delete(`/api/classroom/${aulaId}/tests/${testId}`),
+  // Pruebas del aula (estudiante)
+  getMyTests: () => axiosInstance.get('/api/classroom/student/tests'),
+  studyTest: (testId) => axiosInstance.get(`/api/classroom/student/tests/${testId}/study`),
+  startTest: (testId) => axiosInstance.post(`/api/classroom/student/tests/${testId}/start`),
+  submitTest: (testId, attemptId, respuestas) => axiosInstance.post(`/api/classroom/student/tests/${testId}/attempts/${attemptId}`, { respuestas }),
 
   // ===== VALIDACIÓN (cobertura, evaluación perceptual y revisión del léxico) =====
   getCoverage: () => axiosInstance.get('/api/validation/cobertura'),

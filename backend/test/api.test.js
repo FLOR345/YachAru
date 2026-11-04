@@ -135,6 +135,46 @@ test('modo aula: crear, unirse sin correo, volver a entrar con el código y ver 
   await request(app).get('/api/classroom/student/me').set(auth()).expect(404);
 });
 
+test('pruebas del aula: sesión breve elegida por el docente, estudiar, dar la prueba y ver resultados', { skip }, async () => {
+  const created = await request(app).post('/api/classroom').set(auth()).send({ nombre: 'Pruebas', idioma: 'quechua' }).expect(201);
+  const { codigo, id } = created.body.aula;
+  const student = await request(app).post('/api/classroom/join').send({ codigo, alias: 'Rosa' }).expect(201);
+  const sAuth = { Authorization: `Bearer ${student.body.token}` };
+
+  const units = await request(app).get('/api/lessons/units?idioma=quechua').expect(200);
+  const lessons = await request(app).get(`/api/lessons/units/${units.body.units[0].id}/lessons`).expect(200);
+  const ids = lessons.body.lessons.slice(0, 2).map((l) => l.id);
+
+  await request(app).post(`/api/classroom/${id}/tests`).set(auth()).send({ tipo: 'otro', leccion_ids: ids }).expect(400);
+  await request(app).post(`/api/classroom/${id}/tests`).set(sAuth).send({ tipo: 'breve', leccion_ids: ids }).expect(404);
+  const made = await request(app).post(`/api/classroom/${id}/tests`).set(auth()).send({ tipo: 'breve', leccion_ids: ids, preguntas: 5 }).expect(201);
+  const testId = made.body.prueba.id;
+
+  const mine = await request(app).get('/api/classroom/student/tests').set(sAuth).expect(200);
+  assert.equal(mine.body.pruebas[0].tipo, 'breve');
+  const study = await request(app).get(`/api/classroom/student/tests/${testId}/study`).set(sAuth).expect(200);
+  assert.ok(study.body.sesiones.length >= 1 && study.body.sesiones[0].palabras.length > 0);
+
+  const start = await request(app).post(`/api/classroom/student/tests/${testId}/start`).set(sAuth).expect(201);
+  assert.equal(start.body.preguntas.length, 5);
+  assert.ok(start.body.preguntas.every((q) => !('respuesta' in q)), 'la clave no viaja al navegador');
+  const sent = await request(app)
+    .post(`/api/classroom/student/tests/${testId}/attempts/${start.body.intento}`)
+    .set(sAuth)
+    .send({ respuestas: start.body.preguntas.map((q) => q.opciones[0]) })
+    .expect(200);
+  assert.equal(sent.body.total, 5);
+  assert.equal(sent.body.revision.length, 5);
+  await request(app).post(`/api/classroom/student/tests/${testId}/attempts/${start.body.intento}`).set(sAuth).send({ respuestas: [] }).expect(409);
+
+  const results = await request(app).get(`/api/classroom/${id}/tests/${testId}`).set(auth()).expect(200);
+  assert.equal(results.body.estudiantes[0].alias, 'Rosa');
+  assert.equal(results.body.estudiantes[0].intentos, 1);
+
+  await request(app).patch(`/api/classroom/${id}/tests/${testId}`).set(auth()).send({ abierta: false }).expect(200);
+  await request(app).post(`/api/classroom/student/tests/${testId}/start`).set(sAuth).expect(409);
+});
+
 test('Google con un correo ya registrado: se vincula a esa cuenta (no se crea otra ni falla)', { skip }, async () => {
   const email = `google${unique}@ejemplo.test`;
   await request(app).post('/api/auth/register').send({ nombre: 'Con clave', email, password: 'clave-segura-123' }).expect(201);
