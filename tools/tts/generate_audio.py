@@ -170,6 +170,22 @@ def sync_recordings(cur, idioma, words):
             )
 
 
+# Estilos de síntesis para las palabras cortas (una o dos sílabas), que el modelo a veces pronuncia mal.
+# velocidad: speaking_rate; ruido y ruido_duracion: noise_scale y noise_scale_duration de VITS
+# (menos ruido = pronunciación más estable y clara, menos variada).
+STYLES = {
+    "A": {"velocidad": 0.75, "ruido": 0.667, "ruido_duracion": 0.8, "nombre": "actual"},
+    "B": {"velocidad": 0.75, "ruido": 0.3, "ruido_duracion": 0.3, "nombre": "estable"},
+    "C": {"velocidad": 0.6, "ruido": 0.3, "ruido_duracion": 0.3, "nombre": "estable y más lenta"},
+    "D": {"velocidad": 0.9, "ruido": 0.3, "ruido_duracion": 0.3, "nombre": "estable y más ágil"},
+}
+
+
+def is_short(key, max_letters):
+    """Una palabra suelta de pocas letras (sin contar el apóstrofo)."""
+    return " " not in key and len(key.replace("'", "")) <= max_letters
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--idioma", required=True)
@@ -182,8 +198,13 @@ def main():
     parser.add_argument("--salida", default=str(ROOT / "tools" / "tts" / "salida"))
     parser.add_argument("--subir", action="store_true", help="Subir a Cloudinary y guardar en la base")
     parser.add_argument("--confirmar", action="store_true", help="Necesario junto con --subir")
+    parser.add_argument("--comparar", help="Palabras separadas por comas: genera cada una en todos los estilos para escucharlas (no escribe nada)")
+    parser.add_argument("--rehacer-cortas", type=int, metavar="LETRAS", help="Vuelve a generar y subir las palabras MMS de hasta LETRAS letras")
+    parser.add_argument("--estilo", choices=sorted(STYLES), default="B", help="Estilo para --rehacer-cortas")
     args = parser.parse_args()
 
+    if args.rehacer_cortas and not args.confirmar:
+        parser.error("--rehacer-cortas reemplaza audios en línea: agrega --confirmar")
     if args.subir and not (args.confirmar and args.todo):
         sys.exit("--subir modifica la base en línea: se usa junto con --todo y --confirmar.")
     if "DATABASE_URL" not in os.environ:
@@ -201,16 +222,24 @@ def main():
     model = VitsModel.from_pretrained(model_id)
     model.eval()
     model.speaking_rate = args.velocidad
+    defaults = (model.speaking_rate, model.noise_scale, model.noise_scale_duration)
     rate = model.config.sampling_rate
 
-    def synthesize(text):
+    def synthesize(text, style=None):
+        if style:
+            model.speaking_rate = style["velocidad"]
+            model.noise_scale = style["ruido"]
+            model.noise_scale_duration = style["ruido_duracion"]
         inputs = tokenizer(text, return_tensors="pt")
         if inputs["input_ids"].shape[-1] == 0:
             return None
         # La síntesis VITS tiene un componente aleatorio: la semilla por texto hace reproducible cada audio
         torch.manual_seed(int(hashlib.sha256(text.encode("utf-8")).hexdigest()[:8], 16))
         with torch.no_grad():
-            return model(**inputs).waveform[0].cpu().numpy().astype(np.float64)
+            wave = model(**inputs).waveform[0].cpu().numpy().astype(np.float64)
+        if style:
+            model.speaking_rate, model.noise_scale, model.noise_scale_duration = defaults
+        return wave
 
     def finish(wave):
         wave = wave / max(1e-6, float(np.max(np.abs(wave)))) * 0.95  # volumen parejo
@@ -224,6 +253,28 @@ def main():
     print(f"Voz del modelo: {model_voice}" + ("; se transforma en voz de mujer" if transformed else "; se usa tal cual"))
 
     stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%d-%H%M")
+    shape = (lambda w: finish(transform_voice(w, rate, *TO_FEMALE) if transformed else w))
+
+    # Comparar estilos: cada palabra en A, B, C y D, para escuchar y elegir. No usa la base ni Cloudinary.
+    if args.comparar:
+        out_dir = Path(args.salida) / f"comparar-{args.idioma}"
+        out_dir.mkdir(parents=True, exist_ok=True)
+        lines = []
+        for word in [clean_text(w) for w in args.comparar.split(",") if w.strip()]:
+            for letter, style in STYLES.items():
+                wave = synthesize(word, style)
+                if wave is None:
+                    continue
+                safe = "".join(ch if ch.isalnum() else "_" for ch in word)
+                sf.write(out_dir / f"{safe}-{letter}.wav", shape(wave), rate)
+            print(f"  {word}: {', '.join(STYLES)}")
+        lines = [f"{k}: {v['nombre']} (velocidad {v['velocidad']}, ruido {v['ruido']}, ruido de duración {v['ruido_duracion']})" for k, v in STYLES.items()]
+        (out_dir / "LEEME.txt").write_text(
+            f"Cada palabra en cuatro estilos, con {model_id}. Escucha y elige la letra que suena más clara.\n" + "\n".join(lines) + "\n",
+            encoding="utf-8",
+        )
+        print(f"Listo: {out_dir}")
+        return
     out_dir = Path(args.salida) / f"{args.idioma}-{stamp}"
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -239,6 +290,49 @@ def main():
         )
 
     with psycopg.connect(os.environ["DATABASE_URL"], autocommit=True) as conn, conn.cursor() as cur:
+        # Rehacer las palabras cortas con otro estilo: misma dirección en Cloudinary (nueva versión),
+        # y se actualizan audios y vocabulario. Las grabaciones de personas no se tocan.
+        if args.rehacer_cortas:
+            import cloudinary
+            import cloudinary.uploader
+
+            cloudinary.config(
+                cloud_name=os.environ["CLOUDINARY_CLOUD_NAME"],
+                api_key=os.environ["CLOUDINARY_API_KEY"],
+                api_secret=os.environ["CLOUDINARY_API_SECRET"],
+                secure=True,
+            )
+            style = STYLES[args.estilo]
+            cur.execute("SELECT clave, url FROM audios WHERE idioma = %s AND fuente = 'mms' AND voz = %s", (args.idioma, VOICE))
+            targets = [(k, u) for k, u in cur.fetchall() if is_short(k, args.rehacer_cortas)]
+            out_dir = Path(args.salida) / f"rehacer-{args.idioma}-{stamp}"
+            out_dir.mkdir(parents=True, exist_ok=True)
+            print(f"{len(targets)} palabras cortas para rehacer con el estilo {args.estilo} ({style['nombre']})")
+            for i, (key, old_url) in enumerate(targets, 1):
+                wave = synthesize(key, style)
+                if wave is None:
+                    continue
+                wave = shape(wave)
+                name = hashlib.sha256(f"{model_id}:{key}".encode("utf-8")).hexdigest()[:16]
+                file = out_dir / f"{name}-{VOICE}.wav"
+                sf.write(file, wave, rate)
+                result = cloudinary.uploader.upload(
+                    str(file), resource_type="video", folder=f"{MMS_FOLDER}/{args.idioma}", public_id=f"{name}-{VOICE}", overwrite=True, invalidate=True, format="mp3"
+                )
+                new_url = result["secure_url"]
+                cur.execute(
+                    "UPDATE audios SET url = %s, segundos = %s, creado_en = NOW() WHERE idioma = %s AND clave = %s AND voz = %s",
+                    (new_url, round(len(wave) / rate, 2), args.idioma, key, VOICE),
+                )
+                cur.execute(
+                    "UPDATE vocabulario v SET audio_url = %s FROM lecciones l, unidades u WHERE v.leccion_id = l.id AND l.unidad_id = u.id AND u.idioma = %s AND v.audio_url = %s",
+                    (new_url, args.idioma, old_url),
+                )
+                file.unlink()
+                print(f"  [{i}/{len(targets)}] {key}")
+            print("Listo")
+            return
+
         words = fetch_words(cur, args.idioma)
         if args.subir:
             sync_recordings(cur, args.idioma, words)

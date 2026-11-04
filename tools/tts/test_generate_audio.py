@@ -79,6 +79,18 @@ class Modelo(unittest.TestCase):
         self.assertEqual(ga.resolve_model("awajun"), "facebook/mms-tts-agr")
         self.assertEqual(ga.resolve_model("quechua", "otro/modelo"), "otro/modelo")
 
+class PalabrasCortas(unittest.TestCase):
+    def test_solo_palabras_sueltas_de_pocas_letras(self):
+        self.assertTrue(ga.is_short("ama", 5))
+        self.assertTrue(ga.is_short("ch'aki", 5))  # el apóstrofo no cuenta
+        self.assertFalse(ga.is_short("allin p'unchay", 5))
+        self.assertFalse(ga.is_short("wawakuna", 5))
+
+    def test_estilos_completos(self):
+        for style in ga.STYLES.values():
+            self.assertEqual(set(style), {"velocidad", "ruido", "ruido_duracion", "nombre"})
+        self.assertEqual(ga.STYLES["A"]["ruido"], 0.667)  # A es el estilo con que se generó todo
+
 
 if __name__ == "__main__":
     unittest.main()

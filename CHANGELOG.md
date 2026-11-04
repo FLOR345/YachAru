@@ -19,6 +19,9 @@
 
 ### Cambiado
 
+- Cuerpo y números quedan en una sola tarjeta de Juegos. Adentro se elige tema y actividad, cada una con su "cómo se juega", y en el celular la consigna va sobre el modelo 3D.
+- Flujo de audio con los modos `comparar` y `rehacer-cortas`, para elegir de oído un estilo de síntesis para las palabras cortas y regenerarlas.
+
 - La sección aparte "Cuerpo y números" se retira del menú; `/cuerpo-numeros` lleva a sus juegos dentro de Juegos.
 
 ### Corregido

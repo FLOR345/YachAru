@@ -21,4 +21,4 @@
 .body-control:enabled:hover { background: #f0fdf4; border-color: var(--body-color); color: var(--body-color); }
 .body-control:enabled:active { transform: scale(.93); }
 .body-control.needs-turn { background: #fde68a; border-color: #f59e0b; color: #78350f; }
-@media (max-width: 400px) { .body-viewer-stage { height: 25rem; } }
+@media (max-width: 640px) { .body-viewer-stage { height: min(54vh, 26rem); min-height: 19rem; } }

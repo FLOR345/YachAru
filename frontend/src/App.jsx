@@ -56,8 +56,8 @@ const ProtectedRoute = ({ children, auth, guestAllowed = true }) => {
 const OldBodyPage = () => {
   const params = new URLSearchParams(useLocation().search);
   const idioma = params.get('idioma') || 'quechua';
-  const juego = params.get('tema') === 'numeros' ? 'numeros-explora' : 'cuerpo-explora';
-  return <Navigate to={`/practica?idioma=${idioma}&juego=${juego}`} replace />;
+  const tema = params.get('tema') === 'numeros' ? 'numeros' : 'cuerpo';
+  return <Navigate to={`/practica?idioma=${idioma}&juego=cuerpo-numeros&tema=${tema}`} replace />;
 };
 
 function App() {

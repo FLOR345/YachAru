@@ -2,6 +2,8 @@
 # Se lanza a mano: Actions → "Audio MMS" → Run workflow.
 #   prueba: 30 palabras por lengua para escuchar. Quedan como artefacto y no escribe en la base.
 #   completo: aplica las migraciones, sube a Cloudinary, llena audios y vocabulario.audio_url, y actualiza el contenido del repositorio.
+#   comparar: genera las "palabras" en los estilos A, B, C y D para escucharlas (artefacto). No escribe nada.
+#   rehacer-cortas: vuelve a generar con el "estilo" elegido las palabras de hasta "letras" letras y las reemplaza en línea.
 # Las voces grabadas no se tocan (ver tools/tts/generate_audio.py). Se puede repetir: continúa donde quedó.
 # Secretos del repositorio: DATABASE_URL, CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET.
 name: Audio MMS
@@ -10,13 +12,24 @@ on:
   workflow_dispatch:
     inputs:
       modo:
-        description: "prueba o completo"
+        description: "Qué hacer"
         type: choice
-        options: [prueba, completo]
+        options: [prueba, completo, comparar, rehacer-cortas]
         default: prueba
       idiomas:
         description: "Lenguas separadas por espacios"
         default: "quechua aymara"
+      palabras:
+        description: "comparar: palabras separadas por comas"
+        default: "ama,uma,ari,mama,maki,wasi,inti,yaku"
+      estilo:
+        description: "rehacer-cortas: estilo elegido al comparar"
+        type: choice
+        options: [B, C, D, A]
+        default: B
+      letras:
+        description: "rehacer-cortas: largo máximo de las palabras (letras)"
+        default: "5"
 
 permissions:
   contents: write
@@ -58,6 +71,12 @@ jobs:
       - name: Lote de prueba
         if: inputs.modo == 'prueba'
         run: for i in ${{ inputs.idiomas }}; do python tools/tts/generate_audio.py --idioma "$i" --muestra 30; done
+      - name: Comparar estilos
+        if: inputs.modo == 'comparar'
+        run: for i in ${{ inputs.idiomas }}; do python tools/tts/generate_audio.py --idioma "$i" --comparar "${{ inputs.palabras }}"; done
+      - name: Rehacer las palabras cortas
+        if: inputs.modo == 'rehacer-cortas'
+        run: for i in ${{ inputs.idiomas }}; do python tools/tts/generate_audio.py --idioma "$i" --rehacer-cortas "${{ inputs.letras }}" --estilo "${{ inputs.estilo }}" --confirmar; done
       - name: Generación completa
         if: inputs.modo == 'completo'
         run: |
@@ -72,10 +91,10 @@ jobs:
           path: tools/tts/salida/
           if-no-files-found: ignore
       - name: Actualizar el contenido del repositorio
-        if: inputs.modo == 'completo'
+        if: inputs.modo == 'completo' || inputs.modo == 'rehacer-cortas'
         run: |
           npm run db:content --prefix backend
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add database/seed/contenido.sql
-          git diff --cached --quiet || { git commit -m "Contenido: audio MMS generado en línea"; git push; }
+          git diff --cached --quiet || { git commit -m "Contenido: audio MMS (${{ inputs.modo }}) en línea"; git push; }
