@@ -10,7 +10,7 @@ Base de la sección *Limitations and ethics* del artículo.
 
 **Un modelo de lenguaje para generar contenido en quechua o aymara.** Produce morfología inventada y mezcla variedades dialectales. Enseñar una lengua inventada por un modelo contribuiría al daño que el proyecto combate. Tampoco se usó para escribir las reglas del normalizador ni el paquete de awajún.
 
-**Reconocimiento de voz para corregir la pronunciación.** La tasa de error en estas lenguas sigue siendo alta y un falso "pronunciaste mal" desmotiva a quien aprende. Por eso "¡Dilo tú!" no reconoce palabras: compara la envolvente de energía de tu grabación con la de la voz de la app (alineación DTW) y da un parecido de ritmo y duración, que la interfaz presenta como orientativo.
+**Reconocimiento de voz para corregir la pronunciación.** La tasa de error en estas lenguas sigue siendo alta y un falso "pronunciaste mal" desmotiva a quien aprende. Por eso "¡Dilo tú!" no usa un reconocedor: compara tu grabación con la voz de la app y con otras palabras (MFCC alineados con DTW) y aprueba solo si se parece más a la palabra pedida. La interfaz presenta la nota como orientativa. Método y calibración en [calificador-de-voz.md](calificador-de-voz.md).
 
 **Reconocimiento de voz como validación principal del audio.** El reconocedor y el sintetizador son ambos de Meta y están entrenados con los mismos datos, así que el resultado saldría favorable por construcción.
 
@@ -22,14 +22,14 @@ Base de la sección *Limitations and ethics* del artículo.
 - Que el modelo reciba el apóstrofo no prueba que pronuncie bien las glotalizadas.
 - Si nadie del equipo habla aymara, para esa lengua el equipo es externo. Debe resolverse con un colaborador o declararse.
 - El awajún es una demostración técnica sin revisión de hablantes y no se publica en la plataforma.
-- El parecido de "¡Dilo tú!" mide ritmo y duración, no cada sonido: no dice si una glotalizada o una aspirada se pronunció bien.
+- La nota de "¡Dilo tú!" mide el parecido con la palabra modelo, no cada sonido: no dice si una glotalizada o una aspirada se pronunció bien. Está calibrada con voces sintéticas, no con personas.
 
 ## Datos y soberanía
 
 - Los eventos de aprendizaje se registran solo con consentimiento, y la persona puede descargarlos y borrarlos.
 - La exportación va seudonimizada: nunca lleva nombre, correo ni id interno.
 - El modo aula funciona sin correo ni datos personales.
-- Las grabaciones del micrófono se procesan en el navegador y se descartan al cerrar: no se suben ni se guardan en ningún servidor. Solo se registra el parecido (un número), y únicamente con consentimiento.
+- Las grabaciones del micrófono se procesan en el navegador y se descartan al cerrar: no se suben ni se guardan en ningún servidor. Solo se registra la nota (un número), y únicamente con consentimiento.
 
 ## Declaración de uso de herramientas de IA (borrador)
 

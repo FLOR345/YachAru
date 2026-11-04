@@ -23,6 +23,7 @@ import { parteDePalabra } from '../data/cuerpoNumeros';
 import { micPaused, pauseMic } from '../utils/voice';
 
 const PASS_PERCENT = 80;
+const SPEAK_TRIES = 3; // intentos en "Dilo en voz alta" antes de poder seguir sin aprobar
 const XP_CORRECT = 10;
 const XP_VARIANT = 8;
 const XP_REVIEW = 4;
@@ -139,7 +140,7 @@ const LessonView = ({ user, isGuest }) => {
   const [sound, setSound] = useState(soundEnabled);
   const [xpGain, setXpGain] = useState(null); // { amount, key } para el +XP que sube
   const [popup, setPopup] = useState(null); // { type: 'hablar' | 'cuerpo', word, part }
-  const [spoken, setSpoken] = useState(null); // en "Dilo tú": parecido del último intento (undefined = sin intento)
+  const [spoken, setSpoken] = useState(null); // en "Dilo tú": { result, tries } (null = sin intento)
 
   const savedRef = useRef(false);
   const continueRef = useRef(null);
@@ -668,7 +669,7 @@ const LessonView = ({ user, isGuest }) => {
               })}
             </ol>
             {popup?.type === 'hablar' && (
-              <SpeakModal text={popup.word.palabra_objetivo} meaning={popup.word.palabra_espanol} url={popup.word.audio_url} language={language} theme={theme} onClose={() => setPopup(null)} />
+              <SpeakModal text={popup.word.palabra_objetivo} meaning={popup.word.palabra_espanol} url={popup.word.audio_url} cohort={vocabulary.map((v) => ({ text: v.palabra_objetivo, url: v.audio_url }))} language={language} theme={theme} onClose={() => setPopup(null)} />
             )}
             {popup?.type === 'cuerpo' && (
               <BodyPeek part={popup.part} word={popup.word.palabra_objetivo} url={popup.word.audio_url} idioma={lesson.idioma} language={language} theme={theme} onClose={() => setPopup(null)} />
@@ -684,6 +685,7 @@ const LessonView = ({ user, isGuest }) => {
   }
 
   // ==================== EJERCICIOS ====================
+  const speakDone = !!spoken && (spoken.result.passed || spoken.result.unavailable || spoken.tries >= SPEAK_TRIES);
   const progress = queue.length > 0 ? (position + (feedback ? 1 : 0)) / queue.length : 0;
   const isLast = position === queue.length - 1;
   const variantText =
@@ -771,14 +773,27 @@ const LessonView = ({ user, isGuest }) => {
             {current?.exercise?.tipo === 'hablar' ? (
               <div>
                 <p className="mb-3 text-sm font-black uppercase tracking-wider text-rose-600">Dilo en voz alta</p>
-                <div className="rounded-[2rem] bg-white p-5 sm:p-7 ring-1 ring-stone-200 shadow-sm">
+                <div className="mb-5">
+                  <Mascot
+                    mood={spoken?.result?.passed ? 'cheer' : 'idle'}
+                    pose={spoken?.result?.passed ? 'celebrando' : 'hablando'}
+                    beat={spoken?.tries ?? 0}
+                    size="w-20 sm:w-28"
+                    eager
+                    say={<p className="font-semibold">Escucha y repite. Te pongo nota: <strong>apruebas con 60</strong>. Tienes {SPEAK_TRIES} intentos.</p>}
+                  />
+                </div>
+                <div className="rounded-[2rem] bg-white p-4 sm:p-6 ring-1 ring-stone-200 shadow-lg">
                   <SpeakPractice
                     text={current.exercise.word.palabra_objetivo}
                     meaning={current.exercise.word.palabra_espanol}
                     url={current.exercise.word.audio_url}
                     language={language}
                     theme={theme}
-                    onResult={(score) => setSpoken({ score })}
+                    cohort={vocabulary.filter((v) => v.id !== current.exercise.word.id).map((v) => ({ text: v.palabra_objetivo, url: v.audio_url }))}
+                    tries={spoken?.tries ?? 0}
+                    maxTries={SPEAK_TRIES}
+                    onResult={(result) => setSpoken((prev) => ({ result, tries: (prev?.tries ?? 0) + (result.score != null ? 1 : 0) }))}
                   />
                 </div>
               </div>
@@ -810,7 +825,7 @@ const LessonView = ({ user, isGuest }) => {
         </AnimatePresence>
       </main>
 
-      {/* "Dilo tú": barra de abajo con "Ahora no puedo hablar" y "Continuar" */}
+      {/* "Dilo tú": barra de abajo con "Ahora no puedo hablar" y "Continuar" (al aprobar o tras los intentos) */}
       {current?.exercise?.tipo === 'hablar' && !feedback && (
         <div className="fixed inset-x-0 bottom-0 z-20 border-t-2 border-stone-100 bg-white/95 backdrop-blur">
           <div className="container mx-auto max-w-3xl py-4 flex flex-wrap items-center gap-3">
@@ -819,11 +834,16 @@ const LessonView = ({ user, isGuest }) => {
             </button>
             <button
               type="button"
-              onClick={() => handleAnswer(true, current.exercise.word.palabra_objetivo, { parecido: spoken?.score })}
-              disabled={!spoken}
-              className={`ficha ml-auto flex-1 sm:flex-none sm:min-w-52 min-h-12 px-8 rounded-2xl font-black uppercase tracking-wide ${spoken ? 'border-green-800 bg-green-600 text-white hover:bg-green-500' : 'border-stone-200 bg-stone-200 text-stone-500 cursor-not-allowed'}`}
+              onClick={() => {
+                const r = spoken.result;
+                // Sin micrófono no hay nota: cuenta como dicha. Si no aprobó en los intentos, cuenta como error.
+                const ok = r.unavailable || r.passed;
+                handleAnswer(ok, current.exercise.word.palabra_objetivo, { resultado: ok ? 'correcto' : 'incorrecto', parecido: r.score });
+              }}
+              disabled={!speakDone}
+              className={`ficha ml-auto flex-1 sm:flex-none sm:min-w-52 min-h-12 px-8 rounded-2xl font-black uppercase tracking-wide ${speakDone ? (spoken.result.passed || spoken.result.unavailable ? 'border-green-800 bg-green-600 text-white hover:bg-green-500' : 'border-red-800 bg-red-600 text-white hover:bg-red-500') : 'border-stone-200 bg-stone-200 text-stone-500 cursor-not-allowed'}`}
             >
-              Continuar
+              {speakDone && !spoken.result.passed && !spoken.result.unavailable ? 'Seguir' : 'Continuar'}
             </button>
           </div>
         </div>

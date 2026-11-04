@@ -10,6 +10,7 @@ import { Burst, FloatText, Countdown } from '../GameFx';
 import SpeakPractice from '../SpeakPractice';
 import { BodyChip, BodyPeek } from '../BodyMoments';
 import { parteDePalabra } from '../../data/cuerpoNumeros';
+import { PASS } from '../../utils/grader';
 import { shuffle, readBest, writeBest, bestKey, primaryBtn, useMood, GameFrame, ResultScreen } from './kit';
 
 const voiceOf = (word, language, slow = false) => ({ url: word.audio, idioma: language.id, lang: language.voz?.respaldo, slow });
@@ -55,80 +56,93 @@ export const SpeakGame = ({ words, language, theme, idioma, onExit }) => {
   const pickWords = () => shuffle(words.filter((w) => w.target.split(/\s+/).length <= 3)).slice(0, SPEAK_ROUNDS);
   const [list, setList] = useState(pickWords);
   const [index, setIndex] = useState(0);
-  const [scores, setScores] = useState([]);
-  const [current, setCurrent] = useState(undefined); // parecido del último intento de esta ronda
+  const [results, setResults] = useState([]); // mejor intento de cada palabra (salida del calificador)
+  const [current, setCurrent] = useState(null); // mejor intento de esta ronda
   const [peek, setPeek] = useState(null);
   const [llama, react] = useMood('hablando');
   const over = index >= list.length;
-  const valid = scores.filter((s) => s != null);
-  const average = valid.length ? Math.round(valid.reduce((a, b) => a + b, 0) / valid.length) : 0;
+  const graded = results.filter((r) => r?.score != null);
+  const passed = graded.filter((r) => r.passed).length;
+  const average = graded.length ? Math.round(graded.reduce((a, r) => a + r.score, 0) / graded.length) : 0;
   const rec = useRecord('hablar', idioma, average, over);
   const word = list[index];
   const part = word ? parteDePalabra(word.target, word.spanish, idioma) : null;
+  // Se compara con las demás palabras del juego
+  const cohort = useMemo(() => words.filter((w) => w.id !== word?.id).slice(0, 12).map((w) => ({ text: w.target, url: w.audio })), [words, word]);
 
   const next = () => {
-    setScores((s) => [...s, current ?? null]);
-    setCurrent(undefined);
+    setResults((r) => [...r, current]);
+    setCurrent(null);
     setIndex((i) => i + 1);
   };
   const restart = () => {
     setList(pickWords());
     setIndex(0);
-    setScores([]);
-    setCurrent(undefined);
+    setResults([]);
+    setCurrent(null);
     rec.reset();
   };
 
   if (over) {
     return (
       <ResultScreen
-        stars={average >= 80 ? 3 : average >= 60 ? 2 : average >= 40 ? 1 : 0}
+        stars={passed >= list.length ? 3 : passed >= list.length / 2 ? 2 : passed > 0 ? 1 : 0}
         record={rec.record}
-        big={valid.length ? `${average}` : '¡Bien!'}
-        unit={valid.length ? 'de parecido medio con la voz de la app (ritmo y duración)' : 'Dijiste todas las palabras en voz alta'}
-        note={!rec.record && rec.best ? `Récord: ${rec.best}` : null}
+        big={graded.length ? `${passed}/${list.length}` : '—'}
+        unit={graded.length ? `palabras aprobadas · nota media ${average}` : 'Sin micrófono no hubo nota'}
+        note={!rec.record && rec.best ? `Récord de nota media: ${rec.best}` : null}
         language={language}
         onAgain={restart}
         onExit={onExit}
-      />
+      >
+        {graded.length > 0 && (
+          <ul className="mt-6 grid gap-2 text-left">
+            {list.map((w, i) => (
+              <li key={w.id} className={`flex items-center justify-between rounded-2xl px-4 py-2 font-bold ring-1 ${results[i]?.passed ? 'bg-green-50 ring-green-200' : 'bg-rose-50 ring-rose-200'}`}>
+                <span lang={language.lang}>{w.target}</span>
+                <span className="tabular-nums">{results[i]?.score ?? '—'}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </ResultScreen>
     );
   }
 
   return (
-    <GameFrame llama={llama} say={<p className="font-semibold">Escucha, toca el micrófono y dila con el mismo ritmo. ¡Tu voz no sale de tu equipo!</p>}>
+    <GameFrame llama={llama} say={<p className="font-semibold">Escucha, toca el micrófono y dila. ¡Te pongo nota! Aprueba con {PASS}.</p>}>
       <div className="max-w-2xl mx-auto">
-        <div className="mb-6 flex items-center justify-between gap-4">
-          <Dots total={list.length} results={scores.map((s) => s == null || s >= 50)} index={index} theme={theme} />
+        <div className="mb-5 flex items-center justify-between gap-4">
+          <Dots total={list.length} results={results.map((r) => !!r?.passed)} index={index} theme={theme} />
           {part && <BodyChip onClick={() => setPeek(part)} />}
         </div>
         <AnimatePresence mode="wait">
-          <m.div key={index} initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -40 }} className="rounded-[2rem] bg-white p-6 sm:p-8 ring-1 ring-stone-200 shadow-xl">
+          <m.div key={index} initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -40 }} className="rounded-[2rem] bg-white/95 p-4 sm:p-6 ring-1 ring-stone-200 shadow-xl">
             <SpeakPractice
               text={word.target}
               meaning={word.spanish}
               url={word.audio}
+              cohort={cohort}
               language={language}
               theme={theme}
-              onResult={(s) => {
-                setCurrent(s);
-                if (s != null) react(s >= 60 ? 'cheer' : 'happy', s >= 60 ? 'celebrando' : 'alegre');
+              onResult={(r) => {
+                setCurrent((prev) => (prev?.score != null && (r.score == null || prev.score >= r.score) ? prev : r));
+                if (r.passed) react('cheer', 'celebrando');
+                else if (r.score != null) react('sad', 'reintentar');
               }}
             />
           </m.div>
         </AnimatePresence>
-        <div className="mt-6 flex justify-end">
-          <button type="button" onClick={next} disabled={current === undefined} className={`${primaryBtn} disabled:opacity-40 disabled:cursor-not-allowed`}>
+        <div className="mt-6 flex flex-wrap items-center justify-end gap-3">
+          {!current && (
+            <button type="button" onClick={() => setCurrent({ score: null })} className="min-h-12 px-4 font-bold text-stone-600 underline underline-offset-4">
+              Saltar esta palabra
+            </button>
+          )}
+          <button type="button" onClick={next} disabled={!current} className={`${primaryBtn} disabled:opacity-40 disabled:cursor-not-allowed`}>
             {index + 1 >= list.length ? 'Ver resultado' : 'Siguiente'}
           </button>
         </div>
-        {current === undefined && (
-          <p className="mt-2 text-right text-sm text-stone-500">
-            ¿Sin micrófono?{' '}
-            <button type="button" className="font-bold underline underline-offset-4 min-h-11" onClick={() => setCurrent(null)}>
-              La dije en voz alta
-            </button>
-          </p>
-        )}
       </div>
       {peek && <BodyPeek part={peek} word={word.target} url={word.audio} idioma={idioma} language={language} theme={theme} onClose={() => setPeek(null)} />}
     </GameFrame>
@@ -463,10 +477,27 @@ export const RainGame = ({ words, language, theme, idioma, onExit }) => {
               <span className={`rounded-full bg-gradient-to-r ${theme.gradient} px-6 py-2 text-xl font-black text-white shadow-lg`}>{drop.target.spanish}</span>
             </m.div>
           </AnimatePresence>
+          {/* Sol y nubes que pasan */}
+          <m.span className="pointer-events-none absolute right-8 top-16 h-16 w-16 rounded-full bg-gradient-to-br from-amber-200 to-amber-400 shadow-[0_0_60px_20px_rgba(251,191,36,0.35)]" animate={{ scale: [1, 1.08, 1] }} transition={{ duration: 4, repeat: Infinity }} aria-hidden="true" />
+          {[0, 1].map((i) => (
+            <m.span
+              key={i}
+              className="pointer-events-none absolute h-8 w-24 rounded-full bg-white/90 shadow-sm"
+              style={{ top: `${22 + i * 22}%` }}
+              initial={{ x: '-30%' }}
+              animate={{ x: ['-30%', '130%'] }}
+              transition={{ duration: 26 + i * 9, repeat: Infinity, ease: 'linear', delay: i * -12 }}
+              aria-hidden="true"
+            >
+              <span className="absolute -top-4 left-5 h-9 w-11 rounded-full bg-white/90" />
+            </m.span>
+          ))}
           {/* Montañas al fondo y el suelo */}
           <svg className="pointer-events-none absolute inset-x-0 bottom-0 h-24 w-full" viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M0 60 L0 35 L40 15 L80 38 L130 8 L180 40 L230 18 L300 42 L300 60 Z" fill="#d6d3d1" opacity="0.6" />
-            <rect x="0" y="52" width="300" height="8" fill="#a8a29e" />
+            <path d="M0 60 L0 30 L45 8 L90 34 L140 4 L190 36 L240 14 L300 38 L300 60 Z" fill="#a8a29e" opacity="0.45" />
+            <path d="M0 60 L0 42 L60 22 L110 44 L170 20 L230 46 L300 30 L300 60 Z" fill="#78716c" opacity="0.5" />
+            <path d="M138 4 L130 10 L146 10 Z M43 8 L36 13 L50 13 Z" fill="#fff" opacity="0.9" />
+            <rect x="0" y="52" width="300" height="8" fill="#65a30d" />
           </svg>
           {drop.items.map((item) => {
             const state = hit?.id === item.w.id ? (hit.ok ? 'ok' : 'bad') : null;
