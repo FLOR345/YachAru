@@ -55,3 +55,14 @@ La clave de cada texto se calcula igual en Python, en el backend y en el fronten
 ## Cobertura
 
 `GET https://simiaru.onrender.com/api/validation/cobertura` devuelve, por lengua, filas, entradas únicas, audio MMS, audio grabado, filas sin audio y palabras con cada fenómeno, junto con la definición de cada cifra. Esos son los números que se reportan en el artículo.
+
+## Palabras cortas
+
+El modelo a veces pronuncia mal las palabras de una o dos sílabas (por ejemplo, "ama"). Para corregirlas sin tocar el resto:
+
+1. **Comparar.** En Actions → Audio MMS, elige el modo `comparar`. Genera cada palabra de la lista en cuatro estilos y deja los WAV en el artefacto `audio-comparar`. No escribe nada en la base.
+   - A: el actual.
+   - B: estable, con menos ruido de síntesis.
+   - C: estable y más lento.
+   - D: estable y más ágil.
+2. **Rehacer.** Elige el modo `rehacer-cortas`, con el estilo que suene mejor y un largo máximo en letras (5 por defecto). Vuelve a generar todas las palabras MMS de ese largo, las reemplaza en Cloudinary y actualiza `audios` y `vocabulario`. Las grabaciones de personas no se tocan.

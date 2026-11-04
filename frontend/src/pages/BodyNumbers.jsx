@@ -360,7 +360,7 @@ export const LlamaSays = ({ idioma, language, theme, onExplore }) => {
   const otherSide = target.vista !== vista && !g.flash;
   return (
     <div className="grid gap-6 lg:grid-cols-[minmax(0,24rem)_minmax(0,1fr)] items-start">
-      <div className="relative rounded-[2rem] bg-white ring-1 ring-stone-200 p-6 shadow-sm">
+      <div className="relative order-2 lg:order-1 rounded-[2rem] bg-white ring-1 ring-stone-200 p-3 sm:p-6 shadow-sm">
         <BodyFigure
           onReady={setModelReady}
           parts={parts}
@@ -375,7 +375,7 @@ export const LlamaSays = ({ idioma, language, theme, onExplore }) => {
         />
         {g.flash?.ok && <Burst trigger={g.round + 1} count={14} distance={70} />}
       </div>
-      <div className="space-y-5">
+      <div className="order-1 lg:order-2 space-y-4 sm:space-y-5">
         <HUD {...g} theme={theme} timeLeft={modelReady ? SECONDS : null} />
         <AnimatePresence mode="wait">
           <m.div key={g.round} initial={{ opacity: 0, y: 20, scale: 0.96 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -20 }} className="relative overflow-hidden rounded-[2rem] bg-white ring-1 ring-stone-200 p-7 shadow-xl">
@@ -428,11 +428,11 @@ export const WhichPart = ({ idioma, language, theme, onExplore }) => {
   if (g.over) return <EndScreen score={g.score} best={g.best} onReplay={g.restart} onExplore={onExplore} theme={theme} won={g.lives > 0} />;
   return (
     <div className="grid gap-6 lg:grid-cols-[minmax(0,24rem)_minmax(0,1fr)] items-start">
-      <div className="relative rounded-[2rem] bg-white ring-1 ring-stone-200 p-6 shadow-sm">
+      <div className="relative order-2 lg:order-1 rounded-[2rem] bg-white ring-1 ring-stone-200 p-3 sm:p-6 shadow-sm">
         <BodyFigure onReady={setModelReady} parts={parts.filter((p) => p.id === t.id)} vista={t.vista} active={t.id} color={theme.hex} flash={g.flash} label={g.flash ? (p) => p[idioma] : undefined} />
         {g.flash?.ok && <Burst trigger={g.round + 1} count={14} distance={70} />}
       </div>
-      <div className="space-y-5">
+      <div className="order-1 lg:order-2 space-y-4 sm:space-y-5">
         <HUD {...g} theme={theme} timeLeft={modelReady ? SECONDS : null} />
         <div className="rounded-[2rem] bg-white ring-1 ring-stone-200 p-6 shadow-xl">
           <p className="text-xs font-black uppercase tracking-widest text-stone-500">¿Cómo se llama la parte que brilla?</p>
@@ -541,11 +541,11 @@ export const DragLabels = ({ idioma, language, theme, onExplore }) => {
   if (done) return <EndScreen score={Math.max(0, 1000 - mistakes * 100)} best={best} onReplay={restart} onExplore={onExplore} theme={theme} won />;
   return (
     <div className="grid gap-6 lg:grid-cols-[minmax(0,24rem)_minmax(0,1fr)] items-start">
-      <div className="relative rounded-[2rem] bg-white ring-1 ring-stone-200 p-6 shadow-sm">
+      <div className="relative order-2 lg:order-1 rounded-[2rem] bg-white ring-1 ring-stone-200 p-3 sm:p-6 shadow-sm">
         <BodyFigure ref={faceRef} parts={parts.filter((p) => [...set.front, ...set.back].some((x) => x.id === p.id))} vista={vista} placed={placed} color={theme.hex} showDots spotlight={false} onPick={() => {}} />
         <Burst trigger={burst} count={16} distance={80} />
       </div>
-      <div className="space-y-5">
+      <div className="order-1 lg:order-2 space-y-4 sm:space-y-5">
         <div className="rounded-3xl bg-white/90 backdrop-blur ring-1 ring-stone-200 p-4 shadow-sm">
           <div className="flex flex-wrap items-center gap-4">
             <span className="font-black text-xl tabular-nums">
@@ -797,143 +797,121 @@ export const ListenTap = ({ idioma, language, theme, onExplore }) => {
   );
 };
 
-// ==================== Página ====================
+// ==================== Todo en una tarjeta ====================
+// Cuerpo y números viven en una sola tarjeta de Juegos. Adentro: elegir tema, elegir actividad
+// (cada una dice en una línea cómo se juega) y jugar. Pensado primero para el celular.
 const TABS = [
   { id: 'cuerpo', label: 'Mi cuerpo', Icon: GiVitruvianMan },
   { id: 'numeros', label: 'Los números', Icon: GiAbacus },
 ];
 const MODES = {
   cuerpo: [
-    { id: 'explorar', label: 'Explorar', Icon: Eye },
-    { id: 'llama-dice', label: 'La llama dice', Icon: Hand },
-    { id: 'que-parte', label: '¿Qué parte es?', Icon: Sparkles },
-    { id: 'pega', label: 'Pega las palabras', Icon: Move },
+    { id: 'explorar', label: 'Explorar', Icon: Eye, kind: 'Aprende', how: 'Gira el cuerpo y toca cada punto para oír su nombre.', color: 'from-emerald-500 to-green-700' },
+    { id: 'llama-dice', label: 'La llama dice', Icon: Hand, kind: 'Juego', how: 'Escucha «Toca tu…» y toca esa parte en el cuerpo.', color: 'from-amber-400 to-orange-600' },
+    { id: 'que-parte', label: '¿Qué parte es?', Icon: Sparkles, kind: 'Juego', how: 'Una parte brilla: elige cómo se llama.', color: 'from-sky-500 to-blue-700' },
+    { id: 'pega', label: 'Pega las palabras', Icon: Move, kind: 'Juego', how: 'Arrastra cada palabra hasta su lugar del cuerpo.', color: 'from-fuchsia-500 to-purple-700' },
   ],
   numeros: [
-    { id: 'explorar', label: 'Explorar', Icon: Hash },
-    { id: 'cuenta', label: 'Cuenta las llamas', Icon: Timer },
-    { id: 'escucha', label: 'Escucha y toca', Icon: Ear },
+    { id: 'explorar', label: 'Explorar', Icon: Hash, kind: 'Aprende', how: 'Mueve la barra, cuenta llamitas y escucha cada número.', color: 'from-yellow-400 to-amber-600' },
+    { id: 'cuenta', label: 'Cuenta las llamas', Icon: Timer, kind: 'Juego', how: '¿Cuántas llamitas hay? Elige el número antes de que se acabe el tiempo.', color: 'from-orange-400 to-red-600' },
+    { id: 'escucha', label: 'Escucha y toca', Icon: Ear, kind: 'Juego', how: 'Oye un número y toca el que escuchaste.', color: 'from-teal-400 to-emerald-700' },
   ],
 };
+const VIEWS = {
+  cuerpo: { explorar: BodyExplore, 'llama-dice': LlamaSays, 'que-parte': WhichPart, pega: DragLabels },
+  numeros: { explorar: NumbersExplore, cuenta: CountLlamas, escucha: ListenTap },
+};
 
-const BodyNumbers = ({ user }) => {
+export const BodyNumbersHub = ({ idioma, language, theme }) => {
   const [params, setParams] = useSearchParams();
-  const idioma = [params.get('idioma'), user?.idioma_objetivo].find((id) => id === 'quechua' || id === 'aymara') ?? 'quechua';
   const tab = params.get('tema') === 'numeros' ? 'numeros' : 'cuerpo';
-  const [mode, setMode] = useState('explorar');
-  const language = getLanguage(idioma) ?? LANGUAGES[0];
-  const theme = languageStyle(idioma);
+  const mode = MODES[tab].some((md) => md.id === params.get('modo')) ? params.get('modo') : 'explorar';
   const update = (patch) => setParams((p) => ({ ...Object.fromEntries(p), ...patch }), { replace: true });
-  useEffect(() => setMode('explorar'), [tab, idioma]);
-
-  const props = { idioma, language, theme, onExplore: () => setMode('explorar') };
-  const key = `${tab}-${mode}-${idioma}`;
+  const stage = useRef(null);
+  const current = MODES[tab].find((md) => md.id === mode);
+  const View = VIEWS[tab][mode];
+  const choose = (id) => {
+    playTap();
+    update({ modo: id });
+    // En el celular, la actividad queda debajo: se baja hasta ella
+    requestAnimationFrame(() => stage.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+  };
 
   return (
-    <div className="fondo-burbujas min-h-screen text-stone-900">
-      <span className="burbuja burbuja-verde" aria-hidden="true" />
-      <span className="burbuja burbuja-azul" aria-hidden="true" />
-      <header className="bg-white/90 backdrop-blur sticky top-0 z-50 border-b border-stone-200">
-        <div className="container mx-auto max-w-7xl py-3 flex items-center gap-3">
-          <Link to="/dashboard" aria-label="Volver al panel" className="w-11 h-11 flex items-center justify-center rounded-xl text-stone-700 hover:bg-stone-100 toque">
-            <ArrowLeft className="w-6 h-6" aria-hidden="true" />
-          </Link>
-          <div className="mr-auto min-w-0">
-            <h1 className="text-xl sm:text-2xl font-black">
-              <GradientText colors={['#15803d', '#0ea5e9', '#1e40af', '#15803d']} animationSpeed={7}>
-                Mi cuerpo y los números
-              </GradientText>
-            </h1>
-            <p className="text-sm text-stone-600 truncate">Aprende tocando, escuchando y jugando</p>
-          </div>
-          <div className="flex rounded-full bg-stone-100 p-1" role="group" aria-label="Idioma">
-            {LANGUAGES.map((l) => (
-              <button
-                key={l.id}
-                type="button"
-                aria-pressed={l.id === idioma}
-                onClick={() => update({ idioma: l.id })}
-                className={`min-h-9 px-3 sm:px-4 rounded-full text-sm font-bold toque ${l.id === idioma ? `${languageStyle(l.id).solid} text-white` : 'text-stone-600 hover:text-stone-900'}`}
-              >
-                {l.nombre}
-              </button>
-            ))}
-          </div>
-        </div>
-      </header>
+    <div className="space-y-5">
+      {/* 1. Tema */}
+      <div className="grid grid-cols-2 gap-2 rounded-3xl bg-white p-1.5 shadow-sm ring-1 ring-stone-200 sm:w-fit" role="tablist" aria-label="Tema">
+        {TABS.map((t) => (
+          <button
+            key={t.id}
+            type="button"
+            role="tab"
+            aria-selected={tab === t.id}
+            onClick={() => {
+              playTap();
+              update({ tema: t.id, modo: 'explorar' });
+            }}
+            className={`relative flex min-h-14 items-center justify-center gap-2 rounded-2xl px-5 text-base sm:text-lg font-black ${tab === t.id ? 'text-white' : 'text-stone-600 hover:text-stone-900'}`}
+          >
+            {tab === t.id && <m.span layoutId="tema-activo" className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${theme.gradient} shadow-md`} transition={{ type: 'spring', bounce: 0.25, duration: 0.5 }} />}
+            <t.Icon className="relative h-7 w-7" aria-hidden="true" />
+            <span className="relative">{t.label}</span>
+          </button>
+        ))}
+      </div>
 
-      <main className="container mx-auto max-w-7xl py-8 relative isolate">
-        <Decor palette="frio" />
+      {/* 2. Actividad: tarjetas grandes con qué se hace en cada una */}
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4" role="group" aria-label="Actividad">
+        {MODES[tab].map((md, i) => {
+          const active = md.id === mode;
+          return (
+            <m.button
+              key={`${tab}-${md.id}`}
+              type="button"
+              aria-pressed={active}
+              onClick={() => choose(md.id)}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.05 }}
+              whileHover={{ y: -3 }}
+              whileTap={{ scale: 0.97 }}
+              className={`relative overflow-hidden rounded-3xl p-3 sm:p-4 text-left transition-shadow ${active ? 'bg-white shadow-xl ring-4 ring-offset-2 ' + theme.ring : 'bg-white/90 shadow-sm ring-1 ring-stone-200 hover:shadow-md'}`}
+            >
+              <span className="flex items-center justify-between gap-2">
+                <span className={`flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${md.color} text-white shadow-md`} aria-hidden="true">
+                  <md.Icon className="h-6 w-6" />
+                </span>
+                <span className={`rounded-full px-2 py-0.5 text-[10px] sm:text-xs font-black uppercase tracking-wider ${md.kind === 'Aprende' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}`}>{md.kind}</span>
+              </span>
+              <span className="mt-2 block text-base sm:text-lg font-black leading-tight">{md.label}</span>
+              <span className="mt-0.5 hidden sm:block text-sm text-stone-600">{md.how}</span>
+              {active && <m.span layoutId="actividad-activa" className={`absolute inset-x-0 bottom-0 h-1.5 bg-gradient-to-r ${theme.gradient}`} />}
+            </m.button>
+          );
+        })}
+      </div>
 
-        {/* Encabezado animado (GSAP Animated Content + Blur Text) */}
-        <AnimatedContent key={`${tab}-${idioma}`} distance={40} duration={0.7} ease="back.out(1.4)" scale={0.96} blur={4} threshold={0.05}>
-          <div className={`relative mb-6 overflow-hidden rounded-[2rem] bg-gradient-to-br ${theme.gradient} p-6 sm:p-8 text-white shadow-xl`}>
-            <span className="absolute inset-0 opacity-15 [background:repeating-linear-gradient(135deg,#fff_0_6px,transparent_6px_22px)]" aria-hidden="true" />
-            <m.span className="absolute -right-10 -top-16 h-56 w-56 rounded-full bg-white/25 blur-3xl" animate={{ x: [0, -30, 0], y: [0, 20, 0] }} transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }} aria-hidden="true" />
-            <span className="tejido-andino absolute inset-x-0 bottom-0 h-2" aria-hidden="true" />
-            <div className="relative flex items-center gap-5">
-              <div className="min-w-0 flex-1">
-                <p className="text-xs font-black uppercase tracking-widest text-white/80">{language.nombre}</p>
-                <BlurText
-                  key={`${tab}-${idioma}`}
-                  text={tab === 'cuerpo' ? (idioma === 'aymara' ? 'Janchija: mi cuerpo' : 'Ukhuy: mi cuerpo') : idioma === 'aymara' ? 'Jakhunaka: los números' : 'Yupaykuna: los números'}
-                  className="!justify-start text-3xl sm:text-4xl font-black leading-tight"
-                  delay={70}
-                  stepDuration={0.3}
-                />
-                <p className="mt-1 text-white/90 font-semibold">{tab === 'cuerpo' ? 'Gira el cuerpo en 3D, acércate y toca cada parte. ¡Después, juega!' : 'Mueve la barra, cuenta llamitas y escucha cada número.'}</p>
-              </div>
-              <div className="hidden sm:block">
-                <Mascot pose={tab === 'cuerpo' ? 'bienvenida' : 'pensando'} sticker size="w-28" />
-              </div>
-            </div>
-          </div>
-        </AnimatedContent>
-
-        {/* Pestañas y modos */}
-        <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex rounded-2xl bg-white p-1.5 ring-1 ring-stone-200 shadow-sm w-fit" role="tablist" aria-label="Tema">
-            {TABS.map((t) => (
-              <button
-                key={t.id}
-                type="button"
-                role="tab"
-                aria-selected={tab === t.id}
-                onClick={() => {
-                  playTap();
-                  update({ tema: t.id });
-                }}
-                className={`relative inline-flex items-center gap-2 min-h-12 px-5 rounded-xl font-black ${tab === t.id ? 'text-white' : 'text-stone-600 hover:text-stone-900'}`}
-              >
-                {tab === t.id && <m.span layoutId="tema-activo" className={`absolute inset-0 rounded-xl bg-gradient-to-r ${theme.gradient} shadow-md`} transition={{ type: 'spring', bounce: 0.25, duration: 0.5 }} />}
-                <t.Icon className="relative w-6 h-6" aria-hidden="true" />
-                <span className="relative">{t.label}</span>
-              </button>
-            ))}
-          </div>
-          <div className="flex flex-wrap gap-2" role="group" aria-label="Modo">
-            {MODES[tab].map((md) => (
-              <Chip key={md.id} active={mode === md.id} onClick={() => setMode(md.id)} Icon={md.Icon} theme={theme}>
-                {md.label}
-              </Chip>
-            ))}
-          </div>
-        </div>
-
+      {/* 3. Cómo se juega (también en el celular) y la actividad */}
+      <div ref={stage} className="scroll-mt-24">
         <AnimatePresence mode="wait">
-          <m.section key={key} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={{ duration: 0.3 }}>
-            {tab === 'cuerpo' && mode === 'explorar' && <BodyExplore {...props} />}
-            {tab === 'cuerpo' && mode === 'llama-dice' && <LlamaSays {...props} />}
-            {tab === 'cuerpo' && mode === 'que-parte' && <WhichPart {...props} />}
-            {tab === 'cuerpo' && mode === 'pega' && <DragLabels {...props} />}
-            {tab === 'numeros' && mode === 'explorar' && <NumbersExplore {...props} />}
-            {tab === 'numeros' && mode === 'cuenta' && <CountLlamas {...props} />}
-            {tab === 'numeros' && mode === 'escucha' && <ListenTap {...props} />}
+          <m.p key={`${tab}-${mode}`} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-4 flex items-start gap-3 rounded-2xl bg-amber-50 px-4 py-3 font-bold text-amber-950 ring-1 ring-amber-200">
+            <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${current.color} text-white`} aria-hidden="true">
+              <current.Icon className="h-5 w-5" />
+            </span>
+            <span>
+              <span className="block text-xs font-black uppercase tracking-widest text-amber-700">Cómo se juega</span>
+              {current.how}
+            </span>
+          </m.p>
+        </AnimatePresence>
+        <AnimatePresence mode="wait">
+          <m.section key={`${tab}-${mode}-${idioma}`} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={{ duration: 0.3 }}>
+            <View idioma={idioma} language={language} theme={theme} onExplore={() => choose('explorar')} />
           </m.section>
         </AnimatePresence>
-      </main>
+      </div>
     </div>
   );
 };
 
-export default BodyNumbers;
+export default BodyNumbersHub;

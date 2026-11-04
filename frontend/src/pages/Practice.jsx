@@ -19,17 +19,8 @@ import { shuffle, readBest, writeBest, bestKey, primaryBtn, secondaryBtn, useMoo
 import { GiVitruvianMan, GiAbacus } from 'react-icons/gi';
 import { SpeakGame, SpellGame, RainGame, QuickGame } from '../components/games/WordGames';
 
-// Los juegos del cuerpo (modelo 3D) y de los números se descargan solo al abrirlos
-const fromBody = (name) => lazy(() => import('./BodyNumbers').then((mod) => ({ default: mod[name] })));
-const BODY_COMPONENTS = {
-  'cuerpo-explora': fromBody('BodyExplore'),
-  'llama-dice': fromBody('LlamaSays'),
-  'que-parte': fromBody('WhichPart'),
-  'pega-palabras': fromBody('DragLabels'),
-  'numeros-explora': fromBody('NumbersExplore'),
-  'cuenta-llamas': fromBody('CountLlamas'),
-  'escucha-toca': fromBody('ListenTap'),
-};
+// Cuerpo (modelo 3D) y números: una sola tarjeta; se descarga solo al abrirla
+const BodyNumbersHub = lazy(() => import('./BodyNumbers'));
 
 // ==================== Juegos de práctica ====================
 // Repasan las palabras de las lecciones que la persona ya completó (o de la Unidad 1 si aún no hay).
@@ -987,23 +978,22 @@ const GAMES = [
     color: 'from-purple-500 to-blue-700',
     shadow: 'shadow-purple-100',
   },
-  // Cuerpo y números (quechua y aimara): sin depender de tus lecciones
-  { id: 'cuerpo-explora', group: 'cuerpo', Icon: Eye, title: 'Explora tu cuerpo', text: 'Gira el cuerpo en 3D y toca cada parte para oírla.', color: 'from-emerald-500 to-green-800' },
-  { id: 'llama-dice', group: 'cuerpo', Icon: Hand, title: 'La llama dice', text: '«Toca tu…»: escucha la orden y toca la parte.', color: 'from-amber-500 to-orange-700' },
-  { id: 'que-parte', group: 'cuerpo', Icon: Sparkles, title: '¿Qué parte es?', text: 'Una parte brilla: elige su nombre.', color: 'from-cyan-500 to-blue-700' },
-  { id: 'pega-palabras', group: 'cuerpo', Icon: Move, title: 'Pega las palabras', text: 'Arrastra cada palabra a su lugar del cuerpo.', color: 'from-fuchsia-500 to-purple-700' },
-  { id: 'numeros-explora', group: 'numeros', Icon: Hash, title: 'Explora los números', text: 'Mueve la barra y escucha cada número.', color: 'from-yellow-400 to-amber-600' },
-  { id: 'cuenta-llamas', group: 'numeros', Icon: Timer, title: 'Cuenta las llamas', text: '¿Cuántas llamitas hay? ¡Rápido!', color: 'from-orange-400 to-red-600' },
-  { id: 'escucha-toca', group: 'numeros', Icon: Ear, title: 'Escucha y toca', text: 'Oye un número y toca el correcto.', color: 'from-teal-400 to-emerald-700' },
+  // Cuerpo y números (quechua y aimara): una sola tarjeta con todas sus actividades adentro
+  {
+    id: 'cuerpo-numeros',
+    group: 'cuerpo',
+    Icon: GiVitruvianMan,
+    title: 'Mi cuerpo y los números',
+    text: 'Toca el cuerpo en 3D y cuenta llamitas. Adentro: explorar y 5 juegos.',
+    color: 'from-emerald-500 to-sky-700',
+  },
 ];
 
 const GROUPS = [
   { id: 'voz', title: 'Habla', text: 'Usa tu micrófono: tu voz no sale de tu equipo.', Icon: Mic },
   { id: 'palabras', title: 'Tus palabras', text: 'Con las palabras de tus lecciones.', Icon: Zap },
-  { id: 'cuerpo', title: 'Tu cuerpo', text: 'En 3D. Las partes del cuerpo también aparecen en tus lecciones y en el diccionario.', Icon: GiVitruvianMan },
-  { id: 'numeros', title: 'Los números', text: 'Cuenta, escucha y toca.', Icon: GiAbacus },
+  { id: 'cuerpo', title: 'Tu cuerpo y los números', text: 'Las partes del cuerpo también aparecen en tus lecciones y en el diccionario.', Icon: GiVitruvianMan },
 ];
-const isBodyGame = (id) => !!BODY_COMPONENTS[id];
 
 const Practice = ({ user, isGuest }) => {
   const [params, setParams] = useSearchParams();
@@ -1021,7 +1011,11 @@ const Practice = ({ user, isGuest }) => {
     setParams((p) => {
       const next = Object.fromEntries(p);
       if (id) next.juego = id;
-      else delete next.juego;
+      else {
+        delete next.juego;
+        delete next.tema;
+        delete next.modo;
+      }
       return next;
     }, { replace: true });
   };
@@ -1048,8 +1042,7 @@ const Practice = ({ user, isGuest }) => {
   const records = useMemo(() => GAMES.filter((g) => g.best).map((g) => ({ ...g, value: readBest(bestKey(g.id, idioma)) })), [idioma, game]);
   const exit = () => setGame(null);
   const props = { words: state.words, language, theme, idioma, onExit: exit };
-  const BodyGame = game && isBodyGame(game) && bodyLanguage ? BODY_COMPONENTS[game] : null;
-  const exploreOf = (id) => (GAMES.find((g) => g.id === id)?.group === 'numeros' ? 'numeros-explora' : 'cuerpo-explora');
+  const bodyOpen = game === 'cuerpo-numeros' && bodyLanguage;
 
   return (
     <div className="fondo-burbujas min-h-screen text-stone-900">
@@ -1088,7 +1081,7 @@ const Practice = ({ user, isGuest }) => {
 
       <main className="container mx-auto max-w-7xl py-8 relative isolate">
         <Decor />
-        {BodyGame ? (
+        {bodyOpen ? (
           <Suspense
             fallback={
               <div className="flex flex-col items-center py-16" role="status">
@@ -1097,7 +1090,7 @@ const Practice = ({ user, isGuest }) => {
               </div>
             }
           >
-            <BodyGame key={`${game}-${idioma}`} idioma={idioma} language={language} theme={theme} onExplore={() => setGame(exploreOf(game))} />
+            <BodyNumbersHub key={idioma} idioma={idioma} language={language} theme={theme} />
           </Suspense>
         ) : state.loading ? (
           <div className="flex flex-col items-center py-16" role="status">
@@ -1152,7 +1145,7 @@ const Practice = ({ user, isGuest }) => {
                   </p>
                 }
               />
-              <section className="rounded-3xl bg-white/80 backdrop-blur border border-white shadow-sm p-5" aria-labelledby="records-titulo">
+              <section className="hidden lg:block rounded-3xl bg-white/80 backdrop-blur border border-white shadow-sm p-5" aria-labelledby="records-titulo">
                 <h2 id="records-titulo" className="font-black mb-3 flex items-center gap-2">
                   <Trophy className="w-5 h-5 text-amber-500" aria-hidden="true" /> Tus récords en {language.nombre}
                 </h2>
@@ -1217,27 +1210,43 @@ const Practice = ({ user, isGuest }) => {
                     </div>
                   </div>
                   {small ? (
-                    <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-                      {list.map(({ id, Icon, title, text, color }, i) => (
-                        <m.li key={id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }} whileHover={{ y: -5, rotate: i % 2 ? 1 : -1 }} whileTap={{ scale: 0.97 }}>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              playTap();
-                              setGame(id);
-                            }}
-                            className="group ficha tarjeta-viva relative h-full w-full overflow-hidden rounded-3xl border-stone-200 bg-white p-5 text-left shadow-md"
-                          >
-                            <span className={`pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-gradient-to-br ${color} opacity-20 transition-transform duration-300 group-hover:scale-150`} aria-hidden="true" />
-                            <span className={`relative mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${color} text-white shadow-md transition-transform group-hover:-rotate-6`} aria-hidden="true">
-                              <Icon className="h-6 w-6" />
-                            </span>
-                            <span className="relative block text-lg font-black">{title}</span>
-                            <span className="relative block text-sm text-stone-600">{text}</span>
-                          </button>
-                        </m.li>
-                      ))}
-                    </ul>
+                    <m.button
+                      type="button"
+                      onClick={() => {
+                        playTap();
+                        setGame('cuerpo-numeros');
+                      }}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      whileHover={{ y: -4 }}
+                      whileTap={{ scale: 0.98 }}
+                      className={`group relative w-full overflow-hidden rounded-[2rem] bg-gradient-to-br ${theme.gradient} p-5 sm:p-7 text-left text-white shadow-xl`}
+                    >
+                      <span className="absolute inset-0 opacity-15 [background:repeating-linear-gradient(135deg,#fff_0_6px,transparent_6px_22px)]" aria-hidden="true" />
+                      <span className="tejido-andino absolute inset-x-0 bottom-0 h-2" aria-hidden="true" />
+                      <span className="relative flex flex-col gap-5 sm:flex-row sm:items-center">
+                        <span className="flex shrink-0 -space-x-3" aria-hidden="true">
+                          <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/20 ring-2 ring-white/40 backdrop-blur transition-transform group-hover:-rotate-6">
+                            <GiVitruvianMan className="h-9 w-9" />
+                          </span>
+                          <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-amber-400 text-amber-950 ring-2 ring-white/40 transition-transform group-hover:rotate-6">
+                            <GiAbacus className="h-9 w-9" />
+                          </span>
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <span className="block text-2xl sm:text-3xl font-black">Mi cuerpo y los números</span>
+                          <span className="mt-1 block text-white/90">Toca el cuerpo en 3D, escucha cada parte y cuenta llamitas.</span>
+                          <span className="mt-3 flex flex-wrap gap-2">
+                            {['Explorar el cuerpo', 'La llama dice', '¿Qué parte es?', 'Pega las palabras', 'Explorar números', 'Cuenta las llamas', 'Escucha y toca'].map((t) => (
+                              <span key={t} className="rounded-full bg-white/20 px-3 py-1 text-xs sm:text-sm font-bold ring-1 ring-white/30 backdrop-blur">
+                                {t}
+                              </span>
+                            ))}
+                          </span>
+                        </span>
+                        <span className="inline-flex min-h-12 items-center justify-center rounded-2xl bg-white px-6 text-base font-black text-stone-900 shadow-md transition-transform group-hover:scale-105">Entrar</span>
+                      </span>
+                    </m.button>
                   ) : (
                 <ul className="grid gap-5 sm:grid-cols-2">
                   {list.map(({ id, Icon, pose, title, text, color, shadow, best }, i) => {
