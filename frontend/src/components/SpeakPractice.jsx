@@ -195,7 +195,7 @@ const SpeakPractice = ({ text, meaning, url, language, theme, onResult, cohort =
     <div className={compact ? 'space-y-4' : 'space-y-5'}>
       {/* La palabra */}
       <div className={`relative overflow-hidden rounded-3xl bg-gradient-to-br ${theme?.gradient ?? 'from-green-600 to-green-800'} p-5 sm:p-6 text-white shadow-lg`}>
-        <span className="absolute inset-0 opacity-15 [background:repeating-linear-gradient(135deg,#fff_0_6px,transparent_6px_22px)]" aria-hidden="true" />
+        <span className="brillo-liquido" aria-hidden="true" />
         <span className="tejido-andino absolute inset-x-0 bottom-0 h-1.5" aria-hidden="true" />
         <div className="relative flex flex-wrap items-center gap-4">
           <div className="min-w-0 flex-1">

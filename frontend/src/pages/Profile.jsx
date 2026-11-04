@@ -373,7 +373,7 @@ const Profile = ({ user, setUser }) => {
         ) : (
           <>
             {/* ==================== DATOS DE LA CUENTA ==================== */}
-            <section className="bg-white rounded-3xl border border-stone-200 p-6 sm:p-8 mb-6" aria-labelledby="nombre-usuario">
+            <section className="vidrio rounded-[2rem] p-6 sm:p-8 mb-6" aria-labelledby="nombre-usuario">
               <div className="flex flex-col sm:flex-row sm:items-center gap-6">
                 <span className="relative w-28 h-28 shrink-0" aria-hidden="true">
                   <span className="block w-full h-full llama llama-reposo">
@@ -430,7 +430,7 @@ const Profile = ({ user, setUser }) => {
 
             {/* ==================== INSIGNIAS ==================== */}
             {badges.length > 0 && (
-              <Reveal as="section" y={28} className="bg-white rounded-3xl border border-stone-200 p-6 sm:p-8 mb-6" aria-labelledby="insignias-titulo">
+              <Reveal as="section" y={28} className="vidrio rounded-[2rem] p-6 sm:p-8 mb-6" aria-labelledby="insignias-titulo">
                 <div className="flex items-center gap-4 mb-5">
                   {/* Mantine RingProgress: cuántas insignias llevas, de un vistazo */}
                   <RingProgress
@@ -481,7 +481,7 @@ const Profile = ({ user, setUser }) => {
             )}
 
             {/* ==================== HISTORIAL ==================== */}
-            <Reveal as="section" y={28} className="bg-white rounded-3xl border border-stone-200 p-6 sm:p-8" aria-labelledby="historial-titulo">
+            <Reveal as="section" y={28} className="vidrio rounded-[2rem] p-6 sm:p-8" aria-labelledby="historial-titulo">
               <h2 id="historial-titulo" className="text-2xl font-bold">
                 Historial de lecciones
               </h2>

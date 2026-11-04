@@ -591,7 +591,7 @@ const WordCard = ({ word, language, theme, query, favorite, onFavorite, index = 
           style={swatch ? { background: swatch } : undefined}
           aria-hidden="true"
         >
-          {!swatch && <span className="absolute inset-0 rounded-2xl opacity-20 [background:repeating-linear-gradient(135deg,#fff_0_5px,transparent_5px_14px)]" />}
+          {!swatch && <span className="brillo-liquido" aria-hidden="true" />}
           {numeral ? (
             <span className={`relative font-black text-white drop-shadow tabular-nums leading-none ${numeral.length > 5 ? 'text-sm' : numeral.length > 3 ? 'text-lg' : 'text-2xl sm:text-3xl'}`}>{numeral}</span>
           ) : (

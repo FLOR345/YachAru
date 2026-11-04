@@ -192,7 +192,7 @@ const Dashboard = ({ user, setUser, isGuest, setIsGuest }) => {
       {!isGuest && <ConsentDialog user={user} setUser={setUser} />}
       {/* ==================== AVISO MODO INVITADO ==================== */}
       {isGuest && (
-        <div className="bg-orange-800 text-white py-3 px-4 sm:px-6">
+        <div className="relative z-10 bg-orange-800 text-white py-3 px-4 sm:px-6">
           <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
             <p className="flex items-center gap-3 font-semibold">
               <UserX className="w-5 h-5 shrink-0" aria-hidden="true" />
@@ -382,7 +382,7 @@ const Dashboard = ({ user, setUser, isGuest, setIsGuest }) => {
         )}
 
         {/* ==================== IDIOMA ==================== */}
-        <Reveal as="section" y={28} className="bg-white rounded-3xl border border-stone-200 p-6 sm:p-8 mb-8" aria-labelledby="idioma-titulo">
+        <Reveal as="section" y={28} className="vidrio rounded-[2rem] p-6 sm:p-8 mb-8" aria-labelledby="idioma-titulo">
           <h2 id="idioma-titulo" className="text-2xl font-black">¿Qué lengua quieres aprender?</h2>
           <p className="text-stone-600 mb-5">Puedes cambiar cuando quieras: tu avance de cada una se guarda aparte</p>
 
@@ -390,7 +390,7 @@ const Dashboard = ({ user, setUser, isGuest, setIsGuest }) => {
         </Reveal>
 
         {/* ==================== RUTA DE APRENDIZAJE ==================== */}
-        <Reveal as="section" y={28} className="bg-white rounded-3xl border border-stone-200 p-6 sm:p-8" aria-labelledby="ruta-titulo" aria-busy={loading}>
+        <Reveal as="section" y={28} className="py-2" aria-labelledby="ruta-titulo" aria-busy={loading}>
           <div className="flex flex-wrap items-end justify-between gap-4 mb-6">
             <div>
               <h2 id="ruta-titulo" className="text-2xl sm:text-3xl font-black">

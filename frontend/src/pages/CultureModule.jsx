@@ -222,7 +222,7 @@ const ProverbCard = ({ item, index, language, theme, fav }) => {
           className={`relative w-16 h-16 rounded-2xl bg-gradient-to-br ${theme.gradient} flex items-center justify-center shadow-lg ring-4 ring-white`}
           aria-hidden="true"
         >
-          <span className="absolute inset-0 rounded-2xl opacity-20 [background:repeating-linear-gradient(135deg,#fff_0_5px,transparent_5px_14px)]" />
+          <span className="brillo-liquido" aria-hidden="true" />
           <Icon className="relative w-9 h-9 text-white drop-shadow" />
         </m.span>
         <FavoriteButton {...fav} />
@@ -696,7 +696,7 @@ const CultureModule = ({ user }) => {
             {selectedType !== 'cuento' && !loading && !loadError && content.length > 0 && (
               <AnimatedContent key={`${selectedType}-${selectedLanguage}`} distance={40} duration={0.7} ease="back.out(1.4)" scale={0.96} blur={4} threshold={0.05}>
                 <div className={`relative mb-6 overflow-hidden rounded-[2rem] bg-gradient-to-br ${theme.gradient} p-6 sm:p-8 text-white shadow-xl shadow-stone-900/10`}>
-                  <span className="absolute inset-0 opacity-15 [background:repeating-linear-gradient(135deg,#fff_0_6px,transparent_6px_22px)]" aria-hidden="true" />
+                  <span className="brillo-liquido" aria-hidden="true" />
                   <m.span className="absolute -right-10 -top-16 h-56 w-56 rounded-full bg-white/25 blur-3xl" animate={{ x: [0, -30, 0], y: [0, 20, 0] }} transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }} aria-hidden="true" />
                   <span className="tejido-andino absolute inset-x-0 bottom-0 h-2" aria-hidden="true" />
                   <div className="relative flex items-center gap-5">

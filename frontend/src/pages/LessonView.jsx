@@ -520,7 +520,7 @@ const LessonView = ({ user, isGuest }) => {
       );
     return (
       <div className="min-h-screen bg-gradient-to-br from-stone-50 via-white to-stone-100 text-stone-900">
-        <header className={`relative overflow-hidden bg-gradient-to-br ${theme.gradient} text-white`}>
+        <header className={`relative z-10 overflow-hidden bg-gradient-to-br ${theme.gradient} text-white`}>
           <span className="pointer-events-none absolute -right-24 -top-24 w-80 h-80 rounded-full bg-white/10" aria-hidden="true" />
           <span className="pointer-events-none absolute right-40 -bottom-32 w-64 h-64 rounded-full bg-white/10" aria-hidden="true" />
           <div className="container relative mx-auto py-6 max-w-7xl">

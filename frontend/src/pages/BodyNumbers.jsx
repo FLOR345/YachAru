@@ -122,7 +122,7 @@ const EndScreen = ({ score, best, onReplay, onExplore, theme, won }) => {
   return (
     <m.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ type: 'spring', bounce: 0.35 }} className={`relative overflow-hidden rounded-[2rem] bg-gradient-to-br ${theme.gradient} p-8 text-center text-white shadow-2xl`}>
       {won && <Confetti />}
-      <span className="absolute inset-0 opacity-15 [background:repeating-linear-gradient(135deg,#fff_0_6px,transparent_6px_22px)]" aria-hidden="true" />
+      <span className="brillo-liquido" aria-hidden="true" />
       <div className="relative">
         <Mascot pose={stars >= 2 ? 'celebrando' : 'carino'} sticker size="w-32" className="justify-center" />
         <p className="mt-2 text-sm font-black uppercase tracking-widest text-white/80">{stars >= 2 ? '¡Excelente!' : stars ? '¡Bien hecho!' : '¡Inténtalo otra vez!'}</p>
@@ -255,7 +255,7 @@ export const BodyExplore = ({ idioma, language, theme }) => {
             transition={{ type: 'spring', bounce: 0.25, duration: 0.5 }}
             className={`relative overflow-hidden rounded-[2rem] bg-gradient-to-br ${theme.gradient} p-7 text-white shadow-xl`}
           >
-            <span className="absolute inset-0 opacity-15 [background:repeating-linear-gradient(135deg,#fff_0_6px,transparent_6px_22px)]" aria-hidden="true" />
+            <span className="brillo-liquido" aria-hidden="true" />
             <m.span className="absolute -right-12 -top-12 h-48 w-48 rounded-full bg-white/20 blur-2xl" animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 4, repeat: Infinity }} aria-hidden="true" />
             <span className="tejido-andino absolute inset-x-0 bottom-0 h-2" aria-hidden="true" />
             <div className="relative">
@@ -621,7 +621,7 @@ export const NumbersExplore = ({ idioma, language, theme }) => {
   return (
     <div className="space-y-6">
       <div className={`relative overflow-hidden rounded-[2rem] bg-gradient-to-br ${theme.gradient} p-6 sm:p-10 text-white shadow-xl`}>
-        <span className="absolute inset-0 opacity-15 [background:repeating-linear-gradient(135deg,#fff_0_6px,transparent_6px_22px)]" aria-hidden="true" />
+        <span className="brillo-liquido" aria-hidden="true" />
         <span className="tejido-andino absolute inset-x-0 bottom-0 h-2" aria-hidden="true" />
         <div className="relative grid gap-6 lg:grid-cols-[auto_minmax(0,1fr)] items-center">
           <m.p key={n} initial={{ scale: 0.6, opacity: 0, rotate: -6 }} animate={{ scale: 1, opacity: 1, rotate: 0 }} transition={{ type: 'spring', bounce: 0.5 }} className="text-[7rem] sm:text-[9rem] font-black leading-none tabular-nums drop-shadow-[0_8px_30px_rgba(0,0,0,0.25)]">
@@ -760,7 +760,7 @@ export const ListenTap = ({ idioma, language, theme, onExplore }) => {
       <HUD {...g} theme={theme} timeLeft={SECONDS} />
       <div className="grid gap-6 lg:grid-cols-2 items-start">
         <m.div key={g.round} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className={`relative overflow-hidden rounded-[2rem] bg-gradient-to-br ${theme.gradient} p-8 text-white shadow-xl`}>
-          <span className="absolute inset-0 opacity-15 [background:repeating-linear-gradient(135deg,#fff_0_6px,transparent_6px_22px)]" aria-hidden="true" />
+          <span className="brillo-liquido" aria-hidden="true" />
           <div className="relative">
             <p className="text-xs font-black uppercase tracking-widest text-white/80">Escucha y toca la cifra</p>
             <p className="mt-2 text-4xl sm:text-5xl font-black leading-tight" lang={language.lang}>
@@ -822,9 +822,10 @@ const VIEWS = {
   numeros: { explorar: NumbersExplore, cuenta: CountLlamas, escucha: ListenTap },
 };
 
-export const BodyNumbersHub = ({ idioma, language, theme }) => {
+// tema: 'cuerpo' o 'numeros' (cada uno es su propia tarjeta en Juegos)
+export const BodyNumbersHub = ({ tema, idioma, language, theme }) => {
   const [params, setParams] = useSearchParams();
-  const tab = params.get('tema') === 'numeros' ? 'numeros' : 'cuerpo';
+  const tab = tema === 'numeros' ? 'numeros' : 'cuerpo';
   const mode = MODES[tab].some((md) => md.id === params.get('modo')) ? params.get('modo') : 'explorar';
   const update = (patch) => setParams((p) => ({ ...Object.fromEntries(p), ...patch }), { replace: true });
   const stage = useRef(null);
@@ -839,29 +840,8 @@ export const BodyNumbersHub = ({ idioma, language, theme }) => {
 
   return (
     <div className="space-y-5">
-      {/* 1. Tema */}
-      <div className="grid grid-cols-2 gap-2 rounded-3xl bg-white p-1.5 shadow-sm ring-1 ring-stone-200 sm:w-fit" role="tablist" aria-label="Tema">
-        {TABS.map((t) => (
-          <button
-            key={t.id}
-            type="button"
-            role="tab"
-            aria-selected={tab === t.id}
-            onClick={() => {
-              playTap();
-              update({ tema: t.id, modo: 'explorar' });
-            }}
-            className={`relative flex min-h-14 items-center justify-center gap-2 rounded-2xl px-5 text-base sm:text-lg font-black ${tab === t.id ? 'text-white' : 'text-stone-600 hover:text-stone-900'}`}
-          >
-            {tab === t.id && <m.span layoutId="tema-activo" className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${theme.gradient} shadow-md`} transition={{ type: 'spring', bounce: 0.25, duration: 0.5 }} />}
-            <t.Icon className="relative h-7 w-7" aria-hidden="true" />
-            <span className="relative">{t.label}</span>
-          </button>
-        ))}
-      </div>
-
-      {/* 2. Actividad: tarjetas grandes con qué se hace en cada una */}
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4" role="group" aria-label="Actividad">
+      {/* Actividad: tarjetas grandes con qué se hace en cada una */}
+      <div className={`grid grid-cols-2 gap-3 ${MODES[tab].length === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'}`} role="group" aria-label="Actividad">
         {MODES[tab].map((md, i) => {
           const active = md.id === mode;
           return (
@@ -891,7 +871,7 @@ export const BodyNumbersHub = ({ idioma, language, theme }) => {
         })}
       </div>
 
-      {/* 3. Cómo se juega (también en el celular) y la actividad */}
+      {/* Cómo se juega (también en el celular) y la actividad */}
       <div ref={stage} className="scroll-mt-24">
         <AnimatePresence mode="wait">
           <m.p key={`${tab}-${mode}`} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-4 flex items-start gap-3 rounded-2xl bg-amber-50 px-4 py-3 font-bold text-amber-950 ring-1 ring-amber-200">
