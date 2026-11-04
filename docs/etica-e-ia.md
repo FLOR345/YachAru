@@ -24,6 +24,11 @@ Base de la sección *Limitations and ethics* del artículo.
 - El awajún es una demostración técnica sin revisión de hablantes y no se publica en la plataforma.
 - La nota de "¡Dilo tú!" mide el parecido con la palabra modelo, no cada sonido: no dice si una glotalizada o una aspirada se pronunció bien. Está calibrada con voces sintéticas, no con personas.
 
+- Las unidades nuevas no agregan palabras escritas por un modelo:
+  - reordenan, por su categoría en la base, vocabulario que ya venía de los diccionarios;
+  - en quechua suman las partes del cuerpo del modelo 3D.
+  - Los ejercicios de esas lecciones se generan con reglas fijas a partir de sus palabras (`backend/scripts/organize-units.js`).
+
 ## Datos y soberanía
 
 - Los eventos de aprendizaje se registran solo con consentimiento, y la persona puede descargarlos y borrarlos.

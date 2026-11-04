@@ -1,3 +1,4 @@
+import SingAlong from '../components/SingAlong';
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from '../utils/notify';
@@ -271,6 +272,7 @@ const SongCard = ({ item, index, language, theme, fav }) => {
   const sameLength = original.length > 1 && original.length === translated.length;
   const [line, setLine] = useState(-1);
   const [playing, setPlaying] = useState(false);
+  const [karaoke, setKaraoke] = useState(false);
   const timer = useRef(null);
   useEffect(() => () => clearTimeout(timer.current), []);
   // Canta la canción entera: cada verso se escucha y se resalta, como un karaoke
@@ -318,7 +320,9 @@ const SongCard = ({ item, index, language, theme, fav }) => {
         <FavoriteButton {...fav} />
       </div>
       <div className="p-5 sm:p-6">
-        {sameLength ? (
+        {karaoke ? (
+          <SingAlong lines={original} translations={sameLength ? translated : null} language={language} theme={theme} onClose={() => setKaraoke(false)} />
+        ) : sameLength ? (
           <ol className="space-y-1">
             {original.map((l, i) => (
               <li key={i}>
@@ -355,6 +359,18 @@ const SongCard = ({ item, index, language, theme, fav }) => {
               className={`ficha inline-flex items-center gap-2 min-h-11 px-4 rounded-xl font-black text-white ${theme.solid} border-black/20`}
             >
               <Volume2 className={`w-5 h-5 ${playing ? 'anim-latido' : ''}`} aria-hidden="true" /> {playing ? 'Detener' : 'Escuchar toda la canción'}
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                clearTimeout(timer.current);
+                setPlaying(false);
+                setLine(-1);
+                setKaraoke(true);
+              }}
+              className="ficha inline-flex items-center gap-2 min-h-11 px-4 rounded-xl font-black text-white border-fuchsia-900 bg-gradient-to-r from-fuchsia-600 to-rose-500"
+            >
+              <Music className="w-5 h-5" aria-hidden="true" /> Cantar con ritmo
             </button>
             <p className="text-sm text-stone-500">O toca un verso para escucharlo solo.</p>
           </div>

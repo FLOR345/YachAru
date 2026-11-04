@@ -803,3 +803,35 @@ dialog.modal {
     inset 0 1px 0 rgb(255 255 255 / 0.9),
     0 10px 30px -12px rgb(30 41 59 / 0.18);
 }
+
+/* ==================== Camino de islas ==================== */
+@keyframes isla-flota { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.isla-flota { animation: isla-flota 7s ease-in-out infinite; }
+.isla-flota-b { animation-duration: 8.5s; animation-delay: -3s; }
+@keyframes nube { from { transform: translateX(-30vw); } to { transform: translateX(110vw); } }
+.nube { left: 0; animation: nube 45s linear infinite; opacity: 0.85; }
+@keyframes condor { 0% { transform: translate(-15vw, 0) rotate(-4deg); } 50% { transform: translate(50vw, -30px) rotate(3deg); } 100% { transform: translate(115vw, 10px) rotate(-2deg); } }
+.condor { left: 0; animation: condor 26s linear infinite; animation-delay: -6s; }
+@keyframes condor-cabecera { from { transform: translateX(-10%); left: 0; } to { transform: translateX(0); left: 100%; } }
+.condor-cabecera { animation: condor-cabecera 18s linear infinite; }
+@keyframes mariposa {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(30px, -24px); }
+  50% { transform: translate(60px, 6px); }
+  75% { transform: translate(24px, 28px); }
+  100% { transform: translate(0, 0); }
+}
+.mariposa { animation: mariposa 9s ease-in-out infinite; }
+@keyframes alas { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(0.25); } }
+.mariposa-alas { animation: alas 0.35s ease-in-out infinite; }
+@keyframes rayos { to { transform: translate(-50%, -50%) rotate(360deg); } }
+.rayos-trofeo {
+  border-radius: 999px;
+  background: repeating-conic-gradient(from 0deg, rgb(253 224 71 / 0.55) 0deg 12deg, transparent 12deg 30deg);
+  -webkit-mask: radial-gradient(circle, #000 30%, transparent 70%);
+  mask: radial-gradient(circle, #000 30%, transparent 70%);
+  animation: rayos 12s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .isla-flota, .nube, .condor, .condor-cabecera, .mariposa, .mariposa-alas, .rayos-trofeo { animation: none; }
+}

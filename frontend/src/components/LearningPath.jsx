@@ -1,45 +1,68 @@
-// Camino de aprendizaje al estilo Duolingo: las lecciones son botones redondos sobre un sendero que serpentea.
-// - Un trazo punteado une las lecciones; el tramo ya recorrido se pinta con el color de la lengua.
-// - Completadas: doradas con estrellas y un brillo; la siguiente: anillos que laten y "¡Empieza!";
+// Camino de aprendizaje: cada unidad es un sendero sobre islas ilustradas (assets/ruta), con las lecciones
+// y las estaciones (juegos) sobre las piedras del camino y el trofeo al final.
+// - Completadas: doradas con estrellas; la siguiente: anillos que laten, "¡Empieza aquí!" y la llamita;
 //   bloqueadas: grises con candado (al tocarlas tiemblan y avisan qué falta).
-// - Al final de cada unidad, un trofeo que se enciende cuando la terminas.
-import { useEffect, useRef, useState } from 'react';
+// - Si una unidad tiene más pasos que piedras, se encadenan varias islas.
+// - El contador de cada unidad cuenta todos los pasos que se ven (lecciones y estaciones).
+// - Efectos: las islas flotan, pasan nubes, un cóndor y mariposas; el trofeo brilla al completar.
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from '../utils/notify';
-import { Check, Lock, Star, RefreshCw, Trophy, Cloud, Sparkle, Mountain, Mic, CloudRain, Puzzle, ThumbsUp } from 'lucide-react';
+import { Check, Lock, Star, RefreshCw, Trophy, Sparkle, Mic, CloudRain, Puzzle, ThumbsUp, Play, ArrowDown } from 'lucide-react';
 import { Tooltip } from '@mantine/core';
 import * as m from 'motion/react-m';
 import { useReducedMotion } from 'motion/react';
 import { API_URL } from '../config.js';
 import Mascot, { LlamaImage } from './Mascot';
 import { languageStyle } from '../languages';
-import { GiMountains, GiCondorEmblem, GiCactus, GiCamelHead, GiSun, GiFamilyHouse, GiAbacus, GiKnifeFork, GiVitruvianMan, GiClothes, GiHouse, GiPlantsAndAnimals, GiMusicalNotes, GiEarthAmerica, GiCalendar } from 'react-icons/gi';
+import { GiCondorEmblem, GiFamilyHouse, GiAbacus, GiKnifeFork, GiVitruvianMan, GiClothes, GiHouse, GiPlantsAndAnimals, GiMusicalNotes, GiEarthAmerica, GiCalendar, GiRunningShoe, GiPencilRuler, GiSparkles } from 'react-icons/gi';
 import { PiHandWaving, PiIdentificationCard, PiPalette, PiPawPrint, PiChatsCircle, PiQuestion } from 'react-icons/pi';
 import { LessonView, Practice, preloadOn } from '../routes';
 import { playTap, playWrong } from '../utils/sounds';
+import ISLANDS from '../assets/ruta/islas.json';
 
-// Geometría del sendero (en px): ancho del carril, alto de cada fila y desplazamiento lateral de cada botón
-const ROW = 168;
-const NODE = 80;
-// Desplazamientos como fracción del medio carril: el sendero se ensancha en pantallas grandes
-const OFFSETS = [0, 0.42, 0.62, 0.42, 0, -0.42, -0.62, -0.42];
+const ISLAND_IMAGES = import.meta.glob('../assets/ruta/isla-*.webp', { eager: true, import: 'default' });
+const islandSrc = (key) => ISLAND_IMAGES[`../assets/ruta/${key}.webp`];
+// Islas que terminan en trofeo (por cuántas piedras tienen) y la isla de paso (sin trofeo dibujado)
+const FINAL_ISLANDS = ['isla-4', 'isla-1', 'isla-2', 'isla-3', 'isla-5'];
+const MIDDLE_ISLAND = 'isla-6';
+const slotsOf = (key) => ISLANDS[key].plataformas.length;
 
-// Ancho del carril: el del contenedor, entre 300 y 560 px
-const useLaneWidth = () => {
-  const ref = useRef(null);
-  const [width, setWidth] = useState(320);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return undefined;
-    const update = () => setWidth(Math.max(300, Math.min(560, el.clientWidth)));
-    update();
-    const ro = new ResizeObserver(update);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
-  return [ref, width];
+// Reparte los pasos de una unidad en islas: de 6 en 6 en las de paso y la última con trofeo
+const planIslands = (count, unitIndex) => {
+  const plan = [];
+  let left = count;
+  while (left > 6) {
+    const take = left - 6 >= 4 ? 6 : left - 4;
+    plan.push({ key: MIDDLE_ISLAND, take, flip: plan.length % 2 === 1 });
+    left -= take;
+  }
+  const fits = FINAL_ISLANDS.filter((k) => slotsOf(k) >= left);
+  const sameSize = fits.filter((k) => slotsOf(k) === slotsOf(fits[0]));
+  plan.push({ key: sameSize[unitIndex % sameSize.length] ?? fits[0], take: left, flip: unitIndex % 2 === 1, final: true });
+  return plan;
 };
+
+// Estaciones ya visitadas (en este dispositivo)
+const VISITED_KEY = 'simiaru-estaciones';
+const readVisited = () => {
+  try {
+    return new Set(JSON.parse(localStorage.getItem(VISITED_KEY) || '[]'));
+  } catch {
+    return new Set();
+  }
+};
+const markVisited = (key) => {
+  try {
+    const set = readVisited();
+    set.add(key);
+    localStorage.setItem(VISITED_KEY, JSON.stringify([...set]));
+  } catch {
+    // sin almacenamiento
+  }
+};
+
 // Un consejo distinto cada día
 const TIPS = [
   'Unos minutos cada día valen más que una hora una vez a la semana.',
@@ -77,6 +100,10 @@ const LESSON_ICONS = [
   [/naturaleza|pacha|tierra/i, GiEarthAmerica],
   [/m[uú]sica|canci|taki/i, GiMusicalNotes],
   [/tiempo|d[ií]a|semana|mes/i, GiCalendar],
+  [/acci[oó]n|acciones|verbo/i, GiRunningShoe],
+  [/cantidad|medida/i, GiPencilRuler],
+  [/c[oó]mo es|caracter/i, GiSparkles],
+  [/cultura|m[uú]sica/i, GiMusicalNotes],
   [/pregunt/i, PiQuestion],
   [/conversa|di[aá]log|frase/i, PiChatsCircle],
   [/planta|chacra|campo/i, GiPlantsAndAnimals],
@@ -112,7 +139,7 @@ const trailItems = (lessons, unitIndex, langId) => {
   return items;
 };
 
-const StationNode = ({ id, open, langId, reduceMotion, index }) => {
+const StationNode = ({ id, open, done, langId, reduceMotion, index, step, onVisit }) => {
   const [shake, setShake] = useState(0);
   const st = STATIONS[id];
   const tile = (
@@ -123,18 +150,27 @@ const StationNode = ({ id, open, langId, reduceMotion, index }) => {
     >
       {open && <span className="brillo-liquido" aria-hidden="true" />}
       <span className="-rotate-45">{open ? <st.Icon className="h-8 w-8 drop-shadow" aria-hidden="true" /> : <Lock className="h-7 w-7" aria-hidden="true" />}</span>
+      <span className={`absolute -bottom-2 -right-2 flex h-7 w-7 -rotate-45 items-center justify-center rounded-full text-xs font-black ring-2 ring-white shadow ${done ? 'bg-amber-500 text-white' : open ? 'bg-white text-stone-800' : 'bg-stone-300 text-stone-500'}`} aria-hidden="true">
+        {done ? <Check className="h-4 w-4" strokeWidth={3.5} /> : step}
+      </span>
     </span>
   );
   return (
     <m.div
-      className="relative flex flex-col items-center"
+      className="group/estacion relative flex flex-col items-center"
       initial={reduceMotion ? false : { opacity: 0, scale: 0.4 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ type: 'spring', bounce: 0.5, duration: 0.6, delay: Math.min(index, 4) * 0.06 }}
     >
       {open ? (
-        <Link to={`/practica?idioma=${langId}&juego=${id}`} onClick={playTap} {...preloadOn(Practice)} aria-label={`Estación: ${st.title}`} className="rounded-[1.4rem] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-amber-300">
+        <Link
+          to={`/practica?idioma=${langId}&juego=${id}`}
+          onClick={() => {
+            playTap();
+            onVisit?.();
+          }}
+          {...preloadOn(Practice)} aria-label={`Estación: ${st.title}`} className="rounded-[1.4rem] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-amber-300">
           {tile}
         </Link>
       ) : (
@@ -151,7 +187,7 @@ const StationNode = ({ id, open, langId, reduceMotion, index }) => {
           {tile}
         </button>
       )}
-      <span className={`mt-4 w-max max-w-[10rem] rounded-2xl px-3 py-1 text-center text-sm font-bold leading-tight shadow-sm ${open ? 'bg-white text-stone-800' : 'bg-white/70 text-stone-400'}`}>
+      <span className={`pointer-events-none absolute top-full opacity-0 transition-opacity group-hover/estacion:opacity-100 group-focus-within/estacion:opacity-100 mt-3 w-max max-w-[9rem] rounded-2xl px-3 py-1 text-center text-xs sm:text-sm font-bold leading-tight shadow-md ring-1 ring-black/5 ${done ? 'bg-amber-50 text-amber-900' : open ? 'bg-white text-stone-800' : 'bg-white/80 text-stone-400'}`}>
         <span className="block text-[10px] font-black uppercase tracking-widest text-amber-600">Estación</span>
         {st.title}
       </span>
@@ -159,16 +195,7 @@ const StationNode = ({ id, open, langId, reduceMotion, index }) => {
   );
 };
 
-// Curva suave que pasa por el centro de cada botón
-const trailPath = (points) =>
-  points.reduce((d, p, i) => {
-    if (i === 0) return `M ${p.x} ${p.y}`;
-    const prev = points[i - 1];
-    const midY = (prev.y + p.y) / 2;
-    return `${d} C ${prev.x} ${midY}, ${p.x} ${midY}, ${p.x} ${p.y}`;
-  }, '');
-
-const LessonNode = ({ lesson, state, styleSet, isFirstAvailable, reduceMotion, index }) => {
+const LessonNode = ({ lesson, state, styleSet, isFirstAvailable, reduceMotion, index, step }) => {
   const [shake, setShake] = useState(0);
   const base = 'relative w-20 h-20 rounded-full flex items-center justify-center transition-transform duration-150 ease-out hover:-translate-y-1';
   const visuals = {
@@ -207,7 +234,7 @@ const LessonNode = ({ lesson, state, styleSet, isFirstAvailable, reduceMotion, i
       )}
       {/* Número de la lección */}
       <span className={`absolute -bottom-1 -right-1 w-7 h-7 rounded-full text-xs font-black flex items-center justify-center ring-2 ring-white shadow ${state === 'locked' ? 'bg-stone-300 text-stone-500' : state === 'done' ? 'bg-amber-600 text-white' : 'bg-white text-stone-800'}`} aria-hidden="true">
-        {index + 1}
+        {step ?? index + 1}
       </span>
     </span>
   );
@@ -256,7 +283,8 @@ const LessonNode = ({ lesson, state, styleSet, isFirstAvailable, reduceMotion, i
       </Tooltip>
       {/* Nombre de la lección; la que toca rebota y dice "¡Empieza!" */}
       <m.span
-        className={`mt-3 w-max max-w-[10rem] rounded-2xl px-3 py-1 text-center text-sm font-bold leading-tight shadow-sm ${
+        aria-hidden={!isFirstAvailable}
+        className={`${isFirstAvailable ? '' : 'pointer-events-none absolute top-full opacity-0 transition-opacity group-hover/paso:opacity-100 group-focus-within/paso:opacity-100'} mt-2 w-max max-w-[9rem] rounded-2xl px-3 py-1 text-center text-xs sm:text-sm font-bold leading-tight shadow-md ring-1 ring-black/5 ${
           isFirstAvailable
             ? `bg-gradient-to-r ${styleSet.gradient} text-white shadow-md`
             : state === 'locked'
@@ -275,145 +303,238 @@ const LessonNode = ({ lesson, state, styleSet, isFirstAvailable, reduceMotion, i
   );
 };
 
-// Decoración a los costados del sendero: nubes, destellos y montañas que flotan
-const DECOR = [
-  [GiMountains, 'w-16 h-16', 0.22],
-  [Cloud, 'w-12 h-12 text-sky-200 fill-sky-100', 1],
-  [GiCondorEmblem, 'w-12 h-12', 0.2],
-  [Sparkle, 'w-6 h-6 text-amber-300 fill-amber-200', 1],
-  [GiCamelHead, 'w-12 h-12', 0.2],
-  [GiSun, 'w-12 h-12 text-amber-300', 0.6],
-  [GiCactus, 'w-11 h-11', 0.2],
-  [Mountain, 'w-10 h-10 text-stone-200 fill-stone-100', 1],
-];
-const SideDecor = ({ rows, color }) => {
-  // (se dibuja dentro del carril, a los lados del sendero: cerros, cóndor, llama, sol y cactus andinos)
-  const items = [];
-  for (let i = 0; i < rows; i++) {
-    const left = i % 2 === 0;
-    const [Icon, cls, alpha] = DECOR[i % DECOR.length];
-    items.push(
-      <Icon
-        key={i}
-        className={`absolute anim-flotar ${cls}`}
-        style={{ top: i * ROW + 30, [left ? 'left' : 'right']: `${3 + (i % 3) * 5}%`, animationDelay: `${-i * 0.9}s`, ...(alpha < 1 ? { color, opacity: alpha } : {}) }}
-        aria-hidden="true"
-      />
-    );
-  }
-  return <div className="pointer-events-none absolute inset-0 hidden sm:block">{items}</div>;
+// ==================== Efectos del paisaje ====================
+// Mariposas, destellos, nubes y un cóndor que cruza: puro adorno, sin interacción
+const Butterfly = ({ style, delay, color }) => (
+  <span className="mariposa pointer-events-none absolute z-20" style={{ ...style, animationDelay: `${delay}s` }} aria-hidden="true">
+    <svg viewBox="0 0 24 20" className="h-5 w-6">
+      <g className="mariposa-alas" style={{ transformOrigin: '12px 10px' }}>
+        <path d="M12 10 C7 0 0 2 2 9 C3 13 8 13 12 10Z" fill={color} />
+        <path d="M12 10 C17 0 24 2 22 9 C21 13 16 13 12 10Z" fill={color} />
+        <path d="M12 10 C8 14 4 19 8 19 C11 19 12 14 12 10Z" fill={color} opacity="0.8" />
+        <path d="M12 10 C16 14 20 19 16 19 C13 19 12 14 12 10Z" fill={color} opacity="0.8" />
+      </g>
+      <rect x="11.3" y="6" width="1.4" height="9" rx="0.7" fill="#44403c" />
+    </svg>
+  </span>
+);
+
+const Clouds = () => (
+  <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+    {[0, 1, 2].map((i) => (
+      <span key={i} className="nube absolute" style={{ top: `${12 + i * 31}%`, animationDuration: `${38 + i * 14}s`, animationDelay: `${-i * 13}s` }}>
+        <svg viewBox="0 0 120 50" className="w-28 sm:w-36 drop-shadow-sm">
+          <path d="M20 42 Q2 42 6 30 Q8 20 22 22 Q26 6 46 10 Q58 0 72 10 Q92 6 96 22 Q116 22 114 34 Q112 44 96 42Z" fill="white" opacity="0.92" />
+        </svg>
+      </span>
+    ))}
+    <span className="condor absolute" style={{ top: '22%' }}>
+      <GiCondorEmblem className="h-10 w-10 text-stone-700/70" />
+    </span>
+  </div>
+);
+
+// Una isla: la ilustración, y encima los pasos sobre sus piedras (y el trofeo si es la última)
+const Island = ({ island, children, flip, index, reduceMotion }) => {
+  const meta = ISLANDS[island];
+  const ref = useRef(null);
+  const [scale, setScale] = useState(1);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+    // Los botones miden 80 px en una isla de 560 px y se achican con ella
+    const update = () => setScale(Math.max(0.58, Math.min(1, el.clientWidth / 560)));
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  return (
+    <m.div
+      ref={ref}
+      className="relative mx-auto w-full max-w-[560px]"
+      style={{ aspectRatio: `${meta.w} / ${meta.h}`, '--s': scale }}
+      initial={reduceMotion ? false : { opacity: 0, y: 40, scale: 0.94 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: '-80px' }}
+      transition={{ type: 'spring', bounce: 0.3, duration: 0.8 }}
+    >
+      <div className={`isla-flota absolute inset-0 ${index % 2 ? 'isla-flota-b' : ''}`}>
+        <img src={islandSrc(island)} alt="" draggable="false" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" className={`pointer-events-none absolute inset-0 h-full w-full select-none drop-shadow-[0_24px_30px_rgba(30,41,59,0.22)] ${flip ? '-scale-x-100' : ''}`} />
+        {children}
+      </div>
+    </m.div>
+  );
 };
 
-const UnitTrail = ({ unit, lessons, unitIndex, lockedUnit, styleSet, stateOf, firstPending, reduceMotion, startIndex, langId, isLessonCompleted }) => {
-  const [laneRef, LANE] = useLaneWidth();
-  const half = LANE / 2 - NODE / 2 - 8;
-  const done = lessons.filter((l, i) => stateOf(l, unitIndex, startIndex + i) === 'done').length;
-  const complete = done === lessons.length && lessons.length > 0;
-  const items = trailItems(lessons, unitIndex, langId);
-  const points = [...items.map((_, k) => ({ x: LANE / 2 + OFFSETS[k % OFFSETS.length] * half, y: k * ROW + NODE / 2 + 16 })), { x: LANE / 2, y: items.length * ROW + NODE / 2 + 16 }];
-  const height = (items.length + 1) * ROW;
-  // Tramo recorrido: hasta la lección actual (o hasta el trofeo si la unidad está completa)
-  const pendingAt = items.findIndex((it) => it.type === 'lesson' && it.lesson.id === firstPending?.lesson.id);
-  let lastDone = -1;
-  items.forEach((it, k) => {
-    if ((it.type === 'lesson' && isLessonCompleted(it.lesson.id)) || (it.type === 'station' && isLessonCompleted(it.after.id))) lastDone = k;
-  });
-  const reached = complete ? points.length : Math.max(1, (pendingAt >= 0 ? pendingAt : lastDone) + 1);
-  const gradientId = `sendero-${unit.id}`;
+const at = (p, flip) => ({ left: `${(flip ? 1 - p.x : p.x) * 100}%`, top: `${p.y * 100}%` });
 
+const UnitIslands = ({ unit, items, unitIndex, lockedUnit, styleSet, stateOf, firstPending, reduceMotion, startIndex, langId, isLessonCompleted, visited, onVisit, complete }) => {
+  const plan = useMemo(() => planIslands(items.length, unitIndex), [items.length, unitIndex]);
+  let offset = 0;
   return (
-    <div ref={laneRef} className="relative mx-auto pt-12 w-full max-w-[560px]" style={{ height: height + 48 }}>
-      <SideDecor rows={items.length + 1} color={styleSet.hex} />
-      <svg className="absolute left-0 top-12 overflow-visible" width={LANE} height={height} aria-hidden="true">
-        <defs>
-          <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#f59e0b" />
-            <stop offset="100%" stopColor={styleSet.hex} />
-          </linearGradient>
-        </defs>
-        {/* Camino de tierra con línea central punteada */}
-        <path d={trailPath(points)} fill="none" stroke="#e7e5e4" strokeWidth="22" strokeLinecap="round" />
-        <path d={trailPath(points)} fill="none" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" strokeDasharray="1 16" />
-        {reached > 1 && (
-          <m.path
-            d={trailPath(points.slice(0, reached))}
-            fill="none"
-            stroke={`url(#${gradientId})`}
-            strokeWidth="22"
-            strokeLinecap="round"
-            opacity="0.9"
-            initial={reduceMotion ? false : { pathLength: 0 }}
-            whileInView={{ pathLength: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1], delay: 0.2 }}
-          />
-        )}
-        {reached > 1 && !reduceMotion && (
-          <g>
-            <circle r="9" fill="#fff" opacity="0.95">
-              <animateMotion dur={`${2 + reached * 0.6}s`} repeatCount="indefinite" path={trailPath(points.slice(0, reached))} />
-            </circle>
-            <circle r="16" fill="#fde68a" opacity="0.45">
-              <animateMotion dur={`${2 + reached * 0.6}s`} repeatCount="indefinite" path={trailPath(points.slice(0, reached))} />
-              <animate attributeName="r" values="12;18;12" dur="1.2s" repeatCount="indefinite" />
-            </circle>
-          </g>
-        )}
-      </svg>
-
-      {items.map((item, k) => {
-        const p = points[k];
-        if (item.type === 'station') {
-          return (
-            <div key={`estacion-${item.id}-${item.after.id}`} className="absolute" style={{ left: p.x - NODE / 2, top: p.y + 48 - NODE / 2 + 4, width: NODE }}>
-              <StationNode id={item.id} open={!lockedUnit && isLessonCompleted(item.after.id)} langId={langId} reduceMotion={reduceMotion} index={k} />
-            </div>
-          );
-        }
-        const { lesson, i } = item;
-        const state = stateOf(lesson, unitIndex, startIndex + i);
-        const isFirst = firstPending?.lesson.id === lesson.id;
+    <div className="relative pt-14 sm:pt-16">
+      <Clouds />
+      {plan.map((part, n) => {
+        const meta = ISLANDS[part.key];
+        const slice = items.slice(offset, offset + part.take);
+        const first = offset;
+        offset += part.take;
+        // Las piedras que sobran quedan libres; los pasos ocupan las primeras
         return (
-          <div key={lesson.id} className="absolute" style={{ left: p.x - NODE / 2, top: p.y + 48 - NODE / 2, width: NODE }}>
-            <LessonNode lesson={lesson} state={state} styleSet={styleSet} isFirstAvailable={isFirst} reduceMotion={reduceMotion} index={i} />
-            {/* La llamita (sticker) espera junto a la lección que toca */}
-            {isFirst && (
-              <div className={`pointer-events-none absolute -top-4 ${OFFSETS[k % OFFSETS.length] > 0 ? 'right-full mr-2' : 'left-full ml-2'} w-24 sm:w-32`}>
-                <Mascot pose="ayuda" sticker size="w-24 sm:w-32" />
-              </div>
-            )}
+          <div key={n} className={n > 0 ? '-mt-6 sm:-mt-10' : ''}>
+            <Island island={part.key} flip={part.flip} index={n} reduceMotion={reduceMotion}>
+              {slice.map((item, k) => {
+                const p = meta.plataformas[k];
+                const step = first + k + 1;
+                const style = { ...at(p, part.flip), transform: 'translate(-50%, -72%) scale(var(--s))', transformOrigin: '50% 72%' };
+                if (item.type === 'station') {
+                  const key = `${langId}:${unit.id}:${item.id}`;
+                  return (
+                    <div key={`estacion-${item.id}-${item.after.id}`} className="absolute z-10 w-20" style={style}>
+                      <StationNode id={item.id} open={!lockedUnit && isLessonCompleted(item.after.id)} done={visited.has(key)} onVisit={() => onVisit(key)} langId={langId} reduceMotion={reduceMotion} index={step} step={step} />
+                    </div>
+                  );
+                }
+                const { lesson, i } = item;
+                const state = stateOf(lesson, unitIndex, startIndex + i);
+                const isFirst = firstPending?.lesson.id === lesson.id;
+                const right = (part.flip ? 1 - p.x : p.x) < 0.5;
+                return (
+                  <div key={lesson.id} id={isFirst ? 'leccion-actual' : undefined} className={`group/paso absolute w-20 ${isFirst ? 'z-30' : 'z-10 hover:z-30'}`} style={style}>
+                    <LessonNode lesson={lesson} state={state} styleSet={styleSet} isFirstAvailable={isFirst} reduceMotion={reduceMotion} index={i} step={step} />
+                    {isFirst && (
+                      <div className={`pointer-events-none absolute -top-6 ${right ? 'left-full ml-1' : 'right-full mr-1'} w-20 sm:w-28`}>
+                        <Mascot pose="ayuda" sticker size="w-20 sm:w-28" />
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+              {/* Piedras libres de la última isla: un brillo suave */}
+              {part.final &&
+                meta.plataformas.slice(slice.length).map((p, k) => (
+                  <span key={`libre-${k}`} className="destello absolute z-10 -translate-x-1/2 -translate-y-1/2" style={at(p, part.flip)} aria-hidden="true">
+                    <Sparkle className="h-5 w-5 fill-amber-200 text-amber-300" />
+                  </span>
+                ))}
+              {/* Trofeo: brilla y salta si la unidad está completa; si no, espera con candado */}
+              {part.final ? (
+                <div className="absolute z-20 -translate-x-1/2 -translate-y-1/2" style={at(meta.trofeo, part.flip)}>
+                  <m.div
+                    className="relative flex flex-col items-center"
+                    animate={complete && !reduceMotion ? { y: [0, -8, 0] } : undefined}
+                    transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+                  >
+                    {complete && <span className="rayos-trofeo absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2" aria-hidden="true" />}
+                    {meta.trofeo.pedestal ? (
+                      <span className={`relative flex h-20 w-20 items-center justify-center rounded-[1.6rem] ${complete ? 'bg-gradient-to-br from-amber-300 to-orange-500 text-white shadow-[0_6px_0_#c2410c]' : 'bg-white/90 text-amber-400 ring-4 ring-dashed ring-amber-300'}`}>
+                        {complete ? <span className="block w-16 aspect-square"><LlamaImage pose="logro" sticker sizes="4rem" /></span> : <Trophy className="h-10 w-10" />}
+                      </span>
+                    ) : (
+                      !complete && (
+                        <span className="relative flex h-16 w-16 items-center justify-center rounded-full bg-white/55 backdrop-blur-[2px] ring-2 ring-white">
+                          <Lock className="h-6 w-6 text-stone-600" aria-hidden="true" />
+                        </span>
+                      )
+                    )}
+                    <span className={`relative mt-1 rounded-full px-3 py-0.5 text-xs font-black uppercase tracking-wider shadow ${complete ? 'bg-amber-400 text-amber-950' : 'bg-white/90 text-stone-500'}`}>
+                      {complete ? '¡Unidad lista!' : 'Trofeo'}
+                    </span>
+                  </m.div>
+                  {complete &&
+                    [0, 1, 2, 3].map((k) => (
+                      <span key={k} className="destello absolute" style={{ left: `${[-30, 70, -10, 90][k]}%`, top: `${[-20, -10, 80, 70][k]}%`, animationDelay: `${-k * 0.4}s` }} aria-hidden="true">
+                        <Sparkle className="h-5 w-5 fill-yellow-200 text-yellow-400" />
+                      </span>
+                    ))}
+                </div>
+              ) : (
+                <span className="absolute z-10 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center" style={at(meta.trofeo, part.flip)} aria-hidden="true">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 shadow-md ring-2 ring-white">
+                    <ArrowDown className="h-6 w-6 text-stone-600 anim-flotar" />
+                  </span>
+                  <span className="mt-1 rounded-full bg-white/90 px-2 py-0.5 text-[10px] font-black uppercase tracking-wider text-stone-500 shadow">Sigue</span>
+                </span>
+              )}
+              <Butterfly style={{ left: '12%', top: `${30 + n * 7}%` }} delay={-n * 1.7} color="#f472b6" />
+              <Butterfly style={{ right: '10%', top: `${60 - n * 5}%` }} delay={-2.4 - n} color="#facc15" />
+            </Island>
           </div>
         );
       })}
-
-      {/* Trofeo al final de la unidad */}
-      <m.div
-        className="absolute flex flex-col items-center"
-        style={{ left: LANE / 2 - 48, top: points[points.length - 1].y, width: 96 }}
-        initial={reduceMotion ? false : { opacity: 0, scale: 0.5 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ type: 'spring', bounce: 0.5, duration: 0.7 }}
-      >
-        <span
-          className={`relative w-24 h-24 rounded-[1.75rem] rotate-3 flex items-center justify-center ${
-            complete ? 'bg-gradient-to-br from-amber-300 to-orange-500 shadow-[0_6px_0_#c2410c] text-white' : lockedUnit ? 'bg-stone-200 text-stone-400 shadow-[0_6px_0_#a8a29e]' : 'bg-white border-4 border-dashed border-amber-300 text-amber-400'
-          }`}
-          role="img"
-          aria-label={complete ? `Unidad ${unitIndex + 1} completada` : `Trofeo de la unidad ${unitIndex + 1}: termina sus lecciones`}
-        >
-          {complete && <span className="brillo-nodo" aria-hidden="true" />}
-          {complete ? (
-            <span className="block w-20 aspect-square -rotate-3" aria-hidden="true">
-              <LlamaImage pose="logro" sticker sizes="5rem" />
-            </span>
-          ) : (
-            <Trophy className="w-11 h-11" aria-hidden="true" />
-          )}
-        </span>
-        <span className={`mt-3 text-xs font-black uppercase tracking-wider ${complete ? 'text-amber-700' : 'text-stone-400'}`}>{complete ? '¡Unidad lista!' : 'Trofeo'}</span>
-      </m.div>
     </div>
+  );
+};
+
+// Cabecera de la unidad: verde oscuro con cordillera, nieve, sol y cóndor
+const UnitHeader = ({ unit, unitIndex, lockedUnit, styleSet, done, total, here, onContinue, reduceMotion }) => {
+  const pct = total ? done / total : 0;
+  const dark = lockedUnit ? ['#57534e', '#44403c', '#292524'] : styleSet.hex === '#1e40af' ? ['#1e3a8a', '#172554', '#0b1437'] : ['#166534', '#14532d', '#052e16'];
+  return (
+    <m.div
+      className="relative overflow-hidden rounded-[2rem] p-5 sm:p-7 pr-24 sm:pr-44 text-white shadow-xl"
+      style={{ background: `linear-gradient(180deg, ${dark[0]}, ${dark[1]} 70%, ${dark[2]})` }}
+      initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ type: 'spring', bounce: 0.25, duration: 0.6 }}
+    >
+      {/* Cordillera en capas, con nieve en las cumbres */}
+      <svg className="pointer-events-none absolute inset-x-0 bottom-0 h-3/4 w-full" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true">
+        <circle cx="330" cy="34" r="16" fill="#fde68a" opacity="0.85" />
+        <path d="M0 120 L0 70 L40 40 L70 62 L110 22 L150 58 L190 30 L230 64 L270 26 L310 60 L350 34 L400 66 L400 120Z" fill="#ffffff" opacity="0.09" />
+        <path d="M0 120 L0 84 L50 56 L90 80 L140 46 L180 76 L230 50 L270 82 L320 54 L360 78 L400 60 L400 120Z" fill="#000000" opacity="0.18" />
+        <path d="M140 46 L128 56 L136 55 L141 60 L146 54 L152 57Z M230 50 L219 59 L227 58 L232 63 L237 57 L242 59Z M50 56 L41 64 L48 63 L52 67 L56 62 L60 64Z" fill="#ffffff" opacity="0.75" />
+        <path d="M0 120 L0 98 L60 82 L120 100 L190 84 L250 102 L320 86 L400 98 L400 120Z" fill="#000000" opacity="0.22" />
+      </svg>
+      {!reduceMotion && (
+        <span className="condor-cabecera pointer-events-none absolute top-4" aria-hidden="true">
+          <GiCondorEmblem className="h-8 w-8 text-white/50" />
+        </span>
+      )}
+      <span className="brillo-liquido" aria-hidden="true" />
+      <p className="relative text-sm font-black uppercase tracking-widest opacity-90">Unidad {unitIndex + 1}</p>
+      <h3 id={`unidad-${unit.id}-titulo`} className="relative text-2xl sm:text-3xl font-black drop-shadow">
+        {unit.nombre}
+      </h3>
+      {unit.descripcion && <p className="relative opacity-90">{unit.descripcion}</p>}
+      {total > 0 && !lockedUnit && (
+        <div className="relative mt-4 max-w-xs">
+          <div className="mb-1 flex items-center justify-between gap-2 whitespace-nowrap text-sm font-bold">
+            <span className="inline-flex items-center gap-1.5">
+              {done === total ? <Trophy className="h-4 w-4" aria-hidden="true" /> : <Check className="h-4 w-4" aria-hidden="true" />}
+              {done} de {total} pasos
+            </span>
+            <span>{Math.round(pct * 100)}%</span>
+          </div>
+          <div className="h-3 overflow-hidden rounded-full bg-white/20" aria-hidden="true">
+            <m.div
+              className="h-full rounded-full bg-gradient-to-r from-amber-300 to-yellow-200"
+              initial={reduceMotion ? false : { width: 0 }}
+              whileInView={{ width: `${pct * 100}%` }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: [0.23, 1, 0.32, 1], delay: 0.3 }}
+            />
+          </div>
+        </div>
+      )}
+      {here && (
+        <button type="button" onClick={onContinue} className="relative mt-4 inline-flex min-h-11 items-center gap-2 rounded-full bg-white px-5 font-black text-stone-900 shadow-lg transition hover:scale-105 active:scale-95">
+          <Play className="h-4 w-4 fill-current" aria-hidden="true" /> Continuar
+        </button>
+      )}
+      {lockedUnit && (
+        <p className="relative mt-3 inline-flex items-center gap-2 text-sm font-bold">
+          <Lock className="h-4 w-4" aria-hidden="true" /> Regístrate gratis para desbloquearla
+        </p>
+      )}
+      <span className="pointer-events-none absolute right-2 sm:right-6 top-1/2 w-24 sm:w-36 aspect-square -translate-y-1/2" aria-hidden="true">
+        <span className="block h-full w-full llama llama-reposo">
+          <LlamaImage pose={lockedUnit ? 'descansando' : UNIT_POSES[unitIndex % UNIT_POSES.length]} sticker sizes="10rem" />
+        </span>
+      </span>
+    </m.div>
   );
 };
 
@@ -423,6 +544,11 @@ const LearningPath = ({ units, langId, isGuest, isLessonCompleted }) => {
   const [lessonsByUnit, setLessonsByUnit] = useState({});
   const [error, setError] = useState(false);
   const [reload, setReload] = useState(0);
+  const [visited, setVisited] = useState(readVisited);
+  const visit = (key) => {
+    markVisited(key);
+    setVisited(readVisited());
+  };
 
   // Todas las lecciones de una vez: el sendero necesita saber cuál toca
   useEffect(() => {
@@ -457,6 +583,17 @@ const LearningPath = ({ units, langId, isGuest, isLessonCompleted }) => {
     return 'locked';
   };
 
+  // Pasos de cada unidad (lecciones y estaciones) y cuántos están hechos
+  const stepsOf = (unit, unitIndex) => {
+    const items = trailItems(lessonsByUnit[unit.id] || [], unitIndex, langId);
+    const done = items.filter((it) => (it.type === 'lesson' ? isLessonCompleted(it.lesson.id) : visited.has(`${langId}:${unit.id}:${it.id}`))).length;
+    return { items, done, total: items.length };
+  };
+  const goToCurrent = () => {
+    playTap();
+    document.getElementById('leccion-actual')?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+  };
+
   let globalIndex = 0;
   return (
     <div>
@@ -475,59 +612,21 @@ const LearningPath = ({ units, langId, isGuest, isLessonCompleted }) => {
           const lessons = lessonsByUnit[unit.id];
           const startIndex = globalIndex;
           globalIndex += lessons?.length || 0;
-          const done = (lessons || []).filter((l) => isLessonCompleted(l.id)).length;
-          const total = lessons?.length || 0;
           const lockedUnit = isGuest && unitIndex > 0;
-          const pct = total ? done / total : 0;
+          const steps = stepsOf(unit, unitIndex);
           return (
             <li key={unit.id} id={`unidad-${unit.id}`} className="scroll-mt-24" aria-labelledby={`unidad-${unit.id}-titulo`}>
-              {/* Cabecera de la unidad: banda de color con tejido andino, avance y la llamita */}
-              <m.div
-                className={`relative overflow-hidden rounded-[2rem] p-5 sm:p-7 pr-24 sm:pr-44 text-white shadow-lg ${lockedUnit ? 'bg-gradient-to-br from-stone-400 to-stone-500' : `bg-gradient-to-br ${styleSet.gradient}`}`}
-                initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-60px' }}
-                transition={{ type: 'spring', bounce: 0.25, duration: 0.6 }}
-              >
-                <span className="brillo-liquido" aria-hidden="true" />
-                <span className="pointer-events-none absolute -right-10 -top-16 w-56 h-56 rounded-full bg-white/10 blur-sm" aria-hidden="true" />
-                <span className="pointer-events-none absolute right-24 -bottom-20 w-40 h-40 rounded-full bg-white/10" aria-hidden="true" />
-                <p className="relative text-sm font-black uppercase tracking-widest opacity-90">Unidad {unitIndex + 1}</p>
-                <h3 id={`unidad-${unit.id}-titulo`} className="relative text-2xl sm:text-3xl font-black">
-                  {unit.nombre}
-                </h3>
-                {unit.descripcion && <p className="relative opacity-90">{unit.descripcion}</p>}
-                {total > 0 && !lockedUnit && (
-                  <div className="relative mt-4 max-w-xs">
-                    <div className="flex items-center justify-between gap-2 text-sm font-bold mb-1 whitespace-nowrap">
-                      <span className="inline-flex items-center gap-1.5">
-                        {done === total ? <Trophy className="w-4 h-4" aria-hidden="true" /> : <Check className="w-4 h-4" aria-hidden="true" />}
-                        {done} de {total} lecciones
-                      </span>
-                      <span>{Math.round(pct * 100)}%</span>
-                    </div>
-                    <div className="h-3 rounded-full bg-white/25 overflow-hidden" aria-hidden="true">
-                      <m.div
-                        className="h-full rounded-full bg-gradient-to-r from-amber-300 to-yellow-200"
-                        initial={reduceMotion ? false : { width: 0 }}
-                        whileInView={{ width: `${pct * 100}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1, ease: [0.23, 1, 0.32, 1], delay: 0.3 }}
-                      />
-                    </div>
-                  </div>
-                )}
-                {lockedUnit && (
-                  <p className="relative mt-3 inline-flex items-center gap-2 text-sm font-bold">
-                    <Lock className="w-4 h-4" aria-hidden="true" /> Regístrate gratis para desbloquearla
-                  </p>
-                )}
-                <span className="pointer-events-none absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-24 sm:w-36 aspect-square" aria-hidden="true">
-                  <span className="block w-full h-full llama llama-reposo">
-                    <LlamaImage pose={lockedUnit ? 'descansando' : UNIT_POSES[unitIndex % UNIT_POSES.length]} sticker sizes="10rem" />
-                  </span>
-                </span>
-              </m.div>
+              <UnitHeader
+                unit={unit}
+                unitIndex={unitIndex}
+                lockedUnit={lockedUnit}
+                styleSet={styleSet}
+                done={steps.done}
+                total={steps.total}
+                here={firstPending?.unitIndex === unitIndex}
+                onContinue={goToCurrent}
+                reduceMotion={reduceMotion}
+              />
 
               {lessons === undefined ? (
                 <p className="text-center text-stone-600 py-8" role="status">
@@ -537,9 +636,9 @@ const LearningPath = ({ units, langId, isGuest, isLessonCompleted }) => {
                 <p className="text-center text-stone-600 py-8">Esta unidad todavía no tiene lecciones.</p>
               ) : (
                 <div>
-                  <UnitTrail
+                  <UnitIslands
                     unit={unit}
-                    lessons={lessons}
+                    items={steps.items}
                     unitIndex={unitIndex}
                     lockedUnit={lockedUnit}
                     styleSet={styleSet}
@@ -549,6 +648,9 @@ const LearningPath = ({ units, langId, isGuest, isLessonCompleted }) => {
                     startIndex={startIndex}
                     langId={langId}
                     isLessonCompleted={isLessonCompleted}
+                    visited={visited}
+                    onVisit={visit}
+                    complete={steps.total > 0 && steps.done === steps.total}
                   />
                 </div>
               )}
@@ -557,15 +659,35 @@ const LearningPath = ({ units, langId, isGuest, isLessonCompleted }) => {
         })}
       </ol>
 
+      {/* Botón flotante: lleva a la lección que toca */}
+      {firstPending && (
+        <div className="pointer-events-none fixed inset-x-0 bottom-4 z-40 flex justify-center sm:justify-end sm:px-8">
+          <Link
+            to={`/lesson/${firstPending.lesson.id}`}
+            onClick={playTap}
+            {...preloadOn(LessonView)}
+            className={`pointer-events-auto group inline-flex min-h-14 max-w-[92vw] items-center gap-3 rounded-full bg-gradient-to-r ${styleSet.gradient} pl-2 pr-6 text-white shadow-2xl ring-4 ring-white/70 transition hover:scale-105 active:scale-95`}
+          >
+            <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-stone-900 shadow">
+              <span className="absolute inset-0 animate-ping rounded-full bg-white/60" aria-hidden="true" />
+              <Play className="relative h-5 w-5 translate-x-0.5 fill-current" aria-hidden="true" />
+            </span>
+            <span className="min-w-0 text-left leading-tight">
+              <span className="block text-[11px] font-black uppercase tracking-widest text-white/80">Continuar</span>
+              <span className="block truncate font-black">{firstPending.lesson.titulo}</span>
+            </span>
+          </Link>
+        </div>
+      )}
+
       {/* Mapa de la ruta: todas las unidades con su avance; tocar una lleva hasta ella */}
       <aside className="hidden xl:block sticky top-24 space-y-5" aria-label="Mapa de tu ruta">
         <div className="rounded-3xl border border-stone-200 bg-gradient-to-b from-white to-stone-50 p-5 shadow-sm">
           <h3 className="font-black mb-3">Mapa de tu ruta</h3>
           <ol className="space-y-2">
             {units.map((unit, unitIndex) => {
-              const lessons = lessonsByUnit[unit.id] || [];
-              const done = lessons.filter((l) => isLessonCompleted(l.id)).length;
-              const pct = lessons.length ? done / lessons.length : 0;
+              const { done, total } = stepsOf(unit, unitIndex);
+              const pct = total ? done / total : 0;
               const locked = isGuest && unitIndex > 0;
               const here = firstPending?.unitIndex === unitIndex;
               return (
@@ -592,7 +714,7 @@ const LearningPath = ({ units, langId, isGuest, isLessonCompleted }) => {
                       </span>
                     </span>
                     <span className="text-xs font-bold text-stone-500 tabular-nums">
-                      {done}/{lessons.length}
+                      {done}/{total}
                     </span>
                   </button>
                 </li>
