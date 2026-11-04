@@ -13,6 +13,7 @@ import { playTap, playCorrect, playWrong } from '../utils/sounds';
 import Mascot, { LlamaImage } from '../components/Mascot';
 import Decor from '../components/Decor';
 import BodyFigure from '../components/BodyFigure';
+import { MicButton, SpeakModal } from '../components/SpeakPractice';
 import { Confetti, Burst } from '../components/GameFx';
 import GradientText from '../components/reactbits/GradientText';
 import { AnimatedContent, BlurText, CountUp } from '../ui/lazyBits';
@@ -222,11 +223,12 @@ const useGame = (bestKey, makeRound, ready = true) => {
 };
 
 // ==================== CUERPO ====================
-const BodyExplore = ({ idioma, language, theme }) => {
+export const BodyExplore = ({ idioma, language, theme }) => {
   const parts = useMemo(() => partesDe(idioma), [idioma]);
   const [active, setActive] = useState('nariz');
   const [vista, setVista] = useState('frente');
   const [seen, setSeen] = useState(() => new Set(['nariz']));
+  const [saying, setSaying] = useState(false);
   const part = parts.find((p) => p.id === active) || parts[0];
   const fr = frasesParte(part, idioma);
   const select = (p) => {
@@ -286,6 +288,8 @@ const BodyExplore = ({ idioma, language, theme }) => {
                 <button type="button" onClick={() => speak(part[idioma], { idioma: language.id, lang: language.voz?.respaldo })} className="ficha inline-flex items-center gap-2 min-h-12 px-5 rounded-xl bg-white text-stone-900 font-black">
                   <Volume2 className="w-5 h-5" aria-hidden="true" /> Escuchar «{part[idioma]}»
                 </button>
+                <MicButton label={`Decir ${part[idioma]} al micrófono`} onClick={() => setSaying(true)} className="ml-2 inline-flex align-middle h-12 w-12" />
+                {saying && <SpeakModal text={part[idioma]} meaning={`${part.art} ${part.es}`} language={language} theme={theme} onClose={() => setSaying(false)} />}
               </div>
             </div>
           </m.div>
@@ -335,7 +339,7 @@ const BodyExplore = ({ idioma, language, theme }) => {
 };
 
 // Juego 1: "La llama dice" — la instrucción en la lengua; se toca la parte (a veces hay que darle la vuelta)
-const LlamaSays = ({ idioma, language, theme, onExplore }) => {
+export const LlamaSays = ({ idioma, language, theme, onExplore }) => {
   const parts = useMemo(() => partesDe(idioma), [idioma]);
   const order = useMemo(() => shuffle(parts), [parts]);
   const [vista, setVista] = useState('frente');
@@ -411,7 +415,7 @@ const LlamaSays = ({ idioma, language, theme, onExplore }) => {
 };
 
 // Juego 2: "¿Qué parte es?" — el cuerpo gira, una parte se ilumina y se elige su nombre
-const WhichPart = ({ idioma, language, theme, onExplore }) => {
+export const WhichPart = ({ idioma, language, theme, onExplore }) => {
   const parts = useMemo(() => partesDe(idioma), [idioma]);
   const order = useMemo(() => shuffle(parts), [parts]);
   const [modelReady, setModelReady] = useState(false);
@@ -464,7 +468,7 @@ const WhichPart = ({ idioma, language, theme, onExplore }) => {
 };
 
 // Juego 3: "Pega las palabras" — se arrastra cada palabra hasta su lugar en el cuerpo (de frente y luego de espalda)
-const DragLabels = ({ idioma, language, theme, onExplore }) => {
+export const DragLabels = ({ idioma, language, theme, onExplore }) => {
   const parts = useMemo(() => partesDe(idioma), [idioma]);
   const makeRound = () => {
     const front = shuffle(parts.filter((p) => p.vista === 'frente')).slice(0, 7);
@@ -602,7 +606,7 @@ const Llamitas = ({ n, max = 20, size = 'w-10' }) => {
   );
 };
 
-const NumbersExplore = ({ idioma, language, theme }) => {
+export const NumbersExplore = ({ idioma, language, theme }) => {
   const [n, setN] = useState(7);
   const word = numeroEn(n, idioma);
   const parts = partesNumero(n, idioma);
@@ -690,7 +694,7 @@ const NumbersExplore = ({ idioma, language, theme }) => {
 };
 
 // Juego 3: "Cuenta las llamas" — aparecen llamitas y se elige el número en la lengua
-const CountLlamas = ({ idioma, language, theme, onExplore }) => {
+export const CountLlamas = ({ idioma, language, theme, onExplore }) => {
   const g = useGame(`simiaru-cuenta-llamas-${idioma}`, (r) => {
     const max = r < 3 ? 5 : r < 6 ? 10 : 15;
     const n = 1 + Math.floor(Math.random() * max);
@@ -737,7 +741,7 @@ const CountLlamas = ({ idioma, language, theme, onExplore }) => {
 };
 
 // Juego 4: "Escucha y toca" — se oye y se lee el número en la lengua; se toca la cifra
-const ListenTap = ({ idioma, language, theme, onExplore }) => {
+export const ListenTap = ({ idioma, language, theme, onExplore }) => {
   const g = useGame(`simiaru-escucha-numero-${idioma}`, (r) => {
     const max = r < 4 ? 10 : r < 7 ? 20 : 50;
     const n = 1 + Math.floor(Math.random() * max);

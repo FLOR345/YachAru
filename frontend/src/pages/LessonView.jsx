@@ -8,7 +8,7 @@ import { api } from '../services/api';
 import ExerciseTypes from '../components/lessons/ExerciseTypes';
 import Mascot from '../components/Mascot';
 import { Stars } from '../components/GameFx';
-import { Volume2, VolumeX, X, Check, ArrowRight, Star, AlertCircle, RefreshCw, UserX, Flame, Zap, Target, Clock, RotateCcw } from 'lucide-react';
+import { Volume2, VolumeX, X, Check, ArrowRight, Star, AlertCircle, RefreshCw, UserX, Flame, Zap, Target, Clock, RotateCcw, MicOff } from 'lucide-react';
 import { getLanguage, languageStyle } from '../languages';
 import { PHENOMENON_LABELS } from '../utils/normalizer';
 import { track, flush } from '../services/telemetry';
@@ -17,6 +17,10 @@ import { playCorrect, playWrong, playComplete, soundEnabled, setSoundEnabled } f
 import GradientText from '../components/reactbits/GradientText';
 import Decor from '../components/Decor';
 import { saveMistakes } from '../utils/difficultWords';
+import SpeakPractice, { MicButton, SpeakModal } from '../components/SpeakPractice';
+import { BodyChip, BodyPeek, BodyTapExercise } from '../components/BodyMoments';
+import { parteDePalabra } from '../data/cuerpoNumeros';
+import { micPaused, pauseMic } from '../utils/voice';
 
 const PASS_PERCENT = 80;
 const XP_CORRECT = 10;
@@ -77,6 +81,31 @@ const CountNumber = ({ value, suffix = '' }) => {
   );
 };
 
+// Ejercicios que la app agrega a cada lección, además de los de la base de datos:
+//  - "Dilo tú" (hablar): escuchar una palabra y decirla al micrófono;
+//  - "Toca en el cuerpo" (cuerpo): si la lección tiene partes del cuerpo, señalarlas en el modelo 3D.
+// No cuentan para el porcentaje de la lección (que mide solo los ejercicios de la base).
+const shuffleList = (list) => [...list].sort(() => Math.random() - 0.5);
+const addExtras = (exercises, vocabulary, idioma) => {
+  const queue = exercises.map((exercise) => ({ exercise, review: false }));
+  if (exercises.length === 0) return queue;
+  const body = shuffleList(vocabulary.map((w) => ({ w, part: parteDePalabra(w.palabra_objetivo, w.palabra_espanol, idioma) })).filter((x) => x.part)).slice(0, 2);
+  const sayable = vocabulary.filter((w) => String(w.palabra_objetivo).split(/\s+/).length <= 4);
+  const withAudio = sayable.filter((w) => w.audio_url);
+  const speakWords = micPaused() ? [] : shuffleList(withAudio.length >= 2 ? withAudio : sayable).slice(0, 2);
+  const extras = [
+    ...speakWords.map((w) => ({ id: `hablar-${w.id}`, tipo: 'hablar', word: w })),
+    ...body.map(({ w, part }) => ({ id: `cuerpo-${w.id}`, tipo: 'cuerpo', word: w, part })),
+  ];
+  // Repartidos a lo largo de la lección, nunca al principio
+  const base = queue.length;
+  extras.forEach((exercise, i) => {
+    const at = Math.min(queue.length, 1 + i + Math.round(((i + 1) * base) / (extras.length + 1)));
+    queue.splice(at, 0, { exercise, review: false, extra: true });
+  });
+  return queue;
+};
+
 const formatTime = (ms) => {
   const s = Math.max(1, Math.round(ms / 1000));
   return s < 60 ? `${s} s` : `${Math.floor(s / 60)} min ${s % 60} s`;
@@ -109,6 +138,8 @@ const LessonView = ({ user, isGuest }) => {
   const [serverResult, setServerResult] = useState(null);
   const [sound, setSound] = useState(soundEnabled);
   const [xpGain, setXpGain] = useState(null); // { amount, key } para el +XP que sube
+  const [popup, setPopup] = useState(null); // { type: 'hablar' | 'cuerpo', word, part }
+  const [spoken, setSpoken] = useState(null); // en "Dilo tú": parecido del último intento (undefined = sin intento)
 
   const savedRef = useRef(false);
   const continueRef = useRef(null);
@@ -134,7 +165,7 @@ const LessonView = ({ user, isGuest }) => {
       setVocabulary(data.vocabulary || []);
       keepAudioOffline((data.vocabulary || []).map((w) => w.audio_url));
       setExercises(data.exercises || []);
-      setQueue((data.exercises || []).map((exercise) => ({ exercise, review: false })));
+      setQueue(addExtras(data.exercises || [], data.vocabulary || [], data.lesson?.idioma));
     } catch (error) {
       console.error('Error loading lesson:', error);
       setLoadError(true);
@@ -218,10 +249,10 @@ const LessonView = ({ user, isGuest }) => {
   const current = queue[position];
 
   const handleAnswer = (isCorrect, correctText, detail = {}) => {
-    const { exercise, review } = current;
+    const { exercise, review, extra } = current;
     const resultado = detail.resultado ?? (isCorrect ? 'correcto' : 'incorrecto');
 
-    if (!review) setFirstTry((prev) => ({ ...prev, [exercise.id]: resultado }));
+    if (!review && !extra) setFirstTry((prev) => ({ ...prev, [exercise.id]: resultado }));
     if (isCorrect) {
       playCorrect();
       const nextCombo = combo + 1;
@@ -233,7 +264,9 @@ const LessonView = ({ user, isGuest }) => {
     } else {
       playWrong();
       setCombo(0);
-      if (!review) {
+      if (extra) {
+        setMistakes((list) => [...list, correctText]);
+      } else if (!review) {
         // El ejercicio fallado vuelve al final de la lección
         setQueue((q) => [...q, { exercise, review: true }]);
         setMistakes((list) => [...list, correctText]);
@@ -243,14 +276,15 @@ const LessonView = ({ user, isGuest }) => {
     track('exercise_answered', {
       idioma: lesson?.idioma,
       leccion_id: Number(lessonId),
-      ejercicio_id: exercise.id,
+      ejercicio_id: extra ? null : exercise.id,
+      vocabulario_id: extra ? exercise.word?.id : undefined,
       tipo_ejercicio: exercise.tipo,
       resultado,
       respuesta: detail.respuesta != null ? String(detail.respuesta) : null,
       esperado: correctText,
       intento: review ? 2 : 1,
       duracion_ms: Date.now() - questionStart.current,
-      metadatos: detail.fenomenos?.length ? { fenomenos: detail.fenomenos } : {},
+      metadatos: { ...(detail.fenomenos?.length ? { fenomenos: detail.fenomenos } : {}), ...(detail.parecido != null ? { parecido: detail.parecido } : {}) },
     });
 
     setFeedback({
@@ -265,6 +299,7 @@ const LessonView = ({ user, isGuest }) => {
 
   const goToNext = () => {
     setFeedback(null);
+    setSpoken(null);
     if (position < queue.length - 1) {
       setPosition((p) => p + 1);
       questionStart.current = Date.now();
@@ -275,16 +310,23 @@ const LessonView = ({ user, isGuest }) => {
   };
 
   const skipExercise = () => {
-    track('exercise_skipped', { idioma: lesson?.idioma, leccion_id: Number(lessonId), ejercicio_id: current?.exercise?.id, tipo_ejercicio: current?.exercise?.tipo });
-    if (!current.review) setFirstTry((prev) => ({ ...prev, [current.exercise.id]: 'correcto' }));
+    track('exercise_skipped', { idioma: lesson?.idioma, leccion_id: Number(lessonId), ejercicio_id: current?.extra ? null : current?.exercise?.id, tipo_ejercicio: current?.exercise?.tipo });
+    if (!current.review && !current.extra) setFirstTry((prev) => ({ ...prev, [current.exercise.id]: 'correcto' }));
     goToNext();
+  };
+
+  // "Ahora no puedo hablar": se quitan los "Dilo tú" que quedan y no se proponen en 15 minutos
+  const cantSpeak = () => {
+    pauseMic();
+    setQueue((q) => q.filter((item, i) => i <= position || item.exercise.tipo !== 'hablar'));
+    skipExercise();
   };
 
   const repeatLesson = () => {
     savedRef.current = false;
     setSaveState('idle');
     setServerResult(null);
-    setQueue(exercises.map((exercise) => ({ exercise, review: false })));
+    setQueue(addExtras(exercises, vocabulary, lesson?.idioma));
     setPosition(0);
     setFirstTry({});
     setXp(0);
@@ -469,7 +511,7 @@ const LessonView = ({ user, isGuest }) => {
     const startButton =
       total > 0 ? (
         <button type="button" onClick={startExercises} className="w-full min-h-14 boton-degradado font-black text-lg rounded-2xl shadow-lg flex items-center justify-center gap-3">
-          ¡Empezar! ({total} ejercicios)
+          ¡Empezar! ({queue.length} ejercicios)
           <ArrowRight className="w-6 h-6" aria-hidden="true" />
         </button>
       ) : (
@@ -489,7 +531,7 @@ const LessonView = ({ user, isGuest }) => {
             <div className="flex flex-wrap items-end justify-between gap-2">
               <h1 className="text-3xl sm:text-4xl font-black">{lesson.titulo}</h1>
               <p className={theme.headerSoft}>
-                <span className="text-3xl font-black text-white">{vocabulary.length}</span> palabras · {total} ejercicios
+                <span className="text-3xl font-black text-white">{vocabulary.length}</span> palabras · {queue.length} ejercicios
               </p>
             </div>
           </div>
@@ -511,7 +553,7 @@ const LessonView = ({ user, isGuest }) => {
                     <span className="font-black" lang={language.lang}>
                       ¡{(language.frases?.saludo ?? 'Hola').replace(/[¡!]/g, '')}!
                     </span>{' '}
-                    Hoy conocerás {vocabulary.length} palabras. Toca el parlante para escucharlas y la estrella cuando ya te sepas una.
+                    Hoy conocerás {vocabulary.length} palabras. Toca el parlante para escucharlas, el micrófono para decirlas tú y la estrella cuando ya te sepas una.
                   </p>
                 }
               />
@@ -563,6 +605,7 @@ const LessonView = ({ user, isGuest }) => {
             <ol className="grid gap-3 sm:grid-cols-2 content-start mb-28 lg:mb-8">
               {vocabulary.map((word, index) => {
                 const learned = learnedWords.includes(word.id);
+                const part = parteDePalabra(word.palabra_objetivo, word.palabra_espanol, lesson.idioma);
                 const hidden = hideMeanings && !revealed.includes(word.id);
                 return (
                   <li
@@ -592,6 +635,7 @@ const LessonView = ({ user, isGuest }) => {
                         {word.ejemplo_uso && !hidden && <span className="block text-sm text-stone-600 mt-1 italic">“{word.ejemplo_uso}”</span>}
                       </button>
                       <div className="flex flex-col sm:flex-row items-center gap-2 shrink-0">
+                        <MicButton label={`Decir ${word.palabra_objetivo} al micrófono`} onClick={() => setPopup({ type: 'hablar', word })} />
                         <button
                           type="button"
                           onClick={() => {
@@ -614,10 +658,21 @@ const LessonView = ({ user, isGuest }) => {
                         </button>
                       </div>
                     </div>
+                    {part && (
+                      <div className="px-4 pb-4 -mt-1">
+                        <BodyChip onClick={() => setPopup({ type: 'cuerpo', word, part })} />
+                      </div>
+                    )}
                   </li>
                 );
               })}
             </ol>
+            {popup?.type === 'hablar' && (
+              <SpeakModal text={popup.word.palabra_objetivo} meaning={popup.word.palabra_espanol} url={popup.word.audio_url} language={language} theme={theme} onClose={() => setPopup(null)} />
+            )}
+            {popup?.type === 'cuerpo' && (
+              <BodyPeek part={popup.part} word={popup.word.palabra_objetivo} url={popup.word.audio_url} idioma={lesson.idioma} language={language} theme={theme} onClose={() => setPopup(null)} />
+            )}
           </div>
 
           <div className="lg:hidden fixed bottom-0 inset-x-0 bg-white/90 backdrop-blur border-t border-stone-200 p-4 z-10">
@@ -713,6 +768,32 @@ const LessonView = ({ user, isGuest }) => {
             exit={{ opacity: 0, x: -40 }}
             transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
           >
+            {current?.exercise?.tipo === 'hablar' ? (
+              <div>
+                <p className="mb-3 text-sm font-black uppercase tracking-wider text-rose-600">Dilo en voz alta</p>
+                <div className="rounded-[2rem] bg-white p-5 sm:p-7 ring-1 ring-stone-200 shadow-sm">
+                  <SpeakPractice
+                    text={current.exercise.word.palabra_objetivo}
+                    meaning={current.exercise.word.palabra_espanol}
+                    url={current.exercise.word.audio_url}
+                    language={language}
+                    theme={theme}
+                    onResult={(score) => setSpoken({ score })}
+                  />
+                </div>
+              </div>
+            ) : current?.exercise?.tipo === 'cuerpo' ? (
+              <BodyTapExercise
+                part={current.exercise.part}
+                word={current.exercise.word.palabra_objetivo}
+                idioma={lesson.idioma}
+                language={language}
+                theme={theme}
+                answered={!!feedback}
+                onAnswer={handleAnswer}
+                onSkip={skipExercise}
+              />
+            ) : (
             <ExerciseTypes
               exercise={current?.exercise}
               onAnswer={handleAnswer}
@@ -724,9 +805,29 @@ const LessonView = ({ user, isGuest }) => {
               mood={feedback ? (feedback.correct ? (feedback.combo >= 3 ? 'cheer' : 'happy') : 'sad') : 'idle'}
               beat={feedback ? 1 : 0}
             />
+            )}
           </m.div>
         </AnimatePresence>
       </main>
+
+      {/* "Dilo tú": barra de abajo con "Ahora no puedo hablar" y "Continuar" */}
+      {current?.exercise?.tipo === 'hablar' && !feedback && (
+        <div className="fixed inset-x-0 bottom-0 z-20 border-t-2 border-stone-100 bg-white/95 backdrop-blur">
+          <div className="container mx-auto max-w-3xl py-4 flex flex-wrap items-center gap-3">
+            <button type="button" onClick={cantSpeak} className="ficha inline-flex min-h-12 items-center gap-2 px-5 rounded-2xl border-stone-300 bg-white font-black text-stone-600 uppercase tracking-wide text-sm hover:bg-stone-50">
+              <MicOff className="w-4 h-4" aria-hidden="true" /> Ahora no puedo hablar
+            </button>
+            <button
+              type="button"
+              onClick={() => handleAnswer(true, current.exercise.word.palabra_objetivo, { parecido: spoken?.score })}
+              disabled={!spoken}
+              className={`ficha ml-auto flex-1 sm:flex-none sm:min-w-52 min-h-12 px-8 rounded-2xl font-black uppercase tracking-wide ${spoken ? 'border-green-800 bg-green-600 text-white hover:bg-green-500' : 'border-stone-200 bg-stone-200 text-stone-500 cursor-not-allowed'}`}
+            >
+              Continuar
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Hoja de corrección que sube desde abajo (al estilo Duolingo) */}
       <div role="status" aria-live="polite">

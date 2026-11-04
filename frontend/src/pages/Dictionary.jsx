@@ -35,6 +35,9 @@ import Decor from '../components/Decor';
 import GradientText from '../components/reactbits/GradientText';
 import * as m from 'motion/react-m';
 import { wordIcon, categoryIcon, colorOf, numberOf } from '../ui/wordIcons';
+import { MicButton, SpeakModal } from '../components/SpeakPractice';
+import { BodyChip, BodyPeek } from '../components/BodyMoments';
+import { parteDePalabra } from '../data/cuerpoNumeros';
 // Los ejemplos de todas las palabras (unas 1500) se descargan aparte, cuando ya se ve la página
 let EJEMPLOS = {};
 const loadExamples = () => import('../data/ejemplos.json').then((mod) => (EJEMPLOS = mod.default));
@@ -560,6 +563,8 @@ const WordCard = ({ word, language, theme, query, favorite, onFavorite, index = 
   const swatch = colorOf(word);
   const numeral = numberOf(word);
   const example = exampleOf(word, language.id);
+  const part = parteDePalabra(word.palabra_objetivo, word.palabra_espanol, language.id);
+  const [popup, setPopup] = useState(null); // 'hablar' | 'cuerpo'
 
   const play = (text = word.palabra_objetivo, url = word.audio_url) => {
     setIsPlaying(true);
@@ -611,6 +616,7 @@ const WordCard = ({ word, language, theme, query, favorite, onFavorite, index = 
           >
             <Volume2 className={`w-5 h-5 ${isPlaying ? 'anim-latido' : ''}`} aria-hidden="true" />
           </button>
+          <MicButton label={`Decir ${word.palabra_objetivo} al micrófono`} onClick={() => setPopup('hablar')} />
           <button
             type="button"
             onClick={() => {
@@ -635,7 +641,10 @@ const WordCard = ({ word, language, theme, query, favorite, onFavorite, index = 
         )}
         {word.tipo && <span className="px-3 py-1 bg-stone-100 text-stone-700 text-sm font-semibold rounded-full">{word.tipo}</span>}
         {word.audio_url && <span className="px-3 py-1 bg-green-50 text-green-800 text-sm font-semibold rounded-full">{AUDIO_LABELS[audioSource(word.audio_url)]}</span>}
+        {part && <BodyChip onClick={() => setPopup('cuerpo')} className="ml-auto" />}
       </div>
+      {popup === 'hablar' && <SpeakModal text={word.palabra_objetivo} meaning={word.palabra_espanol} url={word.audio_url} language={language} theme={theme} onClose={() => setPopup(null)} />}
+      {popup === 'cuerpo' && part && <BodyPeek part={part} word={word.palabra_objetivo} url={word.audio_url} idioma={language.id} language={language} theme={theme} onClose={() => setPopup(null)} />}
 
       {example && (
         <div className={`relative mt-4 rounded-2xl border-l-4 ${theme.border} ${theme.soft} p-4`}>

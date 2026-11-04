@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { AnimatePresence, useMotionValue, useTransform } from 'motion/react';
 import * as m from 'motion/react-m';
-import { ArrowLeft, Zap, Layers, Volume2, Timer, Trophy, RotateCcw, Check, X, RefreshCw, Hand, Brain, Ear, Heart, Snail, Flame } from 'lucide-react';
+import { ArrowLeft, Zap, Layers, Volume2, Timer, Trophy, RotateCcw, Check, X, RefreshCw, Hand, Brain, Ear, Heart, Snail, Flame, Mic, Puzzle, CloudRain, ThumbsUp, Eye, Sparkles, Move, Hash, Loader2 } from 'lucide-react';
 import { api } from '../services/api';
 import { LANGUAGES, getLanguage, languageStyle } from '../languages';
 import { playTap, playMatch, playWrong, playComplete, playCorrect } from '../utils/sounds';
@@ -15,37 +15,25 @@ import ShinyText from '../components/reactbits/ShinyText';
 import Decor from '../components/Decor';
 import SplitText from '../components/reactbits/SplitText';
 import { readDifficult, reviewDifficult } from '../utils/difficultWords';
-import { BodyNumbers, preloadOn } from '../routes';
+import { shuffle, readBest, writeBest, bestKey, primaryBtn, secondaryBtn, useMood, GameFrame, ResultScreen, StartScreen } from '../components/games/kit';
 import { GiVitruvianMan, GiAbacus } from 'react-icons/gi';
+import { SpeakGame, SpellGame, RainGame, QuickGame } from '../components/games/WordGames';
+
+// Los juegos del cuerpo (modelo 3D) y de los números se descargan solo al abrirlos
+const fromBody = (name) => lazy(() => import('./BodyNumbers').then((mod) => ({ default: mod[name] })));
+const BODY_COMPONENTS = {
+  'cuerpo-explora': fromBody('BodyExplore'),
+  'llama-dice': fromBody('LlamaSays'),
+  'que-parte': fromBody('WhichPart'),
+  'pega-palabras': fromBody('DragLabels'),
+  'numeros-explora': fromBody('NumbersExplore'),
+  'cuenta-llamas': fromBody('CountLlamas'),
+  'escucha-toca': fromBody('ListenTap'),
+};
 
 // ==================== Juegos de práctica ====================
 // Repasan las palabras de las lecciones que la persona ya completó (o de la Unidad 1 si aún no hay).
 // No guardan nada en el servidor: los récords viven en este dispositivo.
-
-const shuffle = (list) => {
-  const copy = [...list];
-  for (let i = copy.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [copy[i], copy[j]] = [copy[j], copy[i]];
-  }
-  return copy;
-};
-
-const readBest = (key) => {
-  try {
-    return Number(localStorage.getItem(key)) || 0;
-  } catch {
-    return 0;
-  }
-};
-const writeBest = (key, value) => {
-  try {
-    localStorage.setItem(key, String(value));
-  } catch {
-    // sin almacenamiento: el récord dura esta visita
-  }
-};
-const bestKey = (game, idioma) => `simiaru-record-${game}-${idioma}`;
 
 // Palabras de las lecciones completadas; si no hay, de las primeras lecciones
 const loadWords = async (idioma, isGuest) => {
@@ -97,96 +85,6 @@ const loadWords = async (idioma, isGuest) => {
   });
   return { words, fromCompleted };
 };
-
-// ==================== Piezas compartidas ====================
-const primaryBtn = 'ficha min-h-14 px-8 rounded-2xl border-green-800 bg-green-600 hover:bg-green-500 text-white text-lg font-black uppercase tracking-wide inline-flex items-center justify-center gap-2';
-const secondaryBtn = 'ficha min-h-14 px-8 rounded-2xl border-stone-300 bg-white font-bold text-stone-700 hover:bg-stone-50';
-
-// La llamita reacciona: cada reacción tiene un ánimo (cómo se mueve) y una pose (qué hace)
-const useMood = (restPose) => {
-  const [state, setState] = useState({ mood: 'idle', pose: restPose, beat: 0 });
-  const react = useCallback((mood, pose) => setState((s) => ({ mood, pose: pose ?? s.pose, beat: s.beat + 1 })), []);
-  // Tras celebrar o lamentarse, vuelve a su pose de juego
-  useEffect(() => {
-    if (state.beat === 0) return undefined;
-    const t = setTimeout(() => setState((s) => ({ ...s, mood: 'idle', pose: restPose })), 1500);
-    return () => clearTimeout(t);
-  }, [state.beat, restPose]);
-  return [state, react];
-};
-
-// Marco de cada juego: la llamita reacciona al lado (en el celular, arriba y pequeña)
-const GameFrame = ({ llama, say, children }) => (
-  <div className="grid gap-6 lg:gap-10 lg:grid-cols-[16rem_minmax(0,1fr)] items-start">
-    <aside className="hidden lg:flex lg:sticky lg:top-24 flex-col items-center">
-      <Mascot mood={llama.mood} pose={llama.pose} beat={llama.beat} sticker bubble="top" size="w-48" eager say={say} />
-    </aside>
-    <div className="lg:hidden">
-      <Mascot mood={llama.mood} pose={llama.pose} beat={llama.beat} size="w-16" eager say={<div className="text-sm">{say}</div>} />
-    </div>
-    <div className="min-w-0">{children}</div>
-  </div>
-);
-
-const ResultScreen = ({ stars, record, title, big, unit, note, language, onAgain, onExit, againLabel = 'Otra vez', children }) => {
-  const great = stars >= 3 || record;
-  return (
-    <div className="max-w-xl mx-auto text-center py-6">
-      <div className="relative">
-        {great && <Confetti />}
-        <Mascot
-          mood={great ? 'cheer' : stars >= 2 ? 'happy' : 'idle'}
-          pose={record ? 'logro' : great ? 'celebrando' : stars >= 2 ? 'alegre' : 'reintentar'}
-          sticker
-          bubble="top"
-          size="w-44"
-          className="mx-auto"
-          eager
-          say={<p className="font-black text-xl">{title ?? (great ? language.frases?.felicitacion ?? '¡Muy bien!' : stars >= 2 ? '¡Bien hecho!' : language.frases?.animo ?? '¡Ánimo!')}</p>}
-        />
-      </div>
-      <div className="mt-5">
-        <Stars count={stars} />
-      </div>
-      <p className="mt-4 text-6xl font-black tabular-nums anim-pop">{big}</p>
-      <p className="text-stone-600 font-semibold">{unit}</p>
-      {record && (
-        <p className="mt-3 inline-flex items-center gap-2 rounded-full bg-amber-100 px-4 py-1.5 font-black text-amber-800 anim-pop">
-          <Trophy className="w-5 h-5" aria-hidden="true" /> <ShinyText text="¡Nuevo récord!" color="#92400e" shineColor="#fde68a" speed={2} />
-        </p>
-      )}
-      {note && <p className="mt-2 text-sm font-bold text-amber-700">{note}</p>}
-      {children}
-      <div className="mt-8 flex flex-col sm:flex-row justify-center gap-3">
-        <button type="button" onClick={onAgain} className={primaryBtn}>
-          <RotateCcw className="w-5 h-5" aria-hidden="true" /> {againLabel}
-        </button>
-        <button type="button" onClick={onExit} className={secondaryBtn}>
-          Elegir otro juego
-        </button>
-      </div>
-    </div>
-  );
-};
-
-const StartScreen = ({ pose, text, best, bestLabel, onStart, onExit }) => (
-  <div className="max-w-xl mx-auto text-center py-6">
-    <Mascot pose={pose} bubble="top" size="w-44" className="mx-auto" eager say={<p className="font-semibold max-w-sm">{text}</p>} />
-    {best > 0 && (
-      <p className="mt-4 inline-flex items-center gap-2 font-bold text-amber-700">
-        <Trophy className="w-5 h-5" aria-hidden="true" /> {bestLabel}
-      </p>
-    )}
-    <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3">
-      <button type="button" onClick={onStart} className={primaryBtn} autoFocus>
-        ¡Jugar!
-      </button>
-      <button type="button" onClick={onExit} className={secondaryBtn}>
-        Elegir otro juego
-      </button>
-    </div>
-  </div>
-);
 
 // ==================== 1. Parejas relámpago ====================
 const DURATION = 60;
@@ -1000,9 +898,22 @@ const ListenGame = ({ words, language, theme, idioma, onExit }) => {
 };
 
 // ==================== Página ====================
+// group: palabras (de tus lecciones), voz (micrófono), cuerpo (modelo 3D) y numeros
 const GAMES = [
   {
+    id: 'hablar',
+    group: 'voz',
+    Icon: Mic,
+    pose: 'hablando',
+    title: '¡Dilo tú!',
+    text: 'Escucha, graba tu voz y compárala con la de la app.',
+    color: 'from-rose-500 to-fuchsia-700',
+    shadow: 'shadow-rose-100',
+    best: (b) => `${b} de parecido`,
+  },
+  {
     id: 'parejas',
+    group: 'palabras',
     Icon: Zap,
     pose: 'celebrando',
     title: 'Parejas relámpago',
@@ -1012,16 +923,52 @@ const GAMES = [
     best: (b) => `${b} parejas`,
   },
   {
-    id: 'tarjetas',
-    Icon: Layers,
-    pose: 'leyendo',
-    title: 'Tarjetas',
-    text: 'Voltea, escucha y decide: ¿la sabes o la repasas?',
-    color: 'from-purple-500 to-blue-700',
-    shadow: 'shadow-purple-100',
+    id: 'lluvia',
+    group: 'palabras',
+    Icon: CloudRain,
+    pose: 'buscando',
+    title: 'Lluvia de palabras',
+    text: 'Atrapa la palabra correcta antes de que toque el suelo.',
+    color: 'from-sky-400 to-indigo-700',
+    shadow: 'shadow-sky-100',
+    best: (b) => `${b} puntos`,
+  },
+  {
+    id: 'armar',
+    group: 'palabras',
+    Icon: Puzzle,
+    pose: 'pensando',
+    title: 'Arma la palabra',
+    text: 'Escucha y forma la palabra tocando las letras.',
+    color: 'from-lime-500 to-emerald-700',
+    shadow: 'shadow-lime-100',
+    best: (b) => `${b} de 8`,
+  },
+  {
+    id: 'sino',
+    group: 'palabras',
+    Icon: ThumbsUp,
+    pose: 'sorprendida',
+    title: '¿Sí o no?',
+    text: 'Arrastra la tarjeta: ¿la palabra y el significado van juntos?',
+    color: 'from-violet-500 to-purple-800',
+    shadow: 'shadow-violet-100',
+    best: (b) => `${b} puntos`,
+  },
+  {
+    id: 'escucha',
+    group: 'palabras',
+    Icon: Ear,
+    pose: 'escuchando',
+    title: 'Escucha y elige',
+    text: 'Oye la palabra y elige cómo se escribe. ¡Tienes 3 vidas!',
+    color: 'from-green-500 to-teal-700',
+    shadow: 'shadow-green-100',
+    best: (b) => `${b} de 10`,
   },
   {
     id: 'memoria',
+    group: 'palabras',
     Icon: Brain,
     pose: 'pensando',
     title: 'Memoria',
@@ -1031,23 +978,53 @@ const GAMES = [
     best: (b) => `${b} intentos`,
   },
   {
-    id: 'escucha',
-    Icon: Ear,
-    pose: 'escuchando',
-    title: 'Escucha y elige',
-    text: 'Oye la palabra y elige cómo se escribe. ¡Tienes 3 vidas!',
-    color: 'from-green-500 to-teal-700',
-    shadow: 'shadow-green-100',
-    best: (b) => `${b} de 10`,
+    id: 'tarjetas',
+    group: 'palabras',
+    Icon: Layers,
+    pose: 'leyendo',
+    title: 'Tarjetas',
+    text: 'Voltea, escucha y decide: ¿la sabes o la repasas?',
+    color: 'from-purple-500 to-blue-700',
+    shadow: 'shadow-purple-100',
   },
+  // Cuerpo y números (quechua y aimara): sin depender de tus lecciones
+  { id: 'cuerpo-explora', group: 'cuerpo', Icon: Eye, title: 'Explora tu cuerpo', text: 'Gira el cuerpo en 3D y toca cada parte para oírla.', color: 'from-emerald-500 to-green-800' },
+  { id: 'llama-dice', group: 'cuerpo', Icon: Hand, title: 'La llama dice', text: '«Toca tu…»: escucha la orden y toca la parte.', color: 'from-amber-500 to-orange-700' },
+  { id: 'que-parte', group: 'cuerpo', Icon: Sparkles, title: '¿Qué parte es?', text: 'Una parte brilla: elige su nombre.', color: 'from-cyan-500 to-blue-700' },
+  { id: 'pega-palabras', group: 'cuerpo', Icon: Move, title: 'Pega las palabras', text: 'Arrastra cada palabra a su lugar del cuerpo.', color: 'from-fuchsia-500 to-purple-700' },
+  { id: 'numeros-explora', group: 'numeros', Icon: Hash, title: 'Explora los números', text: 'Mueve la barra y escucha cada número.', color: 'from-yellow-400 to-amber-600' },
+  { id: 'cuenta-llamas', group: 'numeros', Icon: Timer, title: 'Cuenta las llamas', text: '¿Cuántas llamitas hay? ¡Rápido!', color: 'from-orange-400 to-red-600' },
+  { id: 'escucha-toca', group: 'numeros', Icon: Ear, title: 'Escucha y toca', text: 'Oye un número y toca el correcto.', color: 'from-teal-400 to-emerald-700' },
 ];
+
+const GROUPS = [
+  { id: 'voz', title: 'Habla', text: 'Usa tu micrófono: tu voz no sale de tu equipo.', Icon: Mic },
+  { id: 'palabras', title: 'Tus palabras', text: 'Con las palabras de tus lecciones.', Icon: Zap },
+  { id: 'cuerpo', title: 'Tu cuerpo', text: 'En 3D. Las partes del cuerpo también aparecen en tus lecciones y en el diccionario.', Icon: GiVitruvianMan },
+  { id: 'numeros', title: 'Los números', text: 'Cuenta, escucha y toca.', Icon: GiAbacus },
+];
+const isBodyGame = (id) => !!BODY_COMPONENTS[id];
 
 const Practice = ({ user, isGuest }) => {
   const [params, setParams] = useSearchParams();
   const idioma = getLanguage(params.get('idioma')) ? params.get('idioma') : user?.idioma_objetivo && getLanguage(user.idioma_objetivo) ? user.idioma_objetivo : 'quechua';
   const language = getLanguage(idioma);
   const theme = languageStyle(idioma);
-  const [game, setGame] = useState(null);
+  const bodyLanguage = idioma === 'quechua' || idioma === 'aymara';
+  const [game, setGameState] = useState(() => {
+    const asked = params.get('juego');
+    return GAMES.some((g) => g.id === asked) ? asked : null;
+  });
+  // El juego abierto queda en la dirección (?juego=…) para volver a él o compartirlo
+  const setGame = (id) => {
+    setGameState(id);
+    setParams((p) => {
+      const next = Object.fromEntries(p);
+      if (id) next.juego = id;
+      else delete next.juego;
+      return next;
+    }, { replace: true });
+  };
   const [state, setState] = useState({ loading: true, error: false, words: [], fromCompleted: false });
   const [reload, setReload] = useState(0);
 
@@ -1071,6 +1048,8 @@ const Practice = ({ user, isGuest }) => {
   const records = useMemo(() => GAMES.filter((g) => g.best).map((g) => ({ ...g, value: readBest(bestKey(g.id, idioma)) })), [idioma, game]);
   const exit = () => setGame(null);
   const props = { words: state.words, language, theme, idioma, onExit: exit };
+  const BodyGame = game && isBodyGame(game) && bodyLanguage ? BODY_COMPONENTS[game] : null;
+  const exploreOf = (id) => (GAMES.find((g) => g.id === id)?.group === 'numeros' ? 'numeros-explora' : 'cuerpo-explora');
 
   return (
     <div className="fondo-burbujas min-h-screen text-stone-900">
@@ -1109,7 +1088,18 @@ const Practice = ({ user, isGuest }) => {
 
       <main className="container mx-auto max-w-7xl py-8 relative isolate">
         <Decor />
-        {state.loading ? (
+        {BodyGame ? (
+          <Suspense
+            fallback={
+              <div className="flex flex-col items-center py-16" role="status">
+                <Loader2 className="h-10 w-10 animate-spin text-stone-500" aria-hidden="true" />
+                <p className="mt-3 font-bold text-stone-700">Preparando el juego…</p>
+              </div>
+            }
+          >
+            <BodyGame key={`${game}-${idioma}`} idioma={idioma} language={language} theme={theme} onExplore={() => setGame(exploreOf(game))} />
+          </Suspense>
+        ) : state.loading ? (
           <div className="flex flex-col items-center py-16" role="status">
             <Mascot mood="think" pose="esperando" size="w-36" eager />
             <p className="mt-4 font-bold text-stone-700">Buscando tus palabras…</p>
@@ -1137,6 +1127,14 @@ const Practice = ({ user, isGuest }) => {
           <MemoryGame key={idioma} {...props} />
         ) : game === 'escucha' ? (
           <ListenGame key={idioma} {...props} />
+        ) : game === 'hablar' ? (
+          <SpeakGame key={idioma} {...props} />
+        ) : game === 'armar' ? (
+          <SpellGame key={idioma} {...props} />
+        ) : game === 'lluvia' ? (
+          <RainGame key={idioma} {...props} />
+        ) : game === 'sino' ? (
+          <QuickGame key={idioma} {...props} />
         ) : (
           <div className="grid gap-8 lg:grid-cols-[20rem_minmax(0,1fr)] items-start">
             {/* Lado: la llamita invita y muestra tus récords */}
@@ -1176,32 +1174,6 @@ const Practice = ({ user, isGuest }) => {
             <h2 className="mb-5 text-3xl sm:text-4xl font-black">
               <SplitText text="¡Elige tu juego!" tag="span" effect="wave" delay={45} duration={0.8} textAlign="left" rootMargin="0px" hoverEffect="wave" />
             </h2>
-            {/* Nuevo: cuerpo y números, con su propia página de juegos */}
-            <m.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} whileHover={{ y: -4 }} className="mb-5">
-              <Link
-                to={`/cuerpo-numeros?idioma=${idioma}`}
-                {...preloadOn(BodyNumbers)}
-                onClick={playTap}
-                className={`group relative flex items-center gap-5 overflow-hidden rounded-3xl bg-gradient-to-r ${theme.gradient} p-5 sm:p-6 text-white shadow-xl`}
-              >
-                <span className="absolute inset-0 opacity-15 [background:repeating-linear-gradient(135deg,#fff_0_6px,transparent_6px_22px)]" aria-hidden="true" />
-                <span className="tejido-andino absolute inset-x-0 bottom-0 h-2" aria-hidden="true" />
-                <span className="relative flex shrink-0 -space-x-3" aria-hidden="true">
-                  <span className="w-14 h-14 rounded-2xl bg-white/20 ring-2 ring-white/40 flex items-center justify-center backdrop-blur transition-transform group-hover:-rotate-6">
-                    <GiVitruvianMan className="w-8 h-8" />
-                  </span>
-                  <span className="w-14 h-14 rounded-2xl bg-amber-400 text-amber-950 ring-2 ring-white/40 flex items-center justify-center transition-transform group-hover:rotate-6">
-                    <GiAbacus className="w-8 h-8" />
-                  </span>
-                </span>
-                <span className="relative flex-1 min-w-0">
-                  <span className="inline-block rounded-full bg-amber-300 px-2 py-0.5 text-[11px] font-black uppercase tracking-widest text-amber-950">Nuevo</span>
-                  <span className="mt-1 block text-xl sm:text-2xl font-black">Mi cuerpo y los números</span>
-                  <span className="block text-white/90">Toca el dibujo para aprender las partes del cuerpo y cuenta llamitas. ¡4 juegos!</span>
-                </span>
-                <span className="relative hidden sm:inline-flex rounded-full bg-white px-5 py-2 text-sm font-black text-stone-900 shadow-md">Jugar</span>
-              </Link>
-            </m.div>
             {difficult.length > 0 && (
               <m.button
                 type="button"
@@ -1230,53 +1202,95 @@ const Practice = ({ user, isGuest }) => {
                 </span>
               </m.button>
             )}
-            <ul className="grid gap-5 sm:grid-cols-2">
-              {GAMES.map(({ id, Icon, pose, title, text, color, shadow, best }, i) => {
-                const value = best ? readBest(bestKey(id, idioma)) : 0;
-                return (
-                  <m.li
-                    key={id}
-                    initial={{ opacity: 0, y: 30, scale: 0.94 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{ type: 'spring', bounce: 0.35, duration: 0.6, delay: i * 0.08 }}
-                    whileHover={{ y: -6, rotate: i % 2 ? 1 : -1 }}
-                    whileTap={{ scale: 0.97 }}
-                  >
-                    <GlareHover width="100%" height="100%" borderRadius="1.5rem" borderColor="transparent" glareOpacity={0.55} glareSize={40} className="w-full h-full">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        playTap();
-                        setGame(id);
-                      }}
-                      className={`group ficha tarjeta-viva relative overflow-hidden w-full h-full min-h-64 text-left rounded-3xl border-stone-200 bg-white p-6 sm:p-7 shadow-lg ${shadow} hover:border-stone-300`}
-                    >
-                      <span className={`pointer-events-none absolute -right-12 -top-12 w-48 h-48 rounded-full bg-gradient-to-br ${color} opacity-15 transition-transform duration-300 group-hover:scale-125`} aria-hidden="true" />
-                      {/* La llamita asoma por la esquina y sube al pasar el mouse */}
-                      <span className="pointer-events-none absolute -bottom-3 -right-2 w-32 sm:w-36 aspect-square transition-transform duration-300 ease-out group-hover:-translate-y-3 group-hover:rotate-3" aria-hidden="true">
-                        <LlamaImage pose={pose} sticker />
-                      </span>
-                      <span className={`relative mb-5 w-16 h-16 rounded-2xl bg-gradient-to-br ${color} flex items-center justify-center shadow-md transition-transform duration-200 group-hover:-rotate-6 group-hover:scale-110`} aria-hidden="true">
-                        <Icon className="w-8 h-8 text-white" />
-                      </span>
-                      <span className="relative block text-2xl font-black mb-1 pr-24">{title}</span>
-                      <span className="relative block text-stone-600 pr-28">{text}</span>
-                      <span className="relative mt-4 flex items-center gap-2 pr-28">
-                        {value > 0 ? (
-                          <span className="inline-flex items-center gap-1 text-sm font-bold text-amber-700">
-                            <Trophy className="w-4 h-4" aria-hidden="true" /> Récord: {best(value)}
+            {GROUPS.filter((grp) => grp.id === 'voz' || grp.id === 'palabras' || bodyLanguage).map((grp) => {
+              const list = GAMES.filter((g) => g.group === grp.id);
+              const small = grp.id === 'cuerpo' || grp.id === 'numeros';
+              return (
+                <section key={grp.id} className="mb-10" aria-labelledby={`grupo-${grp.id}`}>
+                  <div className="mb-4 flex items-center gap-3">
+                    <span className={`flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br ${theme.gradient} text-white shadow-md`} aria-hidden="true">
+                      <grp.Icon className="h-6 w-6" />
+                    </span>
+                    <div>
+                      <h3 id={`grupo-${grp.id}`} className="text-2xl font-black">{grp.title}</h3>
+                      <p className="text-sm text-stone-600">{grp.text}</p>
+                    </div>
+                  </div>
+                  {small ? (
+                    <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                      {list.map(({ id, Icon, title, text, color }, i) => (
+                        <m.li key={id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }} whileHover={{ y: -5, rotate: i % 2 ? 1 : -1 }} whileTap={{ scale: 0.97 }}>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              playTap();
+                              setGame(id);
+                            }}
+                            className="group ficha tarjeta-viva relative h-full w-full overflow-hidden rounded-3xl border-stone-200 bg-white p-5 text-left shadow-md"
+                          >
+                            <span className={`pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-gradient-to-br ${color} opacity-20 transition-transform duration-300 group-hover:scale-150`} aria-hidden="true" />
+                            <span className={`relative mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${color} text-white shadow-md transition-transform group-hover:-rotate-6`} aria-hidden="true">
+                              <Icon className="h-6 w-6" />
+                            </span>
+                            <span className="relative block text-lg font-black">{title}</span>
+                            <span className="relative block text-sm text-stone-600">{text}</span>
+                          </button>
+                        </m.li>
+                      ))}
+                    </ul>
+                  ) : (
+                <ul className="grid gap-5 sm:grid-cols-2">
+                  {list.map(({ id, Icon, pose, title, text, color, shadow, best }, i) => {
+                    const value = best ? readBest(bestKey(id, idioma)) : 0;
+                    return (
+                      <m.li
+                        key={id}
+                        initial={{ opacity: 0, y: 30, scale: 0.94 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        transition={{ type: 'spring', bounce: 0.35, duration: 0.6, delay: i * 0.08 }}
+                        whileHover={{ y: -6, rotate: i % 2 ? 1 : -1 }}
+                        whileTap={{ scale: 0.97 }}
+                      >
+                        <GlareHover width="100%" height="100%" borderRadius="1.5rem" borderColor="transparent" glareOpacity={0.55} glareSize={40} className="w-full h-full">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            playTap();
+                            setGame(id);
+                          }}
+                          className={`group ficha tarjeta-viva relative overflow-hidden w-full h-full min-h-64 text-left rounded-3xl border-stone-200 bg-white p-6 sm:p-7 shadow-lg ${shadow} hover:border-stone-300`}
+                        >
+                          <span className={`pointer-events-none absolute -right-12 -top-12 w-48 h-48 rounded-full bg-gradient-to-br ${color} opacity-15 transition-transform duration-300 group-hover:scale-125`} aria-hidden="true" />
+                          {/* La llamita asoma por la esquina y sube al pasar el mouse */}
+                          <span className="pointer-events-none absolute -bottom-3 -right-2 w-32 sm:w-36 aspect-square transition-transform duration-300 ease-out group-hover:-translate-y-3 group-hover:rotate-3" aria-hidden="true">
+                            <LlamaImage pose={pose} sticker />
                           </span>
-                        ) : (
-                          <span className="text-sm font-bold text-stone-500">{best ? '¡Aún sin récord!' : 'Sin reloj, a tu ritmo'}</span>
-                        )}
-                      </span>
-                      <span className={`relative mt-4 inline-flex items-center rounded-full px-5 py-2 text-sm font-black text-white bg-gradient-to-r ${color} shadow-md transition-transform group-hover:scale-105`}>Jugar</span>
-                    </button>
-                    </GlareHover>
-                  </m.li>
-                );
-              })}
-            </ul>
+                          <span className={`relative mb-5 w-16 h-16 rounded-2xl bg-gradient-to-br ${color} flex items-center justify-center shadow-md transition-transform duration-200 group-hover:-rotate-6 group-hover:scale-110`} aria-hidden="true">
+                            <Icon className="w-8 h-8 text-white" />
+                          </span>
+                          <span className="relative block text-2xl font-black mb-1 pr-24">{title}</span>
+                          <span className="relative block text-stone-600 pr-28">{text}</span>
+                          <span className="relative mt-4 flex items-center gap-2 pr-28">
+                            {value > 0 ? (
+                              <span className="inline-flex items-center gap-1 text-sm font-bold text-amber-700">
+                                <Trophy className="w-4 h-4" aria-hidden="true" /> Récord: {best(value)}
+                              </span>
+                            ) : (
+                              <span className="text-sm font-bold text-stone-500">{best ? '¡Aún sin récord!' : 'Sin reloj, a tu ritmo'}</span>
+                            )}
+                          </span>
+                          <span className={`relative mt-4 inline-flex items-center rounded-full px-5 py-2 text-sm font-black text-white bg-gradient-to-r ${color} shadow-md transition-transform group-hover:scale-105`}>Jugar</span>
+                        </button>
+                        </GlareHover>
+                      </m.li>
+                    );
+                  })}
+                </ul>
+                  )}
+                </section>
+              );
+            })}
+            {!bodyLanguage && <p className="text-sm text-stone-600">Los juegos del cuerpo y de los números están en quechua y en aimara.</p>}
             </div>
           </div>
         )}

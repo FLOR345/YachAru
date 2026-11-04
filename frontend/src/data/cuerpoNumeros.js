@@ -100,3 +100,36 @@ export const partesNumero = (n, idioma) => {
 };
 
 export const ES_NUM = ['cero', 'uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve', 'diez', 'once', 'doce', 'trece', 'catorce', 'quince', 'dieciséis', 'diecisiete', 'dieciocho', 'diecinueve', 'veinte'];
+
+// ==================== El cuerpo en todo el programa ====================
+// Reconoce si una palabra de una lección o del diccionario es una parte del dibujo 3D,
+// por su significado en castellano o por la palabra en la lengua.
+const plain = (s) =>
+  String(s ?? '')
+    .normalize('NFD')
+    .replace(/\p{M}/gu, '')
+    .toLowerCase()
+    .replace(/[’‘´`ʼ]/g, "'")
+    .replace(/\(.*?\)/g, ' ')
+    .replace(/[.¡!¿?]/g, '')
+    .trim();
+
+const SINONIMOS = { pelo: 'cabello', oido: 'oreja', estomago: 'barriga', vientre: 'barriga', panza: 'barriga', rostro: 'cara', dedos: 'dedo', manos: 'mano', pies: 'pie', ojos: 'ojo', orejas: 'oreja', hombros: 'hombro', rodillas: 'rodilla' };
+
+export const parteDePalabra = (palabra, significado, idioma) => {
+  if (idioma !== 'quechua' && idioma !== 'aymara') return null;
+  const partes = partesDe(idioma);
+  const nativa = plain(palabra);
+  const porPalabra = partes.find((p) => p[idioma] && plain(p[idioma]) === nativa);
+  if (porPalabra) return porPalabra;
+  const sentidos = plain(significado)
+    .split(/[,/;]| o /)
+    .map((s) => s.trim().replace(/^(el|la|los|las|mi|tu)\s+/, ''))
+    .filter(Boolean);
+  for (const s of sentidos) {
+    const id = SINONIMOS[s] ?? s;
+    const parte = partes.find((p) => plain(p.es) === id);
+    if (parte) return parte;
+  }
+  return null;
+};

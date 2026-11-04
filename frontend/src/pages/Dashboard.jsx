@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Reveal from '../ui/Reveal';
 import { useNavigate, Link } from 'react-router-dom';
-import { LogOut, Flame, Star, TrendingUp, BookOpen, Lock, CheckCircle, Sparkles, Award, ChevronDown, Play, UserX, AlertCircle, RefreshCw, XCircle, Gamepad2, ArrowRight, PersonStanding } from 'lucide-react';
+import { LogOut, Flame, Star, TrendingUp, BookOpen, Lock, CheckCircle, Sparkles, Award, ChevronDown, Play, UserX, AlertCircle, RefreshCw, XCircle, Gamepad2, ArrowRight } from 'lucide-react';
 import axios from 'axios';
 import logo from '../assets/logo.webp';
 
@@ -231,12 +231,6 @@ const Dashboard = ({ user, setUser, isGuest, setIsGuest }) => {
                 <Link to={`/practica?idioma=${selectedLanguage}`} className={navLink} aria-label="Juegos de práctica" {...preloadOn(Practice)}>
                   <Gamepad2 className="w-5 h-5" aria-hidden="true" />
                   <span className="hidden lg:inline">Juegos</span>
-                </Link>
-              </Tooltip>
-              <Tooltip label="Cuerpo y números" withArrow openDelay={300} transitionProps={{ transition: 'pop', duration: 150 }}>
-                <Link to={`/cuerpo-numeros?idioma=${selectedLanguage}`} className={navLink} aria-label="Mi cuerpo y los números">
-                  <PersonStanding className="w-5 h-5" aria-hidden="true" />
-                  <span className="hidden xl:inline">Cuerpo y números</span>
                 </Link>
               </Tooltip>
               <Tooltip label="Cultura" withArrow openDelay={300} transitionProps={{ transition: 'pop', duration: 150 }}>
