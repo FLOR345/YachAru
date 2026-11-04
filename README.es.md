@@ -14,7 +14,7 @@
 
 | Parte | Tecnologías |
 |---|---|
-| Frontend | React 18, Vite, React Router, Tailwind CSS, Axios, Motion, Mantine 8, Sonner y componentes de React Bits |
+| Frontend | React 18, Vite, React Router, Tailwind CSS, Axios, Motion, Mantine 8, Sonner y efectos visuales propios |
 | Backend | Node.js, Express, Passport (Google, Facebook, JWT) |
 | Base de datos | PostgreSQL (Neon) |
 | Servicios | Cloudinary (imágenes), Brevo (correos), node-cron |
@@ -101,7 +101,7 @@ Proyecto desarrollado por [FLOR345](https://github.com/FLOR345) para el curso de
 ## Licencia
 
 - **Código:** [MIT](LICENSE). Puedes usarlo, modificarlo y redistribuirlo, manteniendo el aviso de copyright.
-- **Componentes de React Bits** (`frontend/src/components/reactbits/`): tienen su propia licencia, MIT + Commons Clause ([ver aquí](frontend/src/components/reactbits/LICENSE-react-bits.md)). Se pueden usar dentro de SimiAru, pero no vender ni redistribuir esos componentes por sí solos.
+- **Efectos visuales** (`frontend/src/components/fx/`): escritos para SimiAru, con la misma licencia MIT del código.
 - **Contenido lingüístico** (vocabulario, ejercicios y textos culturales): no está cubierto por la licencia MIT. Parte del vocabulario proviene de diccionarios del Ministerio de Educación de Chile, y su licencia de redistribución está pendiente de confirmar.
 
 ## Voz, evidencia y publicación

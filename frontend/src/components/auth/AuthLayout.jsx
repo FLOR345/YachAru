@@ -3,7 +3,7 @@
 import { Link } from 'react-router-dom';
 import { LlamaImage } from '../Mascot';
 import Decor from '../Decor';
-import GradientText from '../reactbits/GradientText';
+import GradientText from '../fx/GradientText';
 import StaggerIn from '../../ui/StaggerIn';
 import { Magnet } from '../../ui/lazyBits';
 

@@ -15,7 +15,7 @@ import Decor from '../components/Decor';
 import BodyFigure from '../components/BodyFigure';
 import { MicButton, SpeakModal } from '../components/SpeakPractice';
 import { Confetti, Burst } from '../components/GameFx';
-import GradientText from '../components/reactbits/GradientText';
+import GradientText from '../components/fx/GradientText';
 import { AnimatedContent, BlurText, CountUp } from '../ui/lazyBits';
 import { partesDe, frasesParte, numeroEn, partesNumero } from '../data/cuerpoNumeros';
 

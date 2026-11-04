@@ -1,12 +1,12 @@
-// Componentes de React Bits que van debajo de la primera pantalla: se descargan aparte.
+// Efectos visuales (components/fx) que van debajo de la primera pantalla: se descargan aparte.
 // Mientras llegan se muestra el contenido normal (el número final, la tarjeta, la foto),
 // así nunca hay un hueco ni un salto.
 import { lazy, Suspense } from 'react';
 
-const CountUpLazy = lazy(() => import('../components/reactbits/CountUp'));
-const SpotlightCardLazy = lazy(() => import('../components/reactbits/SpotlightCard'));
-const TiltedCardLazy = lazy(() => import('../components/reactbits/TiltedCard'));
-const BlurTextLazy = lazy(() => import('../components/reactbits/BlurText'));
+const CountUpLazy = lazy(() => import('../components/fx/CountUp'));
+const SpotlightCardLazy = lazy(() => import('../components/fx/SpotlightCard'));
+const TiltedCardLazy = lazy(() => import('../components/fx/TiltedCard'));
+const BlurTextLazy = lazy(() => import('../components/fx/BlurText'));
 
 // Blur Text: las palabras pasan de borrosas a nítidas una tras otra al aparecer en pantalla.
 // Mientras se descarga se ve el párrafo normal, con las mismas clases.
@@ -51,9 +51,9 @@ export const TiltedCard = (props) => (
 );
 
 // GSAP (Animated Content) y Rotating Text también se descargan aparte: la portada carga primero
-const AnimatedContentLazy = lazy(() => import('../components/reactbits/AnimatedContent'));
-const MagnetLazy = lazy(() => import('../components/reactbits/Magnet'));
-const RotatingTextLazy = lazy(() => import('../components/reactbits/RotatingText'));
+const AnimatedContentLazy = lazy(() => import('../components/fx/AnimatedContent'));
+const MagnetLazy = lazy(() => import('../components/fx/Magnet'));
+const RotatingTextLazy = lazy(() => import('../components/fx/RotatingText'));
 
 export const AnimatedContent = ({ children, ...props }) => (
   <Suspense fallback={<div>{children}</div>}>

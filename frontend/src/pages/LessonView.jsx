@@ -14,7 +14,7 @@ import { PHENOMENON_LABELS } from '../utils/normalizer';
 import { track, flush } from '../services/telemetry';
 import { queueProgress } from '../services/offlineSync';
 import { playCorrect, playWrong, playComplete, soundEnabled, setSoundEnabled } from '../utils/sounds';
-import GradientText from '../components/reactbits/GradientText';
+import GradientText from '../components/fx/GradientText';
 import Decor from '../components/Decor';
 import { saveMistakes } from '../utils/difficultWords';
 import SpeakPractice, { MicButton, SpeakModal } from '../components/SpeakPractice';

@@ -16,7 +16,7 @@ import { conExtras } from '../data/culturaExtra';
 import { Confetti } from '../components/GameFx';
 import * as m from 'motion/react-m';
 import Decor from '../components/Decor';
-import GradientText from '../components/reactbits/GradientText';
+import GradientText from '../components/fx/GradientText';
 import { AnimatedContent, BlurText } from '../ui/lazyBits';
 
 const TYPES = [

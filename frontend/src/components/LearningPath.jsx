@@ -22,8 +22,8 @@ import { LessonView, Practice, preloadOn } from '../routes';
 import { playTap, playWrong } from '../utils/sounds';
 import ISLANDS from '../assets/ruta/islas.json';
 import PathSky from './PathSky';
-import StarBorder from './reactbits/StarBorder';
-import ShinyText from './reactbits/ShinyText';
+import StarBorder from './fx/StarBorder';
+import ShinyText from './fx/ShinyText';
 
 const ISLAND_IMAGES = import.meta.glob('../assets/ruta/isla-*.webp', { eager: true, import: 'default' });
 const islandSrc = (key) => ISLAND_IMAGES[`../assets/ruta/${key}.webp`];

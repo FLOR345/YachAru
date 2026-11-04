@@ -6,11 +6,11 @@ import { preloadOn, Register, Login, Dashboard, Dictionary } from '../routes';
 import { AnimatePresence, useReducedMotion } from 'motion/react';
 import * as m from 'motion/react-m';
 import Reveal from '../ui/Reveal';
-// React Bits (reactbits.dev, licencia MIT + Commons Clause): componentes copiados al proyecto
+// Efectos visuales propios de SimiAru (components/fx, licencia MIT del proyecto)
 import { CountUp, SpotlightCard, TiltedCard, BlurText, AnimatedContent, RotatingText } from '../ui/lazyBits';
-import Magnet from '../components/reactbits/Magnet';
-import ShinyText from '../components/reactbits/ShinyText';
-import StarBorder from '../components/reactbits/StarBorder';
+import Magnet from '../components/fx/Magnet';
+import ShinyText from '../components/fx/ShinyText';
+import StarBorder from '../components/fx/StarBorder';
 import logo from '../assets/logo.webp';
 import llamaHero from '../assets/llama/bienvenida-sticker.webp';
 import { LlamaImage } from '../components/Mascot';
@@ -104,7 +104,7 @@ const HIGHLIGHTS = [
 ];
 
 const FEATURES = [
-  [BookOpen, 'Lecciones interactivas', 'Ejercicios con voz sintetizada y corrección al instante', '26 lecciones disponibles'],
+  [BookOpen, 'Lecciones interactivas', 'Ejercicios con voz sintetizada y corrección al instante', '92 lecciones disponibles'],
   [Heart, 'Cultura viva', 'Cuentos, proverbios, adivinanzas y canciones en quechua y aymara, con su traducción', '69 contenidos culturales'],
   [Trophy, 'Rachas e insignias', 'Gana Ayni Points por cada lección, mantén tu racha diaria y desbloquea insignias', '7 insignias desbloqueables'],
   [Target, 'Tu progreso, guardado', 'Cada lección registra tus aciertos para que veas tu avance y retomes donde lo dejaste', 'Progreso por lección'],
@@ -113,7 +113,7 @@ const FEATURES = [
 
 // [número, sufijo, etiqueta]: los números suben con Count Up al aparecer en pantalla
 const PROJECT_STATS = [
-  [26, '', 'Lecciones'],
+  [92, '', 'Lecciones'],
   [1500, '+', 'Palabras en el diccionario'],
   [285, '', 'Ejercicios'],
   [69, '', 'Contenidos culturales'],
@@ -128,7 +128,7 @@ const HERO_ITEM = {
 const HERO_STATS = [
   [100, '%', 'Gratis'],
   [2, '', 'Idiomas'],
-  [26, '', 'Lecciones'],
+  [92, '', 'Lecciones'],
 ];
 
 const NAV_LINKS = [
@@ -570,7 +570,7 @@ const Home = ({ enableGuestMode }) => {
                     <br />
                     <span className="texto-degradado texto-vivo">Quechua y Aymara</span>
                   </h1>
-                  {/* Rotating Text (React Bits): la forma de aprender cambia sola */}
+                  {/* Texto que rota: la forma de aprender cambia sola */}
                   <p className="flex flex-wrap items-center gap-x-3 gap-y-2 text-2xl sm:text-3xl font-black text-stone-800">
                     <span>con</span>
                     <RotatingText
@@ -597,7 +597,7 @@ const Home = ({ enableGuestMode }) => {
                       <ArrowRight className="w-6 h-6 motion-safe:group-hover:translate-x-1 transition-transform duration-200 ease-out" />
                     </Link>
                   </Magnet>
-                  {/* Star Border (React Bits): una luz naranja recorre el borde del botón de invitado */}
+                  {/* Luz en el borde: una luz naranja recorre el borde del botón de invitado */}
                   <StarBorder
                     as="button"
                     type="button"

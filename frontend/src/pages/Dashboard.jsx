@@ -19,9 +19,9 @@ import Mascot from '../components/Mascot';
 import { Practice, preloadOn } from '../routes';
 import { LANGUAGES, languageStyle, getLanguage } from '../languages';
 import WeekActivity from '../components/WeekActivity';
-import GradientText from '../components/reactbits/GradientText';
+import GradientText from '../components/fx/GradientText';
 import Decor from '../components/Decor';
-import SplitText from '../components/reactbits/SplitText';
+import SplitText from '../components/fx/SplitText';
 import LanguagePicker from '../components/LanguagePicker';
 
 // Misma paleta que la portada: verde = quechua, azul lago = aymara, terracota = invitado

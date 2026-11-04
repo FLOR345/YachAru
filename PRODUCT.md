@@ -47,9 +47,9 @@ Ninguna alternativa conocida (Duolingo, la app del Minedu, Yachay Quechua) reún
 
 - **Stack:** React 18 + Vite + Tailwind + React Router (frontend); Node/Express + Passport + JWT (backend); PostgreSQL (Neon); Cloudinary (archivos) y Brevo (correo).
 - **Contenido (base real, octubre 2026):**
-  - 2 lenguas, 12 unidades y 26 lecciones (13 por lengua);
-  - 1.503 entradas de vocabulario (996 de aymara y 507 de quechua);
-  - 285 ejercicios, 69 contenidos culturales y 7 insignias.
+  - 2 lenguas, 25 unidades y 92 lecciones (quechua: 9 y 21; aymara: 16 y 71; cifras al día en `docs/cifras.md`);
+  - 1.521 filas de vocabulario (996 de aymara y 525 de quechua);
+  - 879 ejercicios, 69 contenidos culturales y 7 insignias.
 - **Variedades:** quechua Cusco-Collao (la de Puno) y aymara central.
 - **Interfaz en español** (`lang="es"`). Las palabras originarias contienen glotalizadas (`p'`, `t'`, `k'`, `q'`) y aspiradas (`ph`, `kh`…), que cambian el significado: su escritura y su pronunciación no se pueden simplificar.
 - **Audio:** audio pregenerado con los modelos MMS de Meta (`quz` y `ayr`), con licencia **CC BY-NC 4.0**, separada de la licencia MIT del código. Se genera en línea con el flujo `Audio MMS`, contra Neon y Cloudinary. Las voces grabadas se conservan y se etiquetan como tales. La voz del navegador en español queda solo como respaldo de lo que aún no tiene audio.
