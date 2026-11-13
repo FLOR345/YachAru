@@ -138,7 +138,7 @@ const NAV_LINKS = [
   ['#proyecto', 'El proyecto'],
 ];
 
-const REPO = 'https://github.com/FLOR345/simiaru';
+const REPO = 'https://github.com/FLOR345/YachAru';
 
 // Fotos y video de Wikimedia Commons (créditos en el pie de página)
 const FOTOS_CULTURA = [

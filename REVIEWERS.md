@@ -7,8 +7,8 @@ This guide lets a reviewer check the three main claims of YachAru on a fresh clo
 Requirements: Docker with Docker Compose.
 
 ```bash
-git clone https://github.com/FLOR345/simiaru.git
-cd simiaru
+git clone https://github.com/FLOR345/YachAru.git
+cd YachAru
 docker compose up --build
 ```
 
