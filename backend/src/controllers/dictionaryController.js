@@ -1,5 +1,6 @@
 import { pool } from '../config/database.js';
 import cloudinary from '../config/cloudinary.js';
+import { audioKey } from '../utils/phonology.js';
 
 export const searchWord = async (req, res) => {
   try {
@@ -102,43 +103,49 @@ export const getAllWords = async (req, res) => {
 
 // ==================== NUEVAS FUNCIONES PARA AUDIO ====================
 
-// Subir audio para una palabra
+// Subir la grabación de una persona para una palabra.
+// Vale para todas las filas de esa palabra en la lengua (la misma palabra puede estar en varias lecciones)
+// y entra al índice de audio como voz grabada, que siempre va antes que la voz sintética.
 export const uploadAudio = async (req, res) => {
   try {
     const { wordId } = req.params;
-    
     if (!req.file) {
       return res.status(400).json({ success: false, message: 'No se envió ningún archivo de audio' });
     }
+    const word = (
+      await pool.query(
+        `SELECT v.palabra_objetivo, u.idioma FROM vocabulario v
+           JOIN lecciones l ON l.id = v.leccion_id JOIN unidades u ON u.id = l.unidad_id WHERE v.id = $1`,
+        [wordId]
+      )
+    ).rows[0];
+    if (!word) return res.status(404).json({ success: false, message: 'Palabra no encontrada' });
+    const key = audioKey(word.palabra_objetivo);
 
-    // Subir a Cloudinary
+    // Fuera de la carpeta del proceso MMS (simiaru/audio/): así la app la reconoce como grabación
     const result = await new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
-        {
-          resource_type: 'video', // Cloudinary usa 'video' para audios
-          folder: 'simiaru/audios',
-          public_id: `palabra_${wordId}_${Date.now()}`,
-          format: 'mp3'
-        },
-        (error, result) => {
-          if (error) reject(error);
-          else resolve(result);
-        }
+        { resource_type: 'video', folder: `simiaru/grabaciones/${word.idioma}`, public_id: `palabra_${wordId}_${Date.now()}`, format: 'mp3' },
+        (error, uploaded) => (error ? reject(error) : resolve(uploaded))
       );
       uploadStream.end(req.file.buffer);
     });
+    const url = result.secure_url;
 
-    // Actualizar la base de datos con la URL del audio
-    await pool.query(
-      'UPDATE vocabulario SET audio_url = $1 WHERE id = $2',
-      [result.secure_url, wordId]
+    // Todas las filas con la misma palabra (normalizada) en esa lengua
+    const same = await pool.query(
+      `SELECT v.id, v.palabra_objetivo FROM vocabulario v
+         JOIN lecciones l ON l.id = v.leccion_id JOIN unidades u ON u.id = l.unidad_id WHERE u.idioma = $1`,
+      [word.idioma]
     );
-
-    res.json({ 
-      success: true, 
-      message: 'Audio subido correctamente',
-      audioUrl: result.secure_url 
-    });
+    const ids = same.rows.filter((r) => audioKey(r.palabra_objetivo) === key).map((r) => r.id);
+    await pool.query('UPDATE vocabulario SET audio_url = $1 WHERE id = ANY($2)', [url, ids]);
+    await pool.query(
+      `INSERT INTO audios (idioma, clave, texto, url, fuente, voz) VALUES ($1, $2, $3, $4, 'grabado', 'unica')
+       ON CONFLICT (idioma, clave, voz) DO UPDATE SET url = EXCLUDED.url, fuente = 'grabado', texto = EXCLUDED.texto`,
+      [word.idioma, key, word.palabra_objetivo, url]
+    );
+    res.json({ success: true, message: 'Grabación guardada', audioUrl: url, filas: ids.length });
   } catch (error) {
     console.error('Error al subir audio:', error);
     res.status(500).json({ success: false, message: error.message });

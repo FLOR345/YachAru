@@ -177,7 +177,8 @@ const RiddleCard = ({ item, index, language, theme, fav, onAnswered }) => {
                   if (state === 'wrong') setState('idle');
                 }}
                 autoComplete="off"
-                placeholder="Escribe tu respuesta (en español o en la lengua)"
+                placeholder="Tu respuesta"
+                aria-label="Tu respuesta, en español o en la lengua"
                 className={`flex-1 min-w-0 min-h-12 px-4 rounded-xl border-2 bg-stone-50 font-semibold focus:outline-none focus:bg-white ${state === 'wrong' ? 'border-red-400 anim-sacude' : 'border-stone-300 focus:border-stone-500'}`}
               />
               <button type="submit" className="ficha min-h-12 px-5 rounded-xl border-green-800 bg-green-600 text-white font-black hover:bg-green-500">

@@ -21,7 +21,7 @@ on:
         default: "quechua aymara"
       palabras:
         description: "comparar: palabras separadas por comas"
-        default: "ama,uma,ari,mama,maki,wasi,inti,yaku"
+        default: "ama,uma,ari,mama,maki,wasi,inti,yaku,huk,iskay,kimsa,tawa,pichqa,suqta,qanchis,pusaq,isqun,chunka"
       estilo:
         description: "rehacer-cortas: estilo elegido al comparar"
         type: choice

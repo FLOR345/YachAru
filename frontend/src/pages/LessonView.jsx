@@ -163,7 +163,16 @@ const LessonView = ({ user, isGuest }) => {
     try {
       const { data } = await api.getLessonContent(lessonId);
       setLesson(data.lesson);
-      setVocabulary(data.vocabulary || []);
+      // La misma palabra con el mismo significado se muestra una sola vez
+      const seenWords = new Set();
+      setVocabulary(
+        (data.vocabulary || []).filter((w) => {
+          const k = `${String(w.palabra_objetivo).trim().toLowerCase()}|${String(w.palabra_espanol).trim().toLowerCase()}`;
+          if (seenWords.has(k)) return false;
+          seenWords.add(k);
+          return true;
+        })
+      );
       keepAudioOffline((data.vocabulary || []).map((w) => w.audio_url));
       setExercises(data.exercises || []);
       setQueue(addExtras(data.exercises || [], data.vocabulary || [], data.lesson?.idioma));

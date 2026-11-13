@@ -105,7 +105,7 @@ export const startRecording = async ({ maxMs = 5000, onLevel } = {}) => {
       try {
         const blob = new Blob(chunks, { type: recorder.mimeType || 'audio/webm' });
         const { samples, rate } = await decode(await blob.arrayBuffer());
-        resolve({ url: URL.createObjectURL(blob), analysis: analyze(samples, rate, WARPS), ms: performance.now() - started });
+        resolve({ url: URL.createObjectURL(blob), blob, analysis: analyze(samples, rate, WARPS), ms: performance.now() - started });
       } catch (error) {
         reject(error);
       }
