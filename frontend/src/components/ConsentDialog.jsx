@@ -77,7 +77,7 @@ const ConsentDialog = ({ user, setUser }) => {
           ¿Ayudas a investigar el quechua y el aymara?
         </h2>
         <p className="text-stone-700 leading-relaxed mb-5">
-          Si aceptas, SimiAru guardará cómo practicas (qué respondes, cuánto tardas, qué palabras escuchas) para estudiar cómo se
+          Si aceptas, YachAru guardará cómo practicas (qué respondes, cuánto tardas, qué palabras escuchas) para estudiar cómo se
           aprenden estas lenguas. Es opcional: la app funciona igual si dices que no.
         </p>
         <ul className="space-y-3 mb-6">

@@ -1,4 +1,4 @@
-// Gamificación de SimiAru: racha diaria, nivel por Ayni Points e insignias.
+// Gamificación de YachAru: racha diaria, nivel por Ayni Points e insignias.
 // Antes vivía mezclada en progressController.js y este archivo estaba vacío.
 import { pool } from '../config/database.js';
 import { notifyBadgeEarned } from '../controllers/notificationController.js';

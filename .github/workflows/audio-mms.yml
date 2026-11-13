@@ -1,4 +1,4 @@
-# Genera en línea la voz de SimiAru con los modelos MMS de Meta. Corre en GitHub, contra Neon y Cloudinary.
+# Genera en línea la voz de YachAru con los modelos MMS de Meta. Corre en GitHub, contra Neon y Cloudinary.
 # Se lanza a mano: Actions → "Audio MMS" → Run workflow.
 #   prueba: 30 palabras por lengua para escuchar. Quedan como artefacto y no escribe en la base.
 #   completo: aplica las migraciones, sube a Cloudinary, llena audios y vocabulario.audio_url, y actualiza el contenido del repositorio.

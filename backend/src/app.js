@@ -1,4 +1,4 @@
-// Aplicación Express de SimiAru (sin conectar ni escuchar): la usan server.js y las pruebas.
+// Aplicación Express de YachAru (sin conectar ni escuchar): la usan server.js y las pruebas.
 import express from 'express';
 import cors from 'cors';
 import session from 'express-session';

@@ -27,7 +27,7 @@ const literal = (value, typeId) => {
   return `'${String(value).replace(/'/g, "''")}'`;
 };
 
-let sql = `-- Contenido de SimiAru (sin datos de personas), generado con: npm run db:content
+let sql = `-- Contenido de YachAru (sin datos de personas), generado con: npm run db:content
 -- Generado: ${new Date().toISOString()}
 -- Vocabulario aymara: Félix Layme Pairumani, Intercontinental Dictionary Series (CC BY 4.0), ver languages/aymara/README.md.
 

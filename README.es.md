@@ -1,10 +1,10 @@
-# SimiAru 🦙
+# YachAru 🦙
 
 [English version](README.md)
 
-**SimiAru** es una aplicación web para aprender **quechua** y **aymara**, las lenguas originarias de los Andes. Ofrece lecciones por unidades, un diccionario, contenido cultural, seguimiento de progreso y notificaciones.
+**YachAru** es una aplicación web para aprender **quechua** y **aymara**, las lenguas originarias de los Andes. Ofrece lecciones por unidades, un diccionario, contenido cultural, seguimiento de progreso y notificaciones.
 
-> *Simi* significa "lengua/palabra" en quechua y *Aru* significa lo mismo en aymara.
+> *Yachay* significa "aprender, saber" en quechua y *aru* significa "palabra, lengua" en aymara. Antes se llamaba SimiAru: las direcciones web conservan ese nombre.
 
 ## Demo
 
@@ -23,7 +23,7 @@
 ## Estructura
 
 ```
-SIMIARU/
+YACHARU/
 ├── backend/        API en Express
 │   └── src/
 │       ├── config/       base de datos, passport, cloudinary
@@ -101,7 +101,7 @@ Proyecto desarrollado por [FLOR345](https://github.com/FLOR345) para el curso de
 ## Licencia
 
 - **Código:** [MIT](LICENSE). Puedes usarlo, modificarlo y redistribuirlo, manteniendo el aviso de copyright.
-- **Efectos visuales** (`frontend/src/components/fx/`): escritos para SimiAru, con la misma licencia MIT del código.
+- **Efectos visuales** (`frontend/src/components/fx/`): escritos para YachAru, con la misma licencia MIT del código.
 - **Contenido lingüístico** (vocabulario, ejercicios y textos culturales): no está cubierto por la licencia MIT. El vocabulario aymara viene de la lista de aymara central de Félix Layme Pairumani en el Intercontinental Dictionary Series (CC BY 4.0); ver `languages/aymara/README.md`.
 
 ## Voz, evidencia y publicación

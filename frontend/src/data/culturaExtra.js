@@ -1,9 +1,13 @@
-// Más adivinanzas, proverbios y canciones de SimiAru, que se suman a los del servidor.
-// Son versiones breves escritas para SimiAru a partir de la tradición oral andina, con su traducción
+// Más adivinanzas, proverbios y canciones de YachAru, que se suman a los del servidor.
+// Son versiones breves escritas para YachAru a partir de la tradición oral andina, con su traducción
 // (en las canciones, verso por verso). Conviene que una hablante nativa las revise antes de ampliarlas.
 // En las adivinanzas, `foto` es la clave de la imagen en assets/adivinanzas (cada una distinta).
 
-const FUENTE = 'SimiAru · versión de la tradición oral';
+const FUENTE = 'YachAru · versión de la tradición oral';
+
+// Se muestran solo en las lenguas cuyos textos ya revisó una persona hablante. El equipo habla quechua;
+// los textos en aymara esperan la revisión del colaborador aymarahablante (después, cambiar a true).
+export const EXTRAS_REVISADOS = { quechua: true, aymara: false };
 
 const ADIVINANZAS = [
   // ---------- Quechua ----------
@@ -201,44 +205,44 @@ const PROVERBIOS = [
 
 const CANCIONES = [
   // ---------- Quechua ----------
-  { id: 'q-c-llamachay', idioma: 'quechua', titulo: 'Llamachay', region: 'Canción de SimiAru',
+  { id: 'q-c-llamachay', idioma: 'quechua', titulo: 'Llamachay', region: 'Canción de YachAru',
     contenido_original: "Llamachay, llamachay,\nurqupi purispa\nq'umir ichhuta mikhunki\nsumaq millwaykiwan.\nLlamachay, llamachay,\nwasiman kutimuy,\ntutayamuchkanña,\nmamay suyachkanmi.",
     traduccion: 'Mi llamita, mi llamita,\ncaminando en el cerro\ncomes ichu verde\ncon tu hermosa lana.\nMi llamita, mi llamita,\nvuelve a la casa,\nya está anocheciendo,\nmi mamá está esperando.',
     explicacion: 'Canción de pastoreo: al caer la tarde, los niños llaman a las llamas para volver a casa.' },
-  { id: 'q-c-paray', idioma: 'quechua', titulo: 'Paray, paray', region: 'Canción de SimiAru',
+  { id: 'q-c-paray', idioma: 'quechua', titulo: 'Paray, paray', region: 'Canción de YachAru',
     contenido_original: "Paray, paray, hamuy ari,\nchakrata qarpamuy,\npapachakuna wiñanqa,\nsarachakunapas.\nHamp'atuqa takichkan\nphuyukunata waqyaspa,\nparay, paray, hamuy ari,\nkusisqa suyaykiku.",
     traduccion: 'Lluvia, lluvia, ven pues,\nriega la chacra,\nlas papitas crecerán\ny también el maicito.\nEl sapo está cantando,\nllamando a las nubes,\nlluvia, lluvia, ven pues,\nfelices te esperamos.',
     explicacion: 'Pide la lluvia para la chacra; el sapo, que según la tradición llama al agua, canta con los niños.' },
-  { id: 'q-c-yupasun', idioma: 'quechua', titulo: 'Yupasun', region: 'Canción de SimiAru',
+  { id: 'q-c-yupasun', idioma: 'quechua', titulo: 'Yupasun', region: 'Canción de YachAru',
     contenido_original: "Huk, iskay, kimsa,\nllamakunata yupasun,\ntawa, pichqa, suqta,\nurqupi purichkanku,\nqanchis, pusaq, isqun,\n¡chunkañam kanku!",
     traduccion: 'Uno, dos, tres,\ncontemos las llamas,\ncuatro, cinco, seis,\nestán caminando en el cerro,\nsiete, ocho, nueve,\n¡ya son diez!',
     explicacion: 'Canción para aprender a contar del uno al diez en quechua, contando la tropa de llamas.' },
-  { id: 'q-c-titiqaqa', idioma: 'quechua', titulo: 'Titiqaqa qocha', region: 'Puno · Canción de SimiAru',
+  { id: 'q-c-titiqaqa', idioma: 'quechua', titulo: 'Titiqaqa qocha', region: 'Puno · Canción de YachAru',
     contenido_original: "Titiqaqa qochapi\nyaku k'anchachkan,\ntutura wamp'upi\nchallwakuq purin.\nQocha mamay, qocha mamay,\nkawsayta quwayku,\nPunupa sunqunmi\nqamqa kanki.",
     traduccion: 'En el lago Titicaca\nel agua está brillando,\nen la balsa de totora\nva el pescador.\nMadre lago, madre lago,\ndanos vida,\nel corazón de Puno\neres tú.',
     explicacion: 'Saluda al lago Titicaca como a una madre que da vida a los pueblos de Puno.' },
-  { id: 'q-c-inti-killa', idioma: 'quechua', titulo: 'Inti, Killa', region: 'Canción de SimiAru',
+  { id: 'q-c-inti-killa', idioma: 'quechua', titulo: 'Inti, Killa', region: 'Canción de YachAru',
     contenido_original: "P'unchawpi Inti k'ancharin\nchakrata q'uñichispa,\ntutapitaq Killa lluqsin\nñanta k'anchachispa.\nInti Tayta, Killa Mama,\nsapa p'unchaw qhawawankichik.",
     traduccion: 'De día brilla el Sol\ncalentando la chacra,\ny de noche sale la Luna\niluminando el camino.\nPadre Sol, Madre Luna,\ncada día nos miran.',
     explicacion: 'Presenta al Sol (Inti Tayta) y a la Luna (Mama Killa), que en el mundo andino ordenan el tiempo del trabajo y del descanso.' },
   // ---------- Aimara ----------
-  { id: 'a-c-qawrita', idioma: 'aymara', titulo: 'Qawrita', region: 'Canción de SimiAru',
+  { id: 'a-c-qawrita', idioma: 'aymara', titulo: 'Qawrita', region: 'Canción de YachAru',
     contenido_original: "Qawrita, qawrita,\nqullun sarnaqasax\nch'uxña ichhu manq'ta\nsuma t'awramampi.\nQawrita, qawrita,\nutaru kutt'anim,\narumaw purinxi,\ntaykajaw suyaski.",
     traduccion: 'Llamita, llamita,\ncaminando por el cerro\ncomes ichu verde\ncon tu lana bonita.\nLlamita, llamita,\nvuelve a casa,\nya llega la noche,\nmi mamá está esperando.',
     explicacion: 'Canción de pastoreo aimara: los niños llaman a la tropa de llamas para volver al corral.' },
-  { id: 'a-c-jallu', idioma: 'aymara', titulo: 'Jallu, jallu', region: 'Canción de SimiAru',
+  { id: 'a-c-jallu', idioma: 'aymara', titulo: 'Jallu, jallu', region: 'Canción de YachAru',
     contenido_original: "Jallu, jallu, jutam,\nyapu umachañataki,\nch'uqinakaw jilani,\ntunqunakasa.\nJamp'atux q'uchuski\nqinayanak jawsasa,\njallu, jallu, jutam,\nkusisitaw suyt'apxsma.",
     traduccion: 'Lluvia, lluvia, ven,\npara regar la chacra,\nlas papas crecerán\ny también el maíz.\nEl sapo está cantando,\nllamando a las nubes,\nlluvia, lluvia, ven,\nfelices te esperamos.',
     explicacion: 'Pide la lluvia para la chacra; en el altiplano el canto del sapo anuncia el agua.' },
-  { id: 'a-c-jakhunani', idioma: 'aymara', titulo: 'Jakhuñani', region: 'Canción de SimiAru',
+  { id: 'a-c-jakhunani', idioma: 'aymara', titulo: 'Jakhuñani', region: 'Canción de YachAru',
     contenido_original: "Maya, paya, kimsa,\nqawranak jakhuñani,\npusi, phisqa, suxta,\nqullun sarnaqapxi,\npaqallqu, kimsaqallqu, llatunka,\n¡tunkaxiwa!",
     traduccion: 'Uno, dos, tres,\ncontemos las llamas,\ncuatro, cinco, seis,\ncaminan por el cerro,\nsiete, ocho, nueve,\n¡ya son diez!',
     explicacion: 'Canción para aprender los números del uno al diez en aimara.' },
-  { id: 'a-c-titiqaqa', idioma: 'aymara', titulo: 'Titiqaqa quta', region: 'Puno · Canción de SimiAru',
+  { id: 'a-c-titiqaqa', idioma: 'aymara', titulo: 'Titiqaqa quta', region: 'Puno · Canción de YachAru',
     contenido_original: "Titiqaqa qutanxa\numax lliphipiski,\nyampu patxanxa\nchallwiriw sarnaqi.\nQuta tayka, quta tayka,\njakañ churapxita,\nPunun chuymapax\njumätawa.",
     traduccion: 'En el lago Titicaca\nel agua está brillando,\nsobre la balsa\nanda el pescador.\nMadre lago, madre lago,\ndanos vida,\nel corazón de Puno\neres tú.',
     explicacion: 'Saluda al lago Titicaca, madre de los pueblos aimaras de Puno y La Paz.' },
-  { id: 'a-c-inti-phaxsi', idioma: 'aymara', titulo: 'Inti, Phaxsi', region: 'Canción de SimiAru',
+  { id: 'a-c-inti-phaxsi', idioma: 'aymara', titulo: 'Inti, Phaxsi', region: 'Canción de YachAru',
     contenido_original: "Urunxa Tata Intiw lupi\nyapu junt'uchasa,\narumasti Phaxsi Mamaw mistu\nthakhi qhanachasa.\nTata Inti, Phaxsi Mama,\nsapüru uñjapxistawa.",
     traduccion: 'De día brilla el Padre Sol\ncalentando la chacra,\ny de noche sale la Madre Luna\niluminando el camino.\nPadre Sol, Madre Luna,\ncada día nos miran.',
     explicacion: 'Presenta al Padre Sol (Tata Inti) y a la Madre Luna (Phaxsi Mama), guías del tiempo en el altiplano.' },
@@ -253,9 +257,9 @@ const clave = (t) =>
     .replace(/[̀-ͯ]/g, '')
     .trim();
 
-// Suma los de SimiAru a los del servidor (sin repetir lo que ya existe)
+// Suma los de YachAru a los del servidor (sin repetir lo que ya existe)
 export const conExtras = (tipo, lista, idioma) => {
-  const extra = (EXTRA[tipo] || []).filter((x) => x.idioma === idioma);
+  const extra = EXTRAS_REVISADOS[idioma] ? (EXTRA[tipo] || []).filter((x) => x.idioma === idioma) : [];
   if (!extra.length) return lista;
   const vistos = new Set(lista.map((x) => clave(x.contenido_original)));
   return [...lista, ...extra.filter((x) => !vistos.has(clave(x.contenido_original))).map((x) => ({ ...x, tipo, fuente: FUENTE }))];

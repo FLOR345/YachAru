@@ -87,6 +87,12 @@ export const schemas = {
     cantidad: { type: 'integer', min: 1, max: 30, optional: true },
     variedad: { type: 'string', max: 80, optional: true },
   },
+  evaluationJoin: {
+    idioma: { type: 'string', min: 2, max: 20 },
+    consiente: { type: 'boolean' },
+    ajeno: { type: 'boolean' },
+    variedad: { type: 'string', max: 80, optional: true },
+  },
   evaluationEnter: {
     codigo: { type: 'string', min: 8, max: 12 },
     consiente: { type: 'boolean', optional: true },

@@ -1,6 +1,6 @@
 // "Mi cuerpo y los números": aprender las partes del cuerpo con un modelo 3D que se toca,
 // y los números con llamitas que se cuentan. Cada pestaña tiene un modo para explorar y dos juegos.
-// Verde para quechua y azul para aimara, como en el resto de SimiAru.
+// Verde para quechua y azul para aimara, como en el resto de YachAru.
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import * as m from 'motion/react-m';

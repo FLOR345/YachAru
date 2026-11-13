@@ -218,12 +218,24 @@ const PerceptualPanel = ({ idioma }) => {
   return (
     <section className={panel}>
       <h2 className="text-xl font-black mb-3">Evaluación perceptual del audio</h2>
-      <p className="text-stone-600 mb-4">Muestra de {data?.muestra ?? 0} palabras. Se necesitan al menos 8 evaluadores externos al proyecto.</p>
+      <p className="text-stone-600 mb-4">
+        Muestra de {data?.muestra || 20} palabras (unos 5 minutos). Meta: 10 hablantes externos al proyecto que terminen. Comparte el QR: cada persona elige su lengua, acepta en pantalla y recibe su propio código.
+      </p>
+      <div className="flex flex-wrap items-center gap-4 mb-5 rounded-2xl bg-stone-50 p-4">
+        <img src="/qr-evaluacion.png" alt="QR de la evaluación" width="140" height="140" className="rounded-xl bg-white p-2" />
+        <div className="space-y-2">
+          <p className="font-bold break-all">{window.location.origin}/evaluacion</p>
+          <div className="flex flex-wrap gap-2">
+            <button type="button" className={button} onClick={() => navigator.clipboard.writeText(`${window.location.origin}/evaluacion`).then(() => toast.success('Enlace copiado'))}><Copy className="w-4 h-4" aria-hidden="true" /> Copiar enlace</button>
+            <a className={button} href="/afiche-evaluacion.png" download="yacharu-evalua-la-voz.png"><Download className="w-4 h-4" aria-hidden="true" /> Afiche con QR</a>
+          </div>
+        </div>
+      </div>
       <div className="flex flex-wrap gap-2 mb-5">
-        <button type="button" className={button} onClick={run(() => api.createEvaluationSample({ idioma, tamano: 50 }))}>Preparar muestra de 50</button>
+        <button type="button" className={button} onClick={run(() => api.createEvaluationSample({ idioma, tamano: 20 }))}>Preparar muestra de 20</button>
         <button type="button" className={button} onClick={run(() => api.createEvaluators({ idioma, cantidad: 10 }))}>Crear 10 códigos</button>
         <button type="button" className={button} onClick={load}><RefreshCw className="w-4 h-4" aria-hidden="true" /> Actualizar</button>
-        <button type="button" className={button} onClick={() => api.download(`/api/validation/resultados?idioma=${idioma}&format=csv`, `simiaru-evaluacion-${idioma}.csv`).catch(() => toast.error('No pudimos descargar'))}>
+        <button type="button" className={button} onClick={() => api.download(`/api/validation/resultados?idioma=${idioma}&format=csv`, `yacharu-evaluacion-${idioma}.csv`).catch(() => toast.error('No pudimos descargar'))}>
           <Download className="w-4 h-4" aria-hidden="true" /> Datos CSV
         </button>
       </div>
@@ -231,7 +243,7 @@ const PerceptualPanel = ({ idioma }) => {
       {results && (
         <dl className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
           {[
-            ['Evaluadores', results.evaluadores],
+            ['Terminaron', `${results.evaluadores_completos ?? 0} de 10`],
             ['Juicios', results.juicios],
             ['Media (1 a 5)', results.media ?? '—'],
             ['α de Krippendorff', results.alfa_krippendorff_ordinal ?? '—'],

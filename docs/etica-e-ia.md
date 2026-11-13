@@ -40,7 +40,7 @@ Base de la sección *Limitations and ethics* del artículo.
 
 ## Declaración de uso de herramientas de IA (borrador)
 
-**Pendiente antes de usar esta declaración:** los ejemplos de oraciones en quechua, las adivinanzas, refranes y canciones extra y los cuentos se redactaron con ayuda de IA. Mientras un hablante no los revise o no se retiren, la frase «El contenido lingüístico no fue generado por esa herramienta» no es cierta. Los ejemplos aymara ya se retiraron.
+**Pendiente antes de usar esta declaración:** los ejemplos de oraciones en quechua, las adivinanzas, refranes y canciones extra y los cuentos se redactaron con ayuda de IA. En aymara ya no se muestran: los ejemplos se retiraron y los demás textos esperan la revisión del colaborador aymarahablante (`EXTRAS_REVISADOS` en `frontend/src/data/culturaExtra.js`). Los de quechua debe revisarlos el equipo. Mientras eso no ocurra, la frase «El contenido lingüístico no fue generado por esa herramienta» no es cierta: hay que decir que esos textos se redactaron con ayuda de IA y que los revisaron hablantes.
 
 > Durante el desarrollo se usó Claude Code (Anthropic), modelo Claude Opus 5.5, como asistente de programación y documentación. El contenido lingüístico no fue generado por esa herramienta. Los autores revisaron el código y son responsables de la obra.
 

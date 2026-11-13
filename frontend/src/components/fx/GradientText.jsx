@@ -1,4 +1,4 @@
-// Texto con un degradado que se desliza. Implementación propia de SimiAru (MIT).
+// Texto con un degradado que se desliza. Implementación propia de YachAru (MIT).
 const GradientText = ({ children, colors = ['#15803d', '#0ea5e9', '#7c3aed', '#15803d'], animationSpeed = 8, glow = 0, className = '' }) => (
   <span
     className={`fx-gradiente inline-block bg-clip-text text-transparent ${className}`}

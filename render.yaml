@@ -1,4 +1,4 @@
-# Configuración para publicar el backend de SimiAru en Render (plan gratuito).
+# Configuración para publicar el backend de YachAru en Render (plan gratuito).
 # En Render: New → Blueprint → elegir este repositorio.
 services:
   - type: web

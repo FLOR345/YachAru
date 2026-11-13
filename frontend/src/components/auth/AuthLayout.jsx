@@ -18,7 +18,7 @@ export const AuthLayout = ({ title, subtitle, children, footer, pose = 'bienveni
       <div className="bg-white/90 backdrop-blur-sm rounded-3xl border border-white shadow-2xl p-6 sm:p-8">
         <div className="text-center mb-8">
           <Magnet padding={50} magnetStrength={6} wrapperClassName="inline-block" innerClassName="block">
-            <Link to="/" aria-label="SimiAru, volver al inicio" className="inline-flex justify-center mb-3">
+            <Link to="/" aria-label="YachAru, volver al inicio" className="inline-flex justify-center mb-3">
               <span className="block w-32 aspect-square llama llama-reposo" aria-hidden="true">
                 <LlamaImage pose={pose} sticker eager sizes="8rem" />
               </span>

@@ -1,5 +1,5 @@
 // backend/src/utils/emailService.js
-// Servicio de notificaciones por email para SIMIARU usando Brevo API
+// Servicio de notificaciones por email para YACHARU usando Brevo API
 
 import SibApiV3Sdk from 'sib-api-v3-sdk';
 
@@ -18,7 +18,7 @@ const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 
 // Email desde
 const SENDER = {
-  name: 'SimiAru',
+  name: 'YachAru',
   email: 'flormelany01@gmail.com'
 };
 
@@ -152,7 +152,7 @@ export const sendWelcome = async (usuario) => {
     <div style="font-family: Arial, sans-serif; max-width: 500px; margin: 0 auto;">
       <div style="background: linear-gradient(135deg, #f97316, #dc2626); padding: 40px; text-align: center; border-radius: 16px 16px 0 0;">
         <div style="font-size: 60px;">🏔️</div>
-        <h1 style="color: white; margin: 0;">¡Bienvenido a SimiAru!</h1>
+        <h1 style="color: white; margin: 0;">¡Bienvenido a YachAru!</h1>
         <p style="color: rgba(255,255,255,0.9);">Tu viaje al mundo andino comienza ahora</p>
       </div>
       <div style="padding: 30px; background: white; text-align: center; border: 1px solid #eee; border-radius: 0 0 16px 16px;">
@@ -168,7 +168,7 @@ export const sendWelcome = async (usuario) => {
       </div>
     </div>
   `;
-  return sendEmail(usuario.email, `🎊 ¡Bienvenido a SimiAru, ${usuario.nombre}! - Allillanchu!`, html);
+  return sendEmail(usuario.email, `🎊 ¡Bienvenido a YachAru, ${usuario.nombre}! - Allillanchu!`, html);
 };
 
 // 🏆 Nueva insignia obtenida

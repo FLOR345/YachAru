@@ -1,4 +1,4 @@
-// Texto con un brillo que lo recorre. Implementación propia de SimiAru (MIT).
+// Texto con un brillo que lo recorre. Implementación propia de YachAru (MIT).
 const ShinyText = ({ text, color = '#78716c', shineColor = '#ffffff', speed = 3, delay = 0, className = '' }) => (
   <span
     className={`fx-brillo inline-block bg-clip-text text-transparent ${className}`}

@@ -1,6 +1,6 @@
 {
-  "name": "SimiAru: aprende quechua y aymara",
-  "short_name": "SimiAru",
+  "name": "YachAru: aprende quechua y aymara",
+  "short_name": "YachAru",
   "description": "Plataforma abierta para aprender quechua y aymara, con lecciones cortas, diccionario y textos culturales. Funciona sin conexión.",
   "lang": "es-PE",
   "start_url": "/?origen=app",

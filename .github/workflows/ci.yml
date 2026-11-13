@@ -102,6 +102,6 @@ jobs:
           for i in $(seq 1 60); do curl -sf http://localhost:5000/health && break; sleep 3; done
           curl -sf "http://localhost:5000/api/lessons/units?idioma=quechua" | grep -q '"units"'
           curl -sf http://localhost:5000/api/validation/cobertura | grep -q '"idiomas"'
-          curl -sf http://localhost:8080/ | grep -q SimiAru
+          curl -sf http://localhost:8080/ | grep -q YachAru
       - if: always()
         run: docker compose logs --tail 50

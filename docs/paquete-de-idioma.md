@@ -1,6 +1,6 @@
-# Cómo agregar una lengua a SimiAru
+# Cómo agregar una lengua a YachAru
 
-SimiAru se extiende a otras lenguas originarias (asháninka, shipibo, awajún, guaraní…) con **un archivo de configuración** y **un comando**. No hace falta cambiar el código.
+YachAru se extiende a otras lenguas originarias (asháninka, shipibo, awajún, guaraní…) con **un archivo de configuración** y **un comando**. No hace falta cambiar el código.
 
 > Puedes dejar todo en `paquete.json`, con el contenido en su campo `contenido` (ver `languages/awajun`), o separarlo en `paquete.json` y `contenido.json` como en la plantilla.
 

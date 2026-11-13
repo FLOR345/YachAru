@@ -6,7 +6,7 @@ import { preloadOn, Register, Login, Dashboard, Dictionary } from '../routes';
 import { AnimatePresence, useReducedMotion } from 'motion/react';
 import * as m from 'motion/react-m';
 import Reveal from '../ui/Reveal';
-// Efectos visuales propios de SimiAru (components/fx, licencia MIT del proyecto)
+// Efectos visuales propios de YachAru (components/fx, licencia MIT del proyecto)
 import { CountUp, SpotlightCard, TiltedCard, BlurText, AnimatedContent, RotatingText } from '../ui/lazyBits';
 import Magnet from '../components/fx/Magnet';
 import ShinyText from '../components/fx/ShinyText';
@@ -37,7 +37,7 @@ const LANGUAGES = {
     region: 'Cusco - Puno (Collao)',
     Icon: Globe,
     description:
-      'La lengua del Tahuantinsuyo, hablada hoy por millones de personas en los Andes. SimiAru enseña la variedad Cusco-Collao, la que se habla en Puno.',
+      'La lengua del Tahuantinsuyo, hablada hoy por millones de personas en los Andes. YachAru enseña la variedad Cusco-Collao, la que se habla en Puno.',
     facts: ['9 unidades temáticas', '21 lecciones interactivas', 'Voz sintetizada', '31 textos culturales'],
     units: [
       ['Saludos y presentaciones', 'Rimaykullayki (hola)'],
@@ -57,7 +57,7 @@ const LANGUAGES = {
     region: 'Altiplano puneño',
     Icon: Mountain,
     description:
-      'La lengua del lago Titicaca, hablada por alrededor de 2 millones de personas en Perú, Bolivia y Chile. SimiAru enseña el aymara central.',
+      'La lengua del lago Titicaca, hablada por alrededor de 2 millones de personas en Perú, Bolivia y Chile. YachAru enseña el aymara central.',
     facts: ['19 unidades temáticas', '77 lecciones interactivas', 'Vocabulario de Félix Layme Pairumani', '38 textos culturales'],
     units: [
       ['Saludos y presentaciones', 'Kamisaraki (¿cómo estás?)'],
@@ -284,7 +284,7 @@ const PalabraViva = () => {
         ))}
       </div>
       <p className="mt-6 text-sm text-stone-600">
-        Las traducciones salen del diccionario de SimiAru, con más de 1,500 palabras.
+        Las traducciones salen del diccionario de YachAru, con más de 1,500 palabras.
       </p>
     </div>
   );
@@ -433,7 +433,7 @@ const Home = ({ enableGuestMode }) => {
           <div className="flex justify-between items-center gap-3">
             <Link to="/" className="flex items-center gap-3">
               <img src={logo} alt="" width="160" height="160" className="h-10 sm:h-12 w-auto" />
-              <span className="text-xl sm:text-2xl font-black texto-degradado">SimiAru</span>
+              <span className="text-xl sm:text-2xl font-black texto-degradado">YachAru</span>
             </Link>
 
             <nav className="hidden xl:flex items-center gap-8 whitespace-nowrap">
@@ -668,7 +668,7 @@ const Home = ({ enableGuestMode }) => {
                   {/* Motion: la llama entra con un rebote y luego "respira" arriba y abajo */}
                   <m.img
                     src={llamaHero}
-                    alt="Mascota de SimiAru: una llamita con su chalina andina de colores, saludando"
+                    alt="Mascota de YachAru: una llamita con su chalina andina de colores, saludando"
                     width="560"
                     height="560"
                     fetchpriority="high"
@@ -686,7 +686,7 @@ const Home = ({ enableGuestMode }) => {
                   <p className="mt-1 text-sm font-semibold text-stone-600">"Hola" en quechua y en aymara</p>
                 </div>
 
-                {/* Etiquetas flotantes de la primera versión, con lo que SimiAru sí tiene */}
+                {/* Etiquetas flotantes de la primera versión, con lo que YachAru sí tiene */}
                 {/* Motion: las etiquetas flotan arriba y abajo, cada una a su ritmo */}
                 <m.div className="etiqueta-flotante absolute z-20 top-8 -right-2 sm:-right-4 rotate-6 bg-gradient-to-br from-green-600 to-green-800 text-white px-4 sm:px-5 py-2.5 rounded-2xl shadow-lg" aria-hidden="true" animate={{ y: [0, -8, 0] }} transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}>
                   <span className="flex items-center gap-2 font-bold text-sm sm:text-base">
@@ -799,7 +799,7 @@ const Home = ({ enableGuestMode }) => {
           <div className="container mx-auto">
             <Reveal className="text-center mb-16 space-y-4">
               <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
-                Qué incluye <span className="texto-degradado-corto">SimiAru</span>
+                Qué incluye <span className="texto-degradado-corto">YachAru</span>
               </h2>
               <BlurText text="Vocabulario, ejercicios y cultura del altiplano en un solo lugar, gratis y sin publicidad" className="text-xl text-stone-600 max-w-3xl mx-auto" delay={60} stepDuration={0.3} />
             </Reveal>
@@ -1022,7 +1022,7 @@ const Home = ({ enableGuestMode }) => {
               <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
                 Una herramienta <span className="texto-degradado-corto">abierta</span> para lenguas originarias
               </h2>
-              <BlurText text="SimiAru es un proyecto gratuito y de código abierto para aprender quechua y aymara. Su contenido sigue creciendo y cualquier persona puede revisar y mejorar el código." className="text-xl text-stone-600 max-w-3xl mx-auto" delay={60} stepDuration={0.3} />
+              <BlurText text="YachAru es un proyecto gratuito y de código abierto para aprender quechua y aymara. Su contenido sigue creciendo y cualquier persona puede revisar y mejorar el código." className="text-xl text-stone-600 max-w-3xl mx-auto" delay={60} stepDuration={0.3} />
             </Reveal>
 
             <ul className="grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto text-center">
@@ -1098,7 +1098,7 @@ const Home = ({ enableGuestMode }) => {
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <img src={logo} alt="" width="160" height="160" loading="lazy" decoding="async" className="h-12 w-auto rounded-lg" />
-                <span className="text-2xl font-extrabold">SimiAru</span>
+                <span className="text-2xl font-extrabold">YachAru</span>
               </div>
               <p className="text-stone-400 leading-relaxed">
                 Preservando y difundiendo las lenguas ancestrales de los Andes para las futuras generaciones.
@@ -1107,7 +1107,7 @@ const Home = ({ enableGuestMode }) => {
                 href={REPO}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Código de SimiAru en GitHub (se abre en otra pestaña)"
+                aria-label="Código de YachAru en GitHub (se abre en otra pestaña)"
                 className="inline-flex w-11 h-11 bg-stone-800 hover:bg-stone-700 rounded-full items-center justify-center toque"
               >
                 <Github className="w-5 h-5" aria-hidden="true" />
@@ -1131,7 +1131,7 @@ const Home = ({ enableGuestMode }) => {
             <nav aria-label="Proyecto">
               <h2 className="text-lg font-bold mb-2">Proyecto</h2>
               <ul>
-                <li><a href="#proyecto" className={footerLink}>Sobre SimiAru</a></li>
+                <li><a href="#proyecto" className={footerLink}>Sobre YachAru</a></li>
                 <li><a href={REPO} target="_blank" rel="noopener noreferrer" className={footerLink}>Código en GitHub</a></li>
                 <li><a href={`${REPO}/issues`} target="_blank" rel="noopener noreferrer" className={footerLink}>Reportar un problema</a></li>
                 <li><a href={`${REPO}/blob/main/LICENSE`} target="_blank" rel="noopener noreferrer" className={footerLink}>Licencia MIT</a></li>
@@ -1140,7 +1140,7 @@ const Home = ({ enableGuestMode }) => {
           </div>
 
           <div className="border-t border-stone-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-stone-400 text-sm">© 2026 SimiAru</p>
+            <p className="text-stone-400 text-sm">© 2026 YachAru</p>
             <p className="text-stone-400 text-sm">Hecho para preservar lenguas ancestrales</p>
           </div>
 

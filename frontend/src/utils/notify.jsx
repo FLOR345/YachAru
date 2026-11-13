@@ -1,4 +1,4 @@
-// Notificaciones de SimiAru con React-Toastify (librería especializada en avisos).
+// Notificaciones de YachAru con React-Toastify (librería especializada en avisos).
 // Misma forma de uso que antes: toast('Título', { description, action, id }), toast.success(...), toast.error(...).
 // Aparecen arriba a la derecha, con barra de tiempo, pausa al pasar el mouse y se pueden deslizar para cerrarlas.
 import { toast as toastify } from 'react-toastify';

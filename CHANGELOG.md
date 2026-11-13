@@ -39,6 +39,13 @@
 
 ### Cambiado
 
+- **El proyecto se llama YachAru** (antes SimiAru): *yachay* es "aprender" en quechua y *aru*, "palabra, lengua" en aymara. Las direcciones web, la base y las carpetas de audio conservan el nombre anterior.
+- **Evaluación del audio lista para compartir con un QR** (`/evaluacion`, `frontend/public/afiche-evaluacion.png`):
+  - la persona elige su lengua, acepta en pantalla, confirma que no participó en crear la app y recibe su propio código: ya no hay que repartir códigos;
+  - son 20 palabras (unos 5 minutos) en lugar de 50; cada palabra suena sola y se puede volver a la anterior;
+  - la muestra se prepara sola la primera vez, y una lengua sin audio aparece como «Muy pronto»;
+  - los resultados cuentan a quien terminó (16 de 20 o más) y piden 10 personas por lengua.
+- Los textos extra en aymara redactados con ayuda de IA (adivinanzas, refranes, canciones y cuentos) dejan de mostrarse hasta que los revise el colaborador aymarahablante.
 - **Aymara con fuente abierta.** El vocabulario aymara anterior (996 filas) venía entero de un diccionario del Ministerio de Educación de Chile, sin licencia de redistribución confirmada y de otra variedad. Se reemplazó por la lista de aymara central de Félix Layme Pairumani en el *Intercontinental Dictionary Series* (CC BY 4.0), con traducciones de Concepticon:
   - `languages/aymara/generar_desde_ids.py` la pasa al alfabeto oficial con reglas fijas (con pruebas en CI) y deja fuera préstamos y 9 conceptos;
   - `backend/scripts/aymara-desde-ids.js` arma 19 unidades (una por capítulo), 77 lecciones, 795 palabras y 693 ejercicios, con copia previa del contenido anterior;

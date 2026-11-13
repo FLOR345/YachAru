@@ -253,6 +253,15 @@ test('evaluación perceptual: código, consentimiento, puntaje y resultados', { 
   await request(app).post('/api/validation/evaluacion/entrar').send({ codigo: otro, consiente: true }).expect(200);
   await request(app).post('/api/validation/evaluacion/responder').send({ codigo: otro, audioId, puntaje: 2 }).expect(200);
 
+  // Desde el QR: sin aceptar no entra; quien construyó la app no evalúa
+  await request(app).post('/api/validation/evaluacion/unirse').send({ idioma: 'quechua', consiente: false, ajeno: true }).expect(400);
+  await request(app).post('/api/validation/evaluacion/unirse').send({ idioma: 'quechua', consiente: true, ajeno: false }).expect(403);
+  const joined = await request(app).post('/api/validation/evaluacion/unirse').send({ idioma: 'quechua', consiente: true, ajeno: true, variedad: 'Puno' }).expect(201);
+  assert.match(joined.body.codigo, /^[A-Z0-9]{8}$/);
+  assert.ok(joined.body.items.some((i) => i.id === audioId));
+  const langs = await request(app).get('/api/validation/evaluacion/lenguas').expect(200);
+  assert.equal(langs.body.meta, 10);
+
   const results = await request(app).get('/api/validation/resultados?idioma=quechua').set(asAdmin).expect(200);
   assert.equal(results.body.juicios, 2);
   assert.equal(results.body.suficiente, false);

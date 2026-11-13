@@ -1,4 +1,4 @@
-// Cifras de SimiAru calculadas sobre la base real (nunca escritas a mano): contenido, audio,
+// Cifras de YachAru calculadas sobre la base real (nunca escritas a mano): contenido, audio,
 // revisión del léxico, evaluación del audio y uso. Sirven para seguir el avance y para reportarlas.
 // Uso: npm run cifras   → escribe docs/cifras.json y docs/cifras.md
 // Cada cifra lleva su definición. Lo que todavía no existe (revisión del léxico, evaluación del audio,
@@ -8,7 +8,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { pool } from '../src/config/database.js';
-import { getCoverage, summarizeRatings } from '../src/controllers/validationController.js';
+import { getCoverage, summarizeRatings, SAMPLE_SIZE } from '../src/controllers/validationController.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const outDir = path.resolve(here, '../../docs');
@@ -39,7 +39,8 @@ const main = async () => {
          JOIN muestra_evaluacion m ON m.audio_id = a.id AND m.idioma = d.idioma WHERE d.idioma = $1`,
       [idioma]
     );
-    evaluation[idioma] = summarizeRatings(rows);
+    const [{ n }] = await q('SELECT COUNT(*)::int AS n FROM muestra_evaluacion WHERE idioma = $1', [idioma]);
+    evaluation[idioma] = summarizeRatings(rows, n || SAMPLE_SIZE);
   }
   // Uso real (agregado, sin personas): cuentas de aula, lecciones completadas y eventos con consentimiento
   const [usage] = await q(`
@@ -55,7 +56,7 @@ const main = async () => {
   fs.writeFileSync(path.join(outDir, 'cifras.json'), `${JSON.stringify(stats, null, 2)}\n`);
 
   const pending = (cond, value) => (cond ? value : '**PENDIENTE**');
-  const lines = [`# Cifras de SimiAru`, '', `Generado: ${stats.generado_en} con \`npm run cifras\` (en backend). No editar a mano.`, ''];
+  const lines = [`# Cifras de YachAru`, '', `Generado: ${stats.generado_en} con \`npm run cifras\` (en backend). No editar a mano.`, ''];
   lines.push('## Definiciones', '');
   for (const [k, v] of Object.entries(coverage.definicion)) lines.push(`- **${k}**: ${v}`);
   lines.push('', '## Contenido y audio', '', '| Lengua | Unidades | Lecciones | Ejercicios | Filas de vocabulario | Entradas únicas | Audio MMS | Grabado | Sin audio | Glotalizadas | Aspiradas | Uvular |', '|---|---|---|---|---|---|---|---|---|---|---|---|');
@@ -69,9 +70,9 @@ const main = async () => {
     const r = v.revision;
     lines.push(`| ${id} | ${pending(r.revisadas, r.revisadas)} | ${r.correctas} | ${r.variantes} | ${r.corregidas} |`);
   }
-  lines.push('', '## Evaluación perceptual del audio (1 a 5)', '', '| Lengua | Evaluadores | Audios | Juicios | Media | α de Krippendorff (ordinal) |', '|---|---|---|---|---|---|');
+  lines.push('', '## Evaluación perceptual del audio (1 a 5)', '', '| Lengua | Evaluadores | Terminaron | Audios | Juicios | Media | α de Krippendorff (ordinal) |', '|---|---|---|---|---|---|---|');
   for (const [id, e] of Object.entries(evaluation)) {
-    lines.push(`| ${id} | ${e.evaluadores} | ${e.audios_evaluados} | ${e.juicios} | ${pending(e.suficiente, e.media)} | ${pending(e.suficiente, e.alfa_krippendorff_ordinal)} |`);
+    lines.push(`| ${id} | ${e.evaluadores} | ${e.evaluadores_completos} | ${e.audios_evaluados} | ${e.juicios} | ${pending(e.suficiente, e.media)} | ${pending(e.suficiente, e.alfa_krippendorff_ordinal)} |`);
   }
   lines.push('', '## Uso', '', `- Aulas: ${usage.aulas}; cuentas de estudiante: ${usage.estudiantes_aula}; lecciones completadas: ${usage.lecciones_completadas}.`, `- Eventos de aprendizaje (con consentimiento): ${usage.eventos} de ${usage.personas_con_eventos} personas; pruebas de aula entregadas: ${usage.pruebas_entregadas}.`, '');
   fs.writeFileSync(path.join(outDir, 'cifras.md'), lines.join('\n'));

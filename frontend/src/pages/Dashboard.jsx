@@ -214,9 +214,9 @@ const Dashboard = ({ user, setUser, isGuest, setIsGuest }) => {
       <header className="bg-white sticky top-0 z-50 border-b border-stone-200">
         <div className="container mx-auto py-3">
           <div className="flex justify-between items-center gap-3">
-            <Link to="/dashboard" className="flex items-center gap-3" aria-label="SimiAru, ir al panel">
+            <Link to="/dashboard" className="flex items-center gap-3" aria-label="YachAru, ir al panel">
               <img src={logo} alt="" width="160" height="160" className="h-10 w-auto" />
-              <span className="text-2xl font-black texto-degradado hidden md:block">SimiAru</span>
+              <span className="text-2xl font-black texto-degradado hidden md:block">YachAru</span>
             </Link>
 
             <nav className="flex items-center gap-1 sm:gap-3" aria-label="Principal">

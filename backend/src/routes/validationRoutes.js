@@ -8,6 +8,8 @@ import {
   createEvaluators,
   listEvaluators,
   enterEvaluation,
+  joinEvaluation,
+  evaluationLanguages,
   answerEvaluation,
   getResults,
   listLexicon,
@@ -23,6 +25,8 @@ router.get('/audios/:idioma', getAudioIndex);
 router.get('/cobertura', getCoverage);
 
 // Quien evalúa entra con su código, sin cuenta ni datos personales
+router.get('/evaluacion/lenguas', evaluationLanguages);
+router.post('/evaluacion/unirse', validate(schemas.evaluationJoin), joinEvaluation);
 router.post('/evaluacion/entrar', validate(schemas.evaluationEnter), enterEvaluation);
 router.post('/evaluacion/responder', validate(schemas.evaluationAnswer), answerEvaluation);
 

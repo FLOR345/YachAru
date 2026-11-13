@@ -1,6 +1,6 @@
 # Vocabulario aymara (IDS)
 
-El vocabulario aymara de SimiAru viene de la lista de **aymara central** (`ayr`, Glottocode `cent2142`) de **Félix Layme Pairumani** en el *Intercontinental Dictionary Series*:
+El vocabulario aymara de YachAru viene de la lista de **aymara central** (`ayr`, Glottocode `cent2142`) de **Félix Layme Pairumani** en el *Intercontinental Dictionary Series*:
 
 > Key, Mary Ritchie & Comrie, Bernard (eds.) 2023. *The Intercontinental Dictionary Series*. Leipzig: Max Planck Institute for Evolutionary Anthropology. https://ids.clld.org — licencia **CC BY 4.0**.
 
