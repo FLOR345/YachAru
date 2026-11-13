@@ -1,7 +1,7 @@
 {
-  "generado_en": "2026-11-04T22:03:54.228Z",
+  "generado_en": "2026-11-13T18:43:00.213Z",
   "cobertura": {
-    "generado_en": "2026-11-04T22:03:53.430Z",
+    "generado_en": "2026-11-13T18:42:59.062Z",
     "definicion": {
       "fila": "Una fila de la tabla vocabulario (una palabra puede repetirse en varias lecciones).",
       "entrada_unica": "Texto distinto tras normalizarlo: minúsculas, apóstrofos unificados y sin signos.",
@@ -10,36 +10,6 @@
       "voces_mms": "Textos con cada voz. La voz transformada sale de la del modelo con el vocoder WORLD (tono y formantes)."
     },
     "idiomas": {
-      "aymara": {
-        "filas": 996,
-        "entradas_unicas": 946,
-        "audio": {
-          "mms": 996,
-          "grabado": 0,
-          "sin_audio": 0
-        },
-        "cobertura_audio_pct": 100,
-        "modelos": [
-          "facebook/mms-tts-ayr"
-        ],
-        "fenomenos": {
-          "glotalizada": 180,
-          "aspirada": 162,
-          "uvular": 190
-        },
-        "revision": {
-          "revisadas": 0,
-          "correctas": 0,
-          "variantes": 0,
-          "corregidas": 0
-        },
-        "voces_mms": {
-          "mujer": {
-            "textos": 2325,
-            "transformada": true
-          }
-        }
-      },
       "quechua": {
         "filas": 525,
         "entradas_unicas": 489,
@@ -69,15 +39,43 @@
             "transformada": false
           }
         }
+      },
+      "aymara": {
+        "filas": 795,
+        "entradas_unicas": 795,
+        "audio": {
+          "mms": 0,
+          "grabado": 0,
+          "sin_audio": 795
+        },
+        "cobertura_audio_pct": 0,
+        "modelos": [],
+        "fenomenos": {
+          "glotalizada": 194,
+          "aspirada": 135,
+          "uvular": 185
+        },
+        "revision": {
+          "revisadas": 0,
+          "correctas": 0,
+          "variantes": 0,
+          "corregidas": 0
+        },
+        "voces_mms": {
+          "mujer": {
+            "textos": 2325,
+            "transformada": true
+          }
+        }
       }
     }
   },
   "contenido": [
     {
       "idioma": "aymara",
-      "unidades": 16,
-      "lecciones": 71,
-      "ejercicios": 670
+      "unidades": 19,
+      "lecciones": 77,
+      "ejercicios": 693
     },
     {
       "idioma": "quechua",
@@ -90,37 +88,27 @@
     {
       "idioma": "aymara",
       "tipo": "multiple_choice",
-      "n": 329
+      "n": 385
     },
     {
       "idioma": "aymara",
       "tipo": "translate",
-      "n": 102
-    },
-    {
-      "idioma": "aymara",
-      "tipo": "true_false",
-      "n": 84
-    },
-    {
-      "idioma": "aymara",
-      "tipo": "matching",
-      "n": 71
+      "n": 77
     },
     {
       "idioma": "aymara",
       "tipo": "listen_write",
-      "n": 58
+      "n": 77
     },
     {
       "idioma": "aymara",
-      "tipo": "fill_blanks",
-      "n": 13
+      "tipo": "true_false",
+      "n": 77
     },
     {
       "idioma": "aymara",
-      "tipo": "word_order",
-      "n": 13
+      "tipo": "matching",
+      "n": 77
     },
     {
       "idioma": "quechua",
@@ -185,7 +173,7 @@
     }
   ],
   "evaluacion_audio": {
-    "aymara": {
+    "quechua": {
       "evaluadores": 0,
       "audios_evaluados": 0,
       "juicios": 0,
@@ -195,7 +183,7 @@
       "suficiente": false,
       "aviso": "Faltan evaluadores: el mínimo para reportar es 8."
     },
-    "quechua": {
+    "aymara": {
       "evaluadores": 0,
       "audios_evaluados": 0,
       "juicios": 0,
@@ -210,7 +198,7 @@
     "aulas": 2,
     "estudiantes_aula": 2,
     "lecciones_completadas": 6,
-    "eventos": 116,
+    "eventos": 118,
     "personas_con_eventos": 3,
     "pruebas_entregadas": 0
   }

@@ -29,8 +29,7 @@ const literal = (value, typeId) => {
 
 let sql = `-- Contenido de SimiAru (sin datos de personas), generado con: npm run db:content
 -- Generado: ${new Date().toISOString()}
--- Aviso: parte del vocabulario aymara proviene de diccionarios del Ministerio de Educación de Chile;
--- su licencia de redistribución está pendiente de confirmar (ver README).
+-- Vocabulario aymara: Félix Layme Pairumani, Intercontinental Dictionary Series (CC BY 4.0), ver languages/aymara/README.md.
 
 BEGIN;
 `;

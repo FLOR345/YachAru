@@ -31,7 +31,7 @@ docker compose up --build
 - API: http://localhost:5000/health
 - PostgreSQL: `localhost:5433` (user/password/db: `simiaru`)
 
-The database is created from the real schema (`database/schema.sql`), the migrations (`database/migrations/`) and the content seed (`database/seed/contenido.sql`: 25 units, 92 lessons, 1,521 vocabulary rows, 879 exercises, 69 cultural texts; no personal data; current figures in `docs/cifras.md`).
+The database is created from the real schema (`database/schema.sql`), the migrations (`database/migrations/`) and the content seed (`database/seed/contenido.sql`: 28 units, 98 lessons, 1,320 vocabulary rows, 902 exercises, 69 cultural texts; no personal data; current figures in `docs/cifras.md`).
 
 ## Verify the three claims in five minutes
 
@@ -108,7 +108,7 @@ docs/            documentation
 - **Code:** [MIT](LICENSE).
 - **Generated audio:** [CC BY-NC 4.0](LICENSE-AUDIO.md), inherited from the MMS models.
 - **Visual effects** (`frontend/src/components/fx/`): written for SimiAru, MIT like the rest of the code.
-- **Linguistic content:** not covered by the MIT license. Part of the Aymara vocabulary comes from dictionaries of Chile's Ministry of Education; redistribution terms are pending confirmation.
+- **Linguistic content:** not covered by the MIT license. The Aymara vocabulary comes from Félix Layme Pairumani's Central Aymara list in the Intercontinental Dictionary Series (CC BY 4.0); see `languages/aymara/README.md`.
 
 ## Cite
 

@@ -2,25 +2,7 @@
 
 Para los pasos que solo puede dar el equipo. Completen lo que está entre corchetes.
 
-## 1. Licencia del diccionario aymara (Ministerio de Educación de Chile)
-
-**Asunto:** Consulta sobre licencia de uso del diccionario aymara [título exacto]
-
-> Estimados:
->
-> Somos [nombres], estudiantes de [carrera, universidad], quechuahablantes de Puno, Perú. Desarrollamos SimiAru, una plataforma web gratuita y de código abierto para aprender quechua y aymara, sin fines de lucro.
->
-> Parte del vocabulario aymara de la plataforma proviene de [título del diccionario, año, enlace]. Queremos confirmar si su licencia nos permite:
->
-> 1. usar esas entradas en la plataforma, citando la fuente;
-> 2. incluirlas en el repositorio público del proyecto, con la misma cita;
-> 3. describir su uso en un artículo académico.
->
-> Si es necesaria una autorización expresa, les agradeceríamos indicarnos el procedimiento. Si no fuera posible, retiraremos ese contenido.
->
-> Atentamente, [nombres, universidad, contacto]
-
-## 2. Costo de publicación (Elsevier, SoftwareX)
+## 1. Costo de publicación (Elsevier, SoftwareX)
 
 **Asunto:** Article publishing charge and waivers for SoftwareX – authors from Peru
 
@@ -30,19 +12,19 @@ Para los pasos que solo puede dar el equipo. Completen lo que está entre corche
 >
 > Kind regards, [name, affiliation]
 
-## 3. Invitación a un colaborador aymarahablante
+## 2. Invitación a un colaborador aymarahablante
 
 **Asunto:** Invitación a colaborar en SimiAru (aymara)
 
 > Hola [nombre]:
 >
-> Somos quechuahablantes de Puno y hacemos SimiAru, una plataforma abierta para aprender quechua y aymara. El aymara ya tiene 16 unidades, pero en el equipo nadie lo habla. Buscamos a alguien que revise el vocabulario aymara en la plataforma: marcar si cada palabra es correcta, una variante o un error, y anotar las que falten.
+> Somos quechuahablantes de Puno y hacemos SimiAru, una plataforma abierta para aprender quechua y aymara. El aymara tiene 19 unidades con el vocabulario de Félix Layme Pairumani (Intercontinental Dictionary Series), pero en el equipo nadie lo habla. Buscamos a alguien que revise el vocabulario aymara en la plataforma: marcar si cada palabra es correcta, una variante o un error, y anotar las que falten.
 >
 > Calculamos [N] horas de trabajo. [Ofrecemos coautoría en el artículo sobre la plataforma / reconocimiento en los agradecimientos].
 >
 > ¿Te interesaría conversarlo? [contacto]
 
-## 4. Consulta a la facultad sobre revisión ética
+## 3. Consulta a la facultad sobre revisión ética
 
 **Asunto:** Consulta sobre revisión ética: evaluación de audio con hablantes y uso de una plataforma en un curso
 

@@ -39,6 +39,10 @@
 
 ### Cambiado
 
+- **Aymara con fuente abierta.** El vocabulario aymara anterior (996 filas) venía entero de un diccionario del Ministerio de Educación de Chile, sin licencia de redistribución confirmada y de otra variedad. Se reemplazó por la lista de aymara central de Félix Layme Pairumani en el *Intercontinental Dictionary Series* (CC BY 4.0), con traducciones de Concepticon:
+  - `languages/aymara/generar_desde_ids.py` la pasa al alfabeto oficial con reglas fijas (con pruebas en CI) y deja fuera préstamos y 9 conceptos;
+  - `backend/scripts/aymara-desde-ids.js` arma 19 unidades (una por capítulo), 77 lecciones, 795 palabras y 693 ejercicios, con copia previa del contenido anterior;
+  - se retiraron los 961 ejemplos de oraciones aymara, que no tenían fuente.
 - Los efectos visuales de React Bits (licencia MIT + Commons Clause, que prohíbe redistribuirlos) se reemplazaron por implementaciones propias en `frontend/src/components/fx/`, con la licencia MIT del proyecto.
 - `npm run cifras` (en `backend`) escribe `docs/cifras.md` y `docs/cifras.json` con todas las cifras sobre la base real y su definición. Lo que falta aparece como pendiente.
 - Guías para el equipo: `docs/protocolo-evaluacion.md`, `docs/guia-revision-lexico.md`, `docs/piloto-curso.md` y `docs/plantillas-correos.md`. Además, `REVIEWERS.md` (en inglés) para comprobar el proyecto en cinco minutos.

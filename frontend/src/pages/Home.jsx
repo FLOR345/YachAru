@@ -38,7 +38,7 @@ const LANGUAGES = {
     Icon: Globe,
     description:
       'La lengua del Tahuantinsuyo, hablada hoy por millones de personas en los Andes. SimiAru enseña la variedad Cusco-Collao, la que se habla en Puno.',
-    facts: ['6 unidades temáticas', '13 lecciones interactivas', 'Voz sintetizada', '31 textos culturales'],
+    facts: ['9 unidades temáticas', '21 lecciones interactivas', 'Voz sintetizada', '31 textos culturales'],
     units: [
       ['Saludos y presentaciones', 'Rimaykullayki (hola)'],
       ['La familia', 'Tayta, Mama, Wawqiy, Ñaña'],
@@ -58,7 +58,7 @@ const LANGUAGES = {
     Icon: Mountain,
     description:
       'La lengua del lago Titicaca, hablada por alrededor de 2 millones de personas en Perú, Bolivia y Chile. SimiAru enseña el aymara central.',
-    facts: ['6 unidades temáticas', '13 lecciones interactivas', 'Voz sintetizada', '38 textos culturales'],
+    facts: ['19 unidades temáticas', '77 lecciones interactivas', 'Vocabulario de Félix Layme Pairumani', '38 textos culturales'],
     units: [
       ['Saludos y presentaciones', 'Kamisaraki (¿cómo estás?)'],
       ['La familia', 'Awki, Tayka, Jilata, Kullaka'],
@@ -104,7 +104,7 @@ const HIGHLIGHTS = [
 ];
 
 const FEATURES = [
-  [BookOpen, 'Lecciones interactivas', 'Ejercicios con voz sintetizada y corrección al instante', '92 lecciones disponibles'],
+  [BookOpen, 'Lecciones interactivas', 'Ejercicios con voz sintetizada y corrección al instante', '98 lecciones disponibles'],
   [Heart, 'Cultura viva', 'Cuentos, proverbios, adivinanzas y canciones en quechua y aymara, con su traducción', '69 contenidos culturales'],
   [Trophy, 'Rachas e insignias', 'Gana Ayni Points por cada lección, mantén tu racha diaria y desbloquea insignias', '7 insignias desbloqueables'],
   [Target, 'Tu progreso, guardado', 'Cada lección registra tus aciertos para que veas tu avance y retomes donde lo dejaste', 'Progreso por lección'],
@@ -858,7 +858,7 @@ const Home = ({ enableGuestMode }) => {
           <div className="container mx-auto">
             <Reveal className="text-center mb-12 space-y-4">
               <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">Elige tu idioma</h2>
-              <BlurText text="Dos lenguas del altiplano, cada una con 6 unidades y 13 lecciones" className="text-xl text-stone-600 max-w-3xl mx-auto" delay={60} stepDuration={0.3} />
+              <BlurText text="Dos lenguas del altiplano: 28 unidades y 98 lecciones" className="text-xl text-stone-600 max-w-3xl mx-auto" delay={60} stepDuration={0.3} />
             </Reveal>
 
             <figure className="max-w-5xl mx-auto mb-12">
