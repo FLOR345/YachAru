@@ -162,6 +162,14 @@ export const api = {
   getEvaluationResults: (idioma) => axiosInstance.get('/api/validation/resultados', { params: { idioma } }),
   getLexicon: (params) => axiosInstance.get('/api/validation/lexico', { params }),
   reviewWord: (id, data) => axiosInstance.put(`/api/validation/lexico/${id}`, data),
+  // Grabación de una hablante para una palabra (reemplaza la voz sintética en toda la app)
+  uploadWordRecording: (id, blob) => {
+    const form = new FormData();
+    const ext = blob.type.includes('mp4') ? 'm4a' : blob.type.includes('ogg') ? 'ogg' : 'webm';
+    form.append('audio', blob, `grabacion.${ext}`);
+    // multipart: con el JSON por defecto, axios convertiría el archivo en texto
+    return axiosInstance.post(`/api/dictionary/audio/${id}`, form, { headers: { 'Content-Type': 'multipart/form-data' } });
+  },
   addMissingWord: (data) => axiosInstance.post('/api/validation/lexico-faltante', data),
 };
 

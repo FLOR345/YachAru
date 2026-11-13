@@ -316,7 +316,7 @@ export const listLexicon = async (req, res, next) => {
       WHERE ${filters.join(' AND ')}`;
     const total = await pool.query(`SELECT COUNT(*)::int AS n ${from}`, params);
     const { rows } = await pool.query(
-      `SELECT v.id, v.palabra_objetivo, v.palabra_espanol, v.ejemplo_uso, l.titulo AS leccion, r.estado, r.correccion, r.nota, r.valor_original
+      `SELECT v.id, v.palabra_objetivo, v.palabra_espanol, v.ejemplo_uso, v.audio_url, l.titulo AS leccion, r.estado, r.correccion, r.nota, r.valor_original
        ${from} ORDER BY v.palabra_objetivo, v.id LIMIT 30 OFFSET $${params.length + 1}`,
       [...params, (page - 1) * 30]
     );

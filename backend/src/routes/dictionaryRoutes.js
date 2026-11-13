@@ -20,8 +20,8 @@ const upload = multer({
   limits: { fileSize: 10 * 1024 * 1024 }, // Límite de 10MB
   fileFilter: (req, file, cb) => {
     // Solo permitir archivos de audio
-    const allowedTypes = ['audio/mpeg', 'audio/mp3', 'audio/wav', 'audio/ogg', 'audio/webm'];
-    if (allowedTypes.includes(file.mimetype)) {
+    const allowedTypes = ['audio/mpeg', 'audio/mp3', 'audio/wav', 'audio/ogg', 'audio/webm', 'audio/mp4', 'audio/x-m4a', 'audio/aac'];
+    if (allowedTypes.includes(String(file.mimetype).split(';')[0])) {
       cb(null, true);
     } else {
       cb(new Error('Tipo de archivo no permitido. Solo se permiten archivos de audio.'), false);

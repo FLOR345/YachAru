@@ -158,7 +158,7 @@ const Dictionary = () => {
     axios
       .get(`${API_URL}/api/dictionary/all?idioma=${idioma}`)
       .then(({ data }) => {
-        const words = data.words || [];
+        const words = uniqueWords(data.words || []);
         setAllWords(words);
         setDiscover(shuffle(words).slice(0, 8));
       })
@@ -178,7 +178,7 @@ const Dictionary = () => {
     setError(false);
     try {
       const responses = await Promise.all(urls.map((u) => axios.get(u)));
-      if (id === requestId.current) setResults(responses.flatMap((r) => r.data.words || []));
+      if (id === requestId.current) setResults(uniqueWords(responses.flatMap((r) => r.data.words || [])));
     } catch (err) {
       console.error('Error en el diccionario:', err);
       if (id === requestId.current) {
@@ -548,6 +548,18 @@ const EmptyState = ({ pose, icon: Icon, title, text }) => (
 );
 
 // ==================== TARJETA DE PALABRA ====================
+// La misma palabra con el mismo significado puede estar en varias lecciones: en el diccionario sale una vez
+const plainKey = (w) =>
+  `${String(w.palabra_objetivo ?? '').trim().toLowerCase().normalize('NFC').replace(/[’‘´`ʼ]/g, "'")}|${String(w.palabra_espanol ?? '').trim().toLowerCase().normalize('NFC')}`;
+const uniqueWords = (list) => {
+  const seen = new Set();
+  return list.filter((w) => {
+    const k = plainKey(w);
+    if (seen.has(k)) return false;
+    seen.add(k);
+    return true;
+  });
+};
 const exKey = (w) => `${String(w.palabra_objetivo ?? '').trim().toLowerCase().normalize('NFC')}|${String(w.palabra_espanol ?? '').trim().toLowerCase().normalize('NFC')}`;
 
 // Ejemplo de la palabra: el de la base (con su traducción) o el de SimiAru

@@ -1,8 +1,10 @@
 // Panel de validación para administradores: revisión del léxico por hablantes y evaluación perceptual del audio.
 // Todo se guarda en línea. Las cifras que se muestran son las que luego se reportan en el artículo.
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Check, Copy, Download, RefreshCw } from 'lucide-react';
+import { ArrowLeft, Check, Copy, Download, RefreshCw, Mic, Square, Play, Upload, Volume2 } from 'lucide-react';
+import { startRecording, canRecord } from '../utils/voice';
+import { speak, audioSource, AUDIO_LABELS } from '../utils/speech';
 import { toast } from '../utils/notify';
 import { api } from '../services/api';
 import { LANGUAGES, getLanguage } from '../languages';
@@ -17,6 +19,63 @@ const button = 'ficha min-h-11 px-4 rounded-xl border-stone-300 bg-white font-bo
 const panel = 'bg-white rounded-3xl border border-stone-200 shadow-sm p-5 sm:p-6';
 
 const messageOf = (error, fallback) => error.response?.data?.message ?? fallback;
+
+// Grabar la palabra con la voz de una hablante: escuchar antes de guardar
+const Recorder = ({ word, onSaved }) => {
+  const [state, setState] = useState('idle'); // idle | recording | ready | saving
+  const [take, setTake] = useState(null);
+  const rec = useRef(null);
+  if (!canRecord()) return null;
+  const start = async () => {
+    try {
+      setState('recording');
+      const r = await startRecording({ maxMs: 4000 });
+      rec.current = r;
+      const result = await r.done;
+      setTake(result);
+      setState('ready');
+    } catch {
+      toast.error('No se pudo usar el micrófono');
+      setState('idle');
+    }
+  };
+  const save = async () => {
+    setState('saving');
+    try {
+      const { data } = await api.uploadWordRecording(word.id, take.blob);
+      toast.success(`Grabación guardada en ${data.filas} ${data.filas === 1 ? 'lección' : 'lecciones'}`);
+      setTake(null);
+      setState('idle');
+      onSaved();
+    } catch (error) {
+      toast.error(messageOf(error, 'No se guardó la grabación'));
+      setState('ready');
+    }
+  };
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      {state === 'recording' ? (
+        <button type="button" onClick={() => rec.current?.stop()} className={`${button} border-rose-400 bg-rose-50 text-rose-800`}>
+          <Square className="w-4 h-4 fill-current" aria-hidden="true" /> Detener
+        </button>
+      ) : (
+        <button type="button" onClick={start} disabled={state === 'saving'} className={button}>
+          <Mic className="w-4 h-4" aria-hidden="true" /> {take ? 'Grabar de nuevo' : 'Grabar'}
+        </button>
+      )}
+      {take && (
+        <>
+          <button type="button" onClick={() => new Audio(take.url).play()} className={button}>
+            <Play className="w-4 h-4" aria-hidden="true" /> Escuchar mi grabación
+          </button>
+          <button type="button" onClick={save} disabled={state === 'saving'} className={`${button} border-green-600 bg-green-50 text-green-800`}>
+            <Upload className="w-4 h-4" aria-hidden="true" /> {state === 'saving' ? 'Guardando…' : 'Guardar grabación'}
+          </button>
+        </>
+      )}
+    </div>
+  );
+};
 
 const WordRow = ({ word, onSaved }) => {
   const [fix, setFix] = useState(word.correccion ?? '');
@@ -38,6 +97,12 @@ const WordRow = ({ word, onSaved }) => {
         <p className="text-stone-600">{word.palabra_espanol}</p>
         <p className="text-sm text-stone-500">{word.leccion}</p>
         {word.estado && <span className="text-sm font-bold text-green-800">Revisada: {word.estado}</span>}
+      </div>
+      <div className="mt-2 flex flex-wrap items-center gap-2">
+        <button type="button" onClick={() => speak(word.palabra_objetivo, { url: word.audio_url })} className={button} aria-label={`Escuchar ${word.palabra_objetivo}`}>
+          <Volume2 className="w-4 h-4" aria-hidden="true" /> {AUDIO_LABELS[audioSource(word.audio_url)]}
+        </button>
+        <Recorder word={word} onSaved={onSaved} />
       </div>
       {word.valor_original && word.valor_original !== word.palabra_objetivo && <p className="text-sm text-stone-500">Antes: {word.valor_original}</p>}
       {word.ejemplo_uso && <p className="text-sm italic text-stone-600">{word.ejemplo_uso}</p>}

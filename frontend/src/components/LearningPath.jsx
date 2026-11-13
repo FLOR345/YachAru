@@ -6,6 +6,7 @@
 // - El contador de cada unidad cuenta todos los pasos que se ven (lecciones y estaciones).
 // - Efectos: las islas flotan, pasan nubes, un cóndor y mariposas; el trofeo brilla al completar.
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from '../utils/notify';
@@ -518,6 +519,14 @@ const LearningPath = ({ units, langId, isGuest, isLessonCompleted }) => {
   const [error, setError] = useState(false);
   const [reload, setReload] = useState(0);
   const [visited, setVisited] = useState(readVisited);
+  // El botón flotante aparece al bajar hasta el camino (arriba taparía los botones del panel)
+  const [showFloating, setShowFloating] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setShowFloating(window.scrollY > 900);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
   const visit = (key) => {
     markVisited(key);
     setVisited(readVisited());
@@ -632,9 +641,12 @@ const LearningPath = ({ units, langId, isGuest, isLessonCompleted }) => {
         })}
       </ol>
 
-      {/* Botón flotante: lleva a la lección que toca */}
-      {firstPending && (
-        <div className="pointer-events-none fixed inset-x-0 bottom-4 z-40 flex justify-center sm:justify-end sm:px-8">
+      {/* Botón flotante: lleva a la lección que toca. Va directo al <body>: dentro de un contenedor
+          animado (con transform), "fixed" quedaría pegado a ese contenedor y no a la pantalla */}
+      {firstPending &&
+        showFloating &&
+        createPortal(
+        <div className="pointer-events-none fixed inset-x-0 bottom-4 z-40 flex justify-center px-4 xl:pr-[19rem]">
           <StarBorder
             as={Link}
             to={`/lesson/${firstPending.lesson.id}`}
@@ -643,7 +655,6 @@ const LearningPath = ({ units, langId, isGuest, isLessonCompleted }) => {
             theme="light"
             color="#fde68a"
             borderColor="rgba(255,255,255,0.7)"
-            backgroundColor="transparent"
             textColor="#ffffff"
             radius={999}
             thickness={2}
@@ -662,8 +673,9 @@ const LearningPath = ({ units, langId, isGuest, isLessonCompleted }) => {
               </span>
             </span>
           </StarBorder>
-        </div>
-      )}
+        </div>,
+          document.body
+        )}
 
       {/* Mapa de la ruta: todas las unidades con su avance; tocar una lleva hasta ella */}
       <aside className="hidden xl:block sticky top-24 space-y-5" aria-label="Mapa de tu ruta">
