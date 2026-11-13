@@ -20,12 +20,13 @@ Base de la sección *Limitations and ethics* del artículo.
 - Se usa `quz` porque no existe un modelo específico de Puno.
 - Los modelos MMS tienen una sola voz. Cuando es de hombre, la voz de mujer de la app es una transformación de ella con el vocoder WORLD, no la voz de otra persona.
 - Que el modelo reciba el apóstrofo no prueba que pronuncie bien las glotalizadas.
-- Si nadie del equipo habla aymara, para esa lengua el equipo es externo. Debe resolverse con un colaborador o declararse.
+- Nadie del equipo habla aymara. El vocabulario aymara viene de una fuente publicada y abierta (Félix Layme Pairumani en el *Intercontinental Dictionary Series*, CC BY 4.0) y lo revisa un colaborador aymarahablante. La conversión al alfabeto oficial es por reglas fijas; los casos dudosos (*j* / *x*) se confirman con él (`languages/aymara/README.md`).
 - El awajún es una demostración técnica sin revisión de hablantes y no se publica en la plataforma.
 - La nota de "¡Dilo tú!" mide el parecido con la palabra modelo, no cada sonido: no dice si una glotalizada o una aspirada se pronunció bien. Está calibrada con voces sintéticas, no con personas.
 
 - Las unidades nuevas no agregan palabras escritas por un modelo:
   - reordenan, por su categoría en la base, vocabulario que ya venía de los diccionarios;
+  - en aymara, todo el vocabulario viene de IDS, una unidad por capítulo;
   - en quechua suman las partes del cuerpo del modelo 3D.
   - Los ejercicios de esas lecciones se generan con reglas fijas a partir de sus palabras (`backend/scripts/organize-units.js`).
 
@@ -34,9 +35,12 @@ Base de la sección *Limitations and ethics* del artículo.
 - Los eventos de aprendizaje se registran solo con consentimiento, y la persona puede descargarlos y borrarlos.
 - La exportación va seudonimizada: nunca lleva nombre, correo ni id interno.
 - El modo aula funciona sin correo ni datos personales.
-- Las grabaciones del micrófono se procesan en el navegador y se descartan al cerrar: no se suben ni se guardan en ningún servidor. Solo se registra la nota (un número), y únicamente con consentimiento.
+- Las grabaciones del micrófono de quien aprende se procesan en el navegador y se descartan al cerrar: no se suben ni se guardan en ningún servidor. Solo se registra la nota (un número), y únicamente con consentimiento.
+- Solo se guardan las grabaciones que un hablante revisor sube a propósito en `/validacion`, después de escucharlas, para que esa palabra suene con voz humana.
 
 ## Declaración de uso de herramientas de IA (borrador)
+
+**Pendiente antes de usar esta declaración:** los ejemplos de oraciones en quechua, las adivinanzas, refranes y canciones extra y los cuentos se redactaron con ayuda de IA. Mientras un hablante no los revise o no se retiren, la frase «El contenido lingüístico no fue generado por esa herramienta» no es cierta. Los ejemplos aymara ya se retiraron.
 
 > Durante el desarrollo se usó Claude Code (Anthropic), modelo Claude Opus 5.5, como asistente de programación y documentación. El contenido lingüístico no fue generado por esa herramienta. Los autores revisaron el código y son responsables de la obra.
 

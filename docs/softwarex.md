@@ -21,6 +21,7 @@ Desde el 4/11/2026 no se agregan funciones nuevas: solo correcciones de errores,
 | Guía para revisores | Hecho | `REVIEWERS.md` |
 | Licencias limpias | Hecho: los efectos visuales de terceros (MIT + Commons Clause) se reemplazaron por código propio MIT | `frontend/src/components/fx/` |
 | Cifras reproducibles | Hecho | `backend/scripts/cifras.js` |
+| Vocabulario aymara con licencia abierta | Hecho: el diccionario de Chile (sin licencia confirmada) se reemplazó por IDS, CC BY 4.0 | `languages/aymara/`, `backend/scripts/aymara-desde-ids.js` |
 | Herramientas de revisión y evaluación | Hechas | `/validacion`, `/evaluacion` |
 
 ## Lo que solo puede hacer el equipo
@@ -28,10 +29,11 @@ Desde el 4/11/2026 no se agregan funciones nuevas: solo correcciones de errores,
 Por orden de urgencia:
 
 1. **Cambiar las claves de Neon y Cloudinary**, que se compartieron en un chat. Luego actualizarlas en Render y en los secretos de GitHub.
-2. **Licencia del diccionario aymara de Chile.** Correo en `plantillas-correos.md`. Si no permite redistribuir, hay que cambiar de fuente.
+2. **Audio del aymara nuevo.** `Audio MMS` en modo `completo` con idiomas `aymara`: las 795 palabras de IDS aún no tienen audio.
 3. **Palabras cortas** ("ama", "uma"…): `Audio MMS` en modo `comparar`, elegir el estilo y luego `rehacer-cortas`. Va antes de la evaluación.
 4. **Revisión del léxico quechua** por el equipo: `guia-revision-lexico.md`.
-5. **Colaborador aymarahablante**, para revisar el aymara (correo en `plantillas-correos.md`), o declararlo como limitación.
+5. **Revisión del aymara** por el colaborador aymarahablante en `/validacion` (agregar su correo a `ADMIN_EMAILS` en Render), sobre todo la *j* y la *x* (`languages/aymara/README.md`). Su nombre y ORCID van en `CITATION.cff`.
+   - **Textos redactados con ayuda de IA**: ejemplos de oraciones en quechua (`frontend/src/data/ejemplos.json`), adivinanzas, refranes y canciones (`culturaExtra.js`) y cuentos (`cuentos.js`). Hay que revisarlos con hablantes o retirarlos antes de enviar; si no, la declaración de `etica-e-ia.md` no es cierta.
 6. **Revisión ética** en la facultad (correo en `plantillas-correos.md`).
 7. **Evaluación del audio** con 8 a 10 hablantes que no hayan construido SimiAru: `protocolo-evaluacion.md`.
 8. **Piloto en el curso** de Puno: `piloto-curso.md`.
@@ -43,6 +45,7 @@ Por orden de urgencia:
 - El calificador de "¡Dilo tú!" se presenta como **orientativo y experimental**, o se deja fuera. No es reconocimiento de voz (`calificador-de-voz.md`), pero está calibrado solo con voces sintéticas.
 - La voz aymara es una **transformación** de la voz del modelo (WORLD). La evaluación mide la voz que suena en la app.
 - Las unidades nuevas **reordenan vocabulario existente**, sin palabras escritas por un modelo. Sus ejercicios se generan con reglas fijas.
+- El aymara viene de una fuente citable y abierta (Layme Pairumani en IDS, CC BY 4.0), pasado al alfabeto oficial con reglas fijas y probadas (`languages/aymara/test_generar.py`).
 - **Declarar el uso de herramientas de IA** en el desarrollo: la herramienta, la versión y para qué se usó.
 
 ## Antes de la versión v1.0.0

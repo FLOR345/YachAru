@@ -1,0 +1,7161 @@
+{
+ "fuente": "Félix Layme Pairumani, Aymara (central), en Key & Comrie (eds.) 2023, The Intercontinental Dictionary Series, https://ids.clld.org (CC BY 4.0)",
+ "traducciones": "Concepticon, lista Key-2016-1310 (CC BY 4.0)",
+ "entradas": [
+  {
+   "ids": "1-210",
+   "capitulo": 1,
+   "aymara": "uraqi",
+   "ids_forma": "uraḳi",
+   "espanol": "tierra",
+   "ingles": "earth, land",
+   "nota": null
+  },
+  {
+   "ids": "1-213",
+   "capitulo": 1,
+   "aymara": "laq'a",
+   "ids_forma": "laḳˀa",
+   "espanol": "polvo",
+   "ingles": "dust",
+   "nota": null
+  },
+  {
+   "ids": "1-214",
+   "capitulo": 1,
+   "aymara": "ñiq'i",
+   "ids_forma": "ɲiḳˀi",
+   "espanol": "lodo",
+   "ingles": "mud",
+   "nota": null
+  },
+  {
+   "ids": "1-215",
+   "capitulo": 1,
+   "aymara": "ch'alla",
+   "ids_forma": "čˀalʸa",
+   "espanol": "arena",
+   "ingles": "sand",
+   "nota": null
+  },
+  {
+   "ids": "1-220",
+   "capitulo": 1,
+   "aymara": "qullu",
+   "ids_forma": "ḳulʸu",
+   "espanol": "montaña, loma",
+   "ingles": "mountain, hill",
+   "nota": "A mountain range is ḳulʸu ḳulʸu."
+  },
+  {
+   "ids": "1-230",
+   "capitulo": 1,
+   "aymara": "pampa",
+   "ids_forma": "pampa",
+   "espanol": "pampa, llanura, campo",
+   "ingles": "plain, field",
+   "nota": null
+  },
+  {
+   "ids": "1-240",
+   "capitulo": 1,
+   "aymara": "qhirwa",
+   "ids_forma": "ḳʰirwa",
+   "espanol": "valle",
+   "ingles": "valley",
+   "nota": null
+  },
+  {
+   "ids": "1-270",
+   "capitulo": 1,
+   "aymara": "quta laka",
+   "ids_forma": "ḳuta laka",
+   "espanol": "ribera, playa, costa",
+   "ingles": "shore",
+   "nota": "Lit. 'lake-edge'; see 'mouth' 04.240."
+  },
+  {
+   "ids": "1-280",
+   "capitulo": 1,
+   "aymara": "tiji",
+   "ids_forma": "tixi",
+   "espanol": "cueva",
+   "ingles": "cave",
+   "nota": null
+  },
+  {
+   "ids": "1-310",
+   "capitulo": 1,
+   "aymara": "uma",
+   "ids_forma": "uma",
+   "espanol": "agua",
+   "ingles": "water",
+   "nota": null
+  },
+  {
+   "ids": "1-324",
+   "capitulo": 1,
+   "aymara": "juphuqu",
+   "ids_forma": "xupʰuḳu",
+   "espanol": "espuma",
+   "ingles": "foam",
+   "nota": null
+  },
+  {
+   "ids": "1-329",
+   "capitulo": 1,
+   "aymara": "mama quta",
+   "ids_forma": "mama-ḳuta",
+   "espanol": "océano",
+   "ingles": "ocean",
+   "nota": null
+  },
+  {
+   "ids": "1-330",
+   "capitulo": 1,
+   "aymara": "quta",
+   "ids_forma": "ḳuta",
+   "espanol": "lago",
+   "ingles": "lake",
+   "nota": null
+  },
+  {
+   "ids": "1-341",
+   "capitulo": 1,
+   "aymara": "qutaña",
+   "ids_forma": "ḳuta-ɲa",
+   "espanol": "laguna",
+   "ingles": "lagoon",
+   "nota": null
+  },
+  {
+   "ids": "1-350",
+   "capitulo": 1,
+   "aymara": "uji",
+   "ids_forma": "uxi",
+   "espanol": "ola",
+   "ingles": "wave",
+   "nota": null
+  },
+  {
+   "ids": "1-360",
+   "capitulo": 1,
+   "aymara": "jawira",
+   "ids_forma": "xawira",
+   "espanol": "río, corriente, arroyo",
+   "ingles": "river, stream, brook",
+   "nota": null
+  },
+  {
+   "ids": "1-370",
+   "capitulo": 1,
+   "aymara": "phuch'u",
+   "ids_forma": "pʰučˀu",
+   "espanol": "manantial, pozo",
+   "ingles": "spring, well",
+   "nota": null
+  },
+  {
+   "ids": "1-380",
+   "capitulo": 1,
+   "aymara": "phusu",
+   "ids_forma": "pʰusu",
+   "espanol": "pantano",
+   "ingles": "swamp",
+   "nota": "Also uma uma."
+  },
+  {
+   "ids": "1-390",
+   "capitulo": 1,
+   "aymara": "phajcha",
+   "ids_forma": "pʰaxča",
+   "espanol": "cascada",
+   "ingles": "waterfall",
+   "nota": null
+  },
+  {
+   "ids": "1-410",
+   "capitulo": 1,
+   "aymara": "ch'umi",
+   "ids_forma": "čˀumi",
+   "espanol": "selva",
+   "ingles": "woods, forest",
+   "nota": null
+  },
+  {
+   "ids": "1-420",
+   "capitulo": 1,
+   "aymara": "quqa",
+   "ids_forma": "ḳuḳa",
+   "espanol": "árbol",
+   "ingles": "tree (cf 08.600)",
+   "nota": null
+  },
+  {
+   "ids": "1-430",
+   "capitulo": 1,
+   "aymara": "k'ullu",
+   "ids_forma": "kˀulʸu",
+   "espanol": "madera",
+   "ingles": "wood",
+   "nota": null
+  },
+  {
+   "ids": "1-440",
+   "capitulo": 1,
+   "aymara": "qala",
+   "ids_forma": "ḳala",
+   "espanol": "piedra, roca",
+   "ingles": "stone, rock",
+   "nota": null
+  },
+  {
+   "ids": "1-510",
+   "capitulo": 1,
+   "aymara": "alaj pacha",
+   "ids_forma": "alax-pača",
+   "espanol": "cielo",
+   "ingles": "sky",
+   "nota": null
+  },
+  {
+   "ids": "1-520",
+   "capitulo": 1,
+   "aymara": "inti",
+   "ids_forma": "inti",
+   "espanol": "sol",
+   "ingles": "sun",
+   "nota": null
+  },
+  {
+   "ids": "1-530",
+   "capitulo": 1,
+   "aymara": "phajsi",
+   "ids_forma": "pʰaxsi",
+   "espanol": "luna",
+   "ingles": "moon",
+   "nota": null
+  },
+  {
+   "ids": "1-540",
+   "capitulo": 1,
+   "aymara": "wara wara",
+   "ids_forma": "wara-wara",
+   "espanol": "estrella",
+   "ingles": "star",
+   "nota": null
+  },
+  {
+   "ids": "1-550",
+   "capitulo": 1,
+   "aymara": "q'iju q'iju",
+   "ids_forma": "ḳˀixu-ḳˀixu",
+   "espanol": "relámpago",
+   "ingles": "lightning",
+   "nota": null
+  },
+  {
+   "ids": "1-570",
+   "capitulo": 1,
+   "aymara": "lliju lliju",
+   "ids_forma": "lʸixu-lʸixu",
+   "espanol": "rayo",
+   "ingles": "lightning (as striking)",
+   "nota": null
+  },
+  {
+   "ids": "1-580",
+   "capitulo": 1,
+   "aymara": "wayra",
+   "ids_forma": "wayra",
+   "espanol": "tempestad, tormenta",
+   "ingles": "storm",
+   "nota": null
+  },
+  {
+   "ids": "1-590",
+   "capitulo": 1,
+   "aymara": "kürmi",
+   "ids_forma": "kuurmi",
+   "espanol": "arco iris",
+   "ingles": "rainbow",
+   "nota": null
+  },
+  {
+   "ids": "1-610",
+   "capitulo": 1,
+   "aymara": "qhana",
+   "ids_forma": "ḳʰana",
+   "espanol": "luz",
+   "ingles": "light (noun)",
+   "nota": null
+  },
+  {
+   "ids": "1-620",
+   "capitulo": 1,
+   "aymara": "ch'amaka",
+   "ids_forma": "čˀamaka",
+   "espanol": "oscuridad, tinieblas",
+   "ingles": "darkness",
+   "nota": null
+  },
+  {
+   "ids": "1-630",
+   "capitulo": 1,
+   "aymara": "ch'iwi",
+   "ids_forma": "čˀiwi",
+   "espanol": "sombra",
+   "ingles": "shade, shadow",
+   "nota": null
+  },
+  {
+   "ids": "1-640",
+   "capitulo": 1,
+   "aymara": "sulla",
+   "ids_forma": "sulʸa",
+   "espanol": "rocío",
+   "ingles": "dew",
+   "nota": null
+  },
+  {
+   "ids": "1-720",
+   "capitulo": 1,
+   "aymara": "thaya",
+   "ids_forma": "tʰaya",
+   "espanol": "viento",
+   "ingles": "wind",
+   "nota": null
+  },
+  {
+   "ids": "1-730",
+   "capitulo": 1,
+   "aymara": "qinaya",
+   "ids_forma": "ḳinaya",
+   "espanol": "nube",
+   "ingles": "cloud",
+   "nota": null
+  },
+  {
+   "ids": "1-740",
+   "capitulo": 1,
+   "aymara": "urpu",
+   "ids_forma": "urpu",
+   "espanol": "neblina, niebla",
+   "ingles": "fog",
+   "nota": null
+  },
+  {
+   "ids": "1-750",
+   "capitulo": 1,
+   "aymara": "jallu",
+   "ids_forma": "xalʸu",
+   "espanol": "lluvia",
+   "ingles": "rain (noun)",
+   "nota": null
+  },
+  {
+   "ids": "1-760",
+   "capitulo": 1,
+   "aymara": "khunu",
+   "ids_forma": "kʰunu",
+   "espanol": "nieve",
+   "ingles": "snow (noun)",
+   "nota": null
+  },
+  {
+   "ids": "1-770",
+   "capitulo": 1,
+   "aymara": "chhullunkhiya",
+   "ids_forma": "čʰulʸunkʰiya",
+   "espanol": "hielo",
+   "ingles": "ice",
+   "nota": null
+  },
+  {
+   "ids": "1-810",
+   "capitulo": 1,
+   "aymara": "nina",
+   "ids_forma": "nina",
+   "espanol": "fuego",
+   "ingles": "fire",
+   "nota": null
+  },
+  {
+   "ids": "1-820",
+   "capitulo": 1,
+   "aymara": "laphaqi",
+   "ids_forma": "lapʰaḳi",
+   "espanol": "llama",
+   "ingles": "flame (noun)",
+   "nota": null
+  },
+  {
+   "ids": "1-830",
+   "capitulo": 1,
+   "aymara": "jiq'i",
+   "ids_forma": "xiḳˀi",
+   "espanol": "humo",
+   "ingles": "smoke (noun)",
+   "nota": null
+  },
+  {
+   "ids": "1-840",
+   "capitulo": 1,
+   "aymara": "qhilla",
+   "ids_forma": "ḳʰilʸa",
+   "espanol": "cenizas",
+   "ingles": "ashes",
+   "nota": null
+  },
+  {
+   "ids": "1-841",
+   "capitulo": 1,
+   "aymara": "sank'a",
+   "ids_forma": "sankˀa",
+   "espanol": "brasas",
+   "ingles": "embers",
+   "nota": null
+  },
+  {
+   "ids": "1-851",
+   "capitulo": 1,
+   "aymara": "phichhaña",
+   "ids_forma": "pʰičʰaɲa",
+   "espanol": "quemar, quemarse",
+   "ingles": "burn (vb trans)",
+   "nota": null
+  },
+  {
+   "ids": "1-852",
+   "capitulo": 1,
+   "aymara": "nakhaña",
+   "ids_forma": "nakʰaɲa",
+   "espanol": "arder",
+   "ingles": "burn (vb intrans)",
+   "nota": null
+  },
+  {
+   "ids": "1-860",
+   "capitulo": 1,
+   "aymara": "naktaña",
+   "ids_forma": "nakta-ɲa",
+   "espanol": "encender",
+   "ingles": "light, kindle, ignite",
+   "nota": null
+  },
+  {
+   "ids": "1-861",
+   "capitulo": 1,
+   "aymara": "jiwaqayaña",
+   "ids_forma": "xiwaḳaya-ɲa",
+   "espanol": "apagar",
+   "ingles": "extinguish",
+   "nota": null
+  },
+  {
+   "ids": "1-880",
+   "capitulo": 1,
+   "aymara": "phayaña lawa",
+   "ids_forma": "pʰaya-ɲa-lawa",
+   "espanol": "leña",
+   "ingles": "firewood",
+   "nota": null
+  },
+  {
+   "ids": "1-890",
+   "capitulo": 1,
+   "aymara": "k'illima",
+   "ids_forma": "kˀilʸima",
+   "espanol": "carbón",
+   "ingles": "charcoal",
+   "nota": null
+  },
+  {
+   "ids": "2-100",
+   "capitulo": 2,
+   "aymara": "jaqi",
+   "ids_forma": "xaḳi",
+   "espanol": "persona",
+   "ingles": "person, human being",
+   "nota": null
+  },
+  {
+   "ids": "2-210",
+   "capitulo": 2,
+   "aymara": "chacha",
+   "ids_forma": "čača",
+   "espanol": "hombre",
+   "ingles": "man (vs. woman)",
+   "nota": null
+  },
+  {
+   "ids": "2-220",
+   "capitulo": 2,
+   "aymara": "warmi",
+   "ids_forma": "warmi",
+   "espanol": "mujer",
+   "ingles": "woman",
+   "nota": null
+  },
+  {
+   "ids": "2-230",
+   "capitulo": 2,
+   "aymara": "urqu",
+   "ids_forma": "urḳu",
+   "espanol": "varón, macho",
+   "ingles": "male",
+   "nota": null
+  },
+  {
+   "ids": "2-240",
+   "capitulo": 2,
+   "aymara": "qachu",
+   "ids_forma": "ḳaču",
+   "espanol": "hembra",
+   "ingles": "female",
+   "nota": null
+  },
+  {
+   "ids": "2-250",
+   "capitulo": 2,
+   "aymara": "majt'a",
+   "ids_forma": "maxtˀa",
+   "espanol": "muchacho",
+   "ingles": "boy",
+   "nota": null
+  },
+  {
+   "ids": "2-251",
+   "capitulo": 2,
+   "aymara": "wayna",
+   "ids_forma": "wayna",
+   "espanol": "el joven",
+   "ingles": "young man (adolescent)",
+   "nota": null
+  },
+  {
+   "ids": "2-260",
+   "capitulo": 2,
+   "aymara": "imilla",
+   "ids_forma": "imilʸa",
+   "espanol": "muchacha",
+   "ingles": "girl",
+   "nota": null
+  },
+  {
+   "ids": "2-261",
+   "capitulo": 2,
+   "aymara": "tawaqu",
+   "ids_forma": "tawaḳu",
+   "espanol": "la joven",
+   "ingles": "young woman (adolescent)",
+   "nota": null
+  },
+  {
+   "ids": "2-270",
+   "capitulo": 2,
+   "aymara": "wawa",
+   "ids_forma": "wawa",
+   "espanol": "niño",
+   "ingles": "child",
+   "nota": null
+  },
+  {
+   "ids": "2-330",
+   "capitulo": 2,
+   "aymara": "jaqi chasiña",
+   "ids_forma": "xaḳi-časi-ɲa",
+   "espanol": "casarse",
+   "ingles": "marry",
+   "nota": null
+  },
+  {
+   "ids": "2-340",
+   "capitulo": 2,
+   "aymara": "jaqi chasiwi",
+   "ids_forma": "xaḳi-časiwi",
+   "espanol": "casamiento, boda",
+   "ingles": "marriage, wedding",
+   "nota": null
+  },
+  {
+   "ids": "2-341",
+   "capitulo": 2,
+   "aymara": "jarjtaña",
+   "ids_forma": "xarxta-ɲa",
+   "espanol": "divorcio",
+   "ingles": "divorce",
+   "nota": null
+  },
+  {
+   "ids": "2-350",
+   "capitulo": 2,
+   "aymara": "awki",
+   "ids_forma": "awki",
+   "espanol": "padre",
+   "ingles": "father",
+   "nota": null
+  },
+  {
+   "ids": "2-360",
+   "capitulo": 2,
+   "aymara": "tayka",
+   "ids_forma": "tayka",
+   "espanol": "madre",
+   "ingles": "mother",
+   "nota": null
+  },
+  {
+   "ids": "2-370",
+   "capitulo": 2,
+   "aymara": "awki naka",
+   "ids_forma": "awki-naka",
+   "espanol": "padres",
+   "ingles": "parents",
+   "nota": null
+  },
+  {
+   "ids": "2-380",
+   "capitulo": 2,
+   "aymara": "warmina jaqi",
+   "ids_forma": "warmina xaḳi",
+   "espanol": "hombre casado",
+   "ingles": "married man",
+   "nota": null
+  },
+  {
+   "ids": "2-390",
+   "capitulo": 2,
+   "aymara": "chachani warmi",
+   "ids_forma": "čačani warmi",
+   "espanol": "mujer casada",
+   "ingles": "married woman",
+   "nota": null
+  },
+  {
+   "ids": "2-410",
+   "capitulo": 2,
+   "aymara": "yuqa",
+   "ids_forma": "yuḳa",
+   "espanol": "hijo",
+   "ingles": "son",
+   "nota": null
+  },
+  {
+   "ids": "2-420",
+   "capitulo": 2,
+   "aymara": "phucha",
+   "ids_forma": "pʰuča",
+   "espanol": "hija",
+   "ingles": "daughter",
+   "nota": null
+  },
+  {
+   "ids": "2-440",
+   "capitulo": 2,
+   "aymara": "jila",
+   "ids_forma": "xila",
+   "espanol": "hermano",
+   "ingles": "brother",
+   "nota": null
+  },
+  {
+   "ids": "2-444",
+   "capitulo": 2,
+   "aymara": "jilïri jila",
+   "ids_forma": "xiliiri xila",
+   "espanol": "hermano mayor",
+   "ingles": "older brother",
+   "nota": null
+  },
+  {
+   "ids": "2-445",
+   "capitulo": 2,
+   "aymara": "sullkiri jila",
+   "ids_forma": "sulʸkiri xila",
+   "espanol": "hermano menor",
+   "ingles": "younger brother",
+   "nota": null
+  },
+  {
+   "ids": "2-450",
+   "capitulo": 2,
+   "aymara": "kullaka",
+   "ids_forma": "kulʸaka",
+   "espanol": "hermana",
+   "ingles": "sister",
+   "nota": null
+  },
+  {
+   "ids": "2-454",
+   "capitulo": 2,
+   "aymara": "jilïri kullaka",
+   "ids_forma": "xiliiri kulʸaka",
+   "espanol": "hermana mayor",
+   "ingles": "older sister",
+   "nota": null
+  },
+  {
+   "ids": "2-455",
+   "capitulo": 2,
+   "aymara": "sullkiri kullaka",
+   "ids_forma": "sulʸkiri kulʸaka",
+   "espanol": "hermana menor",
+   "ingles": "younger sister",
+   "nota": null
+  },
+  {
+   "ids": "2-458",
+   "capitulo": 2,
+   "aymara": "ispa",
+   "ids_forma": "ispa",
+   "espanol": "gemelos",
+   "ingles": "twins",
+   "nota": null
+  },
+  {
+   "ids": "2-460",
+   "capitulo": 2,
+   "aymara": "achila",
+   "ids_forma": "ačila",
+   "espanol": "abuelo",
+   "ingles": "grandfather",
+   "nota": null
+  },
+  {
+   "ids": "2-461",
+   "capitulo": 2,
+   "aymara": "awki jaqi",
+   "ids_forma": "awki-xaḳi",
+   "espanol": "hombre viejo",
+   "ingles": "old man",
+   "nota": null
+  },
+  {
+   "ids": "2-470",
+   "capitulo": 2,
+   "aymara": "awicha",
+   "ids_forma": "awiča",
+   "espanol": "abuela",
+   "ingles": "grandmother",
+   "nota": null
+  },
+  {
+   "ids": "2-471",
+   "capitulo": 2,
+   "aymara": "tayka warmi",
+   "ids_forma": "tayka warmi",
+   "espanol": "mujer vieja",
+   "ingles": "old woman",
+   "nota": null
+  },
+  {
+   "ids": "2-480",
+   "capitulo": 2,
+   "aymara": "allchhi",
+   "ids_forma": "alʸčʰi",
+   "espanol": "nieto",
+   "ingles": "grandson",
+   "nota": null
+  },
+  {
+   "ids": "2-510",
+   "capitulo": 2,
+   "aymara": "tiwula",
+   "ids_forma": "tiwula",
+   "espanol": "tío",
+   "ingles": "uncle",
+   "nota": null
+  },
+  {
+   "ids": "2-520",
+   "capitulo": 2,
+   "aymara": "ipata",
+   "ids_forma": "ipata",
+   "espanol": "tía",
+   "ingles": "aunt",
+   "nota": null
+  },
+  {
+   "ids": "2-550",
+   "capitulo": 2,
+   "aymara": "jilata",
+   "ids_forma": "xilata",
+   "espanol": "primo/prima",
+   "ingles": "cousin",
+   "nota": null
+  },
+  {
+   "ids": "2-560",
+   "capitulo": 2,
+   "aymara": "achachila",
+   "ids_forma": "ačačila",
+   "espanol": "antepasados",
+   "ingles": "ancestors",
+   "nota": null
+  },
+  {
+   "ids": "2-610",
+   "capitulo": 2,
+   "aymara": "awkch'i",
+   "ids_forma": "awkčˀi",
+   "espanol": "suegro (de hombre)",
+   "ingles": "father-in-law (of a man)",
+   "nota": null
+  },
+  {
+   "ids": "2-620",
+   "capitulo": 2,
+   "aymara": "taykch'i",
+   "ids_forma": "taykčˀi",
+   "espanol": "suegra (de hombre)",
+   "ingles": "mother-in-law (of a man)",
+   "nota": null
+  },
+  {
+   "ids": "2-630",
+   "capitulo": 2,
+   "aymara": "tullqa",
+   "ids_forma": "tulʸḳa",
+   "espanol": "yerno (de hombre)",
+   "ingles": "son-in-law (of a man)",
+   "nota": null
+  },
+  {
+   "ids": "2-640",
+   "capitulo": 2,
+   "aymara": "yujch'a",
+   "ids_forma": "yuxčˀa",
+   "espanol": "nuera (de hombre)",
+   "ingles": "daughter-in-law (of a man)",
+   "nota": null
+  },
+  {
+   "ids": "2-710",
+   "capitulo": 2,
+   "aymara": "qhipa awki",
+   "ids_forma": "ḳʰipa awki",
+   "espanol": "padrastro",
+   "ingles": "stepfather",
+   "nota": null
+  },
+  {
+   "ids": "2-720",
+   "capitulo": 2,
+   "aymara": "qhipa tayka",
+   "ids_forma": "ḳʰipa tayka",
+   "espanol": "madrastra",
+   "ingles": "stepmother",
+   "nota": null
+  },
+  {
+   "ids": "2-750",
+   "capitulo": 2,
+   "aymara": "iñu",
+   "ids_forma": "iɲu",
+   "espanol": "huérfano/ huérfana",
+   "ingles": "orphan",
+   "nota": null
+  },
+  {
+   "ids": "2-760",
+   "capitulo": 2,
+   "aymara": "ijma",
+   "ids_forma": "ixma",
+   "espanol": "viuda",
+   "ingles": "widow",
+   "nota": null
+  },
+  {
+   "ids": "2-820",
+   "capitulo": 2,
+   "aymara": "uta",
+   "ids_forma": "uta",
+   "espanol": "familia",
+   "ingles": "family",
+   "nota": null
+  },
+  {
+   "ids": "2-910",
+   "capitulo": 2,
+   "aymara": "naya",
+   "ids_forma": "naya",
+   "espanol": "yo",
+   "ingles": "I",
+   "nota": null
+  },
+  {
+   "ids": "2-920",
+   "capitulo": 2,
+   "aymara": "juma",
+   "ids_forma": "xuma",
+   "espanol": "tú, usted",
+   "ingles": "you (singular)",
+   "nota": null
+  },
+  {
+   "ids": "2-930",
+   "capitulo": 2,
+   "aymara": "jupa",
+   "ids_forma": "xupa",
+   "espanol": "él/ella/ello",
+   "ingles": "he/she/it",
+   "nota": null
+  },
+  {
+   "ids": "2-940",
+   "capitulo": 2,
+   "aymara": "nanaka",
+   "ids_forma": "nanaka",
+   "espanol": "nosotros/nosotras",
+   "ingles": "we",
+   "nota": null
+  },
+  {
+   "ids": "2-941",
+   "capitulo": 2,
+   "aymara": "jiwasa",
+   "ids_forma": "xiwasa",
+   "espanol": "nosotros/nosotras (inclusivo)",
+   "ingles": "we (inclusive)",
+   "nota": null
+  },
+  {
+   "ids": "2-950",
+   "capitulo": 2,
+   "aymara": "jumamaka",
+   "ids_forma": "xumamaka",
+   "espanol": "ustedes",
+   "ingles": "you (plural)",
+   "nota": null
+  },
+  {
+   "ids": "2-960",
+   "capitulo": 2,
+   "aymara": "jupanaka",
+   "ids_forma": "xupanaka",
+   "espanol": "ellos, ellas",
+   "ingles": "they",
+   "nota": null
+  },
+  {
+   "ids": "3-110",
+   "capitulo": 3,
+   "aymara": "uywa",
+   "ids_forma": "uywa",
+   "espanol": "animal",
+   "ingles": "animal",
+   "nota": null
+  },
+  {
+   "ids": "3-180",
+   "capitulo": 3,
+   "aymara": "awatiri",
+   "ids_forma": "awatiri",
+   "espanol": "pastor, vaquero",
+   "ingles": "herdsman",
+   "nota": null
+  },
+  {
+   "ids": "3-190",
+   "capitulo": 3,
+   "aymara": "uyu",
+   "ids_forma": "uyu",
+   "espanol": "establo",
+   "ingles": "stable, stall",
+   "nota": null
+  },
+  {
+   "ids": "3-280",
+   "capitulo": 3,
+   "aymara": "puytu",
+   "ids_forma": "puytu",
+   "espanol": "oveja",
+   "ingles": "ewe",
+   "nota": null
+  },
+  {
+   "ids": "3-340",
+   "capitulo": 3,
+   "aymara": "khuchi",
+   "ids_forma": "kʰuči",
+   "espanol": "puerca, cochina, cerda",
+   "ingles": "sow (2)",
+   "nota": null
+  },
+  {
+   "ids": "3-500",
+   "capitulo": 3,
+   "aymara": "jamach'i",
+   "ids_forma": "xamačˀi",
+   "espanol": "ave (de corral)",
+   "ingles": "fowl",
+   "nota": null
+  },
+  {
+   "ids": "3-520",
+   "capitulo": 3,
+   "aymara": "k'ank'a",
+   "ids_forma": "kˀankˀa",
+   "espanol": "gallo",
+   "ingles": "cock, rooster",
+   "nota": null
+  },
+  {
+   "ids": "3-540",
+   "capitulo": 3,
+   "aymara": "wallpa",
+   "ids_forma": "walʸpa",
+   "espanol": "gallina",
+   "ingles": "hen",
+   "nota": null
+  },
+  {
+   "ids": "3-550",
+   "capitulo": 3,
+   "aymara": "chhiwchhi",
+   "ids_forma": "čʰiwčʰi",
+   "espanol": "pollo",
+   "ingles": "chicken",
+   "nota": null
+  },
+  {
+   "ids": "3-570",
+   "capitulo": 3,
+   "aymara": "pili",
+   "ids_forma": "pili",
+   "espanol": "pato, ánade",
+   "ingles": "duck",
+   "nota": null
+  },
+  {
+   "ids": "3-580",
+   "capitulo": 3,
+   "aymara": "tapa",
+   "ids_forma": "tapa",
+   "espanol": "nido",
+   "ingles": "nest",
+   "nota": null
+  },
+  {
+   "ids": "3-584",
+   "capitulo": 3,
+   "aymara": "paka",
+   "ids_forma": "paka",
+   "espanol": "águila",
+   "ingles": "eagle",
+   "nota": null
+  },
+  {
+   "ids": "3-585",
+   "capitulo": 3,
+   "aymara": "mamani",
+   "ids_forma": "mamani",
+   "espanol": "gavilán, halcón",
+   "ingles": "hawk",
+   "nota": null
+  },
+  {
+   "ids": "3-586",
+   "capitulo": 3,
+   "aymara": "siwiq'ara",
+   "ids_forma": "siwiḳˀara",
+   "espanol": "buitre",
+   "ingles": "vulture",
+   "nota": "Also 'condor' kunturi."
+  },
+  {
+   "ids": "3-591",
+   "capitulo": 3,
+   "aymara": "chiñi",
+   "ids_forma": "čiɲi",
+   "espanol": "murciélago",
+   "ingles": "bat",
+   "nota": null
+  },
+  {
+   "ids": "3-592",
+   "capitulo": 3,
+   "aymara": "k'alla",
+   "ids_forma": "kˀalʸa",
+   "espanol": "loro",
+   "ingles": "parrot",
+   "nota": null
+  },
+  {
+   "ids": "3-594",
+   "capitulo": 3,
+   "aymara": "urpila",
+   "ids_forma": "urpila",
+   "espanol": "paloma",
+   "ingles": "dove",
+   "nota": null
+  },
+  {
+   "ids": "3-596",
+   "capitulo": 3,
+   "aymara": "ch'usiqa",
+   "ids_forma": "čˀusiḳa",
+   "espanol": "lechuza, buho",
+   "ingles": "owl",
+   "nota": null
+  },
+  {
+   "ids": "3-610",
+   "capitulo": 3,
+   "aymara": "anu",
+   "ids_forma": "anu",
+   "espanol": "perro",
+   "ingles": "dog",
+   "nota": null
+  },
+  {
+   "ids": "3-614",
+   "capitulo": 3,
+   "aymara": "wank'u",
+   "ids_forma": "wankˀu",
+   "espanol": "conejo",
+   "ingles": "rabbit",
+   "nota": null
+  },
+  {
+   "ids": "3-620",
+   "capitulo": 3,
+   "aymara": "phisi",
+   "ids_forma": "pʰisi",
+   "espanol": "gato",
+   "ingles": "cat",
+   "nota": null
+  },
+  {
+   "ids": "3-622",
+   "capitulo": 3,
+   "aymara": "achupalla",
+   "ids_forma": "ačupalʸa",
+   "espanol": "zarigüeya",
+   "ingles": "opossum",
+   "nota": null
+  },
+  {
+   "ids": "3-630",
+   "capitulo": 3,
+   "aymara": "achaku",
+   "ids_forma": "ačaku",
+   "espanol": "ratón, rata",
+   "ingles": "mouse, rat",
+   "nota": null
+  },
+  {
+   "ids": "3-650",
+   "capitulo": 3,
+   "aymara": "chawlla",
+   "ids_forma": "čawlʸa",
+   "espanol": "pez, pescado",
+   "ingles": "fish",
+   "nota": null
+  },
+  {
+   "ids": "3-653",
+   "capitulo": 3,
+   "aymara": "lluxi",
+   "ids_forma": "lʸuχi",
+   "espanol": "escama",
+   "ingles": "fishscale",
+   "nota": null
+  },
+  {
+   "ids": "3-720",
+   "capitulo": 3,
+   "aymara": "liwuna",
+   "ids_forma": "liwuna",
+   "espanol": "león",
+   "ingles": "lion",
+   "nota": "Refers to American puma."
+  },
+  {
+   "ids": "3-730",
+   "capitulo": 3,
+   "aymara": "jukumari",
+   "ids_forma": "xukumari",
+   "espanol": "oso",
+   "ingles": "bear",
+   "nota": null
+  },
+  {
+   "ids": "3-740",
+   "capitulo": 3,
+   "aymara": "qamaqi",
+   "ids_forma": "ḳamaḳi",
+   "espanol": "zorro",
+   "ingles": "fox",
+   "nota": null
+  },
+  {
+   "ids": "3-750",
+   "capitulo": 3,
+   "aymara": "taruka",
+   "ids_forma": "taruka",
+   "espanol": "venado, ciervo/a",
+   "ingles": "deer",
+   "nota": null
+  },
+  {
+   "ids": "3-760",
+   "capitulo": 3,
+   "aymara": "k'usillu",
+   "ids_forma": "kˀusilʸu",
+   "espanol": "mono",
+   "ingles": "monkey",
+   "nota": null
+  },
+  {
+   "ids": "3-810",
+   "capitulo": 3,
+   "aymara": "laq'u",
+   "ids_forma": "laḳˀu",
+   "espanol": "insecto",
+   "ingles": "insect",
+   "nota": null
+  },
+  {
+   "ids": "3-811",
+   "capitulo": 3,
+   "aymara": "lap'a",
+   "ids_forma": "lapˀa",
+   "espanol": "piojo",
+   "ingles": "louse",
+   "nota": null
+  },
+  {
+   "ids": "3-812",
+   "capitulo": 3,
+   "aymara": "ch'iñi",
+   "ids_forma": "čˀiɲi",
+   "espanol": "liendre",
+   "ingles": "nit (louse egg)",
+   "nota": null
+  },
+  {
+   "ids": "3-813",
+   "capitulo": 3,
+   "aymara": "k'uti",
+   "ids_forma": "kˀuti",
+   "espanol": "pulga",
+   "ingles": "flea",
+   "nota": null
+  },
+  {
+   "ids": "3-814",
+   "capitulo": 3,
+   "aymara": "warisana",
+   "ids_forma": "warisana",
+   "espanol": "ciempiés",
+   "ingles": "centipede",
+   "nota": null
+  },
+  {
+   "ids": "3-817",
+   "capitulo": 3,
+   "aymara": "k'usiwallu",
+   "ids_forma": "kˀusiwalʸu",
+   "espanol": "hormiga",
+   "ingles": "ant",
+   "nota": null
+  },
+  {
+   "ids": "3-818",
+   "capitulo": 3,
+   "aymara": "kusi kusi",
+   "ids_forma": "kusi-kusi",
+   "espanol": "araña",
+   "ingles": "spider",
+   "nota": null
+  },
+  {
+   "ids": "3-819",
+   "capitulo": 3,
+   "aymara": "llika",
+   "ids_forma": "lʸika",
+   "espanol": "telaraña",
+   "ingles": "spider web",
+   "nota": null
+  },
+  {
+   "ids": "3-820",
+   "capitulo": 3,
+   "aymara": "wayrunqu",
+   "ids_forma": "wayrunḳu",
+   "espanol": "abeja",
+   "ingles": "bee",
+   "nota": null
+  },
+  {
+   "ids": "3-821",
+   "capitulo": 3,
+   "aymara": "map'a",
+   "ids_forma": "mapˀa",
+   "espanol": "cera de abeja",
+   "ingles": "beeswax",
+   "nota": null
+  },
+  {
+   "ids": "3-823",
+   "capitulo": 3,
+   "aymara": "pankataya",
+   "ids_forma": "pankataya",
+   "espanol": "avispa",
+   "ingles": "wasp",
+   "nota": null
+  },
+  {
+   "ids": "3-830",
+   "capitulo": 3,
+   "aymara": "chhichhillankha",
+   "ids_forma": "čʰičʰilʸankʰa",
+   "espanol": "mosca",
+   "ingles": "fly",
+   "nota": null
+  },
+  {
+   "ids": "3-831",
+   "capitulo": 3,
+   "aymara": "ch'uspi",
+   "ids_forma": "čˀuspi",
+   "espanol": "jején",
+   "ingles": "sandfly (midge), gnat",
+   "nota": null
+  },
+  {
+   "ids": "3-840",
+   "capitulo": 3,
+   "aymara": "sillq'u",
+   "ids_forma": "silʸḳˀu",
+   "espanol": "lombriz, gusano",
+   "ingles": "worm",
+   "nota": null
+  },
+  {
+   "ids": "3-850",
+   "capitulo": 3,
+   "aymara": "asiru",
+   "ids_forma": "asiru",
+   "espanol": "culebra, serpiente",
+   "ingles": "snake",
+   "nota": null
+  },
+  {
+   "ids": "3-920",
+   "capitulo": 3,
+   "aymara": "pilpintu",
+   "ids_forma": "pilpintu",
+   "espanol": "mariposa",
+   "ingles": "butterfly",
+   "nota": null
+  },
+  {
+   "ids": "3-930",
+   "capitulo": 3,
+   "aymara": "t'iju t'iju",
+   "ids_forma": "tˀixu-tˀixu",
+   "espanol": "saltamontes",
+   "ingles": "grasshopper",
+   "nota": null
+  },
+  {
+   "ids": "3-940",
+   "capitulo": 3,
+   "aymara": "ch'uru",
+   "ids_forma": "čˀuru",
+   "espanol": "caracol",
+   "ingles": "snail",
+   "nota": null
+  },
+  {
+   "ids": "3-950",
+   "capitulo": 3,
+   "aymara": "k'ayra",
+   "ids_forma": "kˀayra",
+   "espanol": "rana",
+   "ingles": "frog",
+   "nota": null
+  },
+  {
+   "ids": "3-960",
+   "capitulo": 3,
+   "aymara": "sutuwallu jararankhu",
+   "ids_forma": "sutuwalʸu xararankʰu",
+   "espanol": "lagartija",
+   "ingles": "lizard",
+   "nota": null
+  },
+  {
+   "ids": "4-110",
+   "capitulo": 4,
+   "aymara": "janchi",
+   "ids_forma": "xanči",
+   "espanol": "cuerpo",
+   "ingles": "body",
+   "nota": null
+  },
+  {
+   "ids": "4-120",
+   "capitulo": 4,
+   "aymara": "lip'ichi",
+   "ids_forma": "lipˀiči",
+   "espanol": "piel, cutis, pellejo",
+   "ingles": "skin, hide",
+   "nota": null
+  },
+  {
+   "ids": "4-130",
+   "capitulo": 4,
+   "aymara": "aycha",
+   "ids_forma": "ayča",
+   "espanol": "carne",
+   "ingles": "flesh",
+   "nota": null
+  },
+  {
+   "ids": "4-140",
+   "capitulo": 4,
+   "aymara": "ñik'uta",
+   "ids_forma": "ɲikˀuta",
+   "espanol": "cabello, pelo",
+   "ingles": "hair (head)",
+   "nota": null
+  },
+  {
+   "ids": "4-142",
+   "capitulo": 4,
+   "aymara": "sunkha",
+   "ids_forma": "sunkʰa",
+   "espanol": "barba",
+   "ingles": "beard",
+   "nota": null
+  },
+  {
+   "ids": "4-144",
+   "capitulo": 4,
+   "aymara": "t'arwa",
+   "ids_forma": "tˀarwa",
+   "espanol": "vello (del cuerpo)",
+   "ingles": "body hair",
+   "nota": null
+  },
+  {
+   "ids": "4-145",
+   "capitulo": 4,
+   "aymara": "ch'ina t'arwa",
+   "ids_forma": "čˀina tˀarwa",
+   "espanol": "pelo púbico",
+   "ingles": "pubic hair",
+   "nota": null
+  },
+  {
+   "ids": "4-150",
+   "capitulo": 4,
+   "aymara": "wila",
+   "ids_forma": "wila",
+   "espanol": "sangre",
+   "ingles": "blood",
+   "nota": null
+  },
+  {
+   "ids": "4-151",
+   "capitulo": 4,
+   "aymara": "sirka",
+   "ids_forma": "sirka",
+   "espanol": "vena, arteria",
+   "ingles": "vein, artery",
+   "nota": "'Tendon/nerve' is anku."
+  },
+  {
+   "ids": "4-160",
+   "capitulo": 4,
+   "aymara": "ch'akha",
+   "ids_forma": "čˀakʰa",
+   "espanol": "hueso",
+   "ingles": "bone",
+   "nota": null
+  },
+  {
+   "ids": "4-162",
+   "capitulo": 4,
+   "aymara": "jarapi",
+   "ids_forma": "xarapi",
+   "espanol": "costilla",
+   "ingles": "rib",
+   "nota": null
+  },
+  {
+   "ids": "4-170",
+   "capitulo": 4,
+   "aymara": "waxra",
+   "ids_forma": "waχra",
+   "espanol": "cuerno",
+   "ingles": "horn",
+   "nota": null
+  },
+  {
+   "ids": "4-180",
+   "capitulo": 4,
+   "aymara": "wich'inkha",
+   "ids_forma": "wičˀinkʰa",
+   "espanol": "cola",
+   "ingles": "tail",
+   "nota": null
+  },
+  {
+   "ids": "4-190",
+   "capitulo": 4,
+   "aymara": "ati",
+   "ids_forma": "ati",
+   "espanol": "espalda",
+   "ingles": "back",
+   "nota": null
+  },
+  {
+   "ids": "4-191",
+   "capitulo": 4,
+   "aymara": "jikhani",
+   "ids_forma": "xikʰani",
+   "espanol": "espinazo, espina dorsal",
+   "ingles": "spine",
+   "nota": null
+  },
+  {
+   "ids": "4-200",
+   "capitulo": 4,
+   "aymara": "p'iqi",
+   "ids_forma": "pˀiḳi",
+   "espanol": "cabeza",
+   "ingles": "head",
+   "nota": null
+  },
+  {
+   "ids": "4-203",
+   "capitulo": 4,
+   "aymara": "lixwi",
+   "ids_forma": "liχwi",
+   "espanol": "cerebro, sesos",
+   "ingles": "brain",
+   "nota": null
+  },
+  {
+   "ids": "4-204",
+   "capitulo": 4,
+   "aymara": "ajanu",
+   "ids_forma": "axanu",
+   "espanol": "cara",
+   "ingles": "face",
+   "nota": null
+  },
+  {
+   "ids": "4-205",
+   "capitulo": 4,
+   "aymara": "para",
+   "ids_forma": "para",
+   "espanol": "frente",
+   "ingles": "forehead",
+   "nota": null
+  },
+  {
+   "ids": "4-207",
+   "capitulo": 4,
+   "aymara": "änkha",
+   "ids_forma": "aankʰa",
+   "espanol": "mandíbula",
+   "ingles": "jaw",
+   "nota": null
+  },
+  {
+   "ids": "4-210",
+   "capitulo": 4,
+   "aymara": "nayra",
+   "ids_forma": "nayra",
+   "espanol": "ojo",
+   "ingles": "eye",
+   "nota": null
+  },
+  {
+   "ids": "4-212",
+   "capitulo": 4,
+   "aymara": "nayra phichhu",
+   "ids_forma": "nayra pʰičʰu",
+   "espanol": "ceja",
+   "ingles": "eyebrow",
+   "nota": null
+  },
+  {
+   "ids": "4-213",
+   "capitulo": 4,
+   "aymara": "nayra lip'ichi",
+   "ids_forma": "nayra lipˀiči",
+   "espanol": "párpado",
+   "ingles": "eyelid",
+   "nota": null
+  },
+  {
+   "ids": "4-214",
+   "capitulo": 4,
+   "aymara": "ch'iphuqu",
+   "ids_forma": "čˀipʰuḳu",
+   "espanol": "pestaña",
+   "ingles": "eyelash",
+   "nota": null
+  },
+  {
+   "ids": "4-215",
+   "capitulo": 4,
+   "aymara": "ch'iphuqiña",
+   "ids_forma": "čˀipʰuḳi-ɲa",
+   "espanol": "parpadear",
+   "ingles": "blink",
+   "nota": null
+  },
+  {
+   "ids": "4-220",
+   "capitulo": 4,
+   "aymara": "jinchu",
+   "ids_forma": "xinču",
+   "espanol": "oreja",
+   "ingles": "ear",
+   "nota": null
+  },
+  {
+   "ids": "4-230",
+   "capitulo": 4,
+   "aymara": "nasa",
+   "ids_forma": "nasa",
+   "espanol": "nariz",
+   "ingles": "nose",
+   "nota": null
+  },
+  {
+   "ids": "4-231",
+   "capitulo": 4,
+   "aymara": "p'iya",
+   "ids_forma": "pˀiya",
+   "espanol": "ventana de la nariz",
+   "ingles": "nostril",
+   "nota": null
+  },
+  {
+   "ids": "4-232",
+   "capitulo": 4,
+   "aymara": "jurma",
+   "ids_forma": "xurma",
+   "espanol": "moco",
+   "ingles": "mucus (nasal)",
+   "nota": null
+  },
+  {
+   "ids": "4-240",
+   "capitulo": 4,
+   "aymara": "laka",
+   "ids_forma": "laka",
+   "espanol": "boca",
+   "ingles": "mouth",
+   "nota": null
+  },
+  {
+   "ids": "4-241",
+   "capitulo": 4,
+   "aymara": "suru",
+   "ids_forma": "suru",
+   "espanol": "pico",
+   "ingles": "beak",
+   "nota": null
+  },
+  {
+   "ids": "4-250",
+   "capitulo": 4,
+   "aymara": "ispillu",
+   "ids_forma": "ispilʸu",
+   "espanol": "labio",
+   "ingles": "lip",
+   "nota": null
+  },
+  {
+   "ids": "4-260",
+   "capitulo": 4,
+   "aymara": "laxra",
+   "ids_forma": "laχra",
+   "espanol": "lengua",
+   "ingles": "tongue",
+   "nota": null
+  },
+  {
+   "ids": "4-270",
+   "capitulo": 4,
+   "aymara": "laka ch'akha",
+   "ids_forma": "laka čˀakʰa",
+   "espanol": "diente",
+   "ingles": "tooth",
+   "nota": null
+  },
+  {
+   "ids": "4-272",
+   "capitulo": 4,
+   "aymara": "aqu",
+   "ids_forma": "aḳu",
+   "espanol": "molar, muela",
+   "ingles": "molartooth",
+   "nota": null
+  },
+  {
+   "ids": "4-280",
+   "capitulo": 4,
+   "aymara": "kunka",
+   "ids_forma": "kunka",
+   "espanol": "cuello",
+   "ingles": "neck",
+   "nota": null
+  },
+  {
+   "ids": "4-290",
+   "capitulo": 4,
+   "aymara": "t'ullu",
+   "ids_forma": "tˀulʸu",
+   "espanol": "garganta",
+   "ingles": "throat",
+   "nota": null
+  },
+  {
+   "ids": "4-300",
+   "capitulo": 4,
+   "aymara": "kallachi",
+   "ids_forma": "kalʸači",
+   "espanol": "hombro",
+   "ingles": "shoulder",
+   "nota": null
+  },
+  {
+   "ids": "4-310",
+   "capitulo": 4,
+   "aymara": "ampara",
+   "ids_forma": "ampara",
+   "espanol": "brazo",
+   "ingles": "arm",
+   "nota": null
+  },
+  {
+   "ids": "4-312",
+   "capitulo": 4,
+   "aymara": "chhiqhanqara",
+   "ids_forma": "čʰiḳʰanḳara",
+   "espanol": "sobaco, axila",
+   "ingles": "armpit",
+   "nota": null
+  },
+  {
+   "ids": "4-320",
+   "capitulo": 4,
+   "aymara": "mujlli",
+   "ids_forma": "muxlʸi",
+   "espanol": "codo",
+   "ingles": "elbow",
+   "nota": null
+  },
+  {
+   "ids": "4-331",
+   "capitulo": 4,
+   "aymara": "ampara t'axlli",
+   "ids_forma": "ampara tˀaχlʸi",
+   "espanol": "palma de la mano",
+   "ingles": "palm of hand",
+   "nota": null
+  },
+  {
+   "ids": "4-340",
+   "capitulo": 4,
+   "aymara": "luk'ana",
+   "ids_forma": "lukˀana",
+   "espanol": "dedo",
+   "ingles": "finger",
+   "nota": null
+  },
+  {
+   "ids": "4-342",
+   "capitulo": 4,
+   "aymara": "tayka luk'ana",
+   "ids_forma": "tayka lukˀana",
+   "espanol": "pulgar",
+   "ingles": "thumb",
+   "nota": null
+  },
+  {
+   "ids": "4-344",
+   "capitulo": 4,
+   "aymara": "sillu",
+   "ids_forma": "silʸu",
+   "espanol": "uña",
+   "ingles": "fingernail",
+   "nota": null
+  },
+  {
+   "ids": "4-350",
+   "capitulo": 4,
+   "aymara": "chara",
+   "ids_forma": "čara",
+   "espanol": "pierna, pata",
+   "ingles": "leg",
+   "nota": null
+  },
+  {
+   "ids": "4-352",
+   "capitulo": 4,
+   "aymara": "t'usu",
+   "ids_forma": "tˀusu",
+   "espanol": "pantorrilla",
+   "ingles": "calf of leg",
+   "nota": null
+  },
+  {
+   "ids": "4-360",
+   "capitulo": 4,
+   "aymara": "qunquri",
+   "ids_forma": "ḳunḳuri",
+   "espanol": "rodilla",
+   "ingles": "knee",
+   "nota": null
+  },
+  {
+   "ids": "4-370",
+   "capitulo": 4,
+   "aymara": "kayu",
+   "ids_forma": "kayu",
+   "espanol": "pie",
+   "ingles": "foot",
+   "nota": null
+  },
+  {
+   "ids": "4-371",
+   "capitulo": 4,
+   "aymara": "kayu muqu",
+   "ids_forma": "kayu muḳu",
+   "espanol": "tobillo",
+   "ingles": "ankle",
+   "nota": null
+  },
+  {
+   "ids": "4-372",
+   "capitulo": 4,
+   "aymara": "kayu wintu",
+   "ids_forma": "kayu wintu",
+   "espanol": "talón",
+   "ingles": "heel",
+   "nota": null
+  },
+  {
+   "ids": "4-380",
+   "capitulo": 4,
+   "aymara": "kayu luk'ana",
+   "ids_forma": "kayu lukˀana",
+   "espanol": "dedo del pie",
+   "ingles": "toe",
+   "nota": null
+  },
+  {
+   "ids": "4-392",
+   "capitulo": 4,
+   "aymara": "chhiqha",
+   "ids_forma": "čʰiḳʰa",
+   "espanol": "ala",
+   "ingles": "wing",
+   "nota": null
+  },
+  {
+   "ids": "4-393",
+   "capitulo": 4,
+   "aymara": "phuyu",
+   "ids_forma": "pʰuyu",
+   "espanol": "pluma",
+   "ingles": "feather",
+   "nota": null
+  },
+  {
+   "ids": "4-400",
+   "capitulo": 4,
+   "aymara": "ñuñu",
+   "ids_forma": "ɲuɲu",
+   "espanol": "pecho",
+   "ingles": "chest",
+   "nota": null
+  },
+  {
+   "ids": "4-430",
+   "capitulo": 4,
+   "aymara": "kururu",
+   "ids_forma": "kururu",
+   "espanol": "ombligo",
+   "ingles": "navel",
+   "nota": null
+  },
+  {
+   "ids": "4-440",
+   "capitulo": 4,
+   "aymara": "lluqu",
+   "ids_forma": "lʸuḳu",
+   "espanol": "corazón",
+   "ingles": "heart",
+   "nota": null
+  },
+  {
+   "ids": "4-441",
+   "capitulo": 4,
+   "aymara": "chuyma",
+   "ids_forma": "čuyma",
+   "espanol": "pulmón",
+   "ingles": "lung",
+   "nota": null
+  },
+  {
+   "ids": "4-450",
+   "capitulo": 4,
+   "aymara": "k'iwcha",
+   "ids_forma": "kˀiwča",
+   "espanol": "hígado",
+   "ingles": "liver",
+   "nota": null
+  },
+  {
+   "ids": "4-451",
+   "capitulo": 4,
+   "aymara": "maymuru",
+   "ids_forma": "maymuru",
+   "espanol": "riñón",
+   "ingles": "kidney",
+   "nota": null
+  },
+  {
+   "ids": "4-452",
+   "capitulo": 4,
+   "aymara": "jach'a jankhara",
+   "ids_forma": "xačˀa xankʰara",
+   "espanol": "bazo",
+   "ingles": "spleen",
+   "nota": null
+  },
+  {
+   "ids": "4-460",
+   "capitulo": 4,
+   "aymara": "phatanka",
+   "ids_forma": "pʰatanka",
+   "espanol": "estómago",
+   "ingles": "stomach",
+   "nota": null
+  },
+  {
+   "ids": "4-461",
+   "capitulo": 4,
+   "aymara": "jiphilla",
+   "ids_forma": "xipʰilʸa",
+   "espanol": "intestinos",
+   "ingles": "intestines, guts",
+   "nota": null
+  },
+  {
+   "ids": "4-462",
+   "capitulo": 4,
+   "aymara": "ch'illa",
+   "ids_forma": "čˀilʸa",
+   "espanol": "cintura",
+   "ingles": "waist",
+   "nota": null
+  },
+  {
+   "ids": "4-463",
+   "capitulo": 4,
+   "aymara": "thixni",
+   "ids_forma": "tʰiχni",
+   "espanol": "cadera",
+   "ingles": "hip",
+   "nota": null
+  },
+  {
+   "ids": "4-470",
+   "capitulo": 4,
+   "aymara": "jakaña",
+   "ids_forma": "xakaɲa",
+   "espanol": "matriz, vientre",
+   "ingles": "womb",
+   "nota": null
+  },
+  {
+   "ids": "4-520",
+   "capitulo": 4,
+   "aymara": "aysaña",
+   "ids_forma": "aysa-ɲa",
+   "espanol": "bostezar",
+   "ingles": "yawn, gape",
+   "nota": null
+  },
+  {
+   "ids": "4-521",
+   "capitulo": 4,
+   "aymara": "jik'u",
+   "ids_forma": "xikˀu",
+   "espanol": "tener hipo",
+   "ingles": "hiccough",
+   "nota": null
+  },
+  {
+   "ids": "4-530",
+   "capitulo": 4,
+   "aymara": "ch'uxuña",
+   "ids_forma": "čˀuχu-ɲa",
+   "espanol": "toser",
+   "ingles": "cough",
+   "nota": null
+  },
+  {
+   "ids": "4-540",
+   "capitulo": 4,
+   "aymara": "jach'istaña",
+   "ids_forma": "xačˀista-ɲa",
+   "espanol": "estornudar",
+   "ingles": "sneeze",
+   "nota": null
+  },
+  {
+   "ids": "4-550",
+   "capitulo": 4,
+   "aymara": "jump'iña",
+   "ids_forma": "xumpˀi-ɲa",
+   "espanol": "sudar",
+   "ingles": "perspire",
+   "nota": null
+  },
+  {
+   "ids": "4-560",
+   "capitulo": 4,
+   "aymara": "thusaña",
+   "ids_forma": "tʰusa-ɲa",
+   "espanol": "escupir (saliva [noun])",
+   "ingles": "spit",
+   "nota": null
+  },
+  {
+   "ids": "4-570",
+   "capitulo": 4,
+   "aymara": "waq'aqiña",
+   "ids_forma": "waḳˀaḳi-ɲa",
+   "espanol": "vomitar",
+   "ingles": "vomit",
+   "nota": null
+  },
+  {
+   "ids": "4-580",
+   "capitulo": 4,
+   "aymara": "achuqaña",
+   "ids_forma": "ačuḳa-ɲa",
+   "espanol": "morder",
+   "ingles": "bite",
+   "nota": null
+  },
+  {
+   "ids": "4-590",
+   "capitulo": 4,
+   "aymara": "jallq'aña",
+   "ids_forma": "xalʸḳˀa-ɲa",
+   "espanol": "lamer",
+   "ingles": "lick",
+   "nota": null
+  },
+  {
+   "ids": "4-591",
+   "capitulo": 4,
+   "aymara": "ch'aqaña",
+   "ids_forma": "čˀaḳa-ɲa",
+   "espanol": "gotear, babear",
+   "ingles": "dribble",
+   "nota": null
+  },
+  {
+   "ids": "4-610",
+   "capitulo": 4,
+   "aymara": "ikiña",
+   "ids_forma": "iki-ɲa",
+   "espanol": "dormir",
+   "ingles": "sleep",
+   "nota": null
+  },
+  {
+   "ids": "4-612",
+   "capitulo": 4,
+   "aymara": "qhurqhuña",
+   "ids_forma": "ḳʰurḳʰu-ɲa",
+   "espanol": "roncar",
+   "ingles": "snore",
+   "nota": null
+  },
+  {
+   "ids": "4-620",
+   "capitulo": 4,
+   "aymara": "iki",
+   "ids_forma": "iki",
+   "espanol": "soñar",
+   "ingles": "dream",
+   "nota": null
+  },
+  {
+   "ids": "4-630",
+   "capitulo": 4,
+   "aymara": "sartxaña",
+   "ids_forma": "sartχa-ɲa",
+   "espanol": "despertarse",
+   "ingles": "wake up",
+   "nota": null
+  },
+  {
+   "ids": "4-640",
+   "capitulo": 4,
+   "aymara": "sira",
+   "ids_forma": "sira",
+   "espanol": "ventosear, flato",
+   "ingles": "break wind",
+   "nota": null
+  },
+  {
+   "ids": "4-670",
+   "capitulo": 4,
+   "aymara": "aniña",
+   "ids_forma": "aniɲa",
+   "espanol": "tener relaciones sexuales",
+   "ingles": "have sexual intercourse",
+   "nota": null
+  },
+  {
+   "ids": "4-680",
+   "capitulo": 4,
+   "aymara": "khathatiña",
+   "ids_forma": "kʰatʰati-ɲa",
+   "espanol": "temblar",
+   "ingles": "shiver",
+   "nota": null
+  },
+  {
+   "ids": "4-690",
+   "capitulo": 4,
+   "aymara": "jarisiña",
+   "ids_forma": "xarisi-ɲa",
+   "espanol": "bañar(se)",
+   "ingles": "bathe",
+   "nota": null
+  },
+  {
+   "ids": "4-710",
+   "capitulo": 4,
+   "aymara": "katuña",
+   "ids_forma": "katu-ɲa",
+   "espanol": "engendrar",
+   "ingles": "beget (of father)",
+   "nota": null
+  },
+  {
+   "ids": "4-720",
+   "capitulo": 4,
+   "aymara": "yuriña",
+   "ids_forma": "yuri-ɲa",
+   "espanol": "nacer",
+   "ingles": "born (to be)",
+   "nota": null
+  },
+  {
+   "ids": "4-730",
+   "capitulo": 4,
+   "aymara": "wallq'i",
+   "ids_forma": "walʸḳˀi",
+   "espanol": "embarazada (mujer), preñada (hembra)",
+   "ingles": "pregnant",
+   "nota": null
+  },
+  {
+   "ids": "4-750",
+   "capitulo": 4,
+   "aymara": "jiwata",
+   "ids_forma": "xiwata",
+   "espanol": "morir, muerto",
+   "ingles": "die, dead",
+   "nota": null
+  },
+  {
+   "ids": "4-770",
+   "capitulo": 4,
+   "aymara": "amaya",
+   "ids_forma": "amaya",
+   "espanol": "cadáver",
+   "ingles": "corpse",
+   "nota": null
+  },
+  {
+   "ids": "4-780",
+   "capitulo": 4,
+   "aymara": "imantaña",
+   "ids_forma": "imanta-ɲa",
+   "espanol": "sepultar",
+   "ingles": "bury (the dead)",
+   "nota": null
+  },
+  {
+   "ids": "4-810",
+   "capitulo": 4,
+   "aymara": "ch'amani",
+   "ids_forma": "čˀamani",
+   "espanol": "fuerte, poderoso",
+   "ingles": "strong, mighty, powerful",
+   "nota": null
+  },
+  {
+   "ids": "4-820",
+   "capitulo": 4,
+   "aymara": "llaytha",
+   "ids_forma": "lʸaytʰa",
+   "espanol": "débil",
+   "ingles": "weak",
+   "nota": null
+  },
+  {
+   "ids": "4-830",
+   "capitulo": 4,
+   "aymara": "k'umara",
+   "ids_forma": "kˀumara",
+   "espanol": "sano, salud",
+   "ingles": "well, health",
+   "nota": null
+  },
+  {
+   "ids": "4-840",
+   "capitulo": 4,
+   "aymara": "usuta",
+   "ids_forma": "usuta",
+   "espanol": "enfermo, enfermedad",
+   "ingles": "sick, sickness",
+   "nota": null
+  },
+  {
+   "ids": "4-841",
+   "capitulo": 4,
+   "aymara": "chhujchhu",
+   "ids_forma": "čʰuxčʰu",
+   "espanol": "fiebre",
+   "ingles": "fever",
+   "nota": null
+  },
+  {
+   "ids": "4-842",
+   "capitulo": 4,
+   "aymara": "q'utu",
+   "ids_forma": "ḳˀutu",
+   "espanol": "bocio, coto",
+   "ingles": "goiter",
+   "nota": null
+  },
+  {
+   "ids": "4-850",
+   "capitulo": 4,
+   "aymara": "usuchata",
+   "ids_forma": "usučata",
+   "espanol": "herida, llaga",
+   "ingles": "wound, sore",
+   "nota": null
+  },
+  {
+   "ids": "4-853",
+   "capitulo": 4,
+   "aymara": "p'usu",
+   "ids_forma": "pˀusu",
+   "espanol": "hinchazón",
+   "ingles": "swelling",
+   "nota": null
+  },
+  {
+   "ids": "4-854",
+   "capitulo": 4,
+   "aymara": "jasi",
+   "ids_forma": "xasi",
+   "espanol": "comezón",
+   "ingles": "itch",
+   "nota": null
+  },
+  {
+   "ids": "4-855",
+   "capitulo": 4,
+   "aymara": "pukullu",
+   "ids_forma": "pukulʸu",
+   "espanol": "ampolla",
+   "ingles": "blister",
+   "nota": null
+  },
+  {
+   "ids": "4-856",
+   "capitulo": 4,
+   "aymara": "jinq'i",
+   "ids_forma": "xinḳˀi",
+   "espanol": "furúnculo, forúnculo",
+   "ingles": "boil (noun)",
+   "nota": null
+  },
+  {
+   "ids": "4-858",
+   "capitulo": 4,
+   "aymara": "t'iri",
+   "ids_forma": "tˀiri",
+   "espanol": "cicatriz",
+   "ingles": "scar",
+   "nota": null
+  },
+  {
+   "ids": "4-860",
+   "capitulo": 4,
+   "aymara": "qullaña",
+   "ids_forma": "ḳulʸa-ɲa",
+   "espanol": "sanar, curar",
+   "ingles": "cure, heal",
+   "nota": null
+  },
+  {
+   "ids": "4-870",
+   "capitulo": 4,
+   "aymara": "qulliri",
+   "ids_forma": "ḳulʸiri",
+   "espanol": "doctor, médico",
+   "ingles": "physician",
+   "nota": null
+  },
+  {
+   "ids": "4-880",
+   "capitulo": 4,
+   "aymara": "qulla",
+   "ids_forma": "ḳulʸa",
+   "espanol": "medicina, remedio",
+   "ingles": "medicine, drug",
+   "nota": null
+  },
+  {
+   "ids": "4-910",
+   "capitulo": 4,
+   "aymara": "qarita",
+   "ids_forma": "ḳarita",
+   "espanol": "cansado",
+   "ingles": "tired, weary",
+   "nota": null
+  },
+  {
+   "ids": "4-912",
+   "capitulo": 4,
+   "aymara": "samaraña",
+   "ids_forma": "samara-ɲa",
+   "espanol": "descansar",
+   "ingles": "rest",
+   "nota": null
+  },
+  {
+   "ids": "4-920",
+   "capitulo": 4,
+   "aymara": "jayra",
+   "ids_forma": "xayra",
+   "espanol": "perezoso",
+   "ingles": "lazy",
+   "nota": null
+  },
+  {
+   "ids": "4-930",
+   "capitulo": 4,
+   "aymara": "q'ara",
+   "ids_forma": "ḳˀara",
+   "espanol": "calvo",
+   "ingles": "bald",
+   "nota": null
+  },
+  {
+   "ids": "4-940",
+   "capitulo": 4,
+   "aymara": "wixchu",
+   "ids_forma": "wiχču",
+   "espanol": "lisiado",
+   "ingles": "lame",
+   "nota": null
+  },
+  {
+   "ids": "4-950",
+   "capitulo": 4,
+   "aymara": "uqara",
+   "ids_forma": "uḳara",
+   "espanol": "sordo",
+   "ingles": "deaf",
+   "nota": null
+  },
+  {
+   "ids": "4-960",
+   "capitulo": 4,
+   "aymara": "amutu",
+   "ids_forma": "amutu",
+   "espanol": "mudo",
+   "ingles": "mute",
+   "nota": null
+  },
+  {
+   "ids": "4-970",
+   "capitulo": 4,
+   "aymara": "juykhu",
+   "ids_forma": "xuykʰu",
+   "espanol": "ciego",
+   "ingles": "blind",
+   "nota": null
+  },
+  {
+   "ids": "4-980",
+   "capitulo": 4,
+   "aymara": "umata",
+   "ids_forma": "umata",
+   "espanol": "ebrio",
+   "ingles": "intoxicated",
+   "nota": null
+  },
+  {
+   "ids": "4-990",
+   "capitulo": 4,
+   "aymara": "q'alanchu",
+   "ids_forma": "ḳˀalanču",
+   "espanol": "desnudo",
+   "ingles": "naked, bare",
+   "nota": null
+  },
+  {
+   "ids": "5-110",
+   "capitulo": 5,
+   "aymara": "manq'aña",
+   "ids_forma": "manḳˀa-ɲa",
+   "espanol": "comer",
+   "ingles": "eat",
+   "nota": null
+  },
+  {
+   "ids": "5-120",
+   "capitulo": 5,
+   "aymara": "manq'a",
+   "ids_forma": "manḳˀa",
+   "espanol": "comida",
+   "ingles": "food",
+   "nota": null
+  },
+  {
+   "ids": "5-121",
+   "capitulo": 5,
+   "aymara": "phayata",
+   "ids_forma": "pʰayata",
+   "espanol": "cocido, cocinado",
+   "ingles": "cooked",
+   "nota": null
+  },
+  {
+   "ids": "5-122",
+   "capitulo": 5,
+   "aymara": "ch'uqi",
+   "ids_forma": "čˀuḳi",
+   "espanol": "crudo",
+   "ingles": "raw",
+   "nota": null
+  },
+  {
+   "ids": "5-123",
+   "capitulo": 5,
+   "aymara": "puquta",
+   "ids_forma": "puḳuta",
+   "espanol": "maduro",
+   "ingles": "ripe",
+   "nota": null
+  },
+  {
+   "ids": "5-124",
+   "capitulo": 5,
+   "aymara": "ch'uxña",
+   "ids_forma": "čˀuχ-ɲa",
+   "espanol": "inmaduro, no maduro, verde",
+   "ingles": "green, unripe",
+   "nota": null
+  },
+  {
+   "ids": "5-125",
+   "capitulo": 5,
+   "aymara": "ñusata",
+   "ids_forma": "ɲusata",
+   "espanol": "podrido",
+   "ingles": "rotten",
+   "nota": null
+  },
+  {
+   "ids": "5-130",
+   "capitulo": 5,
+   "aymara": "umaña",
+   "ids_forma": "uma-ɲa",
+   "espanol": "beber",
+   "ingles": "drink",
+   "nota": null
+  },
+  {
+   "ids": "5-140",
+   "capitulo": 5,
+   "aymara": "manq'ata awtjaña",
+   "ids_forma": "manḳˀata awtxaɲa",
+   "espanol": "hambre",
+   "ingles": "hunger",
+   "nota": null
+  },
+  {
+   "ids": "5-150",
+   "capitulo": 5,
+   "aymara": "umata awtjäña",
+   "ids_forma": "umata awtxaaɲa",
+   "espanol": "sed",
+   "ingles": "thirst",
+   "nota": null
+  },
+  {
+   "ids": "5-160",
+   "capitulo": 5,
+   "aymara": "ch'amuña",
+   "ids_forma": "čˀamu-ɲa",
+   "espanol": "chupar",
+   "ingles": "suck",
+   "nota": null
+  },
+  {
+   "ids": "5-180",
+   "capitulo": 5,
+   "aymara": "khisthuña",
+   "ids_forma": "kʰistʰu-ɲa",
+   "espanol": "masticar",
+   "ingles": "chew",
+   "nota": null
+  },
+  {
+   "ids": "5-181",
+   "capitulo": 5,
+   "aymara": "mallxtayaña",
+   "ids_forma": "malʸχtaya-ɲa",
+   "espanol": "tragar",
+   "ingles": "swallow",
+   "nota": null
+  },
+  {
+   "ids": "5-210",
+   "capitulo": 5,
+   "aymara": "phayaña",
+   "ids_forma": "pʰaya-ɲa",
+   "espanol": "cocinar",
+   "ingles": "cook",
+   "nota": null
+  },
+  {
+   "ids": "5-220",
+   "capitulo": 5,
+   "aymara": "wallaqiña",
+   "ids_forma": "walʸaḳi-ɲa",
+   "espanol": "hervir",
+   "ingles": "boil (vb)",
+   "nota": null
+  },
+  {
+   "ids": "5-230",
+   "capitulo": 5,
+   "aymara": "kankaña",
+   "ids_forma": "kanka-ɲa",
+   "espanol": "asar, freír",
+   "ingles": "roast, fry",
+   "nota": null
+  },
+  {
+   "ids": "5-260",
+   "capitulo": 5,
+   "aymara": "phukhu",
+   "ids_forma": "pʰukʰu",
+   "espanol": "olla",
+   "ingles": "pot, cooking vessel",
+   "nota": null
+  },
+  {
+   "ids": "5-270",
+   "capitulo": 5,
+   "aymara": "chatu",
+   "ids_forma": "čatu",
+   "espanol": "caldera",
+   "ingles": "kettle",
+   "nota": null
+  },
+  {
+   "ids": "5-310",
+   "capitulo": 5,
+   "aymara": "chuwa",
+   "ids_forma": "čuwa",
+   "espanol": "plato, fuente",
+   "ingles": "dish",
+   "nota": null
+  },
+  {
+   "ids": "5-340",
+   "capitulo": 5,
+   "aymara": "yuru",
+   "ids_forma": "yuru",
+   "espanol": "cántaro, jarro",
+   "ingles": "pitcher, jug",
+   "nota": null
+  },
+  {
+   "ids": "5-370",
+   "capitulo": 5,
+   "aymara": "wislla",
+   "ids_forma": "wislʸa",
+   "espanol": "cuchara",
+   "ingles": "spoon",
+   "nota": null
+  },
+  {
+   "ids": "5-380",
+   "capitulo": 5,
+   "aymara": "tumi",
+   "ids_forma": "tumi",
+   "espanol": "cuchillo (para cortar comida)",
+   "ingles": "knife (2)",
+   "nota": null
+  },
+  {
+   "ids": "5-460",
+   "capitulo": 5,
+   "aymara": "sillp'iraña",
+   "ids_forma": "silʸpˀira-ɲa",
+   "espanol": "pelar",
+   "ingles": "peel",
+   "nota": null
+  },
+  {
+   "ids": "5-470",
+   "capitulo": 5,
+   "aymara": "susuña",
+   "ids_forma": "susu-ɲa",
+   "espanol": "cribar, colar, cerner",
+   "ingles": "sieve, strain",
+   "nota": null
+  },
+  {
+   "ids": "5-480",
+   "capitulo": 5,
+   "aymara": "khithuña",
+   "ids_forma": "kʰitʰu-ɲa",
+   "espanol": "raspar, rallar",
+   "ingles": "scrape",
+   "nota": null
+  },
+  {
+   "ids": "5-490",
+   "capitulo": 5,
+   "aymara": "thikhiña",
+   "ids_forma": "tʰikʰi-ɲa",
+   "espanol": "mezclar, mixturar",
+   "ingles": "stir, mix",
+   "nota": null
+  },
+  {
+   "ids": "5-510",
+   "capitulo": 5,
+   "aymara": "t'ant'a",
+   "ids_forma": "tˀantˀa",
+   "espanol": "pan",
+   "ingles": "bread",
+   "nota": null
+  },
+  {
+   "ids": "5-540",
+   "capitulo": 5,
+   "aymara": "chapuña",
+   "ids_forma": "čapu-ɲa",
+   "espanol": "amasar",
+   "ingles": "knead",
+   "nota": null
+  },
+  {
+   "ids": "5-550",
+   "capitulo": 5,
+   "aymara": "jak'u",
+   "ids_forma": "xakˀu",
+   "espanol": "harina",
+   "ingles": "meal, flour",
+   "nota": null
+  },
+  {
+   "ids": "5-560",
+   "capitulo": 5,
+   "aymara": "sillp'jaña",
+   "ids_forma": "silʸpˀxaɲa",
+   "espanol": "aplastar, moler",
+   "ingles": "crush, grind",
+   "nota": null
+  },
+  {
+   "ids": "5-640",
+   "capitulo": 5,
+   "aymara": "luxru",
+   "ids_forma": "luχru",
+   "espanol": "sopa",
+   "ingles": "soup, broth",
+   "nota": null
+  },
+  {
+   "ids": "5-660",
+   "capitulo": 5,
+   "aymara": "ch'iwa",
+   "ids_forma": "čˀiwa",
+   "espanol": "frijol, poroto",
+   "ingles": "bean",
+   "nota": null
+  },
+  {
+   "ids": "5-700",
+   "capitulo": 5,
+   "aymara": "amqa",
+   "ids_forma": "amḳa",
+   "espanol": "papa",
+   "ingles": "potato",
+   "nota": null
+  },
+  {
+   "ids": "5-710",
+   "capitulo": 5,
+   "aymara": "muxsächu",
+   "ids_forma": "muχsaaču",
+   "espanol": "fruta",
+   "ingles": "fruit",
+   "nota": null
+  },
+  {
+   "ids": "5-750",
+   "capitulo": 5,
+   "aymara": "iwusa",
+   "ids_forma": "iwusa",
+   "espanol": "higo",
+   "ingles": "fig",
+   "nota": null
+  },
+  {
+   "ids": "5-760",
+   "capitulo": 5,
+   "aymara": "uwasa",
+   "ids_forma": "uwasa",
+   "espanol": "uva",
+   "ingles": "grape",
+   "nota": null
+  },
+  {
+   "ids": "5-810",
+   "capitulo": 5,
+   "aymara": "jayu",
+   "ids_forma": "xayu",
+   "espanol": "sal",
+   "ingles": "salt",
+   "nota": null
+  },
+  {
+   "ids": "5-821",
+   "capitulo": 5,
+   "aymara": "wayk'a",
+   "ids_forma": "waykˀa",
+   "espanol": "ají",
+   "ingles": "chili pepper",
+   "nota": null
+  },
+  {
+   "ids": "5-840",
+   "capitulo": 5,
+   "aymara": "misk'i",
+   "ids_forma": "miskˀi",
+   "espanol": "miel",
+   "ingles": "honey",
+   "nota": null
+  },
+  {
+   "ids": "5-860",
+   "capitulo": 5,
+   "aymara": "millk'i",
+   "ids_forma": "milʸkˀi",
+   "espanol": "leche",
+   "ingles": "milk (noun)",
+   "nota": null
+  },
+  {
+   "ids": "5-870",
+   "capitulo": 5,
+   "aymara": "ch'awaña",
+   "ids_forma": "čˀawa-ɲa",
+   "espanol": "ordeñar",
+   "ingles": "milk (vb)",
+   "nota": null
+  },
+  {
+   "ids": "5-940",
+   "capitulo": 5,
+   "aymara": "k'usa",
+   "ids_forma": "kˀusa",
+   "espanol": "bebida fermentada",
+   "ingles": "fermented drink",
+   "nota": null
+  },
+  {
+   "ids": "5-970",
+   "capitulo": 5,
+   "aymara": "k'awna",
+   "ids_forma": "kˀawna",
+   "espanol": "huevo",
+   "ingles": "egg",
+   "nota": null
+  },
+  {
+   "ids": "5-971",
+   "capitulo": 5,
+   "aymara": "k'awna q'illu",
+   "ids_forma": "kˀawna ḳˀilʸu",
+   "espanol": "yema (de huevo)",
+   "ingles": "egg yolk",
+   "nota": null
+  },
+  {
+   "ids": "6-110",
+   "capitulo": 6,
+   "aymara": "isisiña",
+   "ids_forma": "isisi-ɲa",
+   "espanol": "vestirse",
+   "ingles": "put on (clothes)",
+   "nota": null
+  },
+  {
+   "ids": "6-120",
+   "capitulo": 6,
+   "aymara": "isi",
+   "ids_forma": "isi",
+   "espanol": "ropa",
+   "ingles": "clothing, clothes",
+   "nota": null
+  },
+  {
+   "ids": "6-130",
+   "capitulo": 6,
+   "aymara": "ch'ukuri",
+   "ids_forma": "čˀukuri",
+   "espanol": "sastre",
+   "ingles": "tailor",
+   "nota": null
+  },
+  {
+   "ids": "6-240",
+   "capitulo": 6,
+   "aymara": "qhiya",
+   "ids_forma": "ḳʰiya",
+   "espanol": "algodón",
+   "ingles": "cotton",
+   "nota": null
+  },
+  {
+   "ids": "6-310",
+   "capitulo": 6,
+   "aymara": "qapuña",
+   "ids_forma": "ḳapu-ɲa",
+   "espanol": "hilar",
+   "ingles": "spin",
+   "nota": null
+  },
+  {
+   "ids": "6-320",
+   "capitulo": 6,
+   "aymara": "qapu",
+   "ids_forma": "ḳapu",
+   "espanol": "huso",
+   "ingles": "spindle",
+   "nota": null
+  },
+  {
+   "ids": "6-330",
+   "capitulo": 6,
+   "aymara": "sawuña",
+   "ids_forma": "sawu-ɲa",
+   "espanol": "tejer",
+   "ingles": "weave",
+   "nota": null
+  },
+  {
+   "ids": "6-350",
+   "capitulo": 6,
+   "aymara": "ch'ukuña",
+   "ids_forma": "čˀuku-ɲa",
+   "espanol": "coser",
+   "ingles": "sew",
+   "nota": null
+  },
+  {
+   "ids": "6-360",
+   "capitulo": 6,
+   "aymara": "yawriqallu",
+   "ids_forma": "yawriḳalʸu",
+   "espanol": "aguja",
+   "ingles": "needle",
+   "nota": null
+  },
+  {
+   "ids": "6-370",
+   "capitulo": 6,
+   "aymara": "junuña",
+   "ids_forma": "xunu-ɲa",
+   "espanol": "punzón",
+   "ingles": "awl",
+   "nota": null
+  },
+  {
+   "ids": "6-380",
+   "capitulo": 6,
+   "aymara": "ch'ankha",
+   "ids_forma": "čˀankʰa",
+   "espanol": "hilo",
+   "ingles": "thread",
+   "nota": null
+  },
+  {
+   "ids": "6-390",
+   "capitulo": 6,
+   "aymara": "samachaña",
+   "ids_forma": "samača-ɲa",
+   "espanol": "teñir",
+   "ingles": "dye",
+   "nota": null
+  },
+  {
+   "ids": "6-410",
+   "capitulo": 6,
+   "aymara": "yaqhulla",
+   "ids_forma": "yaḳʰulʸa",
+   "espanol": "capa",
+   "ingles": "cloak",
+   "nota": null
+  },
+  {
+   "ids": "6-411",
+   "capitulo": 6,
+   "aymara": "punchu",
+   "ids_forma": "punču",
+   "espanol": "poncho, ruana",
+   "ingles": "poncho",
+   "nota": null
+  },
+  {
+   "ids": "6-450",
+   "capitulo": 6,
+   "aymara": "kuyllu",
+   "ids_forma": "kuylʸu",
+   "espanol": "cuello",
+   "ingles": "collar",
+   "nota": null
+  },
+  {
+   "ids": "6-510",
+   "capitulo": 6,
+   "aymara": "p'ullqu",
+   "ids_forma": "pˀulʸḳu",
+   "espanol": "zapato",
+   "ingles": "shoe",
+   "nota": null
+  },
+  {
+   "ids": "6-550",
+   "capitulo": 6,
+   "aymara": "tanka",
+   "ids_forma": "tanka",
+   "espanol": "sombrero, gorro",
+   "ingles": "hat, cap",
+   "nota": null
+  },
+  {
+   "ids": "6-570",
+   "capitulo": 6,
+   "aymara": "lluch'u",
+   "ids_forma": "lʸučˀu",
+   "espanol": "cinturón, faja",
+   "ingles": "belt, girdle",
+   "nota": null
+  },
+  {
+   "ids": "6-710",
+   "capitulo": 6,
+   "aymara": "k'achacha",
+   "ids_forma": "kˀačača",
+   "espanol": "adorno, ornato",
+   "ingles": "ornament, adornment",
+   "nota": null
+  },
+  {
+   "ids": "6-740",
+   "capitulo": 6,
+   "aymara": "chipana",
+   "ids_forma": "čipana",
+   "espanol": "brazalete, pulsera",
+   "ingles": "bracelet",
+   "nota": null
+  },
+  {
+   "ids": "6-750",
+   "capitulo": 6,
+   "aymara": "ajuña",
+   "ids_forma": "axuɲa",
+   "espanol": "collar",
+   "ingles": "necklace",
+   "nota": null
+  },
+  {
+   "ids": "6-760",
+   "capitulo": 6,
+   "aymara": "wallqa",
+   "ids_forma": "walʸḳa",
+   "espanol": "chaquira, abalorio",
+   "ingles": "bead",
+   "nota": null
+  },
+  {
+   "ids": "6-910",
+   "capitulo": 6,
+   "aymara": "sanu",
+   "ids_forma": "sanu",
+   "espanol": "peine",
+   "ingles": "comb",
+   "nota": null
+  },
+  {
+   "ids": "6-921",
+   "capitulo": 6,
+   "aymara": "k'anaña",
+   "ids_forma": "kˀana-ɲa",
+   "espanol": "trenzar",
+   "ingles": "braid",
+   "nota": null
+  },
+  {
+   "ids": "6-940",
+   "capitulo": 6,
+   "aymara": "qaquntaña",
+   "ids_forma": "ḳaḳunta-ɲa",
+   "espanol": "ungüento",
+   "ingles": "ointment",
+   "nota": null
+  },
+  {
+   "ids": "6-960",
+   "capitulo": 6,
+   "aymara": "lirphu",
+   "ids_forma": "lirpʰu",
+   "espanol": "espejo",
+   "ingles": "mirror",
+   "nota": null
+  },
+  {
+   "ids": "7-110",
+   "capitulo": 7,
+   "aymara": "utjaña",
+   "ids_forma": "utxa-ɲa",
+   "espanol": "habitar, vivir",
+   "ingles": "dwell, live",
+   "nota": null
+  },
+  {
+   "ids": "7-130",
+   "capitulo": 7,
+   "aymara": "chhujilla",
+   "ids_forma": "čʰuxilʸa",
+   "espanol": "cabaña, choza",
+   "ingles": "hut",
+   "nota": null
+  },
+  {
+   "ids": "7-150",
+   "capitulo": 7,
+   "aymara": "utänqa",
+   "ids_forma": "utaanḳa",
+   "espanol": "cancha, patio",
+   "ingles": "yard, court",
+   "nota": null
+  },
+  {
+   "ids": "7-220",
+   "capitulo": 7,
+   "aymara": "punku",
+   "ids_forma": "punku",
+   "espanol": "puerta",
+   "ingles": "door, gate",
+   "nota": null
+  },
+  {
+   "ids": "7-250",
+   "capitulo": 7,
+   "aymara": "t'uxu",
+   "ids_forma": "tˀuχu",
+   "espanol": "ventana",
+   "ingles": "window",
+   "nota": null
+  },
+  {
+   "ids": "7-270",
+   "capitulo": 7,
+   "aymara": "pirqa",
+   "ids_forma": "pirḳa",
+   "espanol": "pared, muro",
+   "ingles": "wall",
+   "nota": null
+  },
+  {
+   "ids": "7-310",
+   "capitulo": 7,
+   "aymara": "qhiri",
+   "ids_forma": "ḳʰiri",
+   "espanol": "fogón",
+   "ingles": "fireplace",
+   "nota": null
+  },
+  {
+   "ids": "7-370",
+   "capitulo": 7,
+   "aymara": "patill patilla",
+   "ids_forma": "patilʸ-patilʸa",
+   "espanol": "escalera",
+   "ingles": "ladder",
+   "nota": null
+  },
+  {
+   "ids": "7-420",
+   "capitulo": 7,
+   "aymara": "patät'i",
+   "ids_forma": "pataatˀi",
+   "espanol": "cama",
+   "ingles": "bed",
+   "nota": null
+  },
+  {
+   "ids": "7-421",
+   "capitulo": 7,
+   "aymara": "ch'ijmaña",
+   "ids_forma": "čˀixmaɲa",
+   "espanol": "almohada",
+   "ingles": "pillow",
+   "nota": null
+  },
+  {
+   "ids": "7-430",
+   "capitulo": 7,
+   "aymara": "qunuña",
+   "ids_forma": "ḳunuɲa",
+   "espanol": "silla",
+   "ingles": "chair",
+   "nota": null
+  },
+  {
+   "ids": "7-480",
+   "capitulo": 7,
+   "aymara": "lamana",
+   "ids_forma": "lamana",
+   "espanol": "batea, artesa",
+   "ingles": "trough",
+   "nota": null
+  },
+  {
+   "ids": "7-520",
+   "capitulo": 7,
+   "aymara": "wichhu jichhu",
+   "ids_forma": "wičʰu xičʰu",
+   "espanol": "paja (para techumbre)",
+   "ingles": "thatch",
+   "nota": null
+  },
+  {
+   "ids": "7-540",
+   "capitulo": 7,
+   "aymara": "lawa",
+   "ids_forma": "lawa",
+   "espanol": "viga",
+   "ingles": "rafter",
+   "nota": null
+  },
+  {
+   "ids": "8-110",
+   "capitulo": 8,
+   "aymara": "yapuchiri",
+   "ids_forma": "yapučiri",
+   "espanol": "labrador, ranchero",
+   "ingles": "farmer",
+   "nota": null
+  },
+  {
+   "ids": "8-120",
+   "capitulo": 8,
+   "aymara": "yapu",
+   "ids_forma": "yapu",
+   "espanol": "campo (de cultivo), chacra",
+   "ingles": "field (for cultivation)",
+   "nota": null
+  },
+  {
+   "ids": "8-150",
+   "capitulo": 8,
+   "aymara": "yapuchaña",
+   "ids_forma": "yapuča-ɲa",
+   "espanol": "cultivar, labrar",
+   "ingles": "cultivate, till",
+   "nota": null
+  },
+  {
+   "ids": "8-170",
+   "capitulo": 8,
+   "aymara": "larqa",
+   "ids_forma": "larḳa",
+   "espanol": "zanja",
+   "ingles": "ditch",
+   "nota": null
+  },
+  {
+   "ids": "8-210",
+   "capitulo": 8,
+   "aymara": "qhulliña",
+   "ids_forma": "ḳʰulʸi-ɲa",
+   "espanol": "arar",
+   "ingles": "plow",
+   "nota": null
+  },
+  {
+   "ids": "8-220",
+   "capitulo": 8,
+   "aymara": "phat'suña",
+   "ids_forma": "pʰatˀsu-ɲa",
+   "espanol": "excavar, cavar",
+   "ingles": "dig",
+   "nota": null
+  },
+  {
+   "ids": "8-310",
+   "capitulo": 8,
+   "aymara": "sataña",
+   "ids_forma": "sata-ɲa",
+   "espanol": "sembrar, desparramar",
+   "ingles": "sow",
+   "nota": null
+  },
+  {
+   "ids": "8-311",
+   "capitulo": 8,
+   "aymara": "jatha",
+   "ids_forma": "xatʰa",
+   "espanol": "semilla",
+   "ingles": "seed",
+   "nota": null
+  },
+  {
+   "ids": "8-320",
+   "capitulo": 8,
+   "aymara": "yawiña",
+   "ids_forma": "yawi-ɲa",
+   "espanol": "segar, cosechar",
+   "ingles": "mow, reap",
+   "nota": null
+  },
+  {
+   "ids": "8-340",
+   "capitulo": 8,
+   "aymara": "muchhaña",
+   "ids_forma": "mučʰa-ɲa",
+   "espanol": "trillar, desgranar",
+   "ingles": "thresh",
+   "nota": null
+  },
+  {
+   "ids": "8-350",
+   "capitulo": 8,
+   "aymara": "p'iraña",
+   "ids_forma": "pˀiraɲa",
+   "espanol": "era, lugar para trillar",
+   "ingles": "threshing-floor",
+   "nota": null
+  },
+  {
+   "ids": "8-410",
+   "capitulo": 8,
+   "aymara": "apthapi",
+   "ids_forma": "aptʰapi",
+   "espanol": "cosecha, siega",
+   "ingles": "crop, harvest",
+   "nota": null
+  },
+  {
+   "ids": "8-470",
+   "capitulo": 8,
+   "aymara": "tunqu",
+   "ids_forma": "tunḳu",
+   "espanol": "maíz",
+   "ingles": "maize, corn",
+   "nota": null
+  },
+  {
+   "ids": "8-510",
+   "capitulo": 8,
+   "aymara": "qura",
+   "ids_forma": "ḳura",
+   "espanol": "hierba, pasto",
+   "ingles": "grass",
+   "nota": null
+  },
+  {
+   "ids": "8-530",
+   "capitulo": 8,
+   "aymara": "ali",
+   "ids_forma": "ali",
+   "espanol": "planta",
+   "ingles": "plant (noun)",
+   "nota": null
+  },
+  {
+   "ids": "8-540",
+   "capitulo": 8,
+   "aymara": "saphi",
+   "ids_forma": "sapʰi",
+   "espanol": "raíz",
+   "ingles": "root",
+   "nota": null
+  },
+  {
+   "ids": "8-550",
+   "capitulo": 8,
+   "aymara": "laymi",
+   "ids_forma": "laymi",
+   "espanol": "rama",
+   "ingles": "branch",
+   "nota": null
+  },
+  {
+   "ids": "8-560",
+   "capitulo": 8,
+   "aymara": "laphi",
+   "ids_forma": "lapʰi",
+   "espanol": "hoja",
+   "ingles": "leaf",
+   "nota": null
+  },
+  {
+   "ids": "8-570",
+   "capitulo": 8,
+   "aymara": "panqara",
+   "ids_forma": "panḳara",
+   "espanol": "flor",
+   "ingles": "flower",
+   "nota": null
+  },
+  {
+   "ids": "8-680",
+   "capitulo": 8,
+   "aymara": "thujsa thujsa",
+   "ids_forma": "tʰuxsa-tʰuxsa",
+   "espanol": "tabaco",
+   "ingles": "tobacco",
+   "nota": null
+  },
+  {
+   "ids": "8-740",
+   "capitulo": 8,
+   "aymara": "p'allqa",
+   "ids_forma": "pˀalʸḳa",
+   "espanol": "rama bifurcada",
+   "ingles": "forked branch",
+   "nota": null
+  },
+  {
+   "ids": "8-920",
+   "capitulo": 8,
+   "aymara": "yuka",
+   "ids_forma": "yuka",
+   "espanol": "mandioca, yuca",
+   "ingles": "tapioca, manioc, cassava",
+   "nota": null
+  },
+  {
+   "ids": "8-940",
+   "capitulo": 8,
+   "aymara": "suq'usa",
+   "ids_forma": "suḳˀusa",
+   "espanol": "bambú",
+   "ingles": "bamboo",
+   "nota": null
+  },
+  {
+   "ids": "8-970",
+   "capitulo": 8,
+   "aymara": "itapallu",
+   "ids_forma": "itapalʸu",
+   "espanol": "ortiga",
+   "ingles": "nettle",
+   "nota": null
+  },
+  {
+   "ids": "8-980",
+   "capitulo": 8,
+   "aymara": "sirk'i",
+   "ids_forma": "sirkˀi",
+   "espanol": "hongo, seta",
+   "ingles": "mushroom",
+   "nota": null
+  },
+  {
+   "ids": "9-110",
+   "capitulo": 9,
+   "aymara": "luraña",
+   "ids_forma": "lura-ɲa",
+   "espanol": "hacer",
+   "ingles": "do, make",
+   "nota": null
+  },
+  {
+   "ids": "9-140",
+   "capitulo": 9,
+   "aymara": "q'iwiña",
+   "ids_forma": "ḳˀiwi-ɲa",
+   "espanol": "encorvar, doblar",
+   "ingles": "bend",
+   "nota": null
+  },
+  {
+   "ids": "9-150",
+   "capitulo": 9,
+   "aymara": "q'iwt'aña",
+   "ids_forma": "ḳˀiwtˀa-ɲa",
+   "espanol": "doblar",
+   "ingles": "fold",
+   "nota": null
+  },
+  {
+   "ids": "9-160",
+   "capitulo": 9,
+   "aymara": "ñach'aña",
+   "ids_forma": "ɲačˀa-ɲa",
+   "espanol": "amarrar, atar",
+   "ingles": "tie, bind",
+   "nota": null
+  },
+  {
+   "ids": "9-161",
+   "capitulo": 9,
+   "aymara": "jararaña",
+   "ids_forma": "xarara-ɲa",
+   "espanol": "desatar",
+   "ingles": "untie",
+   "nota": null
+  },
+  {
+   "ids": "9-190",
+   "capitulo": 9,
+   "aymara": "wiska",
+   "ids_forma": "wiska",
+   "espanol": "cuerda, soga",
+   "ingles": "rope, cord",
+   "nota": null
+  },
+  {
+   "ids": "9-192",
+   "capitulo": 9,
+   "aymara": "muqu",
+   "ids_forma": "muḳu",
+   "espanol": "nudo",
+   "ingles": "knot (noun)",
+   "nota": null
+  },
+  {
+   "ids": "9-210",
+   "capitulo": 9,
+   "aymara": "liq'iña",
+   "ids_forma": "liḳˀi-ɲa",
+   "espanol": "golpear",
+   "ingles": "strike (hit, beat)",
+   "nota": null
+  },
+  {
+   "ids": "9-211",
+   "capitulo": 9,
+   "aymara": "ch'akuña",
+   "ids_forma": "čˀaku-ɲa",
+   "espanol": "machacar con el puño",
+   "ingles": "pound with fist",
+   "nota": null
+  },
+  {
+   "ids": "9-220",
+   "capitulo": 9,
+   "aymara": "kharjaña",
+   "ids_forma": "kʰarxa-ɲa",
+   "espanol": "cortar",
+   "ingles": "cut",
+   "nota": null
+  },
+  {
+   "ids": "9-221",
+   "capitulo": 9,
+   "aymara": "liwnuqaña",
+   "ids_forma": "liwnuḳa-ɲa",
+   "espanol": "tumbar, talar",
+   "ingles": "cut down",
+   "nota": null
+  },
+  {
+   "ids": "9-222",
+   "capitulo": 9,
+   "aymara": "q'alluña",
+   "ids_forma": "ḳˀalʸu-ɲa",
+   "espanol": "tajar, picar",
+   "ingles": "chop, hew",
+   "nota": null
+  },
+  {
+   "ids": "9-260",
+   "capitulo": 9,
+   "aymara": "p'akiña",
+   "ids_forma": "pˀaki-ɲa",
+   "espanol": "quebrar",
+   "ingles": "break",
+   "nota": null
+  },
+  {
+   "ids": "9-261",
+   "capitulo": 9,
+   "aymara": "p'akita",
+   "ids_forma": "pˀakita",
+   "espanol": "quebrado",
+   "ingles": "broken",
+   "nota": null
+  },
+  {
+   "ids": "9-270",
+   "capitulo": 9,
+   "aymara": "jaljaña",
+   "ids_forma": "xalxa-ɲa",
+   "espanol": "hender, partir",
+   "ingles": "split",
+   "nota": null
+  },
+  {
+   "ids": "9-280",
+   "capitulo": 9,
+   "aymara": "ch'iyjaña",
+   "ids_forma": "čˀiyxa-ɲa",
+   "espanol": "romper, rasgar",
+   "ingles": "tear",
+   "nota": null
+  },
+  {
+   "ids": "9-290",
+   "capitulo": 9,
+   "aymara": "kharsuña",
+   "ids_forma": "kʰarsu-ɲa",
+   "espanol": "desollar",
+   "ingles": "flay, skin",
+   "nota": null
+  },
+  {
+   "ids": "9-310",
+   "capitulo": 9,
+   "aymara": "qaquña",
+   "ids_forma": "ḳaḳu-ɲa",
+   "espanol": "frotar, enjugar",
+   "ingles": "rub, wipe",
+   "nota": null
+  },
+  {
+   "ids": "9-320",
+   "capitulo": 9,
+   "aymara": "iqatataña",
+   "ids_forma": "iḳatata-ɲa",
+   "espanol": "alargar, estirar, tender",
+   "ingles": "stretch",
+   "nota": null
+  },
+  {
+   "ids": "9-330",
+   "capitulo": 9,
+   "aymara": "jiyaña",
+   "ids_forma": "xiya-ɲa",
+   "espanol": "tirar, jalar",
+   "ingles": "pull",
+   "nota": null
+  },
+  {
+   "ids": "9-340",
+   "capitulo": 9,
+   "aymara": "willitataña",
+   "ids_forma": "wilʸitata-ɲa",
+   "espanol": "extender, esparcir",
+   "ingles": "spread out",
+   "nota": null
+  },
+  {
+   "ids": "9-341",
+   "capitulo": 9,
+   "aymara": "warkuña",
+   "ids_forma": "warku-ɲa",
+   "espanol": "colgar",
+   "ingles": "hang up",
+   "nota": null
+  },
+  {
+   "ids": "9-342",
+   "capitulo": 9,
+   "aymara": "q'aphiña",
+   "ids_forma": "ḳˀapʰi-ɲa",
+   "espanol": "apretar, oprimir",
+   "ingles": "press",
+   "nota": null
+  },
+  {
+   "ids": "9-343",
+   "capitulo": 9,
+   "aymara": "q'apthapiña",
+   "ids_forma": "ḳˀaptʰapi-ɲa",
+   "espanol": "estrujar, exprimir",
+   "ingles": "squeeze, wring",
+   "nota": null
+  },
+  {
+   "ids": "9-350",
+   "capitulo": 9,
+   "aymara": "q'upthapiña",
+   "ids_forma": "ḳˀuptʰapi-ɲa",
+   "espanol": "vaciar, verter, derramar",
+   "ingles": "pour",
+   "nota": null
+  },
+  {
+   "ids": "9-360",
+   "capitulo": 9,
+   "aymara": "jariña",
+   "ids_forma": "xari-ɲa",
+   "espanol": "lavar",
+   "ingles": "wash",
+   "nota": null
+  },
+  {
+   "ids": "9-370",
+   "capitulo": 9,
+   "aymara": "pichaña",
+   "ids_forma": "piča-ɲa",
+   "espanol": "barrer",
+   "ingles": "sweep",
+   "nota": null
+  },
+  {
+   "ids": "9-440",
+   "capitulo": 9,
+   "aymara": "pirqaña",
+   "ids_forma": "pirḳa-ɲa",
+   "espanol": "edificar",
+   "ingles": "build",
+   "nota": null
+  },
+  {
+   "ids": "9-460",
+   "capitulo": 9,
+   "aymara": "p'iyantaña",
+   "ids_forma": "pˀiyanta-ɲa",
+   "espanol": "perforar",
+   "ingles": "bore",
+   "nota": null
+  },
+  {
+   "ids": "9-461",
+   "capitulo": 9,
+   "aymara": "qaqantaña",
+   "ids_forma": "ḳaḳanta-ɲa",
+   "espanol": "ahuecar",
+   "ingles": "hollow out",
+   "nota": null
+  },
+  {
+   "ids": "9-630",
+   "capitulo": 9,
+   "aymara": "qhirqthapiyaña",
+   "ids_forma": "ḳʰirḳtʰapiya-ɲa",
+   "espanol": "fundir",
+   "ingles": "cast (metals)",
+   "nota": null
+  },
+  {
+   "ids": "9-640",
+   "capitulo": 9,
+   "aymara": "quri",
+   "ids_forma": "ḳuri",
+   "espanol": "oro",
+   "ingles": "gold",
+   "nota": null
+  },
+  {
+   "ids": "9-650",
+   "capitulo": 9,
+   "aymara": "qullqi",
+   "ids_forma": "ḳulʸḳi",
+   "espanol": "plata",
+   "ingles": "silver",
+   "nota": null
+  },
+  {
+   "ids": "9-660",
+   "capitulo": 9,
+   "aymara": "k'awsi",
+   "ids_forma": "kˀawsi",
+   "espanol": "cobre, bronce",
+   "ingles": "copper, bronze",
+   "nota": null
+  },
+  {
+   "ids": "9-680",
+   "capitulo": 9,
+   "aymara": "malla",
+   "ids_forma": "malʸa",
+   "espanol": "plomo",
+   "ingles": "lead (noun)",
+   "nota": null
+  },
+  {
+   "ids": "9-690",
+   "capitulo": 9,
+   "aymara": "chayanta",
+   "ids_forma": "čayanta",
+   "espanol": "estaño",
+   "ingles": "tin, tinplate",
+   "nota": null
+  },
+  {
+   "ids": "9-730",
+   "capitulo": 9,
+   "aymara": "ñiwk'i",
+   "ids_forma": "ɲiwkˀi",
+   "espanol": "barro, arcilla",
+   "ingles": "clay",
+   "nota": null
+  },
+  {
+   "ids": "9-740",
+   "capitulo": 9,
+   "aymara": "qhispi",
+   "ids_forma": "ḳʰispi",
+   "espanol": "vidrio",
+   "ingles": "glass",
+   "nota": null
+  },
+  {
+   "ids": "9-750",
+   "capitulo": 9,
+   "aymara": "sawaña",
+   "ids_forma": "sawa-ɲa",
+   "espanol": "tejer, trenzar",
+   "ingles": "weave, plait",
+   "nota": null
+  },
+  {
+   "ids": "9-770",
+   "capitulo": 9,
+   "aymara": "sixi",
+   "ids_forma": "siχi",
+   "espanol": "estera",
+   "ingles": "mat",
+   "nota": null
+  },
+  {
+   "ids": "9-771",
+   "capitulo": 9,
+   "aymara": "jant'aku",
+   "ids_forma": "xantˀaku",
+   "espanol": "tapete, alfombra",
+   "ingles": "rug",
+   "nota": null
+  },
+  {
+   "ids": "9-780",
+   "capitulo": 9,
+   "aymara": "saqaña",
+   "ids_forma": "saḳaɲa",
+   "espanol": "bolsa de malla",
+   "ingles": "netbag",
+   "nota": null
+  },
+  {
+   "ids": "9-830",
+   "capitulo": 9,
+   "aymara": "tansa",
+   "ids_forma": "tansa",
+   "espanol": "estatua",
+   "ingles": "statue",
+   "nota": null
+  },
+  {
+   "ids": "9-880",
+   "capitulo": 9,
+   "aymara": "samachi",
+   "ids_forma": "samači",
+   "espanol": "pintura",
+   "ingles": "paint (noun)",
+   "nota": null
+  },
+  {
+   "ids": "10-110",
+   "capitulo": 10,
+   "aymara": "unxtaña",
+   "ids_forma": "unχta-ɲa",
+   "espanol": "mover",
+   "ingles": "move",
+   "nota": null
+  },
+  {
+   "ids": "10-120",
+   "capitulo": 10,
+   "aymara": "jaqukipaña",
+   "ids_forma": "xaḳukipa-ɲa",
+   "espanol": "volcar, dar(se) vuelta",
+   "ingles": "turn over",
+   "nota": null
+  },
+  {
+   "ids": "10-140",
+   "capitulo": 10,
+   "aymara": "llawuña",
+   "ids_forma": "lʸawu-ɲa",
+   "espanol": "enrollar, envolver",
+   "ingles": "wind, wrap",
+   "nota": null
+  },
+  {
+   "ids": "10-150",
+   "capitulo": 10,
+   "aymara": "qurumiña",
+   "ids_forma": "ḳurumi-ɲa",
+   "espanol": "rodar, arrollar, enrollar",
+   "ingles": "roll",
+   "nota": null
+  },
+  {
+   "ids": "10-170",
+   "capitulo": 10,
+   "aymara": "millk'uña",
+   "ids_forma": "milʸkˀu-ɲa",
+   "espanol": "torcer",
+   "ingles": "twist",
+   "nota": null
+  },
+  {
+   "ids": "10-210",
+   "capitulo": 10,
+   "aymara": "makataña",
+   "ids_forma": "makata-ɲa",
+   "espanol": "ascender",
+   "ingles": "rise",
+   "nota": null
+  },
+  {
+   "ids": "10-220",
+   "capitulo": 10,
+   "aymara": "aptaña",
+   "ids_forma": "apta-ɲa",
+   "espanol": "levantar",
+   "ingles": "raise, lift",
+   "nota": null
+  },
+  {
+   "ids": "10-230",
+   "capitulo": 10,
+   "aymara": "tinkuña",
+   "ids_forma": "tinku-ɲa",
+   "espanol": "caer",
+   "ingles": "fall",
+   "nota": null
+  },
+  {
+   "ids": "10-240",
+   "capitulo": 10,
+   "aymara": "ch'ach'aña",
+   "ids_forma": "čˀačˀa-ɲa",
+   "espanol": "gotear, escurrir",
+   "ingles": "drip",
+   "nota": null
+  },
+  {
+   "ids": "10-250",
+   "capitulo": 10,
+   "aymara": "wartaña",
+   "ids_forma": "warta-ɲa",
+   "espanol": "echar, tirar",
+   "ingles": "throw",
+   "nota": null
+  },
+  {
+   "ids": "10-260",
+   "capitulo": 10,
+   "aymara": "thalaña",
+   "ids_forma": "tʰala-ɲa",
+   "espanol": "sacudir",
+   "ingles": "shake",
+   "nota": null
+  },
+  {
+   "ids": "10-320",
+   "capitulo": 10,
+   "aymara": "jalaña",
+   "ids_forma": "xala-ɲa",
+   "espanol": "fluir, correr",
+   "ingles": "flow",
+   "nota": null
+  },
+  {
+   "ids": "10-330",
+   "capitulo": 10,
+   "aymara": "jununtaña",
+   "ids_forma": "xununta-ɲa",
+   "espanol": "hundir",
+   "ingles": "sink",
+   "nota": null
+  },
+  {
+   "ids": "10-340",
+   "capitulo": 10,
+   "aymara": "tuyuña",
+   "ids_forma": "tuyu-ɲa",
+   "espanol": "flotar",
+   "ingles": "float",
+   "nota": null
+  },
+  {
+   "ids": "10-352",
+   "capitulo": 10,
+   "aymara": "ch'itiqkataña",
+   "ids_forma": "čˀitiḳkata-ɲa",
+   "espanol": "salpicar",
+   "ingles": "splash",
+   "nota": null
+  },
+  {
+   "ids": "10-370",
+   "capitulo": 10,
+   "aymara": "wiruña",
+   "ids_forma": "wiru-ɲa",
+   "espanol": "volar",
+   "ingles": "fly (vb)",
+   "nota": null
+  },
+  {
+   "ids": "10-380",
+   "capitulo": 10,
+   "aymara": "phusaña",
+   "ids_forma": "pʰusa-ɲa",
+   "espanol": "soplar",
+   "ingles": "blow",
+   "nota": null
+  },
+  {
+   "ids": "10-410",
+   "capitulo": 10,
+   "aymara": "kumptaqaña",
+   "ids_forma": "kumptaḳa-ɲa",
+   "espanol": "gatear",
+   "ingles": "creep, crawl",
+   "nota": null
+  },
+  {
+   "ids": "10-412",
+   "capitulo": 10,
+   "aymara": "killt'asiña",
+   "ids_forma": "kilʸtˀasi-ɲa",
+   "espanol": "arrodillarse",
+   "ingles": "kneel",
+   "nota": null
+  },
+  {
+   "ids": "10-413",
+   "capitulo": 10,
+   "aymara": "alt'aña",
+   "ids_forma": "altˀa-ɲa",
+   "espanol": "agacharse, ponerse en cuclillas",
+   "ingles": "crouch",
+   "nota": null
+  },
+  {
+   "ids": "10-420",
+   "capitulo": 10,
+   "aymara": "llust'taña",
+   "ids_forma": "lʸustˀta-ɲa",
+   "espanol": "resbalar",
+   "ingles": "slide, slip",
+   "nota": null
+  },
+  {
+   "ids": "10-430",
+   "capitulo": 10,
+   "aymara": "thuqtaña",
+   "ids_forma": "tʰuḳta-ɲa",
+   "espanol": "saltar, brincar",
+   "ingles": "jump, leap",
+   "nota": null
+  },
+  {
+   "ids": "10-431",
+   "capitulo": 10,
+   "aymara": "takiña",
+   "ids_forma": "taki-ɲa",
+   "espanol": "patear",
+   "ingles": "kick",
+   "nota": null
+  },
+  {
+   "ids": "10-440",
+   "capitulo": 10,
+   "aymara": "thuquña",
+   "ids_forma": "tʰuḳu-ɲa",
+   "espanol": "bailar",
+   "ingles": "dance",
+   "nota": null
+  },
+  {
+   "ids": "10-450",
+   "capitulo": 10,
+   "aymara": "saraña",
+   "ids_forma": "sara-ɲa",
+   "espanol": "caminar",
+   "ingles": "walk",
+   "nota": null
+  },
+  {
+   "ids": "10-451",
+   "capitulo": 10,
+   "aymara": "wixchiña",
+   "ids_forma": "wiχči-ɲa",
+   "espanol": "lisiar",
+   "ingles": "limp",
+   "nota": null
+  },
+  {
+   "ids": "10-460",
+   "capitulo": 10,
+   "aymara": "t'ijuña",
+   "ids_forma": "tˀixu-ɲa",
+   "espanol": "correr",
+   "ingles": "run",
+   "nota": null
+  },
+  {
+   "ids": "10-472",
+   "capitulo": 10,
+   "aymara": "warkkattaña",
+   "ids_forma": "warkkatta-ɲa",
+   "espanol": "trepar",
+   "ingles": "climb",
+   "nota": null
+  },
+  {
+   "ids": "10-473",
+   "capitulo": 10,
+   "aymara": "maqaña",
+   "ids_forma": "maḳa-ɲa",
+   "espanol": "bajar",
+   "ingles": "go down",
+   "nota": null
+  },
+  {
+   "ids": "10-474",
+   "capitulo": 10,
+   "aymara": "mistuña",
+   "ids_forma": "mistu-ɲa",
+   "espanol": "salir",
+   "ingles": "go out",
+   "nota": null
+  },
+  {
+   "ids": "10-480",
+   "capitulo": 10,
+   "aymara": "jutaña",
+   "ids_forma": "xuta-ɲa",
+   "espanol": "venir",
+   "ingles": "come",
+   "nota": null
+  },
+  {
+   "ids": "10-481",
+   "capitulo": 10,
+   "aymara": "kutiña",
+   "ids_forma": "kuti-ɲa",
+   "espanol": "volver, regresar",
+   "ingles": "come back",
+   "nota": null
+  },
+  {
+   "ids": "10-490",
+   "capitulo": 10,
+   "aymara": "sarxaña",
+   "ids_forma": "sarχa-ɲa",
+   "espanol": "irse, marcharse",
+   "ingles": "go away, depart",
+   "nota": null
+  },
+  {
+   "ids": "10-510",
+   "capitulo": 10,
+   "aymara": "t'ijumuchuña",
+   "ids_forma": "tˀixumuču-ɲa",
+   "espanol": "huir",
+   "ingles": "flee",
+   "nota": null
+  },
+  {
+   "ids": "10-520",
+   "capitulo": 10,
+   "aymara": "arkaña",
+   "ids_forma": "arka-ɲa",
+   "espanol": "seguir",
+   "ingles": "follow",
+   "nota": null
+  },
+  {
+   "ids": "10-530",
+   "capitulo": 10,
+   "aymara": "arknaqaña",
+   "ids_forma": "arknaḳa-ɲa",
+   "espanol": "perseguir",
+   "ingles": "pursue",
+   "nota": null
+  },
+  {
+   "ids": "10-550",
+   "capitulo": 10,
+   "aymara": "jikjataña",
+   "ids_forma": "xikxata-ɲa",
+   "espanol": "llegar, alcanzar",
+   "ingles": "reach, arrive",
+   "nota": "(?)"
+  },
+  {
+   "ids": "10-560",
+   "capitulo": 10,
+   "aymara": "jak'achaña",
+   "ids_forma": "xakˀača-ɲa",
+   "espanol": "acercarse",
+   "ingles": "approach",
+   "nota": null
+  },
+  {
+   "ids": "10-570",
+   "capitulo": 10,
+   "aymara": "mantaña",
+   "ids_forma": "manta-ɲa",
+   "espanol": "entrar",
+   "ingles": "enter",
+   "nota": null
+  },
+  {
+   "ids": "10-610",
+   "capitulo": 10,
+   "aymara": "apaña",
+   "ids_forma": "apa-ɲa",
+   "espanol": "llevar, cargar",
+   "ingles": "carry (bear)",
+   "nota": null
+  },
+  {
+   "ids": "10-613",
+   "capitulo": 10,
+   "aymara": "q'ipiña",
+   "ids_forma": "ḳˀipi-ɲa",
+   "espanol": "llevar a la espalda/ en el hombro",
+   "ingles": "carry-on-shoulder",
+   "nota": null
+  },
+  {
+   "ids": "10-620",
+   "capitulo": 10,
+   "aymara": "apaniña",
+   "ids_forma": "apa-ni-ɲa",
+   "espanol": "traer",
+   "ingles": "bring",
+   "nota": null
+  },
+  {
+   "ids": "10-630",
+   "capitulo": 10,
+   "aymara": "apayaña",
+   "ids_forma": "apaya-ɲa",
+   "espanol": "enviar, mandar",
+   "ingles": "send",
+   "nota": null
+  },
+  {
+   "ids": "10-640",
+   "capitulo": 10,
+   "aymara": "irpaña",
+   "ids_forma": "irpa-ɲa",
+   "espanol": "guiar",
+   "ingles": "lead (vb)",
+   "nota": null
+  },
+  {
+   "ids": "10-650",
+   "capitulo": 10,
+   "aymara": "sarayaña",
+   "ids_forma": "saraya-ɲa",
+   "espanol": "conducir",
+   "ingles": "drive",
+   "nota": null
+  },
+  {
+   "ids": "10-660",
+   "capitulo": 10,
+   "aymara": "lat'aña",
+   "ids_forma": "latˀa-ɲa",
+   "espanol": "montar",
+   "ingles": "ride",
+   "nota": null
+  },
+  {
+   "ids": "10-670",
+   "capitulo": 10,
+   "aymara": "nukhuña",
+   "ids_forma": "nukʰu-ɲa",
+   "espanol": "empujar",
+   "ingles": "push, shove",
+   "nota": null
+  },
+  {
+   "ids": "10-710",
+   "capitulo": 10,
+   "aymara": "thakhi",
+   "ids_forma": "tʰakʰi",
+   "espanol": "carretera",
+   "ingles": "road",
+   "nota": null
+  },
+  {
+   "ids": "10-740",
+   "capitulo": 10,
+   "aymara": "chaka",
+   "ids_forma": "čaka",
+   "espanol": "puente",
+   "ingles": "bridge",
+   "nota": null
+  },
+  {
+   "ids": "10-760",
+   "capitulo": 10,
+   "aymara": "muyu",
+   "ids_forma": "muyu",
+   "espanol": "rueda",
+   "ingles": "wheel",
+   "nota": null
+  },
+  {
+   "ids": "10-830",
+   "capitulo": 10,
+   "aymara": "wampu",
+   "ids_forma": "wampu",
+   "espanol": "bote",
+   "ingles": "boat",
+   "nota": null
+  },
+  {
+   "ids": "10-831",
+   "capitulo": 10,
+   "aymara": "yampu",
+   "ids_forma": "yampu",
+   "espanol": "canoa",
+   "ingles": "canoe",
+   "nota": null
+  },
+  {
+   "ids": "10-850",
+   "capitulo": 10,
+   "aymara": "ñuqiña",
+   "ids_forma": "ɲuḳiɲa",
+   "espanol": "remo",
+   "ingles": "oar",
+   "nota": null
+  },
+  {
+   "ids": "10-880",
+   "capitulo": 10,
+   "aymara": "achiwa",
+   "ids_forma": "ačiwa",
+   "espanol": "vela",
+   "ingles": "sail (noun)",
+   "nota": null
+  },
+  {
+   "ids": "11-160",
+   "capitulo": 11,
+   "aymara": "jikiña",
+   "ids_forma": "xiki-ɲa",
+   "espanol": "obtener",
+   "ingles": "get, obtain",
+   "nota": null
+  },
+  {
+   "ids": "11-170",
+   "capitulo": 11,
+   "aymara": "imaña",
+   "ids_forma": "imaɲa",
+   "espanol": "conservar, retener",
+   "ingles": "keep, retain",
+   "nota": null
+  },
+  {
+   "ids": "11-180",
+   "capitulo": 11,
+   "aymara": "yä",
+   "ids_forma": "yaa",
+   "espanol": "cosa",
+   "ingles": "thing",
+   "nota": null
+  },
+  {
+   "ids": "11-210",
+   "capitulo": 11,
+   "aymara": "churaña",
+   "ids_forma": "čura-ɲa",
+   "espanol": "dar",
+   "ingles": "give",
+   "nota": null
+  },
+  {
+   "ids": "11-220",
+   "capitulo": 11,
+   "aymara": "kutiyaña",
+   "ids_forma": "kutiya-ɲa",
+   "espanol": "devolver",
+   "ingles": "give back",
+   "nota": null
+  },
+  {
+   "ids": "11-240",
+   "capitulo": 11,
+   "aymara": "jark'aña",
+   "ids_forma": "xarkˀa-ɲa",
+   "espanol": "conservar, proteger",
+   "ingles": "preserve, look after",
+   "nota": null
+  },
+  {
+   "ids": "11-250",
+   "capitulo": 11,
+   "aymara": "qhispiyaña",
+   "ids_forma": "ḳʰispiya-ɲa",
+   "espanol": "salvar",
+   "ingles": "save, rescue",
+   "nota": null
+  },
+  {
+   "ids": "11-270",
+   "capitulo": 11,
+   "aymara": "tukjaña",
+   "ids_forma": "tukxa-ɲa",
+   "espanol": "destruir",
+   "ingles": "destroy",
+   "nota": null
+  },
+  {
+   "ids": "11-280",
+   "capitulo": 11,
+   "aymara": "usuchaña",
+   "ids_forma": "usuča-ɲa",
+   "espanol": "dañar, herir",
+   "ingles": "harm, injure, damage",
+   "nota": null
+  },
+  {
+   "ids": "11-310",
+   "capitulo": 11,
+   "aymara": "thaqaña",
+   "ids_forma": "tʰaḳa-ɲa",
+   "espanol": "buscar",
+   "ingles": "seek, look for",
+   "nota": null
+  },
+  {
+   "ids": "11-320",
+   "capitulo": 11,
+   "aymara": "jikxataña",
+   "ids_forma": "xikχata-ɲa",
+   "espanol": "encontrar, hallar",
+   "ingles": "find",
+   "nota": null
+  },
+  {
+   "ids": "11-330",
+   "capitulo": 11,
+   "aymara": "chhaqaña",
+   "ids_forma": "čʰaḳa-ɲa",
+   "espanol": "perder",
+   "ingles": "lose",
+   "nota": null
+  },
+  {
+   "ids": "11-340",
+   "capitulo": 11,
+   "aymara": "antutaña",
+   "ids_forma": "antuta-ɲa",
+   "espanol": "soltar",
+   "ingles": "release, let go",
+   "nota": null
+  },
+  {
+   "ids": "11-510",
+   "capitulo": 11,
+   "aymara": "qamiri",
+   "ids_forma": "ḳamiri",
+   "espanol": "rico",
+   "ingles": "rich",
+   "nota": null
+  },
+  {
+   "ids": "11-520",
+   "capitulo": 11,
+   "aymara": "t'aqhi",
+   "ids_forma": "tˀaḳʰi",
+   "espanol": "pobre",
+   "ingles": "poor",
+   "nota": null
+  },
+  {
+   "ids": "11-540",
+   "capitulo": 11,
+   "aymara": "mich'a",
+   "ids_forma": "mičˀa",
+   "espanol": "avaro, mezquino",
+   "ingles": "avaricious, stingy",
+   "nota": null
+  },
+  {
+   "ids": "11-610",
+   "capitulo": 11,
+   "aymara": "mayt'aña",
+   "ids_forma": "maytˀa-ɲa",
+   "espanol": "prestar",
+   "ingles": "lend",
+   "nota": null
+  },
+  {
+   "ids": "11-620",
+   "capitulo": 11,
+   "aymara": "mayt'asiña",
+   "ids_forma": "maytˀasi-ɲa",
+   "espanol": "pedir prestado",
+   "ingles": "borrow",
+   "nota": null
+  },
+  {
+   "ids": "11-630",
+   "capitulo": 11,
+   "aymara": "manüña",
+   "ids_forma": "manuu-ɲa",
+   "espanol": "deber",
+   "ingles": "owe",
+   "nota": null
+  },
+  {
+   "ids": "11-640",
+   "capitulo": 11,
+   "aymara": "manu",
+   "ids_forma": "manu",
+   "espanol": "deuda",
+   "ingles": "debt",
+   "nota": null
+  },
+  {
+   "ids": "11-810",
+   "capitulo": 11,
+   "aymara": "alaña",
+   "ids_forma": "ala-ɲa",
+   "espanol": "comprar",
+   "ingles": "buy",
+   "nota": null
+  },
+  {
+   "ids": "11-820",
+   "capitulo": 11,
+   "aymara": "aljaña",
+   "ids_forma": "alxa-ɲa",
+   "espanol": "vender",
+   "ingles": "sell",
+   "nota": null
+  },
+  {
+   "ids": "11-840",
+   "capitulo": 11,
+   "aymara": "alakipa",
+   "ids_forma": "alakipa",
+   "espanol": "comerciante",
+   "ingles": "merchant",
+   "nota": null
+  },
+  {
+   "ids": "11-850",
+   "capitulo": 11,
+   "aymara": "qhatu",
+   "ids_forma": "ḳʰatu",
+   "espanol": "mercado",
+   "ingles": "market (place)",
+   "nota": null
+  },
+  {
+   "ids": "11-870",
+   "capitulo": 11,
+   "aymara": "chani",
+   "ids_forma": "čani",
+   "espanol": "precio",
+   "ingles": "price",
+   "nota": null
+  },
+  {
+   "ids": "11-890",
+   "capitulo": 11,
+   "aymara": "iraqata",
+   "ids_forma": "iraḳata",
+   "espanol": "barato",
+   "ingles": "cheap",
+   "nota": null
+  },
+  {
+   "ids": "11-910",
+   "capitulo": 11,
+   "aymara": "lakiña",
+   "ids_forma": "lakiɲa",
+   "espanol": "repartir",
+   "ingles": "share (distribute)",
+   "nota": null
+  },
+  {
+   "ids": "11-920",
+   "capitulo": 11,
+   "aymara": "tupuña",
+   "ids_forma": "tupu-ɲa",
+   "espanol": "pesar",
+   "ingles": "weigh",
+   "nota": null
+  },
+  {
+   "ids": "12-10",
+   "capitulo": 12,
+   "aymara": "ukata",
+   "ids_forma": "ukata",
+   "espanol": "después",
+   "ingles": "after",
+   "nota": null
+  },
+  {
+   "ids": "12-11",
+   "capitulo": 12,
+   "aymara": "qhipäxa",
+   "ids_forma": "ḳʰipaaχa",
+   "espanol": "atrás, detrás",
+   "ingles": "behind",
+   "nota": null
+  },
+  {
+   "ids": "12-30",
+   "capitulo": 12,
+   "aymara": "aynacha",
+   "ids_forma": "aynača",
+   "espanol": "abajo, bajo",
+   "ingles": "down, below",
+   "nota": null
+  },
+  {
+   "ids": "12-40",
+   "capitulo": 12,
+   "aymara": "nayraqata",
+   "ids_forma": "nayraḳata",
+   "espanol": "delante, antes de",
+   "ingles": "before",
+   "nota": null
+  },
+  {
+   "ids": "12-50",
+   "capitulo": 12,
+   "aymara": "manqha",
+   "ids_forma": "manḳʰa",
+   "espanol": "adentro, dentro",
+   "ingles": "inside, in",
+   "nota": null
+  },
+  {
+   "ids": "12-60",
+   "capitulo": 12,
+   "aymara": "anqa",
+   "ids_forma": "anḳa",
+   "espanol": "afuera, fuera, exterior",
+   "ingles": "outside",
+   "nota": null
+  },
+  {
+   "ids": "12-70",
+   "capitulo": 12,
+   "aymara": "manqhata",
+   "ids_forma": "manḳʰata",
+   "espanol": "debajo",
+   "ingles": "under",
+   "nota": null
+  },
+  {
+   "ids": "12-80",
+   "capitulo": 12,
+   "aymara": "amta",
+   "ids_forma": "amta",
+   "espanol": "arriba, encima",
+   "ingles": "up, above",
+   "nota": null
+  },
+  {
+   "ids": "12-110",
+   "capitulo": 12,
+   "aymara": "chaqa",
+   "ids_forma": "čaḳa",
+   "espanol": "lugar, sitio",
+   "ingles": "place",
+   "nota": null
+  },
+  {
+   "ids": "12-120",
+   "capitulo": 12,
+   "aymara": "uskuña",
+   "ids_forma": "uskuɲa",
+   "espanol": "poner",
+   "ingles": "put",
+   "nota": null
+  },
+  {
+   "ids": "12-130",
+   "capitulo": 12,
+   "aymara": "qunt'aña",
+   "ids_forma": "ḳuntˀa-ɲa",
+   "espanol": "sentar",
+   "ingles": "sit",
+   "nota": null
+  },
+  {
+   "ids": "12-140",
+   "capitulo": 12,
+   "aymara": "ikintxaña",
+   "ids_forma": "ikintχa-ɲa",
+   "espanol": "acostarse, echarse",
+   "ingles": "lie down",
+   "nota": null
+  },
+  {
+   "ids": "12-150",
+   "capitulo": 12,
+   "aymara": "sayt'aña",
+   "ids_forma": "saytˀa-ɲa",
+   "espanol": "poner(se) de pie",
+   "ingles": "stand",
+   "nota": null
+  },
+  {
+   "ids": "12-160",
+   "capitulo": 12,
+   "aymara": "qhipaqtaña",
+   "ids_forma": "ḳʰipaḳta-ɲa",
+   "espanol": "quedar",
+   "ingles": "remain, stay",
+   "nota": null
+  },
+  {
+   "ids": "12-170",
+   "capitulo": 12,
+   "aymara": "jilt'a",
+   "ids_forma": "xiltˀa",
+   "espanol": "sobras",
+   "ingles": "remains, left overs",
+   "nota": null
+  },
+  {
+   "ids": "12-210",
+   "capitulo": 12,
+   "aymara": "apthapiña",
+   "ids_forma": "aptʰapi-ɲa",
+   "espanol": "recoger, reunir",
+   "ingles": "collect, gather",
+   "nota": null
+  },
+  {
+   "ids": "12-213",
+   "capitulo": 12,
+   "aymara": "qullucht'a",
+   "ids_forma": "ḳulʸučtˀa-",
+   "espanol": "amontonar",
+   "ingles": "pile up",
+   "nota": null
+  },
+  {
+   "ids": "12-230",
+   "capitulo": 12,
+   "aymara": "apjaña",
+   "ids_forma": "apxa-ɲa",
+   "espanol": "separar, apartar",
+   "ingles": "separate",
+   "nota": null
+  },
+  {
+   "ids": "12-232",
+   "capitulo": 12,
+   "aymara": "lakjaña",
+   "ids_forma": "lakxa-ɲa",
+   "espanol": "dividir",
+   "ingles": "divide",
+   "nota": null
+  },
+  {
+   "ids": "12-240",
+   "capitulo": 12,
+   "aymara": "jist'jaña",
+   "ids_forma": "xistˀxa-ɲa",
+   "espanol": "abrir",
+   "ingles": "open",
+   "nota": null
+  },
+  {
+   "ids": "12-250",
+   "capitulo": 12,
+   "aymara": "jist'antaña",
+   "ids_forma": "xistˀanta-ɲa",
+   "espanol": "cerrar",
+   "ingles": "shut, close",
+   "nota": null
+  },
+  {
+   "ids": "12-260",
+   "capitulo": 12,
+   "aymara": "janxataña",
+   "ids_forma": "xanχata-ɲa",
+   "espanol": "cubrir",
+   "ingles": "cover",
+   "nota": null
+  },
+  {
+   "ids": "12-310",
+   "capitulo": 12,
+   "aymara": "alaya",
+   "ids_forma": "alaya",
+   "espanol": "alto",
+   "ingles": "high",
+   "nota": null
+  },
+  {
+   "ids": "12-330",
+   "capitulo": 12,
+   "aymara": "ch'utu",
+   "ids_forma": "čˀutu",
+   "espanol": "cima",
+   "ingles": "top",
+   "nota": null
+  },
+  {
+   "ids": "12-350",
+   "capitulo": 12,
+   "aymara": "tukuya",
+   "ids_forma": "tukuya",
+   "espanol": "final",
+   "ingles": "end",
+   "nota": null
+  },
+  {
+   "ids": "12-352",
+   "capitulo": 12,
+   "aymara": "yärata",
+   "ids_forma": "yaarata",
+   "espanol": "puntiagudo",
+   "ingles": "pointed",
+   "nota": null
+  },
+  {
+   "ids": "12-360",
+   "capitulo": 12,
+   "aymara": "thiya",
+   "ids_forma": "tʰiya",
+   "espanol": "lado, costado",
+   "ingles": "side",
+   "nota": null
+  },
+  {
+   "ids": "12-370",
+   "capitulo": 12,
+   "aymara": "taypi",
+   "ids_forma": "taypi",
+   "espanol": "medio, centro",
+   "ingles": "middle, center",
+   "nota": null
+  },
+  {
+   "ids": "12-410",
+   "capitulo": 12,
+   "aymara": "kupi",
+   "ids_forma": "kupi",
+   "espanol": "derecha",
+   "ingles": "right (side)",
+   "nota": null
+  },
+  {
+   "ids": "12-420",
+   "capitulo": 12,
+   "aymara": "ch'iqa",
+   "ids_forma": "čˀiḳa",
+   "espanol": "izquierda",
+   "ingles": "left (side)",
+   "nota": null
+  },
+  {
+   "ids": "12-430",
+   "capitulo": 12,
+   "aymara": "jak'a",
+   "ids_forma": "xakˀa",
+   "espanol": "cerca",
+   "ingles": "near (adv)",
+   "nota": null
+  },
+  {
+   "ids": "12-440",
+   "capitulo": 12,
+   "aymara": "jaya",
+   "ids_forma": "xaya",
+   "espanol": "lejos",
+   "ingles": "far (adv)",
+   "nota": null
+  },
+  {
+   "ids": "12-450",
+   "capitulo": 12,
+   "aymara": "jalsu",
+   "ids_forma": "xalsu",
+   "espanol": "este (punto cardinal), levante",
+   "ingles": "east",
+   "nota": null
+  },
+  {
+   "ids": "12-460",
+   "capitulo": 12,
+   "aymara": "jalanta",
+   "ids_forma": "xalanta",
+   "espanol": "oeste, poniente",
+   "ingles": "west",
+   "nota": null
+  },
+  {
+   "ids": "12-470",
+   "capitulo": 12,
+   "aymara": "amsta",
+   "ids_forma": "amsta",
+   "espanol": "norte",
+   "ingles": "north",
+   "nota": null
+  },
+  {
+   "ids": "12-530",
+   "capitulo": 12,
+   "aymara": "jilaña",
+   "ids_forma": "xila-ɲa",
+   "espanol": "crecer",
+   "ingles": "grow",
+   "nota": null
+  },
+  {
+   "ids": "12-541",
+   "capitulo": 12,
+   "aymara": "luqa",
+   "ids_forma": "luḳa",
+   "espanol": "braza (medida)",
+   "ingles": "span, fathom",
+   "nota": null
+  },
+  {
+   "ids": "12-550",
+   "capitulo": 12,
+   "aymara": "jach'a",
+   "ids_forma": "xačˀa",
+   "espanol": "grande",
+   "ingles": "large, big",
+   "nota": null
+  },
+  {
+   "ids": "12-560",
+   "capitulo": 12,
+   "aymara": "jisk'a",
+   "ids_forma": "xiskˀa",
+   "espanol": "chico, pequeño",
+   "ingles": "small, little",
+   "nota": null
+  },
+  {
+   "ids": "12-570",
+   "capitulo": 12,
+   "aymara": "waru",
+   "ids_forma": "waru",
+   "espanol": "largo",
+   "ingles": "long",
+   "nota": null
+  },
+  {
+   "ids": "12-580",
+   "capitulo": 12,
+   "aymara": "araxa",
+   "ids_forma": "araχa",
+   "espanol": "alto",
+   "ingles": "tall",
+   "nota": null
+  },
+  {
+   "ids": "12-620",
+   "capitulo": 12,
+   "aymara": "p'isi",
+   "ids_forma": "pˀisi",
+   "espanol": "angosto, estrecho",
+   "ingles": "narrow",
+   "nota": null
+  },
+  {
+   "ids": "12-630",
+   "capitulo": 12,
+   "aymara": "thuru",
+   "ids_forma": "tʰuru",
+   "espanol": "grueso",
+   "ingles": "thick (in dimension)",
+   "nota": null
+  },
+  {
+   "ids": "12-650",
+   "capitulo": 12,
+   "aymara": "juch'usa",
+   "ids_forma": "xučˀusa",
+   "espanol": "delgado",
+   "ingles": "thin (in dimension)",
+   "nota": null
+  },
+  {
+   "ids": "12-680",
+   "capitulo": 12,
+   "aymara": "pataki",
+   "ids_forma": "pataki",
+   "espanol": "bajo, poco profundo",
+   "ingles": "shallow",
+   "nota": null
+  },
+  {
+   "ids": "12-730",
+   "capitulo": 12,
+   "aymara": "chiqa",
+   "ids_forma": "čiḳa",
+   "espanol": "derecho, recto",
+   "ingles": "straight",
+   "nota": null
+  },
+  {
+   "ids": "12-740",
+   "capitulo": 12,
+   "aymara": "millk'uta",
+   "ids_forma": "milʸkˀuta",
+   "espanol": "torcido",
+   "ingles": "crooked",
+   "nota": null
+  },
+  {
+   "ids": "12-760",
+   "capitulo": 12,
+   "aymara": "k'uchu",
+   "ids_forma": "kˀuču",
+   "espanol": "esquina, rincón",
+   "ingles": "corner",
+   "nota": null
+  },
+  {
+   "ids": "12-770",
+   "capitulo": 12,
+   "aymara": "chakana",
+   "ids_forma": "čakana",
+   "espanol": "cruz",
+   "ingles": "cross",
+   "nota": null
+  },
+  {
+   "ids": "12-810",
+   "capitulo": 12,
+   "aymara": "muruq'u",
+   "ids_forma": "muruḳˀu",
+   "espanol": "redondo",
+   "ingles": "round",
+   "nota": null
+  },
+  {
+   "ids": "12-840",
+   "capitulo": 12,
+   "aymara": "siqi",
+   "ids_forma": "siḳi",
+   "espanol": "línea",
+   "ingles": "line",
+   "nota": null
+  },
+  {
+   "ids": "12-850",
+   "capitulo": 12,
+   "aymara": "qaqa",
+   "ids_forma": "ḳaḳa",
+   "espanol": "agujero",
+   "ingles": "hole",
+   "nota": null
+  },
+  {
+   "ids": "12-920",
+   "capitulo": 12,
+   "aymara": "kikpa",
+   "ids_forma": "kikpa",
+   "espanol": "semejante",
+   "ingles": "like, similar",
+   "nota": null
+  },
+  {
+   "ids": "13-0",
+   "capitulo": 13,
+   "aymara": "ch'usa",
+   "ids_forma": "čˀusa",
+   "espanol": "cero, nada",
+   "ingles": "zero, nothing",
+   "nota": null
+  },
+  {
+   "ids": "13-10",
+   "capitulo": 13,
+   "aymara": "maya",
+   "ids_forma": "maya",
+   "espanol": "uno",
+   "ingles": "one",
+   "nota": null
+  },
+  {
+   "ids": "13-20",
+   "capitulo": 13,
+   "aymara": "paya",
+   "ids_forma": "paya",
+   "espanol": "dos",
+   "ingles": "two",
+   "nota": null
+  },
+  {
+   "ids": "13-30",
+   "capitulo": 13,
+   "aymara": "kimsa",
+   "ids_forma": "kimsa",
+   "espanol": "tres",
+   "ingles": "three",
+   "nota": null
+  },
+  {
+   "ids": "13-40",
+   "capitulo": 13,
+   "aymara": "pusi",
+   "ids_forma": "pusi",
+   "espanol": "cuatro",
+   "ingles": "four",
+   "nota": null
+  },
+  {
+   "ids": "13-50",
+   "capitulo": 13,
+   "aymara": "phisqa",
+   "ids_forma": "pʰisḳa",
+   "espanol": "cinco",
+   "ingles": "five",
+   "nota": null
+  },
+  {
+   "ids": "13-60",
+   "capitulo": 13,
+   "aymara": "suxta",
+   "ids_forma": "suχta",
+   "espanol": "seis",
+   "ingles": "six",
+   "nota": null
+  },
+  {
+   "ids": "13-70",
+   "capitulo": 13,
+   "aymara": "paqallqu",
+   "ids_forma": "paḳalʸḳu",
+   "espanol": "siete",
+   "ingles": "seven",
+   "nota": null
+  },
+  {
+   "ids": "13-80",
+   "capitulo": 13,
+   "aymara": "kimsa qallqu",
+   "ids_forma": "kimsa ḳalʸḳu",
+   "espanol": "ocho",
+   "ingles": "eight",
+   "nota": null
+  },
+  {
+   "ids": "13-90",
+   "capitulo": 13,
+   "aymara": "llätunka",
+   "ids_forma": "lʸaatunka",
+   "espanol": "nueve",
+   "ingles": "nine",
+   "nota": null
+  },
+  {
+   "ids": "13-100",
+   "capitulo": 13,
+   "aymara": "tunka",
+   "ids_forma": "tunka",
+   "espanol": "diez",
+   "ingles": "ten",
+   "nota": null
+  },
+  {
+   "ids": "13-101",
+   "capitulo": 13,
+   "aymara": "tunka mayani",
+   "ids_forma": "tunka mayani",
+   "espanol": "once",
+   "ingles": "eleven",
+   "nota": null
+  },
+  {
+   "ids": "13-102",
+   "capitulo": 13,
+   "aymara": "tunka payani",
+   "ids_forma": "tunka payani",
+   "espanol": "doce",
+   "ingles": "twelve",
+   "nota": null
+  },
+  {
+   "ids": "13-103",
+   "capitulo": 13,
+   "aymara": "tunka phisqani",
+   "ids_forma": "tunka pʰisḳani",
+   "espanol": "quince",
+   "ingles": "fifteen",
+   "nota": null
+  },
+  {
+   "ids": "13-104",
+   "capitulo": 13,
+   "aymara": "pätunka",
+   "ids_forma": "paatunka",
+   "espanol": "veinte",
+   "ingles": "twenty",
+   "nota": null
+  },
+  {
+   "ids": "13-105",
+   "capitulo": 13,
+   "aymara": "pataka",
+   "ids_forma": "pataka",
+   "espanol": "ciento, cien",
+   "ingles": "hundred",
+   "nota": null
+  },
+  {
+   "ids": "13-106",
+   "capitulo": 13,
+   "aymara": "waranqa",
+   "ids_forma": "waranḳa",
+   "espanol": "mil",
+   "ingles": "thousand",
+   "nota": null
+  },
+  {
+   "ids": "13-107",
+   "capitulo": 13,
+   "aymara": "jakhuña",
+   "ids_forma": "xakʰu-ɲa",
+   "espanol": "contar",
+   "ingles": "count",
+   "nota": null
+  },
+  {
+   "ids": "13-140",
+   "capitulo": 13,
+   "aymara": "sapa",
+   "ids_forma": "sapa",
+   "espanol": "cada uno, todo",
+   "ingles": "every, all",
+   "nota": null
+  },
+  {
+   "ids": "13-150",
+   "capitulo": 13,
+   "aymara": "ancha",
+   "ids_forma": "anča",
+   "espanol": "mucho",
+   "ingles": "much, many",
+   "nota": null
+  },
+  {
+   "ids": "13-160",
+   "capitulo": 13,
+   "aymara": "juk'ampi",
+   "ids_forma": "xukˀampi",
+   "espanol": "más",
+   "ingles": "more",
+   "nota": null
+  },
+  {
+   "ids": "13-170",
+   "capitulo": 13,
+   "aymara": "juk'a",
+   "ids_forma": "xukˀa",
+   "espanol": "poco",
+   "ingles": "little (quantity), few",
+   "nota": null
+  },
+  {
+   "ids": "13-180",
+   "capitulo": 13,
+   "aymara": "walja",
+   "ids_forma": "walxa",
+   "espanol": "bastante, suficiente",
+   "ingles": "enough",
+   "nota": null
+  },
+  {
+   "ids": "13-181",
+   "capitulo": 13,
+   "aymara": "walkha",
+   "ids_forma": "walkʰa",
+   "espanol": "un poco, algo, alguno",
+   "ingles": "some",
+   "nota": null
+  },
+  {
+   "ids": "13-210",
+   "capitulo": 13,
+   "aymara": "phuqa",
+   "ids_forma": "pʰuḳa",
+   "espanol": "lleno",
+   "ingles": "full",
+   "nota": null
+  },
+  {
+   "ids": "13-240",
+   "capitulo": 13,
+   "aymara": "chikata",
+   "ids_forma": "čikata",
+   "espanol": "mitad",
+   "ingles": "half",
+   "nota": null
+  },
+  {
+   "ids": "13-330",
+   "capitulo": 13,
+   "aymara": "sapaki",
+   "ids_forma": "sapaki",
+   "espanol": "solo, solamente",
+   "ingles": "alone, only",
+   "nota": null
+  },
+  {
+   "ids": "13-340",
+   "capitulo": 13,
+   "aymara": "nayrïri",
+   "ids_forma": "nayriiri",
+   "espanol": "primero",
+   "ingles": "first",
+   "nota": null
+  },
+  {
+   "ids": "13-350",
+   "capitulo": 13,
+   "aymara": "qhipïri",
+   "ids_forma": "ḳʰipiiri",
+   "espanol": "último",
+   "ingles": "last",
+   "nota": null
+  },
+  {
+   "ids": "13-360",
+   "capitulo": 13,
+   "aymara": "payïri",
+   "ids_forma": "payiiri",
+   "espanol": "segundo",
+   "ingles": "second",
+   "nota": null
+  },
+  {
+   "ids": "13-380",
+   "capitulo": 13,
+   "aymara": "päkuti",
+   "ids_forma": "paakuti",
+   "espanol": "dos veces",
+   "ingles": "two times",
+   "nota": null
+  },
+  {
+   "ids": "13-420",
+   "capitulo": 13,
+   "aymara": "kimsïri",
+   "ids_forma": "kimsiiri",
+   "espanol": "tercero",
+   "ingles": "third",
+   "nota": null
+  },
+  {
+   "ids": "13-440",
+   "capitulo": 13,
+   "aymara": "kimsakuti",
+   "ids_forma": "kimsakuti",
+   "espanol": "tres veces",
+   "ingles": "three times",
+   "nota": null
+  },
+  {
+   "ids": "14-110",
+   "capitulo": 14,
+   "aymara": " pacha",
+   "ids_forma": "-pača",
+   "espanol": "tiempo",
+   "ingles": "time",
+   "nota": null
+  },
+  {
+   "ids": "14-120",
+   "capitulo": 14,
+   "aymara": "wiña",
+   "ids_forma": "wiɲa",
+   "espanol": "edad",
+   "ingles": "age",
+   "nota": null
+  },
+  {
+   "ids": "14-130",
+   "capitulo": 14,
+   "aymara": "machaqa",
+   "ids_forma": "mačaḳa",
+   "espanol": "nuevo",
+   "ingles": "new",
+   "nota": null
+  },
+  {
+   "ids": "14-140",
+   "capitulo": 14,
+   "aymara": "llullu",
+   "ids_forma": "lʸulʸu",
+   "espanol": "tierno, joven",
+   "ingles": "young",
+   "nota": null
+  },
+  {
+   "ids": "14-150",
+   "capitulo": 14,
+   "aymara": "achachi",
+   "ids_forma": "ačači",
+   "espanol": "viejo",
+   "ingles": "old",
+   "nota": null
+  },
+  {
+   "ids": "14-160",
+   "capitulo": 14,
+   "aymara": "arumirja",
+   "ids_forma": "arumirxa",
+   "espanol": "temprano",
+   "ingles": "early",
+   "nota": null
+  },
+  {
+   "ids": "14-170",
+   "capitulo": 14,
+   "aymara": "jayp'u",
+   "ids_forma": "xaypˀu",
+   "espanol": "tarde",
+   "ingles": "late",
+   "nota": null
+  },
+  {
+   "ids": "14-180",
+   "capitulo": 14,
+   "aymara": "jichha",
+   "ids_forma": "xičʰa",
+   "espanol": "ahora",
+   "ingles": "now",
+   "nota": null
+  },
+  {
+   "ids": "14-190",
+   "capitulo": 14,
+   "aymara": "anchhichpacha",
+   "ids_forma": "ančʰičpača",
+   "espanol": "en seguida, inmediatamente",
+   "ingles": "immediately",
+   "nota": null
+  },
+  {
+   "ids": "14-210",
+   "capitulo": 14,
+   "aymara": "laqa",
+   "ids_forma": "laḳa",
+   "espanol": "rápido",
+   "ingles": "swift, fast, quick",
+   "nota": null
+  },
+  {
+   "ids": "14-220",
+   "capitulo": 14,
+   "aymara": "k'achata",
+   "ids_forma": "kˀačata",
+   "espanol": "despacio, lentamente",
+   "ingles": "slow",
+   "nota": null
+  },
+  {
+   "ids": "14-230",
+   "capitulo": 14,
+   "aymara": "näkhi",
+   "ids_forma": "naakʰi",
+   "espanol": "apurarse, darse prisa",
+   "ingles": "hasten, hurry",
+   "nota": null
+  },
+  {
+   "ids": "14-240",
+   "capitulo": 14,
+   "aymara": "qhipharaña",
+   "ids_forma": "ḳʰipʰara-ɲa",
+   "espanol": "demorar, retrasar",
+   "ingles": "retard, delay",
+   "nota": null
+  },
+  {
+   "ids": "14-250",
+   "capitulo": 14,
+   "aymara": "qalltaña",
+   "ids_forma": "ḳalʸta-ɲa",
+   "espanol": "empezar, comienzo, inicio",
+   "ingles": "begin, beginning",
+   "nota": null
+  },
+  {
+   "ids": "14-260",
+   "capitulo": 14,
+   "aymara": "tuku",
+   "ids_forma": "tuku",
+   "espanol": "fin",
+   "ingles": "end (temporal)",
+   "nota": null
+  },
+  {
+   "ids": "14-270",
+   "capitulo": 14,
+   "aymara": "tukuña",
+   "ids_forma": "tuku-ɲa",
+   "espanol": "acabar, terminar, finalizar",
+   "ingles": "finish",
+   "nota": null
+  },
+  {
+   "ids": "14-310",
+   "capitulo": 14,
+   "aymara": " puni",
+   "ids_forma": "-puni",
+   "espanol": "siempre",
+   "ingles": "always",
+   "nota": null
+  },
+  {
+   "ids": "14-332",
+   "capitulo": 14,
+   "aymara": "jayapacha",
+   "ids_forma": "xayapača",
+   "espanol": "por mucho tiempo",
+   "ingles": "long-time (for a)",
+   "nota": null
+  },
+  {
+   "ids": "14-350",
+   "capitulo": 14,
+   "aymara": "mämpi",
+   "ids_forma": "maampi",
+   "espanol": "otra vez",
+   "ingles": "again",
+   "nota": null
+  },
+  {
+   "ids": "14-410",
+   "capitulo": 14,
+   "aymara": "uru",
+   "ids_forma": "uru",
+   "espanol": "día",
+   "ingles": "day",
+   "nota": null
+  },
+  {
+   "ids": "14-420",
+   "capitulo": 14,
+   "aymara": "aruma",
+   "ids_forma": "aruma",
+   "espanol": "noche",
+   "ingles": "night",
+   "nota": null
+  },
+  {
+   "ids": "14-430",
+   "capitulo": 14,
+   "aymara": "qhantati",
+   "ids_forma": "ḳʰantati",
+   "espanol": "madrugada",
+   "ingles": "dawn",
+   "nota": null
+  },
+  {
+   "ids": "14-440",
+   "capitulo": 14,
+   "aymara": "arumanthi",
+   "ids_forma": "arumantʰi",
+   "espanol": "mañana",
+   "ingles": "morning",
+   "nota": null
+  },
+  {
+   "ids": "14-450",
+   "capitulo": 14,
+   "aymara": "chika uru",
+   "ids_forma": "čika uru",
+   "espanol": "mediodía",
+   "ingles": "noon, midday",
+   "nota": null
+  },
+  {
+   "ids": "14-470",
+   "capitulo": 14,
+   "aymara": "jichhüru",
+   "ids_forma": "xičʰuuru",
+   "espanol": "hoy",
+   "ingles": "today",
+   "nota": null
+  },
+  {
+   "ids": "14-481",
+   "capitulo": 14,
+   "aymara": "jurpanmanthi",
+   "ids_forma": "xurpanmantʰi",
+   "espanol": "pasado mañana",
+   "ingles": "day-after-tomorrow",
+   "nota": null
+  },
+  {
+   "ids": "14-490",
+   "capitulo": 14,
+   "aymara": "wasuru",
+   "ids_forma": "wasuru",
+   "espanol": "ayer",
+   "ingles": "yesterday",
+   "nota": null
+  },
+  {
+   "ids": "14-491",
+   "capitulo": 14,
+   "aymara": "walüru",
+   "ids_forma": "waluuru",
+   "espanol": "anteayer",
+   "ingles": "day-before-yesterday",
+   "nota": null
+  },
+  {
+   "ids": "14-710",
+   "capitulo": 14,
+   "aymara": "phaxsi",
+   "ids_forma": "pʰaχsi",
+   "espanol": "mes",
+   "ingles": "month",
+   "nota": null
+  },
+  {
+   "ids": "14-730",
+   "capitulo": 14,
+   "aymara": "mara",
+   "ids_forma": "mara",
+   "espanol": "año",
+   "ingles": "year",
+   "nota": null
+  },
+  {
+   "ids": "14-740",
+   "capitulo": 14,
+   "aymara": "thäpacha",
+   "ids_forma": "tʰaapača",
+   "espanol": "invierno",
+   "ingles": "winter",
+   "nota": null
+  },
+  {
+   "ids": "14-750",
+   "capitulo": 14,
+   "aymara": "awti",
+   "ids_forma": "awti",
+   "espanol": "primavera",
+   "ingles": "spring",
+   "nota": null
+  },
+  {
+   "ids": "14-760",
+   "capitulo": 14,
+   "aymara": "jallupacha",
+   "ids_forma": "xalʸupača",
+   "espanol": "verano",
+   "ingles": "summer",
+   "nota": null
+  },
+  {
+   "ids": "14-770",
+   "capitulo": 14,
+   "aymara": "qasiwi",
+   "ids_forma": "ḳasiwi",
+   "espanol": "otoño",
+   "ingles": "autumn",
+   "nota": null
+  },
+  {
+   "ids": "15-210",
+   "capitulo": 15,
+   "aymara": "mukhiña",
+   "ids_forma": "mukʰi-ɲa",
+   "espanol": "oler, olfatear",
+   "ingles": "smell (vb intrans)",
+   "nota": null
+  },
+  {
+   "ids": "15-260",
+   "capitulo": 15,
+   "aymara": "thujsa",
+   "ids_forma": "tʰuxsa",
+   "espanol": "hediondo",
+   "ingles": "stinking, bad smelling",
+   "nota": null
+  },
+  {
+   "ids": "15-350",
+   "capitulo": 15,
+   "aymara": "muxsa",
+   "ids_forma": "muχsa",
+   "espanol": "dulce",
+   "ingles": "sweet",
+   "nota": null
+  },
+  {
+   "ids": "15-360",
+   "capitulo": 15,
+   "aymara": "jayuk'ara",
+   "ids_forma": "xayukˀara",
+   "espanol": "salado",
+   "ingles": "salty",
+   "nota": null
+  },
+  {
+   "ids": "15-370",
+   "capitulo": 15,
+   "aymara": "jaxu",
+   "ids_forma": "xaχu",
+   "espanol": "amargo",
+   "ingles": "bitter",
+   "nota": null
+  },
+  {
+   "ids": "15-380",
+   "capitulo": 15,
+   "aymara": "k'allk'u",
+   "ids_forma": "kˀalʸkˀu",
+   "espanol": "ácido, agrio",
+   "ingles": "acid, sour",
+   "nota": null
+  },
+  {
+   "ids": "15-410",
+   "capitulo": 15,
+   "aymara": "ist'aña",
+   "ids_forma": "istˀa-ɲa",
+   "espanol": "oír",
+   "ingles": "hear",
+   "nota": null
+  },
+  {
+   "ids": "15-420",
+   "capitulo": 15,
+   "aymara": "isch'ukiña",
+   "ids_forma": "isčˀuki-ɲa",
+   "espanol": "escuchar",
+   "ingles": "listen",
+   "nota": null
+  },
+  {
+   "ids": "15-450",
+   "capitulo": 15,
+   "aymara": "qhuyphi",
+   "ids_forma": "ḳʰuypʰi",
+   "espanol": "alta (voz), ruidoso",
+   "ingles": "loud",
+   "nota": null
+  },
+  {
+   "ids": "15-460",
+   "capitulo": 15,
+   "aymara": "ch'uju",
+   "ids_forma": "čˀuxu",
+   "espanol": "silencio, tranquilo",
+   "ingles": "quiet, silence",
+   "nota": null
+  },
+  {
+   "ids": "15-510",
+   "capitulo": 15,
+   "aymara": "uñjaña",
+   "ids_forma": "uɲxa-ɲa",
+   "espanol": "ver",
+   "ingles": "see",
+   "nota": null
+  },
+  {
+   "ids": "15-520",
+   "capitulo": 15,
+   "aymara": "uñtaña",
+   "ids_forma": "uɲta-ɲa",
+   "espanol": "mirar, contemplar",
+   "ingles": "look, look at",
+   "nota": null
+  },
+  {
+   "ids": "15-550",
+   "capitulo": 15,
+   "aymara": "uñacht'ayaña",
+   "ids_forma": "uɲačtˀaya-ɲa",
+   "espanol": "mostrar, señalar",
+   "ingles": "show",
+   "nota": null
+  },
+  {
+   "ids": "15-560",
+   "capitulo": 15,
+   "aymara": "qhanaña",
+   "ids_forma": "ḳʰana-ɲa",
+   "espanol": "brillar",
+   "ingles": "shine",
+   "nota": null
+  },
+  {
+   "ids": "15-570",
+   "capitulo": 15,
+   "aymara": "qhaniri",
+   "ids_forma": "ḳʰaniri",
+   "espanol": "brillante, resplandor",
+   "ingles": "bright",
+   "nota": null
+  },
+  {
+   "ids": "15-610",
+   "capitulo": 15,
+   "aymara": "sami",
+   "ids_forma": "sami",
+   "espanol": "color",
+   "ingles": "color",
+   "nota": null
+  },
+  {
+   "ids": "15-640",
+   "capitulo": 15,
+   "aymara": "janq'u",
+   "ids_forma": "xanḳˀu",
+   "espanol": "blanco",
+   "ingles": "white",
+   "nota": null
+  },
+  {
+   "ids": "15-650",
+   "capitulo": 15,
+   "aymara": "ch'iyara",
+   "ids_forma": "čˀiyara",
+   "espanol": "negro",
+   "ingles": "black",
+   "nota": null
+  },
+  {
+   "ids": "15-660",
+   "capitulo": 15,
+   "aymara": "chupika",
+   "ids_forma": "čupika",
+   "espanol": "rojo",
+   "ingles": "red",
+   "nota": null
+  },
+  {
+   "ids": "15-670",
+   "capitulo": 15,
+   "aymara": "larama",
+   "ids_forma": "larama",
+   "espanol": "azul",
+   "ingles": "blue",
+   "nota": null
+  },
+  {
+   "ids": "15-690",
+   "capitulo": 15,
+   "aymara": "q'illu",
+   "ids_forma": "ḳˀilʸu",
+   "espanol": "amarillo",
+   "ingles": "yellow",
+   "nota": null
+  },
+  {
+   "ids": "15-710",
+   "capitulo": 15,
+   "aymara": "llamkht'aña",
+   "ids_forma": "lʸamkʰtˀa-ɲa",
+   "espanol": "tocar",
+   "ingles": "touch",
+   "nota": null
+  },
+  {
+   "ids": "15-712",
+   "capitulo": 15,
+   "aymara": "k'ichiña",
+   "ids_forma": "kˀiči-ɲa",
+   "espanol": "pellizcar",
+   "ingles": "pinch",
+   "nota": null
+  },
+  {
+   "ids": "15-740",
+   "capitulo": 15,
+   "aymara": "ch'ullqhi",
+   "ids_forma": "čˀulʸḳʰi",
+   "espanol": "duro",
+   "ingles": "hard",
+   "nota": null
+  },
+  {
+   "ids": "15-750",
+   "capitulo": 15,
+   "aymara": "jasa",
+   "ids_forma": "xasa",
+   "espanol": "suave",
+   "ingles": "soft",
+   "nota": null
+  },
+  {
+   "ids": "15-760",
+   "capitulo": 15,
+   "aymara": "chhankha",
+   "ids_forma": "čʰankʰa",
+   "espanol": "áspero",
+   "ingles": "rough",
+   "nota": null
+  },
+  {
+   "ids": "15-770",
+   "capitulo": 15,
+   "aymara": "quña",
+   "ids_forma": "ḳuɲa",
+   "espanol": "suave, liso",
+   "ingles": "smooth",
+   "nota": "(?)"
+  },
+  {
+   "ids": "15-780",
+   "capitulo": 15,
+   "aymara": "ari",
+   "ids_forma": "ari",
+   "espanol": "afilado, aguzado, filoso",
+   "ingles": "sharp",
+   "nota": null
+  },
+  {
+   "ids": "15-810",
+   "capitulo": 15,
+   "aymara": "jathi",
+   "ids_forma": "xatʰi",
+   "espanol": "pesado",
+   "ingles": "heavy",
+   "nota": null
+  },
+  {
+   "ids": "15-820",
+   "capitulo": 15,
+   "aymara": "phisna",
+   "ids_forma": "pʰisna",
+   "espanol": "liviano, ligero",
+   "ingles": "light (in weight)",
+   "nota": null
+  },
+  {
+   "ids": "15-830",
+   "capitulo": 15,
+   "aymara": "ch'arana",
+   "ids_forma": "čˀarana",
+   "espanol": "mojado",
+   "ingles": "wet, damp",
+   "nota": null
+  },
+  {
+   "ids": "15-840",
+   "capitulo": 15,
+   "aymara": "waña",
+   "ids_forma": "waɲa",
+   "espanol": "seco",
+   "ingles": "dry",
+   "nota": null
+  },
+  {
+   "ids": "15-850",
+   "capitulo": 15,
+   "aymara": "junt'u",
+   "ids_forma": "xuntˀu",
+   "espanol": "caliente",
+   "ingles": "hot",
+   "nota": null
+  },
+  {
+   "ids": "15-851",
+   "capitulo": 15,
+   "aymara": "achhiju",
+   "ids_forma": "ačʰixu",
+   "espanol": "tibio, cálido",
+   "ingles": "warm",
+   "nota": null
+  },
+  {
+   "ids": "15-860",
+   "capitulo": 15,
+   "aymara": "alala",
+   "ids_forma": "alala",
+   "espanol": "frío",
+   "ingles": "cold",
+   "nota": null
+  },
+  {
+   "ids": "15-870",
+   "capitulo": 15,
+   "aymara": "q'uma",
+   "ids_forma": "ḳˀuma",
+   "espanol": "limpio",
+   "ingles": "clean",
+   "nota": null
+  },
+  {
+   "ids": "15-880",
+   "capitulo": 15,
+   "aymara": "q'añu",
+   "ids_forma": "ḳˀaɲu",
+   "espanol": "sucio",
+   "ingles": "dirty, soiled",
+   "nota": null
+  },
+  {
+   "ids": "15-890",
+   "capitulo": 15,
+   "aymara": "q'upthapita",
+   "ids_forma": "ḳˀuptʰapita",
+   "espanol": "arrugado",
+   "ingles": "wrinkled",
+   "nota": null
+  },
+  {
+   "ids": "16-110",
+   "capitulo": 16,
+   "aymara": "ajayu",
+   "ids_forma": "axayu",
+   "espanol": "alma",
+   "ingles": "soul, spirit",
+   "nota": null
+  },
+  {
+   "ids": "16-230",
+   "capitulo": 16,
+   "aymara": "kusisita",
+   "ids_forma": "kusisita",
+   "espanol": "alegre, contento",
+   "ingles": "joyful, glad, happy",
+   "nota": null
+  },
+  {
+   "ids": "16-250",
+   "capitulo": 16,
+   "aymara": "laruña",
+   "ids_forma": "laru-ɲa",
+   "espanol": "reír",
+   "ingles": "laugh",
+   "nota": null
+  },
+  {
+   "ids": "16-260",
+   "capitulo": 16,
+   "aymara": "anataña",
+   "ids_forma": "anata-ɲa",
+   "espanol": "jugar",
+   "ingles": "play",
+   "nota": null
+  },
+  {
+   "ids": "16-270",
+   "capitulo": 16,
+   "aymara": "munaña",
+   "ids_forma": "muna-ɲa",
+   "espanol": "querer",
+   "ingles": "love",
+   "nota": null
+  },
+  {
+   "ids": "16-290",
+   "capitulo": 16,
+   "aymara": "jamp'atiña",
+   "ids_forma": "xampˀati-ɲa",
+   "espanol": "besar",
+   "ingles": "kiss",
+   "nota": null
+  },
+  {
+   "ids": "16-300",
+   "capitulo": 16,
+   "aymara": "wallq'iptaña",
+   "ids_forma": "walʸḳˀipta-ɲa",
+   "espanol": "abrazar",
+   "ingles": "embrace",
+   "nota": null
+  },
+  {
+   "ids": "16-320",
+   "capitulo": 16,
+   "aymara": "llaki",
+   "ids_forma": "lʸaki",
+   "espanol": "tristeza, dolor, pena",
+   "ingles": "grief, sorrow, sadness",
+   "nota": null
+  },
+  {
+   "ids": "16-350",
+   "capitulo": 16,
+   "aymara": "khuyapayaña",
+   "ids_forma": "kʰuyapaya-ɲa",
+   "espanol": "compasión, lástima",
+   "ingles": "pity",
+   "nota": null
+  },
+  {
+   "ids": "16-370",
+   "capitulo": 16,
+   "aymara": "jachaña",
+   "ids_forma": "xača-ɲa",
+   "espanol": "llorar",
+   "ingles": "cry, weep",
+   "nota": null
+  },
+  {
+   "ids": "16-380",
+   "capitulo": 16,
+   "aymara": "jacha",
+   "ids_forma": "xača",
+   "espanol": "lágrima",
+   "ingles": "tear (noun)",
+   "nota": null
+  },
+  {
+   "ids": "16-390",
+   "capitulo": 16,
+   "aymara": "k'añaña",
+   "ids_forma": "kˀaɲa-ɲa",
+   "espanol": "gemir",
+   "ingles": "groan",
+   "nota": null
+  },
+  {
+   "ids": "16-410",
+   "capitulo": 16,
+   "aymara": "uñisiña",
+   "ids_forma": "uɲisi-ɲa",
+   "espanol": "odiar",
+   "ingles": "hate",
+   "nota": null
+  },
+  {
+   "ids": "16-420",
+   "capitulo": 16,
+   "aymara": "jachjaña",
+   "ids_forma": "xačxa-ɲa",
+   "espanol": "enojo",
+   "ingles": "anger",
+   "nota": "Verbal form."
+  },
+  {
+   "ids": "16-450",
+   "capitulo": 16,
+   "aymara": "p'inqa",
+   "ids_forma": "pˀinḳa",
+   "espanol": "vergüenza",
+   "ingles": "shame (noun)",
+   "nota": null
+  },
+  {
+   "ids": "16-530",
+   "capitulo": 16,
+   "aymara": "axsaraña",
+   "ids_forma": "aχsara-ɲa",
+   "espanol": "miedo",
+   "ingles": "fear, fright",
+   "nota": null
+  },
+  {
+   "ids": "16-540",
+   "capitulo": 16,
+   "aymara": "chiji",
+   "ids_forma": "čixi",
+   "espanol": "peligro",
+   "ingles": "danger",
+   "nota": null
+  },
+  {
+   "ids": "16-622",
+   "capitulo": 16,
+   "aymara": "ajlliña",
+   "ids_forma": "axlʸi-ɲa",
+   "espanol": "escoger, elegir",
+   "ingles": "choose",
+   "nota": null
+  },
+  {
+   "ids": "16-670",
+   "capitulo": 16,
+   "aymara": "k'arisiña",
+   "ids_forma": "kˀarisi-ɲa",
+   "espanol": "mentir",
+   "ingles": "lie, tell lies",
+   "nota": null
+  },
+  {
+   "ids": "16-690",
+   "capitulo": 16,
+   "aymara": "pampachaña",
+   "ids_forma": "pampača-ɲa",
+   "espanol": "perdonar",
+   "ingles": "forgive",
+   "nota": null
+  },
+  {
+   "ids": "16-710",
+   "capitulo": 16,
+   "aymara": "suma",
+   "ids_forma": "suma",
+   "espanol": "bueno",
+   "ingles": "good",
+   "nota": null
+  },
+  {
+   "ids": "16-720",
+   "capitulo": 16,
+   "aymara": "qhuru",
+   "ids_forma": "ḳʰuru",
+   "espanol": "malo",
+   "ingles": "bad",
+   "nota": null
+  },
+  {
+   "ids": "16-760",
+   "capitulo": 16,
+   "aymara": "jucha",
+   "ids_forma": "xuča",
+   "espanol": "culpa",
+   "ingles": "fault",
+   "nota": null
+  },
+  {
+   "ids": "16-770",
+   "capitulo": 16,
+   "aymara": "pantaña",
+   "ids_forma": "panta-ɲa",
+   "espanol": "equivocación, error",
+   "ingles": "mistake, error",
+   "nota": null
+  },
+  {
+   "ids": "16-810",
+   "capitulo": 16,
+   "aymara": "k'acha",
+   "ids_forma": "kˀača",
+   "espanol": "hermoso, bonito",
+   "ingles": "beautiful",
+   "nota": null
+  },
+  {
+   "ids": "16-820",
+   "capitulo": 16,
+   "aymara": "axtaña",
+   "ids_forma": "aχta-ɲa",
+   "espanol": "feo",
+   "ingles": "ugly",
+   "nota": null
+  },
+  {
+   "ids": "16-840",
+   "capitulo": 16,
+   "aymara": "ch'ikhi",
+   "ids_forma": "čˀikʰi",
+   "espanol": "hábil, capaz",
+   "ingles": "clever",
+   "nota": null
+  },
+  {
+   "ids": "17-110",
+   "capitulo": 17,
+   "aymara": "amuyu",
+   "ids_forma": "amuyu",
+   "espanol": "mente, pensamiento",
+   "ingles": "mind",
+   "nota": null
+  },
+  {
+   "ids": "17-130",
+   "capitulo": 17,
+   "aymara": "lup'iña",
+   "ids_forma": "lupˀi-ɲa",
+   "espanol": "pensar",
+   "ingles": "think (= reflect)",
+   "nota": null
+  },
+  {
+   "ids": "17-160",
+   "capitulo": 17,
+   "aymara": "amuyaña",
+   "ids_forma": "amuya-ɲa",
+   "espanol": "entender",
+   "ingles": "understand",
+   "nota": null
+  },
+  {
+   "ids": "17-170",
+   "capitulo": 17,
+   "aymara": "yatiña",
+   "ids_forma": "yati-ɲa",
+   "espanol": "saber",
+   "ingles": "know",
+   "nota": null
+  },
+  {
+   "ids": "17-171",
+   "capitulo": 17,
+   "aymara": "jamuña",
+   "ids_forma": "xamu-ɲa",
+   "espanol": "adivinar, acertar",
+   "ingles": "guess",
+   "nota": null
+  },
+  {
+   "ids": "17-172",
+   "capitulo": 17,
+   "aymara": "yatxapayaña",
+   "ids_forma": "yatχapaya-ɲa",
+   "espanol": "imitar",
+   "ingles": "imitate",
+   "nota": null
+  },
+  {
+   "ids": "17-210",
+   "capitulo": 17,
+   "aymara": "amawt'a",
+   "ids_forma": "amawtˀa",
+   "espanol": "sabio",
+   "ingles": "wise",
+   "nota": null
+  },
+  {
+   "ids": "17-220",
+   "capitulo": 17,
+   "aymara": "ipi",
+   "ids_forma": "ipi",
+   "espanol": "necio, estúpido",
+   "ingles": "foolish, stupid",
+   "nota": null
+  },
+  {
+   "ids": "17-230",
+   "capitulo": 17,
+   "aymara": "luqhi",
+   "ids_forma": "luḳʰi",
+   "espanol": "loco, insano",
+   "ingles": "insane, crazy",
+   "nota": null
+  },
+  {
+   "ids": "17-240",
+   "capitulo": 17,
+   "aymara": "yatiqaña",
+   "ids_forma": "yatiḳa-ɲa",
+   "espanol": "aprender",
+   "ingles": "learn",
+   "nota": null
+  },
+  {
+   "ids": "17-242",
+   "capitulo": 17,
+   "aymara": "yatxataña",
+   "ids_forma": "yatχata-ɲa",
+   "espanol": "estudiar",
+   "ingles": "study",
+   "nota": null
+  },
+  {
+   "ids": "17-250",
+   "capitulo": 17,
+   "aymara": "yatichaña",
+   "ids_forma": "yatiča-ɲa",
+   "espanol": "enseñar",
+   "ingles": "teach",
+   "nota": null
+  },
+  {
+   "ids": "17-260",
+   "capitulo": 17,
+   "aymara": "yatiqiri",
+   "ids_forma": "yatiḳiri",
+   "espanol": "alumno",
+   "ingles": "pupil",
+   "nota": null
+  },
+  {
+   "ids": "17-270",
+   "capitulo": 17,
+   "aymara": "yatichiri",
+   "ids_forma": "yatičiri",
+   "espanol": "profesor, maestro",
+   "ingles": "teacher",
+   "nota": null
+  },
+  {
+   "ids": "17-280",
+   "capitulo": 17,
+   "aymara": "yatiñuta",
+   "ids_forma": "yatiɲuta",
+   "espanol": "escuela, colegio",
+   "ingles": "school",
+   "nota": null
+  },
+  {
+   "ids": "17-310",
+   "capitulo": 17,
+   "aymara": "amtaña",
+   "ids_forma": "amta-ɲa",
+   "espanol": "recordar, acordarse",
+   "ingles": "remember",
+   "nota": null
+  },
+  {
+   "ids": "17-320",
+   "capitulo": 17,
+   "aymara": "armaña",
+   "ids_forma": "arma-ɲa",
+   "espanol": "olvidar",
+   "ingles": "forget",
+   "nota": null
+  },
+  {
+   "ids": "17-360",
+   "capitulo": 17,
+   "aymara": "imantata",
+   "ids_forma": "imantata",
+   "espanol": "secreto",
+   "ingles": "secret",
+   "nota": null
+  },
+  {
+   "ids": "17-380",
+   "capitulo": 17,
+   "aymara": "yaticht'aña",
+   "ids_forma": "yatičtˀa-ɲa",
+   "espanol": "explicar",
+   "ingles": "explain",
+   "nota": null
+  },
+  {
+   "ids": "17-441",
+   "capitulo": 17,
+   "aymara": "sallqjaña",
+   "ids_forma": "salʸḳxa-ɲa",
+   "espanol": "traicionar",
+   "ingles": "betray",
+   "nota": null
+  },
+  {
+   "ids": "17-470",
+   "capitulo": 17,
+   "aymara": "ch'ama",
+   "ids_forma": "čˀama",
+   "espanol": "difícil",
+   "ingles": "difficult",
+   "nota": null
+  },
+  {
+   "ids": "17-480",
+   "capitulo": 17,
+   "aymara": "uñstayaña",
+   "ids_forma": "uɲstaya-ɲa",
+   "espanol": "tratar, probar",
+   "ingles": "try, attempt",
+   "nota": null
+  },
+  {
+   "ids": "17-510",
+   "capitulo": 17,
+   "aymara": "mpi",
+   "ids_forma": "-mpi",
+   "espanol": "y",
+   "ingles": "and",
+   "nota": null
+  },
+  {
+   "ids": "17-540",
+   "capitulo": 17,
+   "aymara": "cha",
+   "ids_forma": "-ča",
+   "espanol": "o",
+   "ingles": "or",
+   "nota": null
+  },
+  {
+   "ids": "17-550",
+   "capitulo": 17,
+   "aymara": "jïsa",
+   "ids_forma": "xiisa",
+   "espanol": "sí, afirmativo",
+   "ingles": "yes, affirmative",
+   "nota": null
+  },
+  {
+   "ids": "17-560",
+   "capitulo": 17,
+   "aymara": "janiwa",
+   "ids_forma": "xaniwa",
+   "espanol": "no, negativo",
+   "ingles": "no, negative",
+   "nota": null
+  },
+  {
+   "ids": "17-610",
+   "capitulo": 17,
+   "aymara": "kumasa",
+   "ids_forma": "kumasa",
+   "espanol": "¿cómo?",
+   "ingles": "how?",
+   "nota": null
+  },
+  {
+   "ids": "17-620",
+   "capitulo": 17,
+   "aymara": "qawqhanaksa",
+   "ids_forma": "ḳawḳʰanaksa",
+   "espanol": "¿cuántos?",
+   "ingles": "how many?",
+   "nota": null
+  },
+  {
+   "ids": "17-630",
+   "capitulo": 17,
+   "aymara": "qawqhsa",
+   "ids_forma": "ḳawḳʰsa",
+   "espanol": "¿cuánto?",
+   "ingles": "how much?",
+   "nota": null
+  },
+  {
+   "ids": "17-640",
+   "capitulo": 17,
+   "aymara": "kunasa",
+   "ids_forma": "kunasa",
+   "espanol": "¿qué?",
+   "ingles": "what?",
+   "nota": null
+  },
+  {
+   "ids": "17-650",
+   "capitulo": 17,
+   "aymara": "kunarsa",
+   "ids_forma": "kunarsa",
+   "espanol": "¿cuándo?",
+   "ingles": "when?",
+   "nota": null
+  },
+  {
+   "ids": "17-660",
+   "capitulo": 17,
+   "aymara": "kawkinsa",
+   "ids_forma": "kawkinsa",
+   "espanol": "¿dónde?",
+   "ingles": "where?",
+   "nota": null
+  },
+  {
+   "ids": "17-670",
+   "capitulo": 17,
+   "aymara": "kawkisa",
+   "ids_forma": "kawkisa",
+   "espanol": "¿cuál?",
+   "ingles": "which?",
+   "nota": null
+  },
+  {
+   "ids": "17-680",
+   "capitulo": 17,
+   "aymara": "khitisa",
+   "ids_forma": "kʰitisa",
+   "espanol": "¿quién?",
+   "ingles": "who?",
+   "nota": null
+  },
+  {
+   "ids": "17-690",
+   "capitulo": 17,
+   "aymara": "kunatsa",
+   "ids_forma": "kunatsa",
+   "espanol": "¿por qué?",
+   "ingles": "why?",
+   "nota": null
+  },
+  {
+   "ids": "18-110",
+   "capitulo": 18,
+   "aymara": "aru",
+   "ids_forma": "aru",
+   "espanol": "voz",
+   "ingles": "voice",
+   "nota": null
+  },
+  {
+   "ids": "18-120",
+   "capitulo": 18,
+   "aymara": "jaylliña",
+   "ids_forma": "xaylʸi-ɲa",
+   "espanol": "cantar",
+   "ingles": "sing",
+   "nota": null
+  },
+  {
+   "ids": "18-130",
+   "capitulo": 18,
+   "aymara": "arnaqaña",
+   "ids_forma": "arnaḳa-ɲa",
+   "espanol": "gritar",
+   "ingles": "shout, cry out",
+   "nota": null
+  },
+  {
+   "ids": "18-150",
+   "capitulo": 18,
+   "aymara": "jinchuru arxayaña",
+   "ids_forma": "xinčuru arχaya-ɲa",
+   "espanol": "cuchichear",
+   "ingles": "whisper",
+   "nota": null
+  },
+  {
+   "ids": "18-170",
+   "capitulo": 18,
+   "aymara": "khuyuña",
+   "ids_forma": "kʰuyu-ɲa",
+   "espanol": "silbar, chiflar",
+   "ingles": "whistle",
+   "nota": null
+  },
+  {
+   "ids": "18-210",
+   "capitulo": 18,
+   "aymara": "aruña",
+   "ids_forma": "aru-ɲa",
+   "espanol": "hablar",
+   "ingles": "speak, talk",
+   "nota": null
+  },
+  {
+   "ids": "18-211",
+   "capitulo": 18,
+   "aymara": "khakhaña",
+   "ids_forma": "kʰakʰa-ɲa",
+   "espanol": "tartamudear, balbucear",
+   "ingles": "stutter, stammer",
+   "nota": null
+  },
+  {
+   "ids": "18-220",
+   "capitulo": 18,
+   "aymara": "saña",
+   "ids_forma": "sa-ɲa",
+   "espanol": "decir",
+   "ingles": "say",
+   "nota": null
+  },
+  {
+   "ids": "18-221",
+   "capitulo": 18,
+   "aymara": "jawariña",
+   "ids_forma": "xawari-ɲa",
+   "espanol": "narrar, contar",
+   "ingles": "tell story",
+   "nota": null
+  },
+  {
+   "ids": "18-222",
+   "capitulo": 18,
+   "aymara": "arst'aña",
+   "ids_forma": "arstˀa-ɲa",
+   "espanol": "pronunciar un discurso",
+   "ingles": "speech (make a)",
+   "nota": null
+  },
+  {
+   "ids": "18-230",
+   "capitulo": 18,
+   "aymara": "amukt'aña",
+   "ids_forma": "amuktˀa-ɲa",
+   "espanol": "callarse",
+   "ingles": "silent (be)",
+   "nota": null
+  },
+  {
+   "ids": "18-280",
+   "capitulo": 18,
+   "aymara": "suti",
+   "ids_forma": "suti",
+   "espanol": "nombre",
+   "ingles": "name",
+   "nota": null
+  },
+  {
+   "ids": "18-310",
+   "capitulo": 18,
+   "aymara": "jiskhiña",
+   "ids_forma": "xiskʰi-ɲa",
+   "espanol": "preguntar",
+   "ingles": "ask (question, inquire)",
+   "nota": null
+  },
+  {
+   "ids": "18-320",
+   "capitulo": 18,
+   "aymara": "jaysaña",
+   "ids_forma": "xaysa-ɲa",
+   "espanol": "contestar",
+   "ingles": "answer",
+   "nota": null
+  },
+  {
+   "ids": "18-340",
+   "capitulo": 18,
+   "aymara": "janichaña",
+   "ids_forma": "xaniča-ɲa",
+   "espanol": "negar",
+   "ingles": "deny",
+   "nota": null
+  },
+  {
+   "ids": "18-350",
+   "capitulo": 18,
+   "aymara": "mayiña",
+   "ids_forma": "mayi-ɲa",
+   "espanol": "pedir",
+   "ingles": "ask, request",
+   "nota": null
+  },
+  {
+   "ids": "18-410",
+   "capitulo": 18,
+   "aymara": "jawsaña",
+   "ids_forma": "xawsa-ɲa",
+   "espanol": "llamar",
+   "ingles": "call (=summon)",
+   "nota": null
+  },
+  {
+   "ids": "18-420",
+   "capitulo": 18,
+   "aymara": "jawsasiña",
+   "ids_forma": "xawsasi-ɲa",
+   "espanol": "llamarse",
+   "ingles": "call (=name)",
+   "nota": null
+  },
+  {
+   "ids": "18-430",
+   "capitulo": 18,
+   "aymara": "yatiyaña",
+   "ids_forma": "yatiya-ɲa",
+   "espanol": "anunciar, avisar",
+   "ingles": "announce",
+   "nota": null
+  },
+  {
+   "ids": "18-510",
+   "capitulo": 18,
+   "aymara": "qillqaña",
+   "ids_forma": "ḳilʸḳa-ɲa",
+   "espanol": "escribir",
+   "ingles": "write",
+   "nota": null
+  },
+  {
+   "ids": "18-520",
+   "capitulo": 18,
+   "aymara": "uñaña",
+   "ids_forma": "uɲa-ɲa",
+   "espanol": "leer",
+   "ingles": "read",
+   "nota": null
+  },
+  {
+   "ids": "18-610",
+   "capitulo": 18,
+   "aymara": "panka",
+   "ids_forma": "panka",
+   "espanol": "libro",
+   "ingles": "book",
+   "nota": null
+  },
+  {
+   "ids": "18-670",
+   "capitulo": 18,
+   "aymara": "yarqwiku",
+   "ids_forma": "yarḳwiku",
+   "espanol": "poeta",
+   "ingles": "poet",
+   "nota": null
+  },
+  {
+   "ids": "18-710",
+   "capitulo": 18,
+   "aymara": "qina",
+   "ids_forma": "ḳina",
+   "espanol": "flauta",
+   "ingles": "flute",
+   "nota": null
+  },
+  {
+   "ids": "18-720",
+   "capitulo": 18,
+   "aymara": "wankara",
+   "ids_forma": "wankara",
+   "espanol": "bombo, tambor",
+   "ingles": "drum",
+   "nota": null
+  },
+  {
+   "ids": "19-110",
+   "capitulo": 19,
+   "aymara": "marka",
+   "ids_forma": "marka",
+   "espanol": "país",
+   "ingles": "country",
+   "nota": null
+  },
+  {
+   "ids": "19-170",
+   "capitulo": 19,
+   "aymara": "qurpa",
+   "ids_forma": "ḳurpa",
+   "espanol": "límite, frontera",
+   "ingles": "boundary",
+   "nota": null
+  },
+  {
+   "ids": "19-210",
+   "capitulo": 19,
+   "aymara": "marka chiri",
+   "ids_forma": "marka-čiri",
+   "espanol": "pueblo, gente",
+   "ingles": "people (populace)",
+   "nota": null
+  },
+  {
+   "ids": "19-240",
+   "capitulo": 19,
+   "aymara": "kuraka",
+   "ids_forma": "kuraka",
+   "espanol": "jefe, cacique",
+   "ingles": "chief, chieftain",
+   "nota": null
+  },
+  {
+   "ids": "19-250",
+   "capitulo": 19,
+   "aymara": "thujru",
+   "ids_forma": "tʰuxru",
+   "espanol": "bastón, bordón",
+   "ingles": "staff, walking stick",
+   "nota": null
+  },
+  {
+   "ids": "19-330",
+   "capitulo": 19,
+   "aymara": "quya",
+   "ids_forma": "ḳuya",
+   "espanol": "reina",
+   "ingles": "queen",
+   "nota": null
+  },
+  {
+   "ids": "19-460",
+   "capitulo": 19,
+   "aymara": "iyawäña",
+   "ids_forma": "iyawaa-ɲa",
+   "espanol": "obedecer",
+   "ingles": "obey",
+   "nota": null
+  },
+  {
+   "ids": "19-470",
+   "capitulo": 19,
+   "aymara": "ya",
+   "ids_forma": "-ya",
+   "espanol": "permitir, dejar",
+   "ingles": "let, permit",
+   "nota": null
+  },
+  {
+   "ids": "19-510",
+   "capitulo": 19,
+   "aymara": "masi",
+   "ids_forma": "masi",
+   "espanol": "amigo, compañero",
+   "ingles": "friend, companion",
+   "nota": null
+  },
+  {
+   "ids": "19-520",
+   "capitulo": 19,
+   "aymara": "awqa",
+   "ids_forma": "awḳa",
+   "espanol": "enemigo",
+   "ingles": "enemy",
+   "nota": null
+  },
+  {
+   "ids": "19-540",
+   "capitulo": 19,
+   "aymara": "jak'asina",
+   "ids_forma": "xakˀasina",
+   "espanol": "vecino",
+   "ingles": "neighbor",
+   "nota": null
+  },
+  {
+   "ids": "19-560",
+   "capitulo": 19,
+   "aymara": "jawsata",
+   "ids_forma": "xawsata",
+   "espanol": "huésped",
+   "ingles": "guest",
+   "nota": null
+  },
+  {
+   "ids": "19-570",
+   "capitulo": 19,
+   "aymara": "qurpachuta",
+   "ids_forma": "ḳurpačuta",
+   "espanol": "huésped, hospedero",
+   "ingles": "host",
+   "nota": null
+  },
+  {
+   "ids": "19-580",
+   "capitulo": 19,
+   "aymara": "yanapaña",
+   "ids_forma": "yanapa-ɲa",
+   "espanol": "ayudar",
+   "ingles": "help, aid",
+   "nota": null
+  },
+  {
+   "ids": "19-620",
+   "capitulo": 19,
+   "aymara": "ch'axwa",
+   "ids_forma": "čˀaχwa",
+   "espanol": "lucha, pleito",
+   "ingles": "strife, quarrel",
+   "nota": null
+  },
+  {
+   "ids": "20-110",
+   "capitulo": 20,
+   "aymara": "nuwasiña",
+   "ids_forma": "nuwasi-ɲa",
+   "espanol": "pelear",
+   "ingles": "fight (vb)",
+   "nota": null
+  },
+  {
+   "ids": "20-170",
+   "capitulo": 20,
+   "aymara": "palla palla",
+   "ids_forma": "palʸa-palʸa",
+   "espanol": "soldado",
+   "ingles": "soldier",
+   "nota": null
+  },
+  {
+   "ids": "20-230",
+   "capitulo": 20,
+   "aymara": "q'urawa",
+   "ids_forma": "ḳˀurawa",
+   "espanol": "honda",
+   "ingles": "sling",
+   "nota": null
+  },
+  {
+   "ids": "20-250",
+   "capitulo": 20,
+   "aymara": "mich'i",
+   "ids_forma": "mičˀi",
+   "espanol": "flecha",
+   "ingles": "arrow",
+   "nota": null
+  },
+  {
+   "ids": "20-350",
+   "capitulo": 20,
+   "aymara": "pukara",
+   "ids_forma": "pukara",
+   "espanol": "fortaleza, castillo",
+   "ingles": "fortress",
+   "nota": null
+  },
+  {
+   "ids": "20-440",
+   "capitulo": 20,
+   "aymara": "tuwaña",
+   "ids_forma": "tuwa-ɲa",
+   "espanol": "defender",
+   "ingles": "defend",
+   "nota": null
+  },
+  {
+   "ids": "20-470",
+   "capitulo": 20,
+   "aymara": "paquma",
+   "ids_forma": "paḳuma",
+   "espanol": "cautivo, preso",
+   "ingles": "captive, prisoner",
+   "nota": null
+  },
+  {
+   "ids": "20-490",
+   "capitulo": 20,
+   "aymara": "qhamiyaña",
+   "ids_forma": "ḳʰamiya-ɲa",
+   "espanol": "acechar, emboscar",
+   "ingles": "ambush",
+   "nota": null
+  },
+  {
+   "ids": "20-510",
+   "capitulo": 20,
+   "aymara": "kuturi",
+   "ids_forma": "kuturi",
+   "espanol": "pescador",
+   "ingles": "fisherman",
+   "nota": null
+  },
+  {
+   "ids": "20-560",
+   "capitulo": 20,
+   "aymara": "lik'i",
+   "ids_forma": "likˀi",
+   "espanol": "cebo, carnada",
+   "ingles": "bait",
+   "nota": null
+  },
+  {
+   "ids": "20-640",
+   "capitulo": 20,
+   "aymara": "sipita",
+   "ids_forma": "sipita",
+   "espanol": "trampa",
+   "ingles": "trap (noun)",
+   "nota": null
+  },
+  {
+   "ids": "20-650",
+   "capitulo": 20,
+   "aymara": "katjaña",
+   "ids_forma": "katxa-ɲa",
+   "espanol": "atrapar",
+   "ingles": "trap (vb)",
+   "nota": null
+  },
+  {
+   "ids": "21-110",
+   "capitulo": 21,
+   "aymara": "kamachi",
+   "ids_forma": "kamači",
+   "espanol": "ley",
+   "ingles": "law",
+   "nota": null
+  },
+  {
+   "ids": "21-160",
+   "capitulo": 21,
+   "aymara": "taripaña",
+   "ids_forma": "taripa-ɲa",
+   "espanol": "juzgar",
+   "ingles": "judge (vb)",
+   "nota": null
+  },
+  {
+   "ids": "21-180",
+   "capitulo": 21,
+   "aymara": "taripiri",
+   "ids_forma": "taripiri",
+   "espanol": "juez",
+   "ingles": "judge (noun)",
+   "nota": null
+  },
+  {
+   "ids": "21-210",
+   "capitulo": 21,
+   "aymara": "tumpiri",
+   "ids_forma": "tumpiri",
+   "espanol": "demandante",
+   "ingles": "plaintiff",
+   "nota": null
+  },
+  {
+   "ids": "21-220",
+   "capitulo": 21,
+   "aymara": "tumpata",
+   "ids_forma": "tumpata",
+   "espanol": "acusado",
+   "ingles": "defendant",
+   "nota": null
+  },
+  {
+   "ids": "21-230",
+   "capitulo": 21,
+   "aymara": "uñjiri",
+   "ids_forma": "uɲxiri",
+   "espanol": "testigo",
+   "ingles": "witness",
+   "nota": null
+  },
+  {
+   "ids": "21-310",
+   "capitulo": 21,
+   "aymara": "ch'ataña",
+   "ids_forma": "čˀata-ɲa",
+   "espanol": "acusar, denunciar",
+   "ingles": "accuse",
+   "nota": null
+  },
+  {
+   "ids": "21-330",
+   "capitulo": 21,
+   "aymara": "juchachaña",
+   "ids_forma": "xuča-ča-ɲa",
+   "espanol": "inculpar, condenar",
+   "ingles": "convict (vb)",
+   "nota": null
+  },
+  {
+   "ids": "21-350",
+   "capitulo": 21,
+   "aymara": "juchani",
+   "ids_forma": "xučani",
+   "espanol": "culpable",
+   "ingles": "guilty",
+   "nota": null
+  },
+  {
+   "ids": "21-510",
+   "capitulo": 21,
+   "aymara": "lunthataña",
+   "ids_forma": "luntʰata-ɲa",
+   "espanol": "robar",
+   "ingles": "steal",
+   "nota": null
+  },
+  {
+   "ids": "21-520",
+   "capitulo": 21,
+   "aymara": "lunthata",
+   "ids_forma": "luntʰata",
+   "espanol": "ladrón",
+   "ingles": "thief",
+   "nota": null
+  },
+  {
+   "ids": "22-120",
+   "capitulo": 22,
+   "aymara": "pachamama",
+   "ids_forma": "pačamama",
+   "espanol": "Dios",
+   "ingles": "God",
+   "nota": null
+  },
+  {
+   "ids": "22-150",
+   "capitulo": 22,
+   "aymara": "luqta",
+   "ids_forma": "luḳta",
+   "espanol": "ofrenda",
+   "ingles": "sacrifice, offering",
+   "nota": null
+  },
+  {
+   "ids": "22-190",
+   "capitulo": 22,
+   "aymara": "qulläna",
+   "ids_forma": "ḳulʸaana",
+   "espanol": "sagrado",
+   "ingles": "holy, sacred",
+   "nota": null
+  },
+  {
+   "ids": "22-240",
+   "capitulo": 22,
+   "aymara": "nanqhaña",
+   "ids_forma": "nanḳʰa-ɲa",
+   "espanol": "maldecir",
+   "ingles": "curse",
+   "nota": null
+  },
+  {
+   "ids": "22-310",
+   "capitulo": 22,
+   "aymara": "alaxpacha",
+   "ids_forma": "alaχpača",
+   "espanol": "cielo, paraíso",
+   "ingles": "heaven",
+   "nota": null
+  },
+  {
+   "ids": "22-350",
+   "capitulo": 22,
+   "aymara": "supaya",
+   "ids_forma": "supaya",
+   "espanol": "demonio",
+   "ingles": "demon (evil spirit)",
+   "nota": null
+  },
+  {
+   "ids": "22-370",
+   "capitulo": 22,
+   "aymara": "wak'a",
+   "ids_forma": "wakˀa",
+   "espanol": "ídolo",
+   "ingles": "idol",
+   "nota": null
+  },
+  {
+   "ids": "22-430",
+   "capitulo": 22,
+   "aymara": "layqa",
+   "ids_forma": "layḳa",
+   "espanol": "brujo/bruja, hechicero",
+   "ingles": "sorcerer, witch",
+   "nota": null
+  }
+ ]
+}

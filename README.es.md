@@ -102,7 +102,7 @@ Proyecto desarrollado por [FLOR345](https://github.com/FLOR345) para el curso de
 
 - **Código:** [MIT](LICENSE). Puedes usarlo, modificarlo y redistribuirlo, manteniendo el aviso de copyright.
 - **Efectos visuales** (`frontend/src/components/fx/`): escritos para SimiAru, con la misma licencia MIT del código.
-- **Contenido lingüístico** (vocabulario, ejercicios y textos culturales): no está cubierto por la licencia MIT. Parte del vocabulario proviene de diccionarios del Ministerio de Educación de Chile, y su licencia de redistribución está pendiente de confirmar.
+- **Contenido lingüístico** (vocabulario, ejercicios y textos culturales): no está cubierto por la licencia MIT. El vocabulario aymara viene de la lista de aymara central de Félix Layme Pairumani en el Intercontinental Dictionary Series (CC BY 4.0); ver `languages/aymara/README.md`.
 
 ## Voz, evidencia y publicación
 

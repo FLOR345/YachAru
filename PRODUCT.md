@@ -46,10 +46,10 @@ Ninguna alternativa conocida (Duolingo, la app del Minedu, Yachay Quechua) reún
 ## Capabilities and Constraints
 
 - **Stack:** React 18 + Vite + Tailwind + React Router (frontend); Node/Express + Passport + JWT (backend); PostgreSQL (Neon); Cloudinary (archivos) y Brevo (correo).
-- **Contenido (base real, octubre 2026):**
-  - 2 lenguas, 25 unidades y 92 lecciones (quechua: 9 y 21; aymara: 16 y 71; cifras al día en `docs/cifras.md`);
-  - 1.521 filas de vocabulario (996 de aymara y 525 de quechua);
-  - 879 ejercicios, 69 contenidos culturales y 7 insignias.
+- **Contenido (base real, noviembre 2026):**
+  - 2 lenguas, 28 unidades y 98 lecciones (quechua: 9 y 21; aymara: 19 y 77; cifras al día en `docs/cifras.md`);
+  - 1.320 filas de vocabulario (795 de aymara, del Intercontinental Dictionary Series, y 525 de quechua);
+  - 902 ejercicios, 69 contenidos culturales y 7 insignias.
 - **Variedades:** quechua Cusco-Collao (la de Puno) y aymara central.
 - **Interfaz en español** (`lang="es"`). Las palabras originarias contienen glotalizadas (`p'`, `t'`, `k'`, `q'`) y aspiradas (`ph`, `kh`…), que cambian el significado: su escritura y su pronunciación no se pueden simplificar.
 - **Audio:** audio pregenerado con los modelos MMS de Meta (`quz` y `ayr`), con licencia **CC BY-NC 4.0**, separada de la licencia MIT del código. Se genera en línea con el flujo `Audio MMS`, contra Neon y Cloudinary. Las voces grabadas se conservan y se etiquetan como tales. La voz del navegador en español queda solo como respaldo de lo que aún no tiene audio.
@@ -58,7 +58,6 @@ Ninguna alternativa conocida (Duolingo, la app del Minedu, Yachay Quechua) reún
 - **Paquetes de idioma:** un archivo de configuración y un comando. El awajún es una demostración técnica sin revisión de hablantes y no se publica en la plataforma.
 - **Decisión firme:** no usar un modelo de lenguaje para generar contenido en quechua o aymara, porque inventa morfología y mezcla variedades.
 - **Pendiente de confirmar:**
-  - la licencia del diccionario fuente del Ministerio de Educación de Chile;
   - si se suma un colaborador aymarahablante;
   - si un hablante de awajún revisa la demostración.
 
