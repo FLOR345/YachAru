@@ -1,7 +1,7 @@
 {
-  "generado_en": "2026-11-13T21:25:50.217Z",
+  "generado_en": "2026-11-13T21:29:47.366Z",
   "cobertura": {
-    "generado_en": "2026-11-13T21:25:49.130Z",
+    "generado_en": "2026-11-13T21:29:46.484Z",
     "definicion": {
       "fila": "Una fila de la tabla vocabulario (una palabra puede repetirse en varias lecciones).",
       "entrada_unica": "Texto distinto tras normalizarlo: minúsculas, apóstrofos unificados y sin signos.",
@@ -10,6 +10,36 @@
       "voces_mms": "Textos con cada voz. La voz transformada sale de la del modelo con el vocoder WORLD (tono y formantes)."
     },
     "idiomas": {
+      "aymara": {
+        "filas": 795,
+        "entradas_unicas": 795,
+        "audio": {
+          "mms": 795,
+          "grabado": 0,
+          "sin_audio": 0
+        },
+        "cobertura_audio_pct": 100,
+        "modelos": [
+          "facebook/mms-tts-ayr"
+        ],
+        "fenomenos": {
+          "glotalizada": 194,
+          "aspirada": 135,
+          "uvular": 185
+        },
+        "revision": {
+          "revisadas": 0,
+          "correctas": 0,
+          "variantes": 0,
+          "corregidas": 0
+        },
+        "voces_mms": {
+          "mujer": {
+            "textos": 2859,
+            "transformada": true
+          }
+        }
+      },
       "quechua": {
         "filas": 525,
         "entradas_unicas": 489,
@@ -37,36 +67,6 @@
           "mujer": {
             "textos": 1275,
             "transformada": false
-          }
-        }
-      },
-      "aymara": {
-        "filas": 795,
-        "entradas_unicas": 795,
-        "audio": {
-          "mms": 187,
-          "grabado": 0,
-          "sin_audio": 608
-        },
-        "cobertura_audio_pct": 23.5,
-        "modelos": [
-          "facebook/mms-tts-ayr"
-        ],
-        "fenomenos": {
-          "glotalizada": 194,
-          "aspirada": 135,
-          "uvular": 185
-        },
-        "revision": {
-          "revisadas": 0,
-          "correctas": 0,
-          "variantes": 0,
-          "corregidas": 0
-        },
-        "voces_mms": {
-          "mujer": {
-            "textos": 2859,
-            "transformada": true
           }
         }
       }
@@ -175,7 +175,7 @@
     }
   ],
   "evaluacion_audio": {
-    "quechua": {
+    "aymara": {
       "evaluadores": 0,
       "evaluadores_completos": 0,
       "audios_evaluados": 0,
@@ -186,7 +186,7 @@
       "suficiente": false,
       "aviso": "Van 0 de 10 personas que terminaron la evaluación."
     },
-    "aymara": {
+    "quechua": {
       "evaluadores": 0,
       "evaluadores_completos": 0,
       "audios_evaluados": 0,
