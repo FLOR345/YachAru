@@ -1,6 +1,6 @@
-# Verifying SimiAru in five minutes
+# Verifying YachAru in five minutes
 
-This guide lets a reviewer check the three main claims of SimiAru on a fresh clone: neural speech synthesis trained on the languages, learner-level data export, and extensibility through language packs.
+This guide lets a reviewer check the three main claims of YachAru on a fresh clone: neural speech synthesis trained on the languages, learner-level data export, and extensibility through language packs.
 
 ## 0. Start the platform (one command)
 

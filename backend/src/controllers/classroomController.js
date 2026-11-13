@@ -95,7 +95,7 @@ export const exportClassroom = async (req, res, next) => {
        WHERE u.aula_id = $1 AND u.consentimiento_datos = true ORDER BY e.ocurrido_en`,
       [aula.id]
     );
-    const name = `simiaru-aula-${aula.codigo}`;
+    const name = `yacharu-aula-${aula.codigo}`;
     if (req.query.format === 'csv') {
       res.setHeader('Content-Type', 'text/csv; charset=utf-8');
       res.setHeader('Content-Disposition', `attachment; filename="${name}.csv"`);

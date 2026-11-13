@@ -1,8 +1,8 @@
-# SimiAru
+# YachAru
 
 **An open-source, extensible web platform for teaching and studying Quechua and Aymara, with neural speech synthesis and learner-level data export.**
 
-*Simi* means "word/language" in Quechua and *aru* means the same in Aymara. SimiAru was built in Puno, Peru, by Quechua speakers of the region, as a tool the language community can inspect, modify and reuse.
+*Yachay* means "to learn, to know" in Quechua and *aru* means "word, language" in Aymara. The project was formerly named SimiAru; web addresses and some internal identifiers keep that name. YachAru was built in Puno, Peru, by Quechua speakers of the region, as a tool the language community can inspect, modify and reuse.
 
 [Versión en español](README.es.md) · Live demo: https://simiaru-3j6b.vercel.app
 
@@ -10,7 +10,7 @@
 
 ## What makes it different
 
-| | SimiAru |
+| | YachAru |
 | --- | --- |
 | **Open and auditable** | MIT-licensed code; anyone can inspect, modify and deploy it. |
 | **Speech trained on the language** | Audio is pre-generated once with Meta's MMS models (`facebook/mms-tts-quz` for Cusco-Collao Quechua, `facebook/mms-tts-ayr` for Central Aymara) instead of a Spanish synthesizer that erases glottalized and aspirated consonants. |
@@ -107,7 +107,7 @@ docs/            documentation
 
 - **Code:** [MIT](LICENSE).
 - **Generated audio:** [CC BY-NC 4.0](LICENSE-AUDIO.md), inherited from the MMS models.
-- **Visual effects** (`frontend/src/components/fx/`): written for SimiAru, MIT like the rest of the code.
+- **Visual effects** (`frontend/src/components/fx/`): written for YachAru, MIT like the rest of the code.
 - **Linguistic content:** not covered by the MIT license. The Aymara vocabulary comes from Félix Layme Pairumani's Central Aymara list in the Intercontinental Dictionary Series (CC BY 4.0); see `languages/aymara/README.md`.
 
 ## Cite

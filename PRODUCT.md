@@ -2,7 +2,7 @@
 
 <!-- impeccable:product-schema 1 -->
 
-> Fuente: código del repositorio y la propuesta "Propuesta de artículo SimiAru en SoftwareX" (28/10/2026).
+> Fuente: código del repositorio y la propuesta "Propuesta de artículo YachAru en SoftwareX" (28/10/2026).
 > El autor pidió no hacer entrevista. Lo marcado **(inferido)** sale de esa propuesta o del código y está pendiente de confirmar.
 
 ## Platform
@@ -17,11 +17,11 @@ web
 
 ## Product Purpose
 
-SimiAru enseña vocabulario y cultura del quechua y del aymara con lecciones cortas, ejercicios, un diccionario y textos culturales, usando gamificación (rachas, puntos e insignias).
+YachAru enseña vocabulario y cultura del quechua y del aymara con lecciones cortas, ejercicios, un diccionario y textos culturales, usando gamificación (rachas, puntos e insignias).
 
 Existe porque estas lenguas pierden hablantes jóvenes y las herramientas digitales disponibles son cerradas: no se pueden inspeccionar, modificar ni usar para investigar.
 
-El éxito tiene dos medidas: que un aprendiz vuelva cada día y avance de lección, y que otro docente o investigador pueda instalar SimiAru, agregar una lengua y exportar datos sin escribir código.
+El éxito tiene dos medidas: que un aprendiz vuelva cada día y avance de lección, y que otro docente o investigador pueda instalar YachAru, agregar una lengua y exportar datos sin escribir código.
 
 ## Positioning
 
@@ -63,7 +63,7 @@ Ninguna alternativa conocida (Duolingo, la app del Minedu, Yachay Quechua) reún
 
 ## Brand Commitments
 
-- **Nombre:** SimiAru. *Simi* significa "lengua/palabra" en quechua y *aru* lo mismo en aymara, así que el nombre representa las dos lenguas por igual.
+- **Nombre:** YachAru. *Yachay* significa "aprender, saber" en quechua y *aru* significa "palabra, lengua" en aymara: aprender la lengua, con las dos lenguas en el nombre. Antes se llamaba SimiAru; las direcciones web y algunos nombres internos (base de datos, carpetas de audio) conservan ese nombre.
 - **Logo:** existe en `frontend/src/assets/logo.jpg`. La página de inicio usa una llama como mascota.
 - **Tono:** cercano, en español, sin exagerar.
 - **Honestidad como compromiso:** el audio se llama **sintetizado**, nunca "de hablantes nativos", y solo se publican cifras reales.

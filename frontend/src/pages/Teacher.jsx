@@ -120,10 +120,10 @@ const ClassroomCard = ({ aula, startOpen }) => {
     }
   };
   const share = async () => {
-    const text = `Únete a mi aula "${aula.nombre}" en SimiAru: abre ${joinUrl(aula.codigo)} y escribe tu alias (el código del aula es ${aula.codigo}).`;
+    const text = `Únete a mi aula "${aula.nombre}" en YachAru: abre ${joinUrl(aula.codigo)} y escribe tu alias (el código del aula es ${aula.codigo}).`;
     if (navigator.share) {
       try {
-        await navigator.share({ title: 'SimiAru · Modo aula', text });
+        await navigator.share({ title: 'YachAru · Modo aula', text });
       } catch {
         // la persona cerró el menú de compartir
       }
@@ -132,7 +132,7 @@ const ClassroomCard = ({ aula, startOpen }) => {
     }
   };
   const download = (format) =>
-    api.download(`/api/classroom/${aula.id}/export?format=${format}`, `simiaru-aula-${aula.codigo}.${format}`).catch(() => toast.error('No pudimos descargar los datos'));
+    api.download(`/api/classroom/${aula.id}/export?format=${format}`, `yacharu-aula-${aula.codigo}.${format}`).catch(() => toast.error('No pudimos descargar los datos'));
 
   const students = detail?.estudiantes ?? [];
   const summary = useMemo(() => {

@@ -1,4 +1,4 @@
--- Esquema real de SimiAru, generado desde la base con: npm run db:schema
+-- Esquema real de YachAru, generado desde la base con: npm run db:schema
 -- Generado: 2026-10-29T16:11:56.684Z
 -- No editar a mano: los cambios van en database/migrations/00N_*.sql
 

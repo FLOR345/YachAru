@@ -1,4 +1,4 @@
-"""Vocabulario aymara de SimiAru a partir del Intercontinental Dictionary Series (IDS).
+"""Vocabulario aymara de YachAru a partir del Intercontinental Dictionary Series (IDS).
 
 Fuente: lista de aymara central (ayr, Glottocode cent2142) de Félix Layme Pairumani, en
 Key, Mary Ritchie & Comrie, Bernard (eds.) 2023. The Intercontinental Dictionary Series.
@@ -20,7 +20,7 @@ import unicodedata
 from pathlib import Path
 
 LANGUAGE_ID = "269"  # Aymara (central) en IDS
-# Conceptos que no se enseñan en una plataforma escolar (siguen en IDS; solo no entran a SimiAru)
+# Conceptos que no se enseñan en una plataforma escolar (siguen en IDS; solo no entran a YachAru)
 EXCLUDE = {"4-464", "4-490", "4-492", "4-650", "4-660", "4-760", "19-720", "21-420", "21-430"}
 
 # Transcripción fonémica de IDS → alfabeto aymara oficial (Perú y Bolivia).

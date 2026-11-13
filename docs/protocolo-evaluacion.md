@@ -1,55 +1,77 @@
 # Protocolo de la evaluación del audio
 
-Mide si la voz sintética de SimiAru se entiende, palabra por palabra, según hablantes nativos. Es la medición principal de la validación: sin ella solo se puede reportar cuánto audio hay, no qué tan bien suena.
+Mide si la voz sintética de YachAru se entiende, palabra por palabra, según hablantes nativos. Es la medición principal de la validación: sin ella solo se puede reportar cuánto audio hay, no qué tan bien suena.
+
+## En resumen
+
+- **Quiénes:** 10 hablantes nativos por lengua que no hayan construido YachAru.
+- **Qué hacen:** escanean el QR, eligen su lengua, aceptan en pantalla y califican **20 palabras** del 1 al 5. Toma **unos 5 minutos**.
+- **Qué se necesita:** un celular con internet y, de preferencia, audífonos.
 
 ## Quiénes evalúan
 
-- **8 a 10 personas por lengua.** Con menos no se puede calcular el acuerdo entre evaluadores. La plataforma no da resultados con menos de 8.
-- **Hablantes nativos** de la lengua: quechua de Puno o Cusco-Collao para el quechua, y aymara del altiplano para el aymara.
-- **Que no hayan construido SimiAru.** El equipo creador no evalúa, porque tiene conflicto de interés. La pantalla de evaluación también lo advierte.
-- Se anota la variedad de cada persona (por ejemplo, "Puno, Huancané"), pero nunca su nombre.
+- **10 personas por lengua que terminen.** Se cuenta como terminada la evaluación de quien calificó al menos 16 de las 20 palabras. La plataforma no da la media ni el acuerdo con menos de 10.
+- **Hablantes nativos:** quechua de Puno o Cusco-Collao para el quechua, y aymara del altiplano para el aymara.
+- **Que no hayan construido YachAru**, porque tienen conflicto de interés. La pantalla pide confirmarlo antes de empezar.
+- Cada persona puede anotar de dónde es su variedad (por ejemplo, "Puno, Huancané"). Nunca se pide su nombre.
 
-## Antes del día de la evaluación
+## Cómo compartirla
 
-1. Si la facultad lo pide, conseguir la **revisión ética** (ver `plantillas-correos.md`).
-2. **Arreglar las palabras cortas** con el flujo `Audio MMS` (modos `comparar` y `rehacer-cortas`). Se evalúa la voz final, la que escucha quien aprende.
-3. Entrar a `/validacion` con una cuenta de administrador (su correo debe estar en `ADMIN_EMAILS` en Render) y, en cada lengua:
-   - **Preparar muestra de 50.** La muestra se reparte entre palabras con glotalizadas, aspiradas, uvulares y sin ninguno de esos sonidos. Después de la primera evaluación ya no cambia.
-   - **Crear 10 códigos.** Cada evaluador recibe uno. El código es su única identificación.
-4. Imprimir la hoja de consentimiento (abajo), una por persona.
+- **Afiche con QR:** `frontend/public/afiche-evaluacion.png`, que también se descarga desde `/validacion` con el botón «Afiche con QR». Sirve para WhatsApp o para imprimir.
+- **Enlace:** `https://simiaru-3j6b.vercel.app/evaluacion`.
+- La primera persona que entra prepara sola la muestra de 20 palabras de su lengua. La muestra se reparte entre palabras con glotalizadas, aspiradas, uvulares y sin ninguno de esos sonidos, y no cambia después.
+- Una lengua aparece como «Muy pronto» mientras no tenga audio. Por ejemplo, el aymara, hasta que se corra `Audio MMS` en modo `completo`.
 
-## El día de la evaluación (unos 15 minutos por persona)
+## Antes de compartir el QR
 
-1. Leer con la persona la hoja de consentimiento. Si acepta, firma la copia en papel, que guarda el equipo, separada de los códigos.
-2. La persona abre `https://simiaru-3j6b.vercel.app/evaluacion` en su celular, con audífonos de preferencia, y escribe su código.
-3. Escucha cada palabra y le pone un puntaje de 1 a 5:
+1. **Arreglar las palabras cortas** con el flujo `Audio MMS` (modos `comparar` y `rehacer-cortas`). Se evalúa la voz final, la que escucha quien aprende.
+2. Si la facultad lo pide, conseguir la **revisión ética** (ver `plantillas-correos.md`).
+
+## Lo que ve cada persona
+
+1. Elige su lengua.
+2. Lee tres puntos:
+   - es una voz de computadora;
+   - no se piden datos personales;
+   - es voluntario y los resultados se publican en conjunto.
+3. Marca «Acepto participar» y «No participé en crear YachAru».
+4. Cada palabra suena sola. Si quiere, la escucha otra vez. Elige:
    - 1: no se entiende;
+   - 2: casi no se entiende;
    - 3: se entiende con esfuerzo;
-   - 5: se entiende perfectamente, como la diría una persona.
+   - 4: se entiende bien;
+   - 5: se entiende perfectamente.
 
-   Puede dejar un comentario, por ejemplo "la k' suena como k".
-4. Puede pausar y volver luego con el mismo código. Cada persona escucha las palabras en su propio orden.
+   Puede volver a la anterior y dejar un comentario opcional, por ejemplo "la k' suena como k".
+5. Al final ve su código. Si se corta, el mismo celular la retoma donde quedó. En otro celular, entra con «Ya empecé y tengo un código».
 
-Si alguien no termina, sus puntajes igual cuentan. Para el informe se usan las personas que calificaron al menos 40 de las 50 palabras.
+Cada persona escucha las palabras en su propio orden, para evitar el sesgo por posición.
 
 ## Después
 
-- En `/validacion` se ven los resultados: evaluadores, media, acuerdo (α de Krippendorff, ordinal) y la media por fenómeno (glotalizadas, aspiradas, uvulares, ninguno). También se descargan en CSV.
+- En `/validacion` se ven:
+  - cuántas personas terminaron (de 10);
+  - la media;
+  - el acuerdo (α de Krippendorff, ordinal);
+  - la media por fenómeno.
+
+  También se descargan los datos en CSV.
 - En `backend`, `npm run cifras` deja todas las cifras en `docs/cifras.md`, con su definición. Esas son las que se reportan; no se copian a mano.
-- Los comentarios de los evaluadores dicen qué sonidos falla el modelo. Resúmanlos por fenómeno.
+- Los comentarios dicen qué sonidos falla el modelo. Resúmanlos por fenómeno.
 
-## Hoja de consentimiento (para imprimir)
+## Si la evaluación es presencial
 
-> **Evaluación de la voz de SimiAru**
+Se puede usar el mismo QR. Si la facultad pide consentimiento firmado, usen esta hoja y guárdenla aparte, sin unirla al código de la persona.
+
+> **Evaluación de la voz de YachAru**
 >
-> SimiAru es una plataforma abierta para aprender quechua y aymara, hecha por quechuahablantes de Puno. Usa una voz generada por computadora. Le pedimos escuchar unas 50 palabras y decir, del 1 al 5, qué tan bien se entienden.
+> YachAru es una plataforma abierta para aprender quechua y aymara, hecha por quechuahablantes de Puno. Usa una voz generada por computadora. Le pedimos escuchar 20 palabras y decir, del 1 al 5, qué tan bien se entienden.
 >
-> - Toma unos 15 minutos. Es voluntario: puede dejarlo en cualquier momento, sin dar razones.
+> - Toma unos 5 minutos. Es voluntario: puede dejarlo en cualquier momento, sin dar razones.
 > - No grabamos su voz. No pedimos su nombre, correo ni teléfono en la plataforma: solo un código.
-> - Guardamos sus puntajes y comentarios con ese código. Los resultados se publicarán en conjunto, nunca con su nombre.
-> - Esta hoja firmada se guarda aparte y no se une a sus respuestas.
-> - Si construyó o programó SimiAru, por favor no participe.
+> - Los resultados se publicarán en conjunto, nunca con su nombre.
+> - Si construyó o programó YachAru, por favor no participe.
 >
 > Contacto del equipo: ______________________
 >
-> Acepto participar.  Firma: ____________________  Fecha: ___________  Variedad que hablo: ______________________
+> Acepto participar.  Firma: ____________________  Fecha: ___________

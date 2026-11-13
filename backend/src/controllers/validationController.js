@@ -4,9 +4,12 @@ import crypto from 'node:crypto';
 import { pool } from '../config/database.js';
 import { AppError } from '../middleware/errorHandler.js';
 import { PHENOMENA, audioKey, phenomenaOf, krippendorffAlpha } from '../utils/phonology.js';
-import { isKnownLanguage } from '../utils/languages.js';
+import { isKnownLanguage, knownLanguages } from '../utils/languages.js';
 
-export const MIN_RATERS = 8; // mínimo defendible de la propuesta para calcular acuerdo entre evaluadores
+export const MIN_RATERS = 10; // hablantes por lengua que deben terminar para reportar la media y el acuerdo
+export const SAMPLE_SIZE = 20; // palabras por persona: unos 5 minutos
+export const COMPLETE_SHARE = 0.8; // cuenta como evaluación terminada quien calificó al menos el 80 % de la muestra
+const MAX_EVALUATORS = 80; // por lengua: freno a inscripciones masivas desde el QR
 const CODE_ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 const newCode = () => Array.from(crypto.randomBytes(8), (b) => CODE_ALPHABET[b % CODE_ALPHABET.length]).join('');
 const hashOrder = (seed, value) => crypto.createHash('sha256').update(`${seed}:${value}`).digest('hex');
@@ -128,41 +131,48 @@ export const pickSample = (entries, size, seed = 'simiaru') => {
   return picked;
 };
 
+// Arma la muestra con la voz que suena en la app (audio MMS enlazado al vocabulario).
+const buildSample = async (idioma, size) => {
+  const { rows } = await pool.query(
+    `SELECT DISTINCT a.id, a.clave FROM audios a
+     JOIN vocabulario v ON v.audio_url = a.url
+     WHERE a.idioma = $1 AND a.fuente = 'mms'`,
+    [idioma]
+  );
+  const entries = rows.map((r) => ({ ...r, fenomenos: phenomenaOf(r.clave) }));
+  const sample = pickSample(entries, size);
+  if (sample.length === 0) throw new AppError('Esta lengua todavía no tiene audio para evaluar', 409);
+
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    await client.query('DELETE FROM muestra_evaluacion WHERE idioma = $1', [idioma]);
+    for (const entry of sample) {
+      await client.query('INSERT INTO muestra_evaluacion (idioma, audio_id, fenomenos) VALUES ($1, $2, $3)', [idioma, entry.id, entry.fenomenos]);
+    }
+    await client.query('COMMIT');
+  } catch (error) {
+    await client.query('ROLLBACK');
+    throw error;
+  } finally {
+    client.release();
+  }
+  return sample.length;
+};
+
+const sampleSize = async (idioma) =>
+  (await pool.query('SELECT COUNT(*)::int AS n FROM muestra_evaluacion WHERE idioma = $1', [idioma])).rows[0].n;
+
 export const createSample = async (req, res, next) => {
   try {
-    const { idioma, tamano = 50 } = req.body;
+    const { idioma, tamano = SAMPLE_SIZE } = req.body;
     await requireLanguage(idioma);
     const rated = await pool.query(
       `SELECT 1 FROM evaluaciones_audio e JOIN evaluadores d ON d.id = e.evaluador_id WHERE d.idioma = $1 LIMIT 1`,
       [idioma]
     );
     if (rated.rowCount > 0) throw new AppError('Ya hay evaluaciones de esta lengua: la muestra no se puede cambiar', 409);
-
-    const { rows } = await pool.query(
-      `SELECT DISTINCT a.id, a.clave FROM audios a
-       JOIN vocabulario v ON v.audio_url = a.url
-       WHERE a.idioma = $1 AND a.fuente = 'mms'`,
-      [idioma]
-    );
-    const entries = rows.map((r) => ({ ...r, fenomenos: phenomenaOf(r.clave) }));
-    const sample = pickSample(entries, Number(tamano));
-    if (sample.length === 0) throw new AppError('Todavía no hay audios MMS de esta lengua', 409);
-
-    const client = await pool.connect();
-    try {
-      await client.query('BEGIN');
-      await client.query('DELETE FROM muestra_evaluacion WHERE idioma = $1', [idioma]);
-      for (const entry of sample) {
-        await client.query('INSERT INTO muestra_evaluacion (idioma, audio_id, fenomenos) VALUES ($1, $2, $3)', [idioma, entry.id, entry.fenomenos]);
-      }
-      await client.query('COMMIT');
-    } catch (error) {
-      await client.query('ROLLBACK');
-      throw error;
-    } finally {
-      client.release();
-    }
-    res.status(201).json({ tamano: sample.length });
+    res.status(201).json({ tamano: await buildSample(idioma, Number(tamano)) });
   } catch (error) {
     next(error);
   }
@@ -206,6 +216,73 @@ const findEvaluator = async (codigo) => {
   return rows[0];
 };
 
+const itemsFor = async (evaluator) => {
+  const { rows } = await pool.query(
+    `SELECT a.id, a.texto, a.url, e.puntaje
+     FROM muestra_evaluacion m
+     JOIN audios a ON a.id = m.audio_id
+     LEFT JOIN evaluaciones_audio e ON e.audio_id = a.id AND e.evaluador_id = $1
+     WHERE m.idioma = $2`,
+    [evaluator.id, evaluator.idioma]
+  );
+  // Cada evaluador recibe su propio orden, siempre el mismo: evita el sesgo por posición
+  return rows.sort((a, b) => hashOrder(evaluator.codigo, a.id).localeCompare(hashOrder(evaluator.codigo, b.id)));
+};
+
+// Quien evaluó al menos el 80 % de la muestra, por lengua
+const completedByLanguage = async () => {
+  const { rows } = await pool.query(
+    `SELECT d.idioma, COUNT(*)::int AS n FROM (
+       SELECT d.id, d.idioma, COUNT(e.audio_id) AS hechas FROM evaluadores d
+       JOIN evaluaciones_audio e ON e.evaluador_id = d.id GROUP BY d.id
+     ) d
+     JOIN (SELECT idioma, COUNT(*) AS total FROM muestra_evaluacion GROUP BY idioma) m ON m.idioma = d.idioma
+     WHERE d.hechas >= CEIL(m.total * $1::numeric) GROUP BY d.idioma`,
+    [COMPLETE_SHARE]
+  );
+  return Object.fromEntries(rows.map((r) => [r.idioma, r.n]));
+};
+
+// Pública: qué lenguas se pueden evaluar ya (con audio) y cuántas personas terminaron
+export const evaluationLanguages = async (req, res, next) => {
+  try {
+    const { rows } = await pool.query(
+      `SELECT a.idioma, COUNT(DISTINCT a.id)::int AS audios FROM audios a
+       JOIN vocabulario v ON v.audio_url = a.url WHERE a.fuente = 'mms' GROUP BY a.idioma`
+    );
+    const done = await completedByLanguage();
+    const languages = [...(await knownLanguages())].map((idioma) => {
+      const audios = rows.find((r) => r.idioma === idioma)?.audios ?? 0;
+      return { idioma, disponible: audios >= SAMPLE_SIZE, terminaron: done[idioma] ?? 0 };
+    });
+    res.json({ meta: MIN_RATERS, palabras: SAMPLE_SIZE, lenguas: languages });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Entrar desde el QR: la persona acepta en pantalla y recibe su código, sin que nadie se lo reparta
+export const joinEvaluation = async (req, res, next) => {
+  try {
+    const { idioma, consiente, ajeno, variedad } = req.body;
+    await requireLanguage(idioma);
+    if (consiente !== true) throw new AppError('Para participar hay que aceptar las condiciones', 400);
+    if (ajeno !== true) throw new AppError('Si participaste en crear YachAru no puedes evaluar: tu opinión no sería independiente', 403);
+    const count = await pool.query('SELECT COUNT(*)::int AS n FROM evaluadores WHERE idioma = $1', [idioma]);
+    if (count.rows[0].n >= MAX_EVALUATORS) throw new AppError('Ya tenemos suficientes evaluaciones de esta lengua. ¡Gracias!', 409);
+    if ((await sampleSize(idioma)) === 0) await buildSample(idioma, SAMPLE_SIZE);
+
+    const codigo = newCode();
+    const { rows } = await pool.query(
+      'INSERT INTO evaluadores (codigo, idioma, variedad, consentimiento_en) VALUES ($1, $2, $3, NOW()) RETURNING *',
+      [codigo, idioma, variedad?.trim().slice(0, 80) || null]
+    );
+    res.status(201).json({ codigo, idioma, items: await itemsFor(rows[0]) });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const enterEvaluation = async (req, res, next) => {
   try {
     const evaluator = await findEvaluator(req.body.codigo);
@@ -213,17 +290,7 @@ export const enterEvaluation = async (req, res, next) => {
       if (req.body.consiente !== true) return res.json({ necesitaConsentimiento: true, idioma: evaluator.idioma });
       await pool.query('UPDATE evaluadores SET consentimiento_en = NOW() WHERE id = $1', [evaluator.id]);
     }
-    const { rows } = await pool.query(
-      `SELECT a.id, a.texto, a.url, e.puntaje
-       FROM muestra_evaluacion m
-       JOIN audios a ON a.id = m.audio_id
-       LEFT JOIN evaluaciones_audio e ON e.audio_id = a.id AND e.evaluador_id = $1
-       WHERE m.idioma = $2`,
-      [evaluator.id, evaluator.idioma]
-    );
-    // Cada evaluador recibe su propio orden, siempre el mismo: evita el sesgo por posición
-    const items = rows.sort((a, b) => hashOrder(evaluator.codigo, a.id).localeCompare(hashOrder(evaluator.codigo, b.id)));
-    res.json({ idioma: evaluator.idioma, items });
+    res.json({ idioma: evaluator.idioma, items: await itemsFor(evaluator) });
   } catch (error) {
     next(error);
   }
@@ -248,7 +315,7 @@ export const answerEvaluation = async (req, res, next) => {
 };
 
 // ==================== EVALUACIÓN PERCEPTUAL: RESULTADOS ====================
-export const summarizeRatings = (ratings) => {
+export const summarizeRatings = (ratings, size = SAMPLE_SIZE) => {
   const mean = (values) => (values.length ? Number((values.reduce((a, b) => a + b, 0) / values.length).toFixed(2)) : null);
   const units = new Map();
   const byPhenomenon = {};
@@ -259,17 +326,21 @@ export const summarizeRatings = (ratings) => {
       (byPhenomenon[phenomenon] ??= []).push(r.puntaje);
     }
   }
-  const raters = new Set(ratings.map((r) => r.evaluador)).size;
+  const perRater = new Map();
+  for (const r of ratings) perRater.set(r.evaluador, (perRater.get(r.evaluador) ?? 0) + 1);
+  const raters = perRater.size;
+  const completed = [...perRater.values()].filter((n) => n >= Math.ceil(size * COMPLETE_SHARE)).length;
   const alpha = krippendorffAlpha([...units.values()]);
   return {
     evaluadores: raters,
+    evaluadores_completos: completed,
     audios_evaluados: units.size,
     juicios: ratings.length,
     media: mean(ratings.map((r) => r.puntaje)),
     alfa_krippendorff_ordinal: alpha === null ? null : Number(alpha.toFixed(3)),
     por_fenomeno: Object.fromEntries(Object.entries(byPhenomenon).map(([p, v]) => [p, { juicios: v.length, media: mean(v) }])),
-    suficiente: raters >= MIN_RATERS,
-    aviso: raters >= MIN_RATERS ? null : `Faltan evaluadores: el mínimo para reportar es ${MIN_RATERS}.`,
+    suficiente: completed >= MIN_RATERS,
+    aviso: completed >= MIN_RATERS ? null : `Van ${completed} de ${MIN_RATERS} personas que terminaron la evaluación.`,
   };
 };
 
@@ -288,10 +359,10 @@ export const getResults = async (req, res, next) => {
       const escape = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;
       const lines = rows.map((r) => [r.evaluador, r.audio_id, r.texto, r.puntaje, r.fenomenos.join('+'), r.comentario].map(escape).join(','));
       res.setHeader('Content-Type', 'text/csv; charset=utf-8');
-      res.setHeader('Content-Disposition', `attachment; filename="simiaru-evaluacion-${req.query.idioma}.csv"`);
+      res.setHeader('Content-Disposition', `attachment; filename="yacharu-evaluacion-${req.query.idioma}.csv"`);
       return res.send(`﻿evaluador,audio_id,texto,puntaje,fenomenos,comentario\n${lines.join('\n')}`);
     }
-    res.json(summarizeRatings(rows));
+    res.json(summarizeRatings(rows, (await sampleSize(req.query.idioma)) || SAMPLE_SIZE));
   } catch (error) {
     next(error);
   }

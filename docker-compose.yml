@@ -1,4 +1,4 @@
-# SimiAru completo en un comando:   docker compose up --build
+# YachAru completo en un comando:   docker compose up --build
 #   App:      http://localhost:8080
 #   API:      http://localhost:5000/health
 #   Base:     localhost:5433 (usuario/clave/base: simiaru)

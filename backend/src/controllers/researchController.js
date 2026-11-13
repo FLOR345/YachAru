@@ -1,5 +1,5 @@
 // Datos de aprendizaje a nivel de evento, con consentimiento y exportación en CSV y JSON.
-// Convierte a SimiAru en un instrumento de investigación reutilizable (contribución 3 del artículo).
+// Convierte a YachAru en un instrumento de investigación reutilizable (contribución 3 del artículo).
 import crypto from 'node:crypto';
 import { pool } from '../config/database.js';
 
@@ -152,7 +152,7 @@ const selectEvents = `SELECT ${EXPORT_COLUMNS.join(', ')} FROM eventos_aprendiza
 export const exportMine = async (req, res, next) => {
   try {
     const { rows } = await pool.query(`${selectEvents} WHERE usuario_id = $1 ORDER BY ocurrido_en`, [req.user.id]);
-    sendExport(res, rows, req.query.format === 'csv' ? 'csv' : 'json', 'simiaru-mis-eventos');
+    sendExport(res, rows, req.query.format === 'csv' ? 'csv' : 'json', 'yacharu-mis-eventos');
   } catch (error) {
     next(error);
   }

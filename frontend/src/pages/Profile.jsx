@@ -136,7 +136,7 @@ const LearningData = ({ profile, onConsentChange }) => {
   const download = async (format) => {
     try {
       await flush();
-      await api.download(`/api/research/export/me?format=${format}`, `simiaru-mis-eventos.${format}`);
+      await api.download(`/api/research/export/me?format=${format}`, `yacharu-mis-eventos.${format}`);
     } catch {
       toast.error('No pudimos descargar tus datos');
     }

@@ -432,11 +432,11 @@ const CultureModule = ({ user }) => {
     try {
       const response = await api.getCulturalContent(selectedType, selectedLanguage);
       const list = response?.data?.content || [];
-      // A los cuentos del servidor se suman los de SimiAru, cada uno con su portada
+      // A los cuentos del servidor se suman los de YachAru, cada uno con su portada
       setContent(selectedType === 'cuento' ? conCuentosExtra(list, selectedLanguage) : conExtras(selectedType, list, selectedLanguage));
     } catch (error) {
       console.error('Error loading cultural content:', error);
-      // Sin servidor, los cuentos de SimiAru se pueden leer igual
+      // Sin servidor, los cuentos de YachAru se pueden leer igual
       if (selectedType === 'cuento') setContent(conCuentosExtra([], selectedLanguage));
       else if (conExtras(selectedType, [], selectedLanguage).length) setContent(conExtras(selectedType, [], selectedLanguage));
       else {

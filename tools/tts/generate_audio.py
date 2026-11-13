@@ -1,5 +1,5 @@
 """
-Generación de audio de SimiAru con modelos MMS de Meta (síntesis de voz neuronal entrenada en la lengua).
+Generación de audio de YachAru con modelos MMS de Meta (síntesis de voz neuronal entrenada en la lengua).
 
   quechua → facebook/mms-tts-quz  (Cusco-Collao, el mismo grupo dialectal que Puno)
   aymara  → facebook/mms-tts-ayr  (aymara central)

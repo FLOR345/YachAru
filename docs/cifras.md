@@ -1,6 +1,6 @@
-# Cifras de SimiAru
+# Cifras de YachAru
 
-Generado: 2026-11-13T18:43:00.213Z con `npm run cifras` (en backend). No editar a mano.
+Generado: 2026-11-13T21:25:50.217Z con `npm run cifras` (en backend). No editar a mano.
 
 ## Definiciones
 
@@ -14,7 +14,7 @@ Generado: 2026-11-13T18:43:00.213Z con `npm run cifras` (en backend). No editar 
 
 | Lengua | Unidades | Lecciones | Ejercicios | Filas de vocabulario | Entradas únicas | Audio MMS | Grabado | Sin audio | Glotalizadas | Aspiradas | Uvular |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| aymara | 19 | 77 | 693 | 795 | 795 | 0 | 0 | 795 | 194 | 135 | 185 |
+| aymara | 19 | 77 | 693 | 795 | 795 | 187 | 0 | 608 | 194 | 135 | 185 |
 | quechua | 9 | 21 | 209 | 525 | 489 | 518 | 7 | 0 | 68 | 41 | 149 |
 
 ## Revisión del léxico por hablantes
@@ -26,10 +26,10 @@ Generado: 2026-11-13T18:43:00.213Z con `npm run cifras` (en backend). No editar 
 
 ## Evaluación perceptual del audio (1 a 5)
 
-| Lengua | Evaluadores | Audios | Juicios | Media | α de Krippendorff (ordinal) |
-|---|---|---|---|---|---|
-| quechua | 0 | 0 | 0 | **PENDIENTE** | **PENDIENTE** |
-| aymara | 0 | 0 | 0 | **PENDIENTE** | **PENDIENTE** |
+| Lengua | Evaluadores | Terminaron | Audios | Juicios | Media | α de Krippendorff (ordinal) |
+|---|---|---|---|---|---|---|
+| quechua | 0 | 0 | 0 | 0 | **PENDIENTE** | **PENDIENTE** |
+| aymara | 0 | 0 | 0 | 0 | **PENDIENTE** | **PENDIENTE** |
 
 ## Uso
 

@@ -154,6 +154,8 @@ export const api = {
 
   // ===== VALIDACIÓN (cobertura, evaluación perceptual y revisión del léxico) =====
   getCoverage: () => axiosInstance.get('/api/validation/cobertura'),
+  getEvaluationLanguages: () => axiosInstance.get('/api/validation/evaluacion/lenguas'),
+  joinEvaluation: (data) => axiosInstance.post('/api/validation/evaluacion/unirse', data),
   enterEvaluation: (data) => axiosInstance.post('/api/validation/evaluacion/entrar', data),
   answerEvaluation: (data) => axiosInstance.post('/api/validation/evaluacion/responder', data),
   createEvaluationSample: (data) => axiosInstance.post('/api/validation/muestra', data),

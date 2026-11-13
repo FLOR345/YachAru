@@ -7,7 +7,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         // React y el router cambian poco: van en su propio archivo para que el navegador
-        // lo guarde entre publicaciones y solo descargue de nuevo el código de SimiAru
+        // lo guarde entre publicaciones y solo descargue de nuevo el código de YachAru
         manualChunks: {
           react: ['react', 'react-dom', 'react-router-dom'],
         },

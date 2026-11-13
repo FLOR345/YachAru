@@ -319,7 +319,7 @@ const BookLibrary = ({ idioma }) => {
               Libros para seguir leyendo
             </h2>
             <p className="mt-2 max-w-xl text-stone-300">
-              Cuentos, relatos, poesía y canciones en quechua y aimara, publicados con acceso abierto por el Ministerio de Educación del Perú, la PUCP y Bloom Library. Los lees o descargas en su sitio: SimiAru te lleva hasta ellos.
+              Cuentos, relatos, poesía y canciones en quechua y aimara, publicados con acceso abierto por el Ministerio de Educación del Perú, la PUCP y Bloom Library. Los lees o descargas en su sitio: YachAru te lleva hasta ellos.
             </p>
             <dl className="mt-6 flex flex-wrap gap-6">
               {[

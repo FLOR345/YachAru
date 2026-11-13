@@ -1,6 +1,6 @@
 # Uso en un curso (piloto)
 
-Es usar SimiAru en un curso real con adultos en Puno y contar qué pasó. No es un experimento: no hay encuestas, ni pre-test y post-test, ni grupo de control (eso es otro estudio, con comité de ética). Basta con datos de uso.
+Es usar YachAru en un curso real con adultos en Puno y contar qué pasó. No es un experimento: no hay encuestas, ni pre-test y post-test, ni grupo de control (eso es otro estudio, con comité de ética). Basta con datos de uso.
 
 ## Preparación (docente)
 

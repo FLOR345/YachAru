@@ -1,4 +1,4 @@
-// Service worker de SimiAru: la app y las lecciones ya abiertas funcionan sin conexión.
+// Service worker de YachAru: la app y las lecciones ya abiertas funcionan sin conexión.
 // - La app (HTML, JS, CSS, imágenes): se guarda al usarla y se sirve desde la caché.
 // - El contenido de la API (unidades, lecciones, diccionario, cultura): primero la red, y si no hay,
 //   la última copia guardada. Así una lección abierta una vez se puede repetir sin internet.
@@ -90,7 +90,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // API de SimiAru (otro dominio en producción): red primero con copia de respaldo
+  // API de YachAru (otro dominio en producción): red primero con copia de respaldo
   if (CACHEABLE_API.some((re) => re.test(url.pathname))) {
     event.respondWith(networkFirst(request, API_CACHE));
     return;

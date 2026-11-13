@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
-title: "SimiAru: An open-source, extensible web platform for teaching and studying Quechua and Aymara with neural speech synthesis and learner-level data export"
+title: "YachAru: An open-source, extensible web platform for teaching and studying Quechua and Aymara with neural speech synthesis and learner-level data export"
 type: software
 authors:
   - given-names: Yeferson Dariun

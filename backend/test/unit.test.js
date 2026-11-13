@@ -94,13 +94,15 @@ test('muestra de evaluación: reproducible y reparte los fenómenos', () => {
   assert.equal(one.filter((e) => e.fenomenos[0] === 'aspirada').length, 4);
 });
 
-test('resultados: con menos de 8 evaluadores se avisa que no alcanza para reportar', () => {
+test('resultados: con menos de 10 personas que terminaron se avisa que no alcanza para reportar', () => {
   const summary = summarizeRatings([
     { evaluador: 'A', audio_id: 1, puntaje: 5, fenomenos: ['glotalizada'] },
     { evaluador: 'B', audio_id: 1, puntaje: 3, fenomenos: ['glotalizada'] },
   ]);
   assert.equal(summary.suficiente, false);
   assert.equal(summary.media, 4);
+  assert.equal(summarizeRatings([{ evaluador: 'A', audio_id: 1, puntaje: 5, fenomenos: [] }], 1).evaluadores_completos, 1);
+  assert.equal(summarizeRatings([{ evaluador: 'A', audio_id: 1, puntaje: 5, fenomenos: [] }], 20).evaluadores_completos, 0);
   assert.equal(summary.por_fenomeno.glotalizada.juicios, 2);
 });
 

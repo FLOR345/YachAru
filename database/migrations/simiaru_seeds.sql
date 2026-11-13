@@ -1,5 +1,5 @@
 -- =====================================================
--- SIMIARU - SEEDS DE CONTENIDO EDUCATIVO
+-- YACHARU - SEEDS DE CONTENIDO EDUCATIVO
 -- Quechua y Aymara - Contenido Auténtico
 -- =====================================================
 

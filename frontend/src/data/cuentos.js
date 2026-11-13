@@ -1,9 +1,10 @@
-// Cuentos de SimiAru: portadas de cada cuento y cuentos que se suman a los del servidor.
+// Cuentos de YachAru: portadas de cada cuento y cuentos que se suman a los del servidor.
 // - PORTADAS: una foto real con licencia abierta (Wikimedia Commons) que tiene que ver con el cuento,
 //   reducida a WebP en assets/cuentos/<clave>.webp, con su crédito en cuentosCreditos.json.
-// - CUENTOS_EXTRA: versiones breves de relatos de tradición oral andina escritas para SimiAru, con su
+// - CUENTOS_EXTRA: versiones breves de relatos de tradición oral andina escritas para YachAru, con su
 //   traducción párrafo por párrafo. Conviene que una hablante nativa las revise antes de ampliarlas.
 import CREDITOS from './cuentosCreditos.json';
+import { EXTRAS_REVISADOS } from './culturaExtra';
 
 const IMAGENES = Object.fromEntries(
   Object.entries(import.meta.glob('../assets/cuentos/*.webp', { eager: true, import: 'default' })).map(([path, url]) => [path.split('/').pop().replace('.webp', ''), url])
@@ -254,12 +255,12 @@ La muchacha volvió a su ayllu y contó lo del oso. Desde entonces la gente no m
     explicacion:
       'Versión para niños del cuento del jukumari (oso andino), muy conocido en el altiplano. Enseña que el cariño no se impone y que hay que cuidar al oso de anteojos, un animal en peligro.',
   },
-].map(({ img, ...c }) => ({ ...c, tipo: 'cuento', fuente: 'SimiAru · versión de la tradición oral', ...conPortada(img[0], img[1]) }));
+].map(({ img, ...c }) => ({ ...c, tipo: 'cuento', fuente: 'YachAru · versión de la tradición oral', ...conPortada(img[0], img[1]) }));
 
-// Une los cuentos del servidor con los de SimiAru (sin repetir títulos) y les pone su portada
+// Une los cuentos del servidor con los de YachAru (sin repetir títulos) y les pone su portada
 export const conCuentosExtra = (cuentos, idioma) => {
   const vistos = new Set(cuentos.map((c) => clave(c.titulo)));
-  const extra = CUENTOS_EXTRA.filter((c) => c.idioma === idioma && !vistos.has(clave(c.titulo)));
+  const extra = EXTRAS_REVISADOS[idioma] ? CUENTOS_EXTRA.filter((c) => c.idioma === idioma && !vistos.has(clave(c.titulo))) : [];
   return [...cuentos, ...extra].map((c) => {
     if (c.portada) return c;
     const p = PORTADAS[clave(c.titulo)];

@@ -1,6 +1,6 @@
 # Licencia del audio
 
-El código de SimiAru es MIT (ver `LICENSE`). El audio tiene licencias propias.
+El código de YachAru es MIT (ver `LICENSE`). El audio tiene licencias propias.
 
 ## Audio generado (`simiaru/audio/` en Cloudinary)
 

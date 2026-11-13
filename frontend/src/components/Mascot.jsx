@@ -1,4 +1,4 @@
-// La llamita de SimiAru: 16 poses (assets/llama) y animaciones CSS ("llama-*" en index.css).
+// La llamita de YachAru: 16 poses (assets/llama) y animaciones CSS ("llama-*" en index.css).
 // La pose dice QUÉ hace (escucha, lee, celebra…); el ánimo (mood) dice CÓMO se mueve.
 // Cada pose existe en 280 y 560 px (WebP) y en versión sticker (con borde blanco);
 // el navegador baja solo el tamaño que necesita.

@@ -73,7 +73,7 @@ const indexes = (
   .map((r) => r.indexdef.replace(/^CREATE (UNIQUE )?INDEX /, 'CREATE $1INDEX IF NOT EXISTS '))
   .filter((d) => !Array.from(SKIP).some((t) => d.includes(` ON public.${t} `)));
 
-const sql = `-- Esquema real de SimiAru, generado desde la base con: npm run db:schema
+const sql = `-- Esquema real de YachAru, generado desde la base con: npm run db:schema
 -- Generado: ${new Date().toISOString()}
 -- No editar a mano: los cambios van en database/migrations/00N_*.sql
 

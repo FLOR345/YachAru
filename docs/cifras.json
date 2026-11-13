@@ -1,7 +1,7 @@
 {
-  "generado_en": "2026-11-13T18:43:00.213Z",
+  "generado_en": "2026-11-13T21:25:50.217Z",
   "cobertura": {
-    "generado_en": "2026-11-13T18:42:59.062Z",
+    "generado_en": "2026-11-13T21:25:49.130Z",
     "definicion": {
       "fila": "Una fila de la tabla vocabulario (una palabra puede repetirse en varias lecciones).",
       "entrada_unica": "Texto distinto tras normalizarlo: minúsculas, apóstrofos unificados y sin signos.",
@@ -44,12 +44,14 @@
         "filas": 795,
         "entradas_unicas": 795,
         "audio": {
-          "mms": 0,
+          "mms": 187,
           "grabado": 0,
-          "sin_audio": 795
+          "sin_audio": 608
         },
-        "cobertura_audio_pct": 0,
-        "modelos": [],
+        "cobertura_audio_pct": 23.5,
+        "modelos": [
+          "facebook/mms-tts-ayr"
+        ],
         "fenomenos": {
           "glotalizada": 194,
           "aspirada": 135,
@@ -63,7 +65,7 @@
         },
         "voces_mms": {
           "mujer": {
-            "textos": 2325,
+            "textos": 2859,
             "transformada": true
           }
         }
@@ -153,7 +155,7 @@
       "voz": "mujer",
       "transformada": true,
       "modelo": "facebook/mms-tts-ayr",
-      "n": 2325
+      "n": 2859
     },
     {
       "idioma": "quechua",
@@ -175,23 +177,25 @@
   "evaluacion_audio": {
     "quechua": {
       "evaluadores": 0,
+      "evaluadores_completos": 0,
       "audios_evaluados": 0,
       "juicios": 0,
       "media": null,
       "alfa_krippendorff_ordinal": null,
       "por_fenomeno": {},
       "suficiente": false,
-      "aviso": "Faltan evaluadores: el mínimo para reportar es 8."
+      "aviso": "Van 0 de 10 personas que terminaron la evaluación."
     },
     "aymara": {
       "evaluadores": 0,
+      "evaluadores_completos": 0,
       "audios_evaluados": 0,
       "juicios": 0,
       "media": null,
       "alfa_krippendorff_ordinal": null,
       "por_fenomeno": {},
       "suficiente": false,
-      "aviso": "Faltan evaluadores: el mínimo para reportar es 8."
+      "aviso": "Van 0 de 10 personas que terminaron la evaluación."
     }
   },
   "uso": {

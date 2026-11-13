@@ -22,7 +22,8 @@ Desde el 4/11/2026 no se agregan funciones nuevas: solo correcciones de errores,
 | Licencias limpias | Hecho: los efectos visuales de terceros (MIT + Commons Clause) se reemplazaron por código propio MIT | `frontend/src/components/fx/` |
 | Cifras reproducibles | Hecho | `backend/scripts/cifras.js` |
 | Vocabulario aymara con licencia abierta | Hecho: el diccionario de Chile (sin licencia confirmada) se reemplazó por IDS, CC BY 4.0 | `languages/aymara/`, `backend/scripts/aymara-desde-ids.js` |
-| Herramientas de revisión y evaluación | Hechas | `/validacion`, `/evaluacion` |
+| Herramientas de revisión y evaluación | Hechas: la evaluación se abre con un QR, sin repartir códigos, y dura unos 5 minutos | `/validacion`, `/evaluacion`, `frontend/public/afiche-evaluacion.png` |
+| Nombre del proyecto | YachAru (antes SimiAru); las direcciones web conservan el nombre anterior | `PRODUCT.md` |
 
 ## Lo que solo puede hacer el equipo
 
@@ -33,9 +34,9 @@ Por orden de urgencia:
 3. **Palabras cortas** ("ama", "uma"…): `Audio MMS` en modo `comparar`, elegir el estilo y luego `rehacer-cortas`. Va antes de la evaluación.
 4. **Revisión del léxico quechua** por el equipo: `guia-revision-lexico.md`.
 5. **Revisión del aymara** por el colaborador aymarahablante en `/validacion` (agregar su correo a `ADMIN_EMAILS` en Render), sobre todo la *j* y la *x* (`languages/aymara/README.md`). Su nombre y ORCID van en `CITATION.cff`.
-   - **Textos redactados con ayuda de IA**: ejemplos de oraciones en quechua (`frontend/src/data/ejemplos.json`), adivinanzas, refranes y canciones (`culturaExtra.js`) y cuentos (`cuentos.js`). Hay que revisarlos con hablantes o retirarlos antes de enviar; si no, la declaración de `etica-e-ia.md` no es cierta.
+   - **Textos redactados con ayuda de IA** (ejemplos de oraciones, adivinanzas, refranes, canciones y cuentos). Los de aymara ya no se muestran (`EXTRAS_REVISADOS` en `culturaExtra.js`): se activan cuando el colaborador los revise. Los de quechua los revisa el equipo con `guia-revision-lexico.md`; el que no se pueda revisar, se retira.
 6. **Revisión ética** en la facultad (correo en `plantillas-correos.md`).
-7. **Evaluación del audio** con 8 a 10 hablantes que no hayan construido SimiAru: `protocolo-evaluacion.md`.
+7. **Evaluación del audio**: compartir el afiche con QR (`frontend/public/afiche-evaluacion.png`) hasta que 10 hablantes por lengua la terminen. Son 20 palabras, unos 5 minutos. Ver `protocolo-evaluacion.md`.
 8. **Piloto en el curso** de Puno: `piloto-curso.md`.
 9. **Costo de publicación** (correo a Elsevier) y **cuartil SJR** en Scimago.
 10. **Autores** completos en `CITATION.cff` y `.zenodo.json`. Además: cuenta de Zenodo y versión `v1.0.0` con DOI, al final.

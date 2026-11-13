@@ -14,11 +14,11 @@ Para los pasos que solo puede dar el equipo. Completen lo que está entre corche
 
 ## 2. Invitación a un colaborador aymarahablante
 
-**Asunto:** Invitación a colaborar en SimiAru (aymara)
+**Asunto:** Invitación a colaborar en YachAru (aymara)
 
 > Hola [nombre]:
 >
-> Somos quechuahablantes de Puno y hacemos SimiAru, una plataforma abierta para aprender quechua y aymara. El aymara tiene 19 unidades con el vocabulario de Félix Layme Pairumani (Intercontinental Dictionary Series), pero en el equipo nadie lo habla. Buscamos a alguien que revise el vocabulario aymara en la plataforma: marcar si cada palabra es correcta, una variante o un error, y anotar las que falten.
+> Somos quechuahablantes de Puno y hacemos YachAru, una plataforma abierta para aprender quechua y aymara. El aymara tiene 19 unidades con el vocabulario de Félix Layme Pairumani (Intercontinental Dictionary Series), pero en el equipo nadie lo habla. Buscamos a alguien que revise el vocabulario aymara en la plataforma: marcar si cada palabra es correcta, una variante o un error, y anotar las que falten.
 >
 > Calculamos [N] horas de trabajo. [Ofrecemos coautoría en el artículo sobre la plataforma / reconocimiento en los agradecimientos].
 >
@@ -33,7 +33,7 @@ Para los pasos que solo puede dar el equipo. Completen lo que está entre corche
 > Solicitamos orientación sobre si estas actividades requieren revisión del comité de ética:
 >
 > 1. **Evaluación del audio:** 8 a 10 hablantes adultos de quechua o aymara escuchan unas 50 palabras generadas por computadora y las califican del 1 al 5. Es anónima: un código, sin nombre ni grabación de voz. Usamos consentimiento informado por escrito (adjunto).
-> 2. **Uso de SimiAru en un curso** con estudiantes adultos. Ingresan con un alias, sin datos personales. Los datos de aprendizaje se registran solo con su consentimiento, seudonimizados, y cada persona puede descargarlos y borrarlos.
+> 2. **Uso de YachAru en un curso** con estudiantes adultos. Ingresan con un alias, sin datos personales. Los datos de aprendizaje se registran solo con su consentimiento, seudonimizados, y cada persona puede descargarlos y borrarlos.
 >
 > No participan menores de edad ni se hacen intervenciones experimentales.
 >

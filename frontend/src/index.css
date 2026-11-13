@@ -77,7 +77,7 @@ em {
   overflow-wrap: anywhere;
 }
 
-/* Foco del teclado y selección de texto con la paleta de SimiAru, en todas las pantallas */
+/* Foco del teclado y selección de texto con la paleta de YachAru, en todas las pantallas */
 ::selection {
   background: #bbf7d0;
   color: #14532d;
@@ -218,7 +218,7 @@ dialog.modal {
   animation-delay: calc(var(--i, 0) * 12ms + 180ms);
 }
 
-/* ==================== Estilo de la primera versión de SimiAru ====================
+/* ==================== Estilo de la primera versión de YachAru ====================
    Degradado verde (quechua) → azul (aymara) → morado, burbujas difuminadas y tarjetas que se elevan.
    Tonos 700 para que el texto blanco encima se lea bien (contraste AA). */
 

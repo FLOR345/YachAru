@@ -562,7 +562,7 @@ const uniqueWords = (list) => {
 };
 const exKey = (w) => `${String(w.palabra_objetivo ?? '').trim().toLowerCase().normalize('NFC')}|${String(w.palabra_espanol ?? '').trim().toLowerCase().normalize('NFC')}`;
 
-// Ejemplo de la palabra: el de la base (con su traducción) o el de SimiAru
+// Ejemplo de la palabra: el de la base (con su traducción) o el de YachAru
 const exampleOf = (word, idioma) => {
   const ex = EJEMPLOS[idioma]?.[exKey(word)];
   if (word.ejemplo_uso) return [word.ejemplo_uso, word.traduccion_ejemplo || (ex && ex[0] === word.ejemplo_uso.trim() ? ex[1] : null)];
